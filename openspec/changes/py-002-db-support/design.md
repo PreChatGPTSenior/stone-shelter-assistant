@@ -1,5 +1,7 @@
 # PY-002 Database support design
 
+> Historical PY-002 scope. Delivered and merged (fcc427d); see tasks.md for current evidence and deferred checks. PY-007 supersedes the original test-target workflow; ADR-0014 permits persistent local application data. The earlier CRUD sequence is not the current pilot plan.
+
 ## Context
 
 The Python project already has an application factory, uv-managed dependencies and a PostgreSQL 18.6 container reachable from the host at port 55432 by default. The actual connection target is configuration-driven. This change adds infrastructure only; Stone CRUD follows in PY-003 through PY-006.

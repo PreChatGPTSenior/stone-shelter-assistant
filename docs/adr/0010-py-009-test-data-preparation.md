@@ -1,6 +1,6 @@
 # ADR-0010 PY-009: Separate stone batches and case-event datasets
 
-- Status: Accepted educational happy-path scope and transition-driven loading; exact payload details remain open
+- Status: Original batch/replay design partially superseded; agreed preparation scope delivered through PY-009/PY-010
 - Date: 2026-10-29
 - Tracking: [PY-009](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/10)
 - Branch: `PY-009-test-data-preparation`
@@ -8,6 +8,8 @@
 - Refines: The domain model's ingestion design. Creation includes mandatory initial admission history; subsequent life events use a separate dataset and API operation rather than embedding accumulated history in each creation batch.
 
 Update 2026-10-30: [ADR-0013](0013-single-stone-ingestion.md) supersedes the multi-stone batch contract and batch-wide transaction below. The current API registers one stone with its required case, optional profile, and 1 to 100 events containing ADMITTED in any position. Accumulated history may accompany creation. Earlier batch discussion is retained as decision history, not current implementation scope. [ADR-0015](0015-source-owned-adoption-status.md) further supersedes any registration-time status reconstruction below: the source supplies the required current adoptionStatus; imported history is not replayed to determine it.
+
+> Reconciled 2026-11-05: PY-009 preparation was merged through PR #11; PY-010 added the endpoint, loader and ten-scenario dataset in PR #13. ADR-0013/0015 own the current single-stone/source-snapshot contract; ADR-0014 supersedes the earlier Testcontainers-only application restriction below. Later event append and updates remain deferred. Preserve the original batch and transition-driven proposals as history only. See the [current domain contract](../domain/model.md) and [pilot plan](../search/pilot-delivery-plan.md).
 
 ## Context
 
