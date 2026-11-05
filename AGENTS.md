@@ -67,3 +67,6 @@
 ## Git operations
 
 - Do not commit, push, or merge without an explicit request. Permission to edit a file does not itself authorize these Git operations.
+- A commit is forbidden until the staged changes have been checked against the current OpenSpec specifications/change artifacts, domain contract, requirements, and relevant ADRs. Update every affected specification or decision document to reflect the actual agreed behavior before committing; do not defer specification synchronization to a later commit.
+- Check that the staged documentation updates are included with the implementation they describe. Distinguish implemented, proposed, superseded, and deferred behavior; never mark unverified work complete. If no specification change is needed, state that the review was performed and why the existing specification remains accurate.
+- Run OpenSpec validation when OpenSpec artifacts are changed. Structural validation does not replace semantic review against the code, contracts, and current owner decisions. Unresolved specification contradictions block the commit and must be reported to the owner.
