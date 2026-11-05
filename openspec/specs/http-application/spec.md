@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Describe the minimal HTTP application already implemented in PY-001. Database support and business routes are not part of this baseline.
+Describe the implemented HTTP composition and generated API description. Database lifecycle is documented in the PY-002 change; the current business route is specified separately in stone-registration/spec.md. These capabilities coexist.
 
 ## Requirements
 
@@ -26,4 +26,4 @@ The application SHALL serve its generated OpenAPI document at `/openapi.json` wi
 
 ## Evidence
 
-Implemented in PY-001 and merged into `master` at `99bac3c`. The OpenAPI integration test and manual documentation check were reported successful. This baseline does not claim database support or business CRUD is complete.
+Implemented in PY-001 and merged into `master` at `99bac3c`. The OpenAPI integration test and manual documentation check were reported successful. This evidence records the original bootstrap verification. Later database wiring and single-stone registration are documented separately; complete CRUD is not a current goal.

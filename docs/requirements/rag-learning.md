@@ -1,10 +1,14 @@
 # Retrieval and assistant learning requirements
 
-Updated: 2026-10-30. Learning direction: [ADR-0006](../adr/0006-rag-and-agent-learning-focus.md). Selected retrieval architecture and experiment plan: [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md).
+Updated: 2026-11-05. Learning direction: [ADR-0006](../adr/0006-rag-and-agent-learning-focus.md). Selected retrieval architecture and experiment plan: [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md).
 
-This document captures the discussion's accepted direction, desired behavior, proposed exercises, and open choices. It is a learning backlog, not an assertion that the capabilities exist or a scheduled implementation plan. GitHub Issues and the project board remain the delivery tracker; tickets have not been reorganized by this documentation change.
+This document captures the discussion's accepted direction, desired behavior, proposed exercises, and open choices. It is a learning backlog, not an assertion that the capabilities exist or a scheduled implementation plan. GitHub Issues and the project board track delivery. The [pilot delivery plan](../search/pilot-delivery-plan.md) separates the immediate path from later experiments.
 
 **Domain premise:** this is a fictional world where stones are pets. Personality, socialization, health, past experiences and family wishes are intentional domain facts authored by staff. Scientific realism is not the goal. Keep fictional sources distinct from the geological encyclopedia, without treating fictional data as invalid merely because real rocks do not have these attributes. See [ADR-0009](../adr/0009-fictional-pet-stone-profiles.md).
+
+## Active delivery priority: HAPPY PATH PILOT FIRST
+
+The [project manifesto](../project-manifesto.md), accepted on 2026-10-31, governs current sequencing. Build the first connected search/RAG result with prepared source documents, Typesense, Qdrant, LangChain, LangGraph, and minimum useful Langfuse tracing. Keep code quality high and scope narrow. Evaluation frameworks, comprehensive datasets, resilience, synchronization workers, elaborate versioning, and broad comparison studies below are subsequent learning work, not prerequisites for the pilot. Earlier sequencing suggestions and broad ticket criteria must not block that first working path.
 
 ## Status vocabulary
 
@@ -53,11 +57,11 @@ The corpus distinguishes geological characteristics, practical interpretations, 
 - The upstream emulator submits one complete stone/case JSON per HTTP request. It can iterate multiple files, but the API does not accept a multi-stone batch. Manual product entry is not the intended user workflow.
 - Existing creation logic may support ingestion. Indexing and embedding consistency are the next reasons to revisit the write path.
 - Add catalog reads needed for tools and useful inspection. Physical deletion is not planned. Registration and basic population are implemented; partial updates and later event append remain separate future capabilities.
-- A complete UI, user-created stone form, photo upload/MinIO integration, authentication, and Redis integration are deferred. ShelterCase lifecycle data is planned for staff selection; the four statuses and transition matrix below are accepted but unimplemented.
+- A complete UI, user-created stone form, photo upload/MinIO integration, authentication, and Redis integration are deferred. ShelterCase snapshots and event persistence are implemented; application-owned lifecycle commands remain deferred.
 - Existing Java/product/UI documents provide context. They do not automatically expand the new scope.
 - The later comparison target is the same RAG behavior implemented with Spring AI.
 
-Update: section 3.1 and [ADR-0007](../adr/0007-lifetime-shelter-case-identity.md) refine the user audience and ingestion model. Adoption lifecycle data is now planned rather than excluded wholesale; chatbot-driven state changes and a full UI remain outside the initial assistant scope.
+Update: section 3.1 and [ADR-0007](../adr/0007-lifetime-shelter-case-identity.md) refine the user audience and ingestion model. Adoption lifecycle snapshots and event persistence are implemented; chatbot-driven state changes and a full UI remain outside the initial assistant scope.
 
 ## 3. Information sources and future ingestion
 
@@ -89,122 +93,62 @@ Requirements for combining these sources:
 - Physical deletion is no longer planned. When case state or other relevant data changes, update indexed information as needed and prevent stale availability from overriding current database state. Withdrawal/archive semantics are not yet defined.
 - For asynchronous indexing, persist the business write and durable indexing intent in one PostgreSQL transaction; compute embeddings outside that transaction. This follows ADR-0004 and is not implemented yet.
 
-**Open choices:** exact batch/partial-update DTOs, timestamp edge cases, invalid-row handling, batch transaction boundaries, task idempotency and retry design, and whether instance descriptions need embeddings in addition to the encyclopedia corpus. External Stone UUIDs, unchanged-data no-ops, lifetime case identity and number uniqueness are accepted below.
-
 ### 3.1 Staff hub and lifetime case identity
 
-**Accepted design, not implemented:** [ADR-0007](../adr/0007-lifetime-shelter-case-identity.md).
+**Implemented registration model through PY-010:** see [the authoritative domain model](../domain/model.md). ADR-0007 records the original identity decision; its earlier status vocabulary is superseded by the domain model and ADR-0015.
 
-#### Audience and upstream simulation
+- The assistant serves employees at a hub for two shelters. Visitors describe preferences to an employee; no public UI is required for the pilot.
+- Stone stores specimen identity and properties. StoneProfile is optional. Every registered stone has one required lifetime ShelterCase, which stores current shelter, source-provided adoption status, admission date, and associated CaseEvents.
+- Internal UUIDs support database relationships. The source supplies distinct external UUIDs for stone, case, and events. The case number is a unique opaque string, not an instruction for calculating current shelter.
+- Returns and transfers preserve stone identity, case identity, and case number. Shelter records contain name and address; two reference records are seeded separately.
+- Source snapshots and historical events have different ownership. Registration stores both without replaying events to calculate current status or location.
+- Final recommendations must check current availability and shelter against PostgreSQL before presenting an actionable candidate. The assistant and its retrieval adapters are not implemented yet.
 
-- The assistant serves staff at a central assistance hub for a network initially containing two shelters. Visitors describe adoption preferences to a staff member; the employee uses the assistant on their behalf.
-- Each Shelter has an identity, name and address. The assistant can identify where a suitable available specimen is assigned for pickup; geolocation, coordinates and distance search are not required now.
-- Simulate an external service that sends JSON to our API with specimen, shelter and accounting data. The simulator sends requests through validation and application logic, not direct SQL inserts.
-- The upstream service is assumed to integrate shelter staff records into the shared hub. Building that upstream system or its user interface is out of scope.
+### 3.2 Current adoption states and event history
 
-#### Entity relationships and identifiers
+The accepted current states are AVAILABLE, RESERVED, ADOPTED, and RETURNED. UNDER_REVIEW is historical vocabulary and is not a current enum value.
 
-| Entity | Responsibility and identity |
+| Current state | Meaning for selection |
 | --- | --- |
-| Stone | Physical specimen and its properties, retaining its own UUID; no adoption status on Stone |
-| Shelter | Shelter identity, name and address |
-| ShelterCase | Lifetime accounting/adoption case for exactly one Stone; externally assigned global case UUID, human-readable case number, current status, current shelter and history |
+| AVAILABLE | May be recommended for a new adoption |
+| RESERVED | Excluded from new available-candidate recommendations |
+| ADOPTED | Excluded from available-candidate recommendations; retain records |
+| RETURNED | Returned and not yet ready for adoption; excluded until readiness is separately confirmed |
 
-- A Stone has at most one lifetime case in the network; one Shelter can be the current shelter for many cases. Existing catalog-only records are not retroactively claimed to have cases.
-- Preserve the externally assigned case UUID across systems and repeated deliveries. It is not the Stone UUID and is not regenerated on ingestion.
-- Preserve the externally generated unique case number, for example `0001-2026-P1`, as an immutable string suitable for staff lookup. It contains a sequence, year and issuing subdivision by upstream convention; do not reconstruct it from local values.
-- Case UUID and case number are both unique. Repeated messages with the same case UUID identify the same case, but whether a message is newer or already applied requires separate ordering/version rules.
-- A known case number paired with a different case UUID is an identity conflict. Do not silently insert a duplicate or merge records by approximate similarity.
-- Search by case number shall continue to work after transfer. Exact/prefix matching, normalization and the formal number grammar remain open.
-- Do not infer the current shelter from the number suffix. The issuer may differ from the current shelter.
+The domain diagram describes AVAILABLE -> RESERVED -> ADOPTED, direct AVAILABLE -> ADOPTED, reservation end -> AVAILABLE, ADOPTED -> RETURNED, and RETURNED -> AVAILABLE after readiness confirmation. These describe the fictional lifecycle, not an implemented state machine or registration-time replay algorithm.
 
-#### Returns, transfers and history
+- Required shelterCase.adoptionStatus is supplied by the source and has no AVAILABLE default.
+- Imported history contains ADMITTED in any position; ADMITTED does not reset the current state. Dates and array order do not calculate it.
+- Transfer event types encode P1-to-P2 or P2-to-P1 direction. Current shelter comes from the source snapshot, not from replay or the case-number suffix.
+- Authored scenarios with non-AVAILABLE current states contain a coherent history explaining them. The happy-path importer trusts upstream business consistency rather than enforcing a transition engine.
+- Observations, care events, and adopter meetings remain evidence and do not automatically update a profile or current state.
+- Future state-changing or append-event operations need explicit contracts; they are not prerequisites for the pilot.
 
-- Returning a stone continues its existing case and appends the relevant history; do not allocate a new UUID or case number.
-- Transferring a stone also continues its existing case: change the current shelter and record source shelter, destination shelter and time. Preserve Stone identity, case UUID and case number.
-- The earlier proposal to create a new case on transfer is superseded.
-- Keep current state and queryable history for reservation, adoption, return and transfer activity. No particular event-sourcing architecture is required.
-- The assigned shelter must not cause adopted or otherwise unavailable specimens to be represented as available for pickup.
-- The assistant shall consult current database state for availability and current shelter, combine relevant history with encyclopedia evidence, and include the shelter address when identifying a pickup location.
-- Initial assistant tools read and recommend. Reservation/adoption/transfer commands through the chatbot require a later explicit scope decision.
+### 3.3 Implemented ingestion and deferred mutations
 
-#### Contract boundaries and open rules
+[ADR-0013](../adr/0013-single-stone-ingestion.md), [ADR-0014](../adr/0014-persistent-local-application-database.md), and [ADR-0015](../adr/0015-source-owned-adoption-status.md) supersede the earlier batch and event-replay proposals.
 
-- Keep the future integration contract distinct from the existing Stone creation request. Ignoring client-supplied status in the current creation endpoint does not mean ignoring legitimate authoritative status in upstream ingestion.
-- The status set and transition matrix in section 3.2 are accepted. The initial state on first ingestion, reservation expiry timing, transfer eligibility and interaction with reservations remain open.
-- ADR-0008 and section 3.3 accept batch creation, single-stone partial updates, externally supplied Stone UUIDs, source-timestamp comparison, and hub-recorded observed history. Exact time semantics, conflict responses, concurrency handling and batch atomicity remain open.
-- Do not implement these entities, importers, migrations or transitions merely by accepting the requirements.
-
-### 3.2 Case statuses and transitions
-
-**Accepted behavior, not implemented:** status belongs to ShelterCase, not Stone.
-
-| Current status | Meaning for selection |
+| Concern | Current behavior |
 | --- | --- |
-| `UNDER_REVIEW` | Awaiting review; not available for adoption selection |
-| `AVAILABLE` | Available for recommendation and adoption |
-| `RESERVED` | Existing reservation; exclude from new available-candidate results |
-| `ADOPTED` | Adopted; exclude from available-candidate results, retain case/history |
+| Registration | POST /api/v1/stones accepts one stone, required shelterCase, optional profile; no multi-stone wrapper |
+| History on creation | 1 to 100 events including ADMITTED anywhere |
+| Current state | Required adoptionStatus and currentShelterId supplied by the source |
+| Persistence | DTO -> ORM graph; one session and one explicit UoW commit for stone, case, optional profile, and events |
+| Response | HTTP 201 with exactly the internal stone UUID as id |
+| Validation | Existing HTTP 422 envelope; CASE_EVENT_LIMIT_EXCEEDED and CASE_ADMITTED_EVENT_REQUIRED carry custom validation codes/context |
+| Input files | fixtures/stones/<stone.externalId>.json; ten valid English request files; invalid examples are test-only |
+| Loader | Sends one file per HTTP request; no automatic retries, replay no-ops, or duplicate skipping |
+| Shelters | Separate fixtures/shelters.json reference seeding; existing records are preserved |
+| Database targets | Persistent Compose PostgreSQL for the application; disposable Testcontainers for all database-backed automated tests |
+| Deletion | No physical Delete endpoint in the accepted direction |
 
-| From | To | Trigger |
-| --- | --- | --- |
-| `UNDER_REVIEW` | `AVAILABLE` | Review completed |
-| `AVAILABLE` | `RESERVED` | Reservation created |
-| `RESERVED` | `AVAILABLE` | Reservation cancelled or expired |
-| `RESERVED` | `ADOPTED` | Reserved adoption completed |
-| `AVAILABLE` | `ADOPTED` | Direct adoption completed without a reservation |
-| `ADOPTED` | `UNDER_REVIEW` | Stone returned |
+The initial local load of ten stones was verified during PY-010. This documentation synchronization does not reload data or rerun tests.
 
-Observable requirements for future implementation:
-
-- A return shall preserve case UUID, case number and Stone identity, record a return event, and set current status to `UNDER_REVIEW`.
-- A returned stone shall not be recommended as available until a separate review-completion transition makes it `AVAILABLE`. No direct return transition from ADOPTED to AVAILABLE is accepted.
-- Adoption shall be possible from `AVAILABLE` without first creating a reservation, as well as from `RESERVED` when completing the reserved adoption.
-- A return is recorded in history rather than represented by a separate `RETURNED` current status. Repeated adoption/return cycles continue the same lifetime case.
-- Current availability tools shall use authoritative case state. Historical adoption or a stale indexed description must not override current status.
-- Status-aware staff lookup may inspect a case in any state; exclusion applies to available-adoption recommendations, not to all case search.
-- A transfer shall preserve case identity and update the current shelter with a recorded movement event. Transfer-eligible statuses, reservation handling during transfer, and any receiving-shelter review requirement are not decided yet.
-- The table defines business transitions. How snapshot/event ingestion validates missing intermediate history, handles duplicates and orders external updates remains a separate integration-contract decision.
-
-These accepted rules do not authorize adding lifecycle-writing tools to the chatbot or changing application code now.
-
-### 3.3 External ingestion contract
-
-**Accepted design, not implemented:** [ADR-0008](../adr/0008-external-batch-ingestion-and-partial-updates.md). Search design is intentionally postponed until entities and representative data are established.
-
-| Decision | Accepted behavior |
-| --- | --- |
-| Creation | One incoming request contains a batch of stone/case records |
-| Update | One request updates one stone's associated record; only changed fields are supplied |
-| Shelter reference data | A simple persisted Shelter entity; initially two records with name and address, not an enum containing shelter data |
-| Stone identity | A stable externally assigned UUID supplied by the source; a separate internal database key is optional and undecided |
-| Case identity | Distinct global case UUID and unique immutable human-readable number from ADR-0007 |
-| Update ordering | Compare the source's change timestamp rather than relying on receipt time |
-| Same effective content | No business mutation or duplicate history event when supplied data leaves the effective state unchanged |
-| History | The hub records the changes it observes; upstream is not required to provide complete history |
-| Business trust | Assume upstream has performed business-consistency checks; retain boundary validation and identity/reference checks |
-| Deletion | No physical deletion of stones/cases and no Delete endpoint in the planned integration |
-| Additional properties | Accepted concepts: socialization enum set, care category, health description, textual triggers/experiences and preferred environment; precise vocabulary and payload fields remain open |
-
-Requirements for future implementation:
-
-- Accept batch creation and a separate single-stone partial-update operation through the API. Route names and status/response formats remain to be designed.
-- Preserve upstream Stone UUIDs and relate updates to the same specimen. Do not confuse an external identifier with a relational foreign key; local primary-key strategy is a separate choice.
-- Preserve case UUID, case number and the lifetime-case rules on both creation and update. Status belongs to ShelterCase, not Stone.
-- Use the two persisted Shelter records as location/accounting references. Do not derive current shelter from the case-number suffix. Shelter seed details and the identifier transmitted by upstream remain to be chosen.
-- An omitted update field shall retain its stored value. Explicit-null semantics, mutable-field lists, nested object behavior and collection replacement must be defined before final DTO implementation.
-- Compare the incoming source timestamp and effective business content with stored state. Older deliveries shall not overwrite newer accepted state. Identical effective content shall not create duplicate entities, redundant business-history entries, or unnecessary indexing intent.
-- Define equal-time/different-content handling and whether a newer timestamp with unchanged data advances the source watermark. Keep receipt time distinct from source change time; do not misrepresent timestamp comparison as guaranteed exactly-once delivery.
-- Record meaningful observed state/property/location changes in our history. Do not invent missing intermediate adoption events or claim full upstream history from the time before first ingestion.
-- Treat upstream records as business-consistent by agreement. Do not rebuild a complete upstream business-rule validator. Still validate data types and formats, resolve referenced identities, and handle violations of the assumed contract explicitly.
-- A first imported record may describe an existing case in any supported current state; the precise import-state validation policy remains open. Accepted business transitions do not require fabricating earlier events to ingest existing records.
-- Retain records across adoption, return and transfer; use status and history instead of deletion. A new archival/withdrawn state is not accepted by implication.
-
-Remaining contract decisions: batch transaction boundaries, partial-batch failure policy, duplicate records within a batch, create-versus-existing behavior, unknown update targets, timestamp timezone/precision and tie handling, history representation, and concurrent-update handling. These do not require deciding search behavior now, but must be resolved before claiming a complete ingestion API.
+Partial updates, profile arrival after registration, and POST /api/v1/shelter-cases/{external_case_id}/events remain future contract work. Their DTOs, omitted/null semantics, responses, source ordering, duplicate/correction handling, and any state mutation rules are not implemented. Durable indexing intent under ADR-0004 and automatic synchronization are also later work. None blocks reading the prepared data for the pilot.
 
 ## 4. Fictional pet profiles and compatibility
 
-**Accepted conceptual fields, not implemented:** [ADR-0009](../adr/0009-fictional-pet-stone-profiles.md). Staff-authored profile properties belong to the individual Stone and persist across shelter transfers, returns and adoption cycles. ShelterCase continues to own adoption/accounting state and history.
+**Implemented registration fields through PY-010:** [ADR-0009](../adr/0009-fictional-pet-stone-profiles.md) records their origin; [the domain model](../domain/model.md) defines the current exact vocabulary and constraints. Staff-authored profile properties belong to the individual Stone and persist across shelter transfers, returns and adoption cycles. ShelterCase continues to own adoption/accounting state and history.
 
 | Profile concept | Representation | Meaning |
 | --- | --- | --- |
@@ -214,15 +158,15 @@ Remaining contract decisions: batch transaction boundaries, partial-batch failur
 | Trigger/experience notes | Free text | Trauma, fears, prior experiences, sensitivities and triggers |
 | Preferred environment | Free text | The pet-stone's wishes about its future family, home and surroundings |
 
-Requirements for future implementation:
+Current behavior and future boundaries:
 
 - Socialization shall allow multiple values without duplicate set members. It is not a single exclusive enum or numerical degree. Staff assign the values; the model must not silently overwrite them with inferred traits.
-- Proposed socialization values are PREFERS_SOLITUDE, ENJOYS_OTHER_STONES, GOOD_WITH_CHILDREN and NEEDS_SLOW_INTRODUCTION. Final enum names and combination rules are not fixed yet.
-- Keep care intensity separate from the presence of chronic fictional conditions. Proposed care categories are STANDARD, ADDITIONAL and INTENSIVE; finalize vocabulary before coding.
+- Accepted values are PREFERS_SOLITUDE, ENJOYS_HUMAN_COMPANY, ENJOYS_OTHER_STONES, GOOD_WITH_CHILDREN, CAUTIOUS_WITH_STRANGERS, and NEEDS_SLOW_INTRODUCTION. Omission defaults to an empty set; null is not a valid set.
+- Keep care intensity separate from the presence of chronic fictional conditions. Accepted care categories are STANDARD, ADDITIONAL, and INTENSIVE; null means unassessed and does not default to STANDARD.
 - Record chronic conditions in the health description rather than creating an unrequested medical taxonomy or treating every chronic condition as intensive care.
 - Triggers/experiences and preferred environment are text fields initially, not a mandatory catalog of structured trigger entities. Structured extraction can be explored later without losing the staff-authored source text.
 - Preserve fictional observations as legitimate domain data. For example, fear of running water after an aquarium experience does not require proof of a geological sensitivity.
-- An absent profile value means unknown. Do not infer no trauma, no care needs, child suitability or universal compatibility from missing data. Nullability, limits, defaults and partial-update clearing semantics remain to be defined.
+- An absent profile value means unknown. Do not infer no trauma, no care needs, child suitability or universal compatibility from missing data. Registration nullability, limits, and defaults are defined in the domain model. Partial-update clearing semantics remain future contract work.
 - Existing geological and physical data may coexist with these traits, but they do not replace or invalidate the fictional pet profile.
 
 ### 4.1 Fictional compatibility document
@@ -265,7 +209,7 @@ Do not flatten nuanced geological evidence into unconditional claims, and do not
 1. Distinguish knowledge questions, catalog lookup, and combined recommendation requests.
 2. Extract typed constraints and preferences from natural language.
 3. Ask a clarifying question when missing or ambiguous information materially affects selection.
-4. Apply exact constraints through structured database queries; use retrieval to supply relevant knowledge and explanations.
+4. Route purely structured requests to PostgreSQL; apply explicit constraints as metadata filters in both lexical and vector branches for text-based retrieval. Recheck current state in PostgreSQL before recommendations.
 5. Recommend only actual catalog specimens and validate referenced UUIDs.
 6. Explain selection and comparisons using traceable source fragments and relevant specimen properties.
 7. State when the catalog has no matching specimen or the corpus does not support an answer.
@@ -288,7 +232,7 @@ These are **proposed exercises** to turn the direction into measurable increment
 | No suitable candidate exists | Empty results, uncertainty, and explicit preference relaxation |
 | A Russian question over English documents | Cross-language retrieval and answer evaluation |
 | Evidence is missing, conflicting, or qualified | Abstention and preservation of caveats |
-| A new supplier batch arrives or case state changes | Index refresh and exclusion of stale availability |
+| New individually registered stones arrive or case state changes | Index refresh and exclusion of stale availability |
 | Documents or user text contain instructions to disregard application rules | Treat retrieved/user content as data; evaluate unwanted tool behavior and instruction following |
 
 These scenarios do not authorize writes, adoption actions, or arbitrary tool execution by the assistant.
@@ -332,7 +276,7 @@ Do not start with unrestricted model-generated SQL. Initial tools expose deliber
 
 ## 8. Evaluation requirements and experiments
 
-**Accepted direction:** evaluation is part of the upcoming learning scope. The earlier deferral of free-form answer-quality work no longer excludes discussing and planning it; no evaluation tooling is installed by this document.
+**After the first connected pilot:** evaluation is a core learning objective, not a prerequisite for the first result. No evaluation framework has been selected yet. **Accepted direction:** evaluation is part of the upcoming learning scope. The earlier deferral of free-form answer-quality work no longer excludes discussing and planning it; no evaluation tooling is installed by this document.
 
 Begin with a small, manually reviewed set of approximately 10-15 questions as a **proposed starting size**, not a coverage claim. Record expected evidence, required facts, unacceptable claims, and expected selection/tool behavior where applicable. Establish the dataset before optimizing against it and retain cases for subsequent regression checks.
 
@@ -498,24 +442,18 @@ Before downloading or integrating a candidate, verify its current model card, la
 
 Compare integration effort, orchestration, context handling, tools, observability, and measured results. Record unavoidable differences. Python and Java implementations do not have to share an identical internal graph structure to be compared meaningfully.
 
-## 11. Suggested progression and deferred work
+## 11. Pilot sequence and later experiments
 
-**Proposed progression, subject to owner steering:**
+The [manifesto](../project-manifesto.md) governs sequencing. See the [ticket map and completion boundary](../search/pilot-delivery-plan.md).
 
-The entity/registration prerequisite is now implemented through PY-010, with ten authored stone requests loaded locally. The next accepted learning direction is ADR-0016; the following is an incremental progression, not authorization to connect everything now.
+1. PY-011: generate and inspect concrete stone/profile/event and encyclopedia documents. Do not require final query/result contracts or a judged dataset.
+2. PY-012 through PY-016: connect Typesense, index source evidence, run lexical queries, generate embeddings, and run Qdrant queries. Model and client selection occurs in the relevant increment.
+3. PY-018: combine the working lexical/vector branches with simple Python RRF and current-state verification. The evaluation runner PY-017 is not a prerequisite.
+4. PY-019: connect one explicitly selected generation provider and minimum useful Langfuse tracing. Full experiment accounting and cross-provider comparisons follow later; live calls require explicit provider/model configuration and spending authorization.
+5. PY-020: obtain the first evidence-based answer using LangChain. PY-022's pilot slice connects a minimal LangGraph workflow to the same path; clarification loops, checkpoints, and agent-selected retrieval strategies follow later.
+6. After the pilot, PY-017 establishes the evaluation runner and baseline. Extend PY-019/PY-022 for comparisons and agent experiments, then select reranking, freshness, model/backend studies, or Spring AI as the next exercise.
 
-1. Define the first query/evidence judgments and common searchable document representation.
-2. Establish structured/full-context baselines where appropriate, adding provider usage/tracing only in their explicit increments.
-3. Implement Typesense lexical retrieval and inspect evidence without answer generation.
-4. Generate embeddings explicitly in Python, index them in Qdrant, and compare independent retrieval branches.
-5. Add Python hybrid fusion, candidate grouping, and then optional reranking with measured comparisons.
-6. Add fixed RAG, then LangGraph clarification, routing, follow-ups, and bounded repeated search.
-7. Broaden the experiment harness, freshness/failure scenarios, tracing, models, and optional engine comparisons under section 8.6.
-8. Implement comparable Spring AI behavior over the same evaluation assets.
-
-The earlier independent Delete exercise is superseded by ADR-0008: retain records and receive state changes through ingestion. Entities and basic population precede the next search-design discussion. The following are deferred, not required before the first knowledge-only RAG baseline: full CRUD completion, UI integration, photos/object-storage upload, Redis, Kafka, and true token streaming. ShelterCase lifecycle data is planned for the staff selection workflow; the four statuses and business transitions are accepted in section 3.2 but not implemented. Remaining transfer/import rules and chatbot-driven lifecycle writes require separate decisions.
-
-Additional PY-003 failure-path tests and fresh-database migration verification are intentionally deferred by the owner. The assistant may implement those tests in later explicitly resumed work, but not now. Earlier cross-participant and independent-UoW verification also remains open. Do not mark deferred work complete to close a learning increment.
+The pilot is complete when meaningful requests run through actual retrieval and a model with evidence references and inspectable traces. Both Typesense and Qdrant must be exercised; pure exact queries can still use PostgreSQL. No production readiness, exhaustive evaluation, automated synchronization, full CRUD, UI, photos, authentication, Redis, queues, failure matrices, or broad model benchmark is required first.
 
 ## 12. Collaboration agreement
 

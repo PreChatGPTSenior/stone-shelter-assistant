@@ -5,6 +5,8 @@
 - Related: [ADR-0006](0006-rag-and-agent-learning-focus.md), [ADR-0004](0004-postgresql-task-queue.md), [domain model](../domain/model.md)
 - Requirements: [RAG learning requirements](../requirements/rag-learning.md), sections 7.1 and 8.6
 
+> Sequencing clarification (2026-11-05): the [project manifesto](../project-manifesto.md) and [pilot plan](../search/pilot-delivery-plan.md) narrow the first implementation to one connected happy path. Evaluation datasets/harnesses, reranking, synchronization, recovery, and broad agent/backend comparisons below are post-pilot experiments. Minimum useful Langfuse tracing and a minimal LangGraph flow belong to the pilot. The selected engine architecture is unchanged.
+
 ## Context
 
 The owner already has extensive Java/Solr search experience. The objective is to learn Python AI engineering, hybrid retrieval, flexible tools, agentic RAG, evaluation, and observability rather than spend the next increment tuning a familiar search engine.

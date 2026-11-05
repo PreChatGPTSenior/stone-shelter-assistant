@@ -1,12 +1,14 @@
 # ADR-0007 One globally identified shelter case per stone
 
-- Status: Accepted design; not implemented
+- Status: Accepted identity design; registration model implemented through PY-010; historical lifecycle/integration details partially superseded
 - Date: 2026-10-29
 - Supersedes: the AdoptionListing entity choice and open relisting/transfer identity questions in [ADR-0002](0002-stone-and-adoption-listing.md)
 - Refines: data ownership and adoption scope in [ADR-0006](0006-rag-and-agent-learning-focus.md)
 - Requirements: [Staff hub and case lifecycle](../requirements/rag-learning.md#31-staff-hub-and-lifetime-case-identity)
 
 Integration refinement: [ADR-0008](0008-external-batch-ingestion-and-partial-updates.md) accepts upstream Stone UUIDs, database-backed shelter references, batch creation, partial updates, timestamp/content replay handling, and hub-maintained observed history. Previously open integration details below should be read with that refinement.
+
+> Reconciled 2026-11-05: The lifetime identity decision remains accepted. The domain model and ADR-0015 replace UNDER_REVIEW with RETURNED and require source-owned current state. ADR-0013 replaces batch registration; ADR-0014 permits persistent local application data. Original transition/integration discussion below is decision history, not a second current contract. See the [current domain contract](../domain/model.md) and [pilot plan](../search/pilot-delivery-plan.md).
 
 ## Context
 

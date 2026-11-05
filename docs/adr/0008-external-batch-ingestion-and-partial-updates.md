@@ -1,9 +1,11 @@
 # ADR-0008 External batch creation and single-stone partial updates
 
-- Status: Accepted design; not implemented
+- Status: Partially superseded; single-record registration implemented, later mutations deferred
 - Date: 2026-10-29
 - Refines: [ADR-0006](0006-rag-and-agent-learning-focus.md) and [ADR-0007](0007-lifetime-shelter-case-identity.md)
 - Requirements: [External ingestion contract](../requirements/rag-learning.md#33-external-ingestion-contract)
+
+> Reconciled 2026-11-05: ADR-0013 supersedes multi-stone batch registration; ADR-0015 requires source-provided adoptionStatus without replay; ADR-0014 separates persistent application data from disposable tests. Snapshot registration, shelter references, and source identity are implemented through PY-010. Partial updates, ordering/no-op replay, and new history endpoints remain future work; historical text below must not be used as the current payload contract. See the [current domain contract](../domain/model.md) and [pilot plan](../search/pilot-delivery-plan.md).
 
 ## Context
 

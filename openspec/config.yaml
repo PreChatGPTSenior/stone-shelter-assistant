@@ -1,40 +1,44 @@
 schema: spec-driven
 
 context: |
-  Write all repository artifacts in English.
-  Domain premise: a fictional world where stones are pets, not a scientifically realistic geology product. Staff-authored personalities, health, experiences and wishes are valid fictional domain data. Distinguish fictional world rules from geological reference material.
-  This is a human-written Python learning project owned by an experienced Java engineer.
-  The owner writes application code and tests. Assistant documentation work does not authorize implementation.
-  Stack: Python 3.13, uv, FastAPI, Pydantic, SQLAlchemy async, asyncpg, Alembic and PostgreSQL.
-  Architecture decisions live in docs/adr; accepted decisions may describe future, unimplemented design.
-  PY-002 database support and PY-003 stone creation are merged; explicitly deferred verification remains open.
-  ADR-0006 and docs/requirements/rag-learning.md record the new learning direction: supplier batches, retrieval, RAG, tools, LangChain, LangGraph, evaluation, and a later Spring AI comparison.
-  ADR-0007 defines a staff-facing multi-shelter hub and one lifetime ShelterCase per Stone, with an externally assigned global case UUID and immutable searchable case number. Returns and transfers preserve case identity; a transfer changes the current shelter. Accepted statuses are UNDER_REVIEW, AVAILABLE, RESERVED and ADOPTED; returns go to UNDER_REVIEW and direct adoption from AVAILABLE is allowed. Lifecycle code and remaining transfer/import rules are not implemented.
-  ADR-0008 accepts batch creation, single-stone partial updates, externally supplied Stone UUIDs, source-time/content comparison, hub-recorded changes, and two database-backed Shelter records. Trust upstream business consistency while retaining boundary validation. Exact payloads and timestamp/batch edge cases remain open.
-  ADR-0009 accepts individual Stone profile concepts: staff-assigned socialization enum set, care category, free-text health description, triggers/experiences and preferred environment. Compatibility belongs to a separate fictional Markdown document to be authored later. Exact enum vocabulary and storage are not implemented.
-  Full CRUD and UI completion are not prerequisites. The Delete plan is superseded: stones/cases remain in the system and state is updated. Establish entities and basic population before discussing search design.
-  RAG, trigger data, supplier ingestion, and agent behavior are planned, not implemented; do not install or implement them merely because they appear in the learning backlog.
-  UI integration, authentication, chatbot-driven adoption writes, photos, Redis, Kafka, Hypothesis, and true token streaming remain deferred unless a specific increment is authorized. Adoption/accounting data is planned through external JSON ingestion, not implemented by these decisions.
-  GitHub Issues and the Stone Shelter Python project board own delivery status.
-  Change tasks track implementation steps; artifact completeness never means implementation is complete.
-  Historical product and Java requirements are context, not automatic scope for this Python implementation.
+  Write all repository artifacts in English. Never modify any README file.
+  THIS IS A LEARNING PROJECT. Follow docs/project-manifesto.md: happy path until the first connected pilot, with narrow scope and idiomatic, typed code.
+  The owner is an experienced Java engineer learning Python AI engineering and writes application code/tests unless explicitly delegated. Documentation work does not authorize implementation.
+  Current workflow guide: docs/requirements/spec-workflow.md. Earlier openspec/README.md setup/status prose is historical; do not use it as current delivery status.
+  docs/domain/model.md owns current entity fields and ingestion contracts. Current owner decisions override historical ADR proposals; ADRs record accepted choices, not implementation by themselves.
+  Fictional domain: stones are pets. Staff-authored personalities, health, experiences and wishes are valid facts; keep fictional reference rules distinct from geology.
+  Installed baseline: Python 3.13, uv, FastAPI, Pydantic, SQLAlchemy async, asyncpg, Alembic, pytest/pytest-asyncio, Ruff, mypy, and Testcontainers. Check pyproject.toml and source before proposing libraries.
+  PY-001/002/003/007/008/009/010 delivered the foundation, domain/data design, and current single-stone registration. Historical issue text must not replace the current contract. PY-011 is active; projection/export and search engines are not connected.
+  POST /api/v1/stones accepts one stone, required shelterCase, optional profile. The case includes required source-owned adoptionStatus/currentShelterId and 1 to 100 events containing ADMITTED anywhere. No multi-stone API batch and no replay-derived status/location.
+  AdoptionStatus is AVAILABLE, RESERVED, ADOPTED, RETURNED. UNDER_REVIEW is superseded. One lifetime case retains its external UUID and opaque unique case number across returns/transfers. Admission date belongs to the case, not Stone.
+  DTOs map directly to ORM graphs; no intermediate domain dataclasses. One UoW session and explicit commit save the entire graph; repositories do not commit.
+  Profiles use the implemented socialization enum set (omitted means empty), nullable care enum, health/trigger/environment text. Unknown values are not positive suitability claims. Exact fields/vocabularies live in docs/domain/model.md.
+  Local application PostgreSQL is persistent under ADR-0014. Preserve its data/volume. Database-backed automated tests and migration verification use clean Testcontainers only; no fallback to .env. A dedicated two-independent-UoW isolation test remains unverified.
+  Current fixtures are fixtures/stones/<stone.externalId>.json, ten valid records; a separate seed loads two shelters. The loader sends one HTTP request per file without automatic retry or duplicate skipping.
+  Typesense lexical and Qdrant vectors are selected, not installed integrations. Prepare source evidence, index both, connect LangChain and minimal LangGraph, answer with citations and minimum useful Langfuse tracing. Check current PostgreSQL state before actionable recommendations; use explicit metadata filters in both index branches and PostgreSQL for purely structured requests.
+  Ollama/langchain-ollama, OpenRouter and Langfuse Cloud Hobby are selected future integrations. Select models/credentials and authorize provider spending explicitly; keep live inference out of make check.
+  Full evaluation harness, held-out datasets, reranking, version machinery, outbox/workers, retries/failure matrices, broad agent autonomy and backend/model comparisons are post-pilot. PY-017 does not block PY-018. PY-022 has a minimal pilot slice before later agent experiments.
+  Later profile/update/event-append APIs, physical CRUD completeness, UI/auth, photos, Redis, Kafka, Hypothesis, true token streaming, compatibility/astral sources and Spring AI are not pilot prerequisites. Physical deletion is superseded, not a pending product requirement.
+  GitHub Issues and the Stone Shelter Python board own delivery status. docs/search/pilot-delivery-plan.md defines scope slices/dependencies, not a second live board.
+  Search model implementation remains in the local PY-011 feature worktree; the documented source examples are design artifacts, not working retrieval. Do not claim a commit, push, merge or successful test without evidence.
 
 rules:
   proposal:
-    - Link the GitHub issue and state the current scope and exclusions.
+    - Link the GitHub issue and state the pilot scope and deferred experiments separately.
   specs:
     - Describe observable guarantees with SHALL requirements and WHEN/THEN scenarios.
-    - Do not introduce future product behavior to satisfy a template.
+    - Compare against docs/domain/model.md and current accepted owner decisions; do not revive superseded batch or status-replay contracts.
+    - Do not introduce hypothetical failure support or future product behavior to satisfy a template.
   design:
-    - Reference accepted ADRs and distinguish decisions from implementation evidence.
+    - Reference accepted ADRs and the project manifesto; distinguish decisions, proposals, local drafts and implementation evidence.
   tasks:
-    - Leave implementation tasks unchecked until the owner implements and verifies them.
-    - Include focused tests with each behavior; do not add unrelated infrastructure.
+    - Leave implementation tasks unchecked until implementation and verification have evidence.
+    - Keep unverified/deferred checks explicit; pilot completion does not mark future experiments complete.
 
 operations:
   apply:
     guidance:
-      - The owner implements code and tests manually; offer explanations and review unless explicitly asked to edit.
+      - Explain and review owner-written code unless implementation is explicitly delegated. Keep the current pilot narrow.
   archive:
     guidance:
-      - Archive only after implementation and verification are complete and the owner requests it.
+      - Archive only when the relevant agreed scope is implemented/verified and the owner requests it; preserve deferred checks and historical evidence.
