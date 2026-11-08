@@ -1,23 +1,20 @@
-# PY-011 pilot checklist
+# PY-011 preparation checklist
 
-Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14. Implementation remains in the original local PY-011 feature worktree. A checked documentation step is not evidence that a parser or retrieval engine works.
+Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14. Reviewed 2026-11-08 against local code; no new runtime verification in this documentation pass.
 
-## Reviewed local preparation
+## Existing local work
 
-- [x] Record source units, authoritative field ownership, index filters, exact-query routing, and final PostgreSQL state checks in docs/search/py-011-search-documents.md.
-- [x] Prepare local Pydantic evidence models and DocumentKind for stone/profile/event/encyclopedia. These remain uncommitted local feature work; this docs-only branch does not contain them.
-- [x] Preserve the profile field walkthrough as a discussion example rather than a finalized engine contract.
-- [x] Separate minimal pilot acceptance from later judged datasets and versioning experiments.
+- [x] Define Pydantic evidence models and DocumentKind for stone, profile, case event and encyclopedia; local implementation, not a completed index integration.
+- [x] Implement fourteen-section encyclopedia preparation and its real-source scenario; preserve source path, headings and current UUIDv5/hash conventions.
+- [x] Document current index filters, exact SQL routing and final PostgreSQL state authority.
 
-## Remaining pilot preparation
+## Remaining work after source authoring
 
-- [ ] Generate inspectable operational evidence examples from the prepared source data, retaining external identities and current source filters.
-- [ ] Implement the simple encyclopedia parser/export tool and inspect its proposed fourteen documents, including text, source path, section, and type where applicable.
-- [ ] Confirm the minimal IDs/revision values needed to instantiate current document models; do not create a general version framework.
-- [ ] Review representative exported content and source references, record focused verification evidence, then hand off to index integration.
+- [ ] Load stored graphs explicitly and prepare stone, optional profile and individual event documents.
+- [ ] Preserve external parent/event IDs and current source-owned status/shelter without replay.
+- [ ] Add a reference kind/model and JSON preparation for PY-028 compatibility entries, preserving both types, source edition, pair IDs and guidance.
+- [ ] Record source-key/rendered-text/hash conventions and inspect representative output from every source family.
+- [ ] Verify a meaningful graph-to-evidence scenario using Testcontainers and focused reference-source scenarios.
+- [ ] Hand document objects directly to index integration; record verification without creating application JSONL storage.
 
-## Deferred, not blockers
-
-- A reviewed query dataset, expected evidence/candidates, no-result cases, and held-out studies belong to PY-017 after the connected pilot.
-- Final query/result contracts, broader chunking strategies, multiple models, and elaborate revision/synchronization rules are later exercises.
-- No Typesense, Qdrant, model-provider or Langfuse integration is completed by this ticket's documentation.
+Reviewed relevance labels and comprehensive evaluation belong to PY-017 after the connected pilot. Do not mark the new reference preparation complete just because these planning artifacts exist.

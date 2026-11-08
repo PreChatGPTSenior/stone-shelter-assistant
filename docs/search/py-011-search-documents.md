@@ -1,11 +1,9 @@
 # PY-011 Search documents and query routing
 
-- Status: Accepted design boundaries; local Pydantic models exist in PY-011, projection/export and engine integrations pending
+- Status: Evidence models and encyclopedia preparation exist locally; operational/new reference preparation and retrieval remain pending
 - Date: 2026-10-30
 - Tracking: [PY-011](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14)
 - Related: [Domain model](../domain/model.md), [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md), [RAG learning requirements](../requirements/rag-learning.md)
-
-> Current sequencing: follow the [manifesto](../project-manifesto.md) and [pilot plan](pilot-delivery-plan.md). Prepare concrete evidence first; final query/result contracts, comprehensive datasets and elaborate revision machinery do not block the pilot. The profile walkthrough remains a discussion example.
 
 ## Scope
 
@@ -19,7 +17,7 @@ See [one profile across PostgreSQL, Typesense, and Qdrant](py-011-profile-field-
 
 PostgreSQL remains authoritative for operational records, including the source-provided current adoption status, stone properties, and current shelter assignment. Search indexes contain derived, rebuildable projections that support retrieval and filtering.
 
-The initial evidence units are one stone document, one document per existing profile, one document per case event, and one meaningful encyclopedia section. An absent profile produces no profile document; missing data must not become invented positive claims. Preserve parent identities and source references so retrieved evidence can be grouped by stone and cited.
+The initial evidence units are one stone document, one document per existing profile, one document per case event, and one meaningful reference section. Reference families include the encyclopedia, authored JSON type compatibility under ADR-0018; use these sources, then prepare them in PY-011. An absent profile produces no profile document; missing data must not become invented positive claims. Preserve parent identities and source references so retrieved evidence can be grouped by stone and cited.
 
 ## Primary filtering strategy
 
@@ -82,4 +80,4 @@ This verification protects against false-positive eligibility from stale index d
 
 ## Boundaries and remaining decisions
 
-No search engines, clients, indexes, model calls, workers, or routing code are configured by this document. Remaining PY-011 work includes final document/query/result fields, identity and version conventions, representative document examples, and reviewed relevance scenarios. This decision does not close the ticket or authorize changes to application code.
+Typesense infrastructure/client and encyclopedia preparation now exist locally; neither index population nor retrieval is implemented. Remaining PY-011 work is operational graph projection and preparation of the JSON compatibility reference family with concrete identities and provenance. Deliver prepared objects directly to adapters, without application JSONL export. Final universal schemas and reviewed relevance datasets are not prerequisites; evaluation follows the pilot in PY-017. See the delivery plan and OpenSpec tasks for the authoritative sequence. This document does not close tickets or authorize implementation.

@@ -18,12 +18,12 @@ Success means building a working first version, understanding its behavior, capt
 
 Implement the shortest coherent happy path:
 
-1. Prepare simple search documents from the existing stone, profile, and history data.
-2. Add the existing encyclopedia as a separate reference source.
-3. Index lexical documents in Typesense and generate embeddings explicitly for Qdrant.
-4. Connect retrieval through LangChain and a minimal LangGraph workflow.
-5. Produce a first answer from actual retrieved data, retaining evidence references and explicit candidate filters.
-6. Add the minimum useful Langfuse trace to inspect the executed path and model calls.
+1. Prepare the source corpus first: reuse operational JSON and the encyclopedia; use the complete fictional JSON type-compatibility guide (ADR-0018); the separate tarot idea is deferred.
+2. Prepare simple shared evidence documents from stones, profiles, history and both distinct reference sources: Markdown encyclopedia and JSON compatibility.
+3. Index lexical documents in Typesense and generate embeddings explicitly for Qdrant; no application JSONL intermediate.
+4. Connect LangChain tools and a bounded LangGraph in which the LLM actually selects typed SQL, hybrid, reference or details/history operations.
+5. Produce an evidence-grounded answer through a minimal HTTP entrypoint, with explicit hard filters and final PostgreSQL current-state checks.
+6. Add minimum useful Langfuse tracing and demonstrate the supported paths with a selected real model; ordinary tests keep controlled inference.
 
 The first pilot is complete when a meaningful request runs through the real connected retrieval and model workflow and returns an evidence-based result. Typesense and Qdrant must both be exercised; not every future query has to use both. Pure structured requests can use PostgreSQL as already agreed.
 

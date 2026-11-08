@@ -1,35 +1,34 @@
-# PY-011: Prepare pilot search evidence
+# PY-011: Prepare shared pilot search evidence
 
 ## Why
 
-Registration and prepared source data already exist, but neither index can be populated until operational records and encyclopedia text have concrete search representations. Obtain inspectable evidence documents first, following the happy-path manifesto rather than designing a complete research harness.
+The source corpus needs concrete shared evidence units before either index can be populated. Pydantic models and fourteen encyclopedia sections already exist locally; operational projection and new reference families remain pending.
 
 ## What Changes
 
-- Describe and review the minimal source-to-document mapping for stone, optional profile, case event, and encyclopedia chapter/section.
-- Reuse the local Pydantic search models and document kinds; preserve source identity, text, citations, and current-state filter metadata.
-- Prepare a simple Markdown parser/export path and enough concrete operational examples to inspect before index adapters.
-- Separate later dataset, schema-evolution, and representation experiments from pilot acceptance.
+- Reuse the existing evidence models and encyclopedia preparation.
+- Read actual stored stones, optional profiles and case events into traceable operational documents.
+- Add deliberate reference representations and preparation for the authored JSON type-compatibility source after PY-028.
+- Return prepared document objects directly to later index adapters; no application JSONL export/storage layer.
 
 ## Capabilities
 
 ### New Capabilities
-- `search-evidence-preparation`: inspectable derived evidence for the initial lexical and vector adapters.
+- `search-evidence-preparation`: shared source-faithful operational and reference documents.
 
 ### Modified Capabilities
-None. Registration, authoritative operational entities, and their HTTP contract remain unchanged.
+None. Registration, ORM entities and source-owned status remain unchanged.
 
 ## Impact
 
-Planned work in search/ and an explicit export tool, plus documentation. Pydantic models and example docs exist in the original local PY-011 feature worktree, not in master and not as working retrieval. This docs-only branch adds no application code.
-
-## Scope Boundary
-
-No engine integration, provider calls, generic storage framework, final query/result schemas, exhaustive judged dataset, negative-path matrix, automatic synchronization, or elaborate versioning. Existing model revision fields are not an excuse to build a version service before exporting a document.
+Planned search preparation/read operations, focused scenarios and documentation. This planning pass edits no code. Typesense collection integration belongs to PY-013; vectors and Qdrant belong to PY-015/PY-016.
 
 ## Tracking
 
-- Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14
-- Feature branch: PY-011-search-documents-and-scenarios (local)
-- Documentation reconciliation branch: docs/sync-spec-and-pilot-plan (local)
-- Plan: docs/search/pilot-delivery-plan.md; priorities: docs/project-manifesto.md
+Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14.
+Dependencies: delivered PY-010 and source preparation PY-027/PY-028 (new local planning IDs, not remote issue numbers).
+See [delivery plan](../../../docs/search/pilot-delivery-plan.md), docs/project-manifesto.md and ADR-0017.
+
+## Scope Boundary
+
+No full relevance dataset, final universal schemas, generic source framework, automatic synchronization or provider calls. Corpus snapshots are a later PY-017 experiment-tool concern.

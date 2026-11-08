@@ -3,11 +3,12 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import AsyncEngine
+from typesense import AsyncClient
 
 from stone_shelter.bootstrap.app import create_app
 
 
-def test_lifespan_initializes_and_disposes_database(
+def test_lifespan_initializes_and_disposes_shared_resources(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     settings = Mock()
@@ -18,6 +19,13 @@ def test_lifespan_initializes_and_disposes_database(
 
     session_factory = Mock()
     factory_creator = Mock(return_value=session_factory)
+
+    typesense_settings = Mock()
+    typesense_settings_class = Mock(return_value=typesense_settings)
+    typesense_client = Mock(spec=AsyncClient)
+    typesense_client.api_call = Mock()
+    typesense_client.api_call.aclose = AsyncMock()
+    typesense_creator = Mock(return_value=typesense_client)
 
     monkeypatch.setattr(
         "stone_shelter.bootstrap.app.DatabaseSettings",
@@ -31,6 +39,14 @@ def test_lifespan_initializes_and_disposes_database(
         "stone_shelter.bootstrap.app.create_session_factory",
         factory_creator,
     )
+    monkeypatch.setattr(
+        "stone_shelter.bootstrap.app.TypesenseSettings",
+        typesense_settings_class,
+    )
+    monkeypatch.setattr(
+        "stone_shelter.bootstrap.app.create_typesense_client",
+        typesense_creator,
+    )
 
     app = create_app()
 
@@ -39,6 +55,11 @@ def test_lifespan_initializes_and_disposes_database(
         engine_creator.assert_called_once_with(settings)
         factory_creator.assert_called_once_with(engine)
         assert app.state.session_factory is session_factory
+        typesense_settings_class.assert_called_once_with()
+        typesense_creator.assert_called_once_with(typesense_settings)
+        assert app.state.typesense_client is typesense_client
+        typesense_client.api_call.aclose.assert_not_awaited()
         engine.dispose.assert_not_awaited()
 
     engine.dispose.assert_awaited_once_with()
+    typesense_client.api_call.aclose.assert_awaited_once_with()

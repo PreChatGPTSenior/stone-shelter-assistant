@@ -1,6 +1,6 @@
 # Retrieval and assistant learning requirements
 
-Updated: 2026-11-05. Learning direction: [ADR-0006](../adr/0006-rag-and-agent-learning-focus.md). Selected retrieval architecture and experiment plan: [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md).
+Updated: 2026-11-08 (JSON compatibility source and separate tarot deferral). Learning direction: [ADR-0006](../adr/0006-rag-and-agent-learning-focus.md). Selected retrieval architecture and experiment plan: [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md).
 
 This document captures the discussion's accepted direction, desired behavior, proposed exercises, and open choices. It is a learning backlog, not an assertion that the capabilities exist or a scheduled implementation plan. GitHub Issues and the project board track delivery. The [pilot delivery plan](../search/pilot-delivery-plan.md) separates the immediate path from later experiments.
 
@@ -9,6 +9,12 @@ This document captures the discussion's accepted direction, desired behavior, pr
 ## Active delivery priority: HAPPY PATH PILOT FIRST
 
 The [project manifesto](../project-manifesto.md), accepted on 2026-10-31, governs current sequencing. Build the first connected search/RAG result with prepared source documents, Typesense, Qdrant, LangChain, LangGraph, and minimum useful Langfuse tracing. Keep code quality high and scope narrow. Evaluation frameworks, comprehensive datasets, resilience, synchronization workers, elaborate versioning, and broad comparison studies below are subsequent learning work, not prerequisites for the pilot. Earlier sequencing suggestions and broad ticket criteria must not block that first working path.
+
+## Source-first planning update (2026-11-08; amended by ADR-0018)
+
+[ADR-0017](../adr/0017-source-first-tool-routed-pilot.md) and the [OpenSpec task map](../search/pilot-delivery-plan.md) define the current order: operational examples and the encyclopedia, then the complete authored JSON type-compatibility source, then shared preparation/indexing/retrieval. ADR-0018 supersedes immediate astral authoring: tarot is a separate deferred idea. Current pilot source preparation is first; no exhaustive relevance dataset is required before the pilot. PY-027/PY-028/PY-029/PY-030 are local proposed task IDs until explicitly published to GitHub.
+
+The first connected result includes actual LLM tool selection inside a bounded LangGraph, typed exact SQL/hybrid/reference/details operations, grounded answers and minimum useful Langfuse tracing. A fixed answer chain alone does not complete the pilot. One model/provider is enough initially; full evaluations, second-provider studies, complete budgets and richer graph behavior remain later work. JSONL is not an application intermediate; optional corpus/result snapshots belong to later experiment tooling.
 
 ## Status vocabulary
 
@@ -23,7 +29,7 @@ The [project manifesto](../project-manifesto.md), accepted on 2026-10-31, govern
 
 The current entity and ingestion contract is [docs/domain/model.md](../domain/model.md), with ADR-0013 and ADR-0015: one stone with a required case, source-provided adoptionStatus, optional profile, and 1 to 100 events containing ADMITTED. RETURNED replaces the historical UNDER_REVIEW vocabulary. Earlier ingestion and profile discussions in this learning backlog are context; they do not override that model or imply unimplemented updates and lifecycle actions.
 
-Typesense for lexical retrieval and Qdrant for vector retrieval are selected under ADR-0016, but neither is connected. pgvector and Solr are deferred comparison options. The experiment plan is accepted; exact APIs, schemas, versions, clients, and implementation order remain future work.
+Typesense for lexical retrieval and Qdrant for vector retrieval are selected under ADR-0016. Local Typesense infrastructure, validated settings, an async SDK client, and lifecycle wiring are implemented; indexing and retrieval are pending. Qdrant runs as a local Compose service, while its Python client, vector collections, indexing and retrieval remain pending. pgvector and Solr are deferred comparison options. The experiment plan is accepted; exact search APIs, schemas and later client choices remain future work.
 
 ## 1. Existing baseline
 
@@ -42,7 +48,8 @@ Typesense for lexical retrieval and Qdrant for vector retrieval are selected und
 | Development checks | make check runs Ruff autofix/formatting, mypy, and pytest. Testcontainers migration setup runs Alembic upgrade/check; no test cleanup targets local application data. |
 | Encyclopedia corpus | Imported English Markdown with ten rock types, comparison table, care guidance, and source/editorial notes; see [provenance](../../stone-rules/stone-encyclopedias/README.md) |
 | Delete and Read | Not implemented at this decision point; the earlier Delete plan is superseded by retained records and state updates in ADR-0008 |
-| RAG and agent runtime | Not implemented; LangChain, LangGraph, embeddings, Typesense, and Qdrant are selected targets, not installed integrations. |
+| Typesense connection | Compose service, TypesenseSettings, official async SDK factory, lifespan ownership, and disposable Testcontainers fixtures are implemented. Collections/indexing/retrieval remain pending. |
+| RAG and agent runtime | LangChain text splitting is installed for encyclopedia preparation. LangGraph, embeddings, Qdrant, and answer generation remain unimplemented. |
 | Model providers | Ollama and OpenRouter selected for future experiments; no provider integration is implemented by these decisions |
 | LLM observability | Langfuse Cloud Hobby selected; account setup, credentials, SDKs, and tracing exports are not configured |
 
@@ -65,14 +72,14 @@ Update: section 3.1 and [ADR-0007](../adr/0007-lifetime-shelter-case-identity.md
 
 ## 3. Information sources and future ingestion
 
-**Accepted direction:** combine operational pet data with distinct reference sources. The encyclopedia, type-compatibility guide, and future astral catalog are separate documents or corpora, not fields to duplicate on every stone.
+**Accepted direction:** combine operational pet data with distinct reference sources. The Markdown encyclopedia and JSON type-compatibility guide are separate reference sources, not fields to duplicate on every stone.
 
 | Source | Responsibility | Status |
 | --- | --- | --- |
 | Operational database | Individual stones, profiles, current case state, shelter information, and life events | Registration implemented through PY-010; later event append/update APIs remain planned. See the [domain model](../domain/model.md). |
 | Stone encyclopedia | General knowledge about rock types, conditions, care, and caveats; preserve the corpus distinction between geology and fictional material | English Markdown corpus already imported; retrieval not implemented |
-| Type-compatibility guide | Authored fictional rules for different stone types living together | Accepted separate Markdown source; content and retrieval not implemented |
-| Astral compatibility catalog | An additional fictional compatibility system for future playful selection experiments | Deferred; no content, schema, or integration required now |
+| Type-compatibility guide | Authored fictional cohabitation guidance for all current types | English JSON authored in PY-028: ten portraits and all 55 unordered pairs. Parsing/indexing/retrieval remain pending. |
+| Separate tarot idea | Potential future tarot-card divination program, not a current knowledge source | Deferred; former PY-029 astral-catalog plan is superseded by ADR-0018. |
 
 Individual profiles and events are legitimate facts about pets in this fictional world. They are not merely decorative personality text, and general type-level guidance does not by itself establish an individual's suitability.
 
@@ -82,7 +89,7 @@ Requirements for combining these sources:
 - Use current database state for availability and shelter responsibility. A compatibility document or historical event must not override authoritative current availability.
 - Combine general knowledge with individual profiles and relevant life events. A generally compatible type pair does not guarantee that two particular pets are a suitable match.
 - Do not silently merge fictional compatibility systems into geological claims or invent rules missing from the authored references.
-- Exact routing, conflict precedence, and whether future astral rules are explicitly requested or enabled through an experiment setting remain search-design decisions.
+- Reference routing currently distinguishes encyclopedia and compatibility. No astral/tarot source or tool is required.
 
 **Planned capabilities:**
 
@@ -169,13 +176,15 @@ Current behavior and future boundaries:
 - An absent profile value means unknown. Do not infer no trauma, no care needs, child suitability or universal compatibility from missing data. Registration nullability, limits, and defaults are defined in the domain model. Partial-update clearing semantics remain future contract work.
 - Existing geological and physical data may coexist with these traits, but they do not replace or invalidate the fictional pet profile.
 
-### 4.1 Fictional compatibility document
+### 4.1 Fictional compatibility JSON
 
-- Compatibility between rock types shall be described in a separate authored Markdown document, explicitly labeled as fictional game/world rules.
-- The owner plans to author this content later. No compatibility matrix or pair-specific rule is accepted or generated by this requirements update.
-- Keep source identity distinct from the geological encyclopedia so later retrieval and explanations can identify which fictional rule supports a recommendation.
-- Directionality, unsupported pairs, individual exceptions, and conflict resolution between shared compatibility rules and staff observations remain open.
-- Future answers may use these authored rules as truth within the fictional world; they must not claim the rules are geological facts or invent missing rules.
+The owner delegated complete creative authoring under [ADR-0018](../adr/0018-json-compatibility-and-deferred-tarot.md). The source is [stone-type-compatibility_en.json](../../stone-rules/type-compatibility/stone-type-compatibility_en.json), a provider-style English catalog with fictional attribution.
+
+- All ten current StoneType values have a portrait; all 55 unordered pairings are present, including two distinct pets of the same type. Reversing type order selects the same record.
+- Each entry has a stable ID, both types, verdict, title, explanation, household agreement, avoid guidance and bureau note. The catalog declares category meanings and edition; no numeric compatibility score is implied.
+- The world is invented. Emotional, domestic, imagined biological and planetary jokes may coexist without requiring an astral database or tarot service.
+- General type guidance never overwrites individual profile/history or current PostgreSQL eligibility. Unlisted future types remain unknown; NOT_RECOMMENDED visit guidance does not authorize cohabitation.
+- The source was structurally checked; preparation, indexing and retrieval are not implemented. PY-011 will parse JSON deliberately and preserve pair identity/conditions, not apply the Markdown splitter to it.
 
 ### 4.2 Previously proposed physical trigger exercises
 
@@ -191,16 +200,9 @@ The following remain optional examples of physical/contextual questions, not the
 
 Do not flatten nuanced geological evidence into unconditional claims, and do not manufacture profile observations for every type to fill the database. An authored fictional fear is valid within the game world even without a physical basis; explain it as a profile observation rather than forcing a scientific justification.
 
-### 4.3 Future astral compatibility catalog
+### 4.3 Separate tarot idea: deferred
 
-**Accepted future source; deferred implementation.** Add a separate authored reference catalog of fictional astral compatibility rules as a playful extension of the pet-stone world.
-
-- Keep this catalog distinct from both the encyclopedia and the type-compatibility guide, with its own source identity and version.
-- No astral rules, compatibility matrix, new pet attributes, or required ingestion fields are defined by this decision.
-- Do not create catalog content, install tools, or implement retrieval for it now. Its inclusion does not block the first encyclopedia and type-compatibility experiments.
-- Later experiments may compare selection with and without this additional rule system and inspect which source supports each recommendation.
-- Required attributes, rule vocabulary, activation behavior, and conflict handling remain open until the catalog is designed.
-- Present its rules as authored facts of the fictional world, not scientific or medical claims.
+The owner replaced the immediate astral compatibility catalog idea with a possible separate tarot-card divination program. Do not author that catalog, tarot cards or application now. PY-029 is a superseded local planning placeholder, not a pilot or tutorial dependency. Future scope needs a separate owner decision. Planetary jokes in the compatibility source do not change this boundary.
 
 ## 5. Assistant behavior
 
@@ -408,7 +410,7 @@ Implementation references: [LangChain/LangGraph callbacks](https://langfuse.com/
 | Reranker | Hybrid output before and after a separate reranker | Ranking improvement, added time/cost, truncation and missed candidates |
 | Representations | Chunking, embedding models, query/document language, later multiple vector representations | Corpus/model versions, relevance, citation precision, resource cost |
 | Orchestration | Fixed RAG versus bounded agent-selected tools/strategies and additional searches | Tool/argument correctness, useful extra calls, clarification, loops, final quality |
-| Source combination | Operational profiles/history, encyclopedia, authored compatibility; astral source only when separately designed | Attribution, conflicting/unknown evidence, source routing, grounded explanation |
+| Source combination | Operational profiles/history, Markdown encyclopedia and authored JSON type compatibility | Attribution, conflicting/unknown evidence, source routing, grounded explanation |
 | Failure and freshness | Healthy branches versus timeouts/unavailability, stale metadata, new history, partially refreshed indexes | Bounded fallback, current-state verification, missing evidence, recovery traces |
 | Optional engine comparison | Typesense vector-only and built-in hybrid versus Qdrant vectors plus Python hybrid | Same vectors/IDs/filters where supported; differences in backend and fusion behavior recorded separately |
 | Later backend extension | pgvector or Solr only for a concrete additional question | Incremental learning benefit and cost, not technology count |
@@ -442,18 +444,22 @@ Before downloading or integrating a candidate, verify its current model card, la
 
 Compare integration effort, orchestration, context handling, tools, observability, and measured results. Record unavoidable differences. Python and Java implementations do not have to share an identical internal graph structure to be compared meaningfully.
 
-## 11. Pilot sequence and later experiments
+## 11. Current progression and deferred work
 
-The [manifesto](../project-manifesto.md) governs sequencing. See the [ticket map and completion boundary](../search/pilot-delivery-plan.md).
+The complete dependency map and per-ticket OpenSpec links live in [the delivery plan](../search/pilot-delivery-plan.md).
 
-1. PY-011: generate and inspect concrete stone/profile/event and encyclopedia documents. Do not require final query/result contracts or a judged dataset.
-2. PY-012 through PY-016: connect Typesense, index source evidence, run lexical queries, generate embeddings, and run Qdrant queries. Model and client selection occurs in the relevant increment.
-3. PY-018: combine the working lexical/vector branches with simple Python RRF and current-state verification. The evaluation runner PY-017 is not a prerequisite.
-4. PY-019: connect one explicitly selected generation provider and minimum useful Langfuse tracing. Full experiment accounting and cross-provider comparisons follow later; live calls require explicit provider/model configuration and spending authorization.
-5. PY-020: obtain the first evidence-based answer using LangChain. PY-022's pilot slice connects a minimal LangGraph workflow to the same path; clarification loops, checkpoints, and agent-selected retrieval strategies follow later.
-6. After the pilot, PY-017 establishes the evaluation runner and baseline. Extend PY-019/PY-022 for comparisons and agent experiments, then select reranking, freshness, model/backend studies, or Spring AI as the next exercise.
+1. Review the existing stone JSON and encyclopedia; use the complete authored JSON compatibility guide (PY-027/PY-028); tarot is deferred.
+2. Finish source-to-evidence preparation (PY-011), reusing existing models and encyclopedia splitting. Typesense connection work already exists locally (PY-012).
+3. Index Typesense, add lexical and typed PostgreSQL retrieval (PY-013/PY-014).
+4. Embed through one selected LangChain integration and index/query Qdrant (PY-015/PY-016).
+5. Combine branches with RRF, group evidence and recheck current state in PostgreSQL (PY-018).
+6. Connect one tool-capable model, minimum Langfuse tracing and bounded answer composition (PY-019/PY-020).
+7. Add actual LLM tool routing in LangGraph and a minimal HTTP entrypoint; demonstrate the connected pilot (PY-022/PY-030).
+8. Establish the measured baseline/evaluation harness (PY-017), then reranking, richer graph behavior, provider accounting, source mutations/freshness, representation/language/backend studies and Spring AI (PY-021, PY-019/PY-022 follow-ups, PY-006, PY-023–PY-026).
 
-The pilot is complete when meaningful requests run through actual retrieval and a model with evidence references and inspectable traces. Both Typesense and Qdrant must be exercised; pure exact queries can still use PostgreSQL. No production readiness, exhaustive evaluation, automated synchronization, full CRUD, UI, photos, authentication, Redis, queues, failure matrices, or broad model benchmark is required first.
+Full CRUD, UI, photos, Redis, Kafka, true token streaming, broad negative-path matrices and production infrastructure remain outside the pilot. PY-005 deletion is superseded; PY-004 public reads are optional, not required for SQL tools. Mutation semantics need their own reviewed contract and must not revive historical replay or batch creation.
+
+PY-010 supplies real graph rollback and PY-007 supplies isolated migration verification. The dedicated independent-UoW isolation check remains unverified; do not conflate it with graph rollback or mark every historical deferred test complete.
 
 ## 12. Collaboration agreement
 

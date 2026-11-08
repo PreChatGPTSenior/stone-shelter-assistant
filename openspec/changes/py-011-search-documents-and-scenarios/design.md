@@ -1,27 +1,31 @@
-# Pilot evidence preparation design
+# PY-011 evidence preparation design
 
-## Context and authority
+## Inspected local baseline
 
-The manifesto narrows the accepted ADR-0016 experiment architecture to the first connected result. PostgreSQL remains authoritative. docs/domain/model.md and ADR-0015 forbid history-derived current adoption status or shelter.
+search/documents.py defines stone/profile/event/encyclopedia Pydantic models with stable evidence IDs, provenance, hashes and schema/projection versions. search/encyclopedia.py prepares fourteen sections using LangChain MarkdownHeaderTextSplitter; its real-source scenario exists. Operational projection and compatibility JSON preparation do not exist. No application tests were run in the 2026-11-08 planning audit.
 
-## Evidence units
+## Operational evidence
 
-Use one document per stone, present profile, and case event. Reference documents are independent of any individual case. Preserve original facts; render structured profile fields with readable labels rather than generating LLM summaries or missing facts.
+Use one stone document, one per existing profile and one per event. Read persisted records with explicitly loaded relationships; avoid implicit async lazy database access. Render stored values with readable labels without model summarization or fabricated facts. A missing profile yields no profile document; an empty/unknown attribute is not a suitability claim.
 
-Operational metadata includes external stone/case identity, case number, type, size, current status, and current shelter. Apply the same explicit filters to lexical/vector branches later; exact requests can use PostgreSQL. Recheck current state before final recommendations.
+All operational documents share external stone/case IDs and copy current type, size, adoption status, current shelter and case number. Event identity and occurred_at describe historical evidence; never derive current state from event ordering or timestamps. Preserve names and immutable source identities separately from internal database UUIDs.
 
-Encyclopedia pilot proposal: ten whole rock-type chapters plus four general sections, split at top-level Markdown headings with nested headings/caveats retained. Skip navigation, preserve source path and section identity. Inspect actual output and model input limits before finalizing finer chunking. No general Markdown parsing framework is needed for the known input.
+Define deterministic source keys for each kind: stone/profile use the external stone identity, events use external event identity. Reuse the existing UUIDv5 urn convention. Document the precise rendered text/hash inputs as implemented; keep schema/projection version 1 until an actual representation change. Source revision and content hash are diagnostic evidence, not a transactional graph-version service.
 
-## Organization
+## Reference evidence
 
-The existing local search/documents.py models and search/enums.py are draft shared evidence representations, not transport DTOs or engine schemas. Suggested search/encyclopedia.py is a pure function from Markdown text/source path to document models; tools/export_encyclopedia.py handles file I/O and JSONL inspection. Neither suggested file exists yet.
+Reuse the fourteen encyclopedia sections, including nested headings and qualifications. PY-028 supplies the authored JSON source. Extend reference document kinds/models deliberately to identify compatibility pair entries separately; do not label all knowledge encyclopedia or split JSON with MarkdownHeaderTextSplitter. Decide their concrete metadata from the authored sources, without new ORM fields.
 
-Use deterministic source identities and straightforward hashes sufficient for repeatable pilot output. Keep the current model fields without expanding them into schema migration, revision ordering, or synchronization infrastructure. Exact final conventions remain subject to inspecting generated data.
+Each reference unit carries stable source-family identity, path, section and text. Each JSON pair entry identifies both types and declares symmetric applicability through the catalog coverage rules; preserve its entry ID and edition, and do not force the pair into the encyclopedia's single optional stone_type field. No individual's adoption status, size or current shelter appears on general guidance.
 
-## Later work
+Start with one meaningful encyclopedia section or JSON pair entry per reference evidence unit. Later PY-015 verifies actual model limits and introduces explicit finer splitting only if necessary. Source-specific preparation functions are sufficient; no generic ingestion framework.
 
-Projection/indexing continues in PY-013. Embeddings, Typesense/Qdrant adapters, retrieval, and LangGraph follow the pilot plan. PY-017 owns reviewed evaluation datasets after the first result. Benchmarking, reranking, retries, partial failures, and freshness recovery do not gate this change.
+## Direct handoff
 
-## Evidence boundary
+Preparation returns document objects. PY-013 serializes them to Typesense; PY-015/PY-016 use the same IDs and text for vectors and Qdrant. Do not require an intermediate JSONL file. Experimental corpus snapshots belong to PY-017 later.
 
-The reconciliation branch contains documentation only. Local PY-011 models were inspected, but export and index integrations are not implemented. No new test result or provider execution is claimed.
+## Verification and boundaries
+
+Use a focused scenario reading a stored registration graph from Testcontainers, checking useful source identity, current-state metadata and absent-profile behavior. Inspect actual reference outputs with their source passages. Avoid duplicated tests of every Pydantic field or fixture. Existing encyclopedia tests stay in place.
+
+The owner-approved source-first order in ADR-0017 supersedes older export and final-schema prerequisites. docs/domain/model.md and ADR-0015 own field/state semantics. Typed quality is required; exhaustive negative paths, revisions, queues and measured relevance are later work.

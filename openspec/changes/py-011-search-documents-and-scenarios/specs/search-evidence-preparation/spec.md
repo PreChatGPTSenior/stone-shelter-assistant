@@ -18,5 +18,19 @@ Operational documents SHALL copy current type, size, adoption status, and shelte
 The pilot preparation SHALL retain meaningful encyclopedia text and caveats with source path and section identity. It SHALL support inspecting generated documents before engine integration, without requiring a generic parser framework or a complete evaluation dataset.
 
 #### Scenario: Prepare a rock-type chapter
-- **WHEN** the pilot exports a selected chapter from the known English Markdown encyclopedia
+- **WHEN** the pilot prepares a selected chapter from the known English Markdown encyclopedia
 - **THEN** its nested context remains readable and its section/source reference can be traced to the original file
+
+### Requirement: Distinct reference families
+Prepared reference evidence SHALL distinguish encyclopedia and fictional JSON type compatibility with stable family, path and section references. It SHALL preserve pair applicability or other authored conditions without assigning an individual case state.
+
+#### Scenario: Prepare a type-pair compatibility rule
+- **WHEN** an authored section describes conditional compatibility between two rock types
+- **THEN** its evidence preserves both types, the stated condition and source identity rather than disguising it as a single stone's profile or geological fact
+
+### Requirement: Direct shared evidence handoff
+Preparation SHALL supply document objects with shared stable identities directly to lexical/vector adapters; an application JSONL file SHALL NOT be required.
+
+#### Scenario: Prepare the same corpus for both engines
+- **WHEN** both adapters consume the prepared evidence
+- **THEN** the same logical section or event has the same evidence ID without an intermediate application export file
