@@ -9,7 +9,7 @@
 
 ## Current sequencing amendment
 
-[ADR-0017](0017-source-first-tool-routed-pilot.md), accepted on 2026-11-08, moves compatibility and astral source authoring before index integration and requires actual bounded LLM tool selection in the pilot. The detailed experiment matrix below remains later work; it does not require production recovery before the first result. See the [per-ticket OpenSpec map](../search/pilot-delivery-plan.md).
+[ADR-0017](0017-source-first-tool-routed-pilot.md), accepted on 2026-11-08, moves source authoring before index integration and requires actual bounded LLM tool selection in the pilot. ADR-0018 narrows the sources to the operational corpus, encyclopedia and authored JSON compatibility guide; tarot is deferred. The detailed experiment matrix below remains later work; it does not require production recovery before the first result. See the [per-ticket OpenSpec map](../search/pilot-delivery-plan.md).
 
 ## Context
 

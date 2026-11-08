@@ -1,9 +1,11 @@
 # ADR-0009 Fictional pet-stone profiles and authored compatibility rules
 
-- Status: Accepted domain design; not implemented
+- Status: Profile registration implemented through PY-010; authored compatibility remains planned
 - Date: 2026-10-29
 - Refines: [ADR-0006](0006-rag-and-agent-learning-focus.md) and [ADR-0008](0008-external-batch-ingestion-and-partial-updates.md)
 - Requirements: [Fictional pet profiles](../requirements/rag-learning.md#4-fictional-pet-profiles-and-compatibility)
+
+> Reconciled 2026-11-05: The exact profile enum vocabulary, nullability and storage are implemented and documented in docs/domain/model.md. The earlier open vocabulary discussion below is historical. Type-compatibility and astral source content remain unimplemented future exercises; neither blocks the pilot. See the [current domain contract](../domain/model.md) and [pilot plan](../search/pilot-delivery-plan.md).
 
 ## Context
 
