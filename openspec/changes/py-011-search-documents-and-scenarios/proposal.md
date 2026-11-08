@@ -2,7 +2,7 @@
 
 ## Why
 
-The source corpus needs concrete shared evidence units before either index can be populated. Pydantic models and fourteen encyclopedia sections already exist locally; operational projection and new reference families remain pending.
+The source corpus needs concrete shared evidence units before either index can be populated. Pydantic models and fourteen encyclopedia sections are published in master; operational projection and new reference families remain pending.
 
 ## What Changes
 

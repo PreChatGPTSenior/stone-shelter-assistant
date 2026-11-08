@@ -1,6 +1,6 @@
 # PY-011 preparation checklist
 
-Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14. Reviewed 2026-11-08 against local code; no new runtime verification in this documentation pass.
+Issue: https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14. Published in PR #32. Before merge, OpenSpec validation passed and 43 tests passed, including the encyclopedia preparation scenario. The remaining projection work is unverified.
 
 ## Existing local work
 

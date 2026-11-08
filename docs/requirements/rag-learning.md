@@ -449,7 +449,7 @@ Compare integration effort, orchestration, context handling, tools, observabilit
 The complete dependency map and per-ticket OpenSpec links live in [the delivery plan](../search/pilot-delivery-plan.md).
 
 1. Review the existing stone JSON and encyclopedia; use the complete authored JSON compatibility guide (PY-027/PY-028); tarot is deferred.
-2. Finish source-to-evidence preparation (PY-011), reusing existing models and encyclopedia splitting. Typesense connection work already exists locally (PY-012).
+2. Finish source-to-evidence preparation (PY-011), reusing published models and encyclopedia splitting. Typesense connection work is delivered (PY-012).
 3. Index Typesense, add lexical and typed PostgreSQL retrieval (PY-013/PY-014).
 4. Embed through one selected LangChain integration and index/query Qdrant (PY-015/PY-016).
 5. Combine branches with RRF, group evidence and recheck current state in PostgreSQL (PY-018).

@@ -1,6 +1,6 @@
 # PY-011 Search documents and query routing
 
-- Status: Evidence models and encyclopedia preparation exist locally; operational/new reference preparation and retrieval remain pending
+- Status: Evidence models and encyclopedia preparation are published; operational/new reference preparation and retrieval remain pending
 - Date: 2026-10-30
 - Tracking: [PY-011](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14)
 - Related: [Domain model](../domain/model.md), [ADR-0016](../adr/0016-typesense-lexical-qdrant-vector-experiments.md), [RAG learning requirements](../requirements/rag-learning.md)
@@ -80,4 +80,4 @@ This verification protects against false-positive eligibility from stale index d
 
 ## Boundaries and remaining decisions
 
-Typesense infrastructure/client and encyclopedia preparation now exist locally; neither index population nor retrieval is implemented. Remaining PY-011 work is operational graph projection and preparation of the JSON compatibility reference family with concrete identities and provenance. Deliver prepared objects directly to adapters, without application JSONL export. Final universal schemas and reviewed relevance datasets are not prerequisites; evaluation follows the pilot in PY-017. See the delivery plan and OpenSpec tasks for the authoritative sequence. This document does not close tickets or authorize implementation.
+Typesense infrastructure/client and encyclopedia preparation are published in master; neither index population nor retrieval is implemented. Remaining PY-011 work is operational graph projection and preparation of the JSON compatibility reference family with concrete identities and provenance. Deliver prepared objects directly to adapters, without application JSONL export. Final universal schemas and reviewed relevance datasets are not prerequisites; evaluation follows the pilot in PY-017. See the delivery plan and OpenSpec tasks for the authoritative sequence. This document does not close tickets or authorize implementation.

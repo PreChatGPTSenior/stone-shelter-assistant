@@ -18,8 +18,8 @@ Updated: 2026-11-08.
 | openspec/specs/http-application/spec.md | Implemented HTTP composition/OpenAPI baseline |
 | openspec/specs/stone-registration/spec.md | Implemented single-stone graph registration, data loading and database-target boundaries |
 | openspec/changes/py-002-db-support | Historical delivered database change; deferred two-UoW verification remains explicit; not archived by this synchronization |
-| openspec/changes/py-011-search-documents-and-scenarios | Existing local preparation plus remaining operational/new reference evidence for issue #14 |
-| openspec/changes/py-012-typesense-infrastructure | Existing local Typesense connection work and prior verification evidence, issue #15 |
+| openspec/changes/py-011-search-documents-and-scenarios | Published models and encyclopedia preparation; remaining operational/new reference evidence for open issue #14 |
+| openspec/changes/py-012-typesense-infrastructure | Delivered Typesense connection and verified disposable test support; issue #15 completed |
 | docs/search/pilot-delivery-plan.md | Complete linked map of PY-011–PY-030 plus deferred PY-004/PY-006; exact phases/dependencies and remote issue mapping |
 | openspec/changes/py-027-pilot-source-corpus, py-028-type-compatibility-source | First source-preparation stage; PY-028 JSON is authored locally; local proposed ticket IDs, not created GitHub issues |
 | openspec/changes/py-030-connected-search-pilot | Final connected HTTP/real-model demonstration milestone; local proposed ticket ID |

@@ -4,7 +4,7 @@ Updated: 2026-11-08. Authority: [ADR-0017](../adr/0017-source-first-tool-routed-
 
 ## Reading this plan
 
-The numbered order below is the work sequence, not numeric ticket order. Existing GitHub issue IDs are retained. PY-027 through PY-030 are **local proposed planning identifiers only**, not created GitHub tickets or issue numbers. Confirm/reserve their ticket IDs when publishing to the board; rename the local changes if those IDs have since been used. GitHub and the board were read, not changed in this documentation pass.
+The numbered order below is the work sequence, not numeric ticket order. Existing GitHub issue IDs are retained. PY-027 through PY-030 are **local proposed planning identifiers only**, not created GitHub tickets or issue numbers. Confirm/reserve their ticket IDs when publishing to the board; rename the local changes if those IDs have since been used. PY-011 is In progress on the board; PY-012 is Done.
 
 Each linked OpenSpec change contains proposal.md, design.md, tasks.md and capability requirements/scenarios under specs/. The presence of these artifacts is not implementation completion. Only evidence-backed pre-existing PY-011/PY-012 work is checked; future tasks remain unchecked. Post-pilot changes are documented backlog, not an instruction to apply every change now. Broader PY-019/PY-022 tickets have separate pilot and later checklists.
 
@@ -15,7 +15,7 @@ Each linked OpenSpec change contains proposal.md, design.md, tasks.md and capabi
 | 1 | PY-027 | [Prepare the operational corpus and encyclopedia for the pilot](../../openspec/changes/py-027-pilot-source-corpus/proposal.md) | First: source preparation | PY-010 (delivered); coordinate with PY-028 | Local proposal; GitHub issue not created |
 | 2 | PY-028 | [Fictional compatibility JSON (authored locally)](../../openspec/changes/py-028-type-compatibility-source/proposal.md) | First: source preparation | Existing StoneType vocabulary; coordinate with PY-027 | Local proposal; GitHub issue not created |
 | 3 | PY-011 | [Prepare shared source evidence](../../openspec/changes/py-011-search-documents-and-scenarios/proposal.md) | Preparation | Sources prepared in PY-027/PY-028 | [#14](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/14) |
-| 4 | PY-012 | [Typesense connection (implemented locally)](../../openspec/changes/py-012-typesense-infrastructure/proposal.md) | Existing foundation; do not redo | No corpus dependency for connection work | [#15](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/15) |
+| 4 | PY-012 | [Typesense connection (delivered)](../../openspec/changes/py-012-typesense-infrastructure/proposal.md) | Existing foundation; do not redo | No corpus dependency for connection work | [#15, completed](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/15) |
 | 5 | PY-013 | [Create Typesense collections and index prepared evidence](../../openspec/changes/py-013-typesense-indexing/proposal.md) | Pilot: indexing | PY-011 and PY-012; source corpus PY-027/PY-028 | [#16](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/16) |
 | 6 | PY-014 | [Retrieve lexical evidence and exact PostgreSQL candidates](../../openspec/changes/py-014-lexical-and-structured-retrieval/proposal.md) | Pilot: retrieval | PY-013 | [#17](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/17) |
 | 7 | PY-015 | [Generate document and query embeddings through LangChain](../../openspec/changes/py-015-langchain-embeddings/proposal.md) | Pilot: embeddings | PY-011 and prepared corpus; independent of Typesense availability | [#18](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/issues/18) |
@@ -71,7 +71,7 @@ The compatibility JSON is already authored. A separate tarot idea is deferred an
 
 ## Code audit and implementation evidence
 
-Read-only audit on 2026-11-08; no application tests, provider calls or database access were performed for this plan.
+Code and documentation were published in [PR #32](https://github.com/PreChatGPTSenior/stone-shelter-lab-py/pull/32) on 2026-11-08. Verification before merge: strict OpenSpec validation (25 passed), Ruff check/format, mypy (82 source files), pytest (43 passed using disposable Testcontainers), and Docker Compose configuration. No model/provider calls were made.
 
 | Evidence inspected | What exists | What is still missing |
 | --- | --- | --- |
@@ -85,7 +85,7 @@ Read-only audit on 2026-11-08; no application tests, provider calls or database 
 | integration/conftest.py; integration/search/test_typesense.py | Isolated PostgreSQL/Typesense containers and authenticated Typesense smoke test | Real retrieval and connected graph scenarios |
 | source tree and accepted backlog | Registration path and prepared data foundation | Embeddings, Qdrant, RRF, tools, graph, answers, tracing, budgets and evaluation |
 
-PY-012's existing checklist records a previous make check run with 43 passing tests; this audit did not repeat it or claim it verifies unimplemented retrieval. PY-011 and PY-012 implementation is included with the current feature branch for publication; GitHub ticket status must be updated separately. No board status is changed by marking an existing local implementation item in OpenSpec.
+PY-012 connection work is merged and its GitHub issue is closed/Done. PY-011 remains open/In progress: operational graph projection, JSON compatibility evidence preparation, representative output inspection and focused verification are still pending. The passing tests do not verify unimplemented index population or retrieval.
 
 ## Historical boundaries
 
