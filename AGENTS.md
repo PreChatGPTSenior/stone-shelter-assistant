@@ -1,5 +1,15 @@
 # Agent instructions
 
+## THIS IS A LEARNING PROJECT — HAPPY PATH UNTIL THE FIRST PILOT
+
+- Read and follow [the project manifesto](docs/project-manifesto.md) before proposing, planning, or implementing work. It governs current sequencing when older ADRs or broad ticket criteria would delay the first result.
+- Optimize for the first connected flow: source documents and encyclopedia -> Typesense lexical retrieval and Qdrant vectors -> LangChain/LangGraph -> an evidence-based answer, with minimum useful Langfuse tracing.
+- Keep scope narrow while maintaining idiomatic, typed, readable code and correct use of libraries. Production readiness and hypothetical negative outcomes are not current learning objectives.
+- Until the pilot works or the owner explicitly selects another exercise, do not add negative-path matrices, resilience/fallback frameworks, workers/queues, synchronization/retry machinery, elaborate versioning, or generic abstractions. Existing validation, constraints, cleanup, and tests stay in place; errors must remain visible.
+- Do not require finalized schemas, exhaustive relevance judgments, or a full eval harness before the first working search. Prepare enough consistent data and representation to run it, then refine from observed behavior.
+- After the pilot, establish the baseline and introduce evaluation frameworks, metrics, and controlled improvements. Broad experiment tickets are later backlog, not mandatory prerequisites.
+- Tie each proposed step to the immediate pilot outcome; defer unrelated enhancements. This rule does not authorize data deletion, provider spending, code edits, or Git operations beyond the owner's request.
+
 ## README ownership
 
 - Never create, edit, overwrite, move, rename, or delete a `README` file, including `README.md`, anywhere in this repository. README content is maintained exclusively by the project owner.
@@ -57,3 +67,6 @@
 ## Git operations
 
 - Do not commit, push, or merge without an explicit request. Permission to edit a file does not itself authorize these Git operations.
+- A commit is forbidden until the staged changes have been checked against the current OpenSpec specifications/change artifacts, domain contract, requirements, and relevant ADRs. Update every affected specification or decision document to reflect the actual agreed behavior before committing; do not defer specification synchronization to a later commit.
+- Check that the staged documentation updates are included with the implementation they describe. Distinguish implemented, proposed, superseded, and deferred behavior; never mark unverified work complete. If no specification change is needed, state that the review was performed and why the existing specification remains accurate.
+- Run OpenSpec validation when OpenSpec artifacts are changed. Structural validation does not replace semantic review against the code, contracts, and current owner decisions. Unresolved specification contradictions block the commit and must be reported to the owner.

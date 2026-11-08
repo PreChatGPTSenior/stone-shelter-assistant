@@ -1,5 +1,7 @@
 # PY-002 Database support
 
+> Historical PY-002 scope. Delivered and merged (fcc427d); see tasks.md for current evidence and deferred checks. PY-007 supersedes the original test-target workflow; ADR-0014 permits persistent local application data. The earlier CRUD sequence is not the current pilot plan.
+
 ## Why
 
 The application starts and serves OpenAPI, but does not yet manage PostgreSQL connections or transactions. Establish this foundation before implementing simple Stone CRUD.
@@ -33,4 +35,4 @@ No Stone or AdoptionListing models, business tables, CRUD routes, photos, embedd
 - Branch: `PY-002-db-support`
 - Board: [Stone Shelter Python](https://github.com/users/PreChatGPTSenior/projects/1/views/1)
 - Decisions: [ADR index](../../../docs/adr/README.md)
-- Implementation: not started by this documentation change; tasks remain unchecked.
+- Implementation: delivered for the agreed scope; issue #2 is closed. Current deferred verification is explicit in tasks.md.

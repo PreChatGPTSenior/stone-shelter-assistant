@@ -1,0 +1,835 @@
+{
+  "catalog_id": "pebble-bureau-cohabitation-guide",
+  "edition": "1.0",
+  "language": "en",
+  "title": "The Pebble Bureau Guide to Sharing a Shelf Without Starting a Geological Incident",
+  "publisher": {
+    "name": "Bureau of Unnecessary but Surprisingly Useful Pet-Rock Affairs",
+    "fictional": true,
+    "editorial_note": "Compiled by imaginary shelter staff after several entirely invented domestic incidents. No actual moon was consulted."
+  },
+  "scope": "Fictional pet-stone cohabitation guidance. These are authored world rules, not geology, biology, clinical advice or measured compatibility probabilities.",
+  "coverage": {
+    "stone_types": [
+      "BASALT",
+      "GNEISS",
+      "GRANITE",
+      "LIMESTONE",
+      "MARBLE",
+      "OBSIDIAN",
+      "PUMICE",
+      "SANDSTONE",
+      "SHALE",
+      "SLATE"
+    ],
+    "pairing": "unordered_with_repetition",
+    "symmetric": true,
+    "pair_count": 55,
+    "same_type_meaning": "Two distinct pets of the same rock type, never one pet paired with itself.",
+    "unlisted_type_policy": "Unknown; do not infer a rule for a type outside this edition."
+  },
+  "reading_rules": [
+    "Each pair appears once. Reversing the two type names selects the same entry and verdict. Role-specific advice in prose is still about the named pet type.",
+    "Verdicts describe ordinary shared-home suitability in this fictional guide; they are categories, not scores or guarantees.",
+    "Individual profiles, recorded experiences and current care needs take precedence when deciding whether a general pairing fits particular pets. Missing individual information remains unknown.",
+    "Never overwrite an individual socialization trait, health note or trigger with a type stereotype from this guide.",
+    "Current adoption availability and shelter come only from operational case records. A harmonious pair may contain pets unavailable for adoption.",
+    "NOT_RECOMMENDED means do not recommend routine cohabitation from this general guide. Brief-visit advice is not an exception authorizing adoption together.",
+    "Planetary remarks, imaginary physiology and Bureau anecdotes are jokes inside this fictional world. They require no ephemeris, birth date, tarot service or new pet attributes.",
+    "Cite the catalog ID, edition and pair entry ID. Type portraits are background; pair entries supply the actual pair-specific guidance."
+  ],
+  "verdicts": {
+    "HARMONIOUS": "Generally well matched within the fictional world; follow the household agreement and check the individual pets.",
+    "CONDITIONAL": "A shared home is plausible only when the household can provide the stated accommodations.",
+    "NOT_RECOMMENDED": "Prefer separate households for ordinary long-term cohabitation; good intentions alone do not resolve the described mismatch."
+  },
+  "type_portraits": [
+    {
+      "stone_type": "BASALT",
+      "nickname": "The retired volcano with a clipboard",
+      "temperament": "Devoted, punctual and protective; considers a missed bedtime a minor tectonic emergency.",
+      "comforts": "Predictable evenings, a warm-colored lamp and a job that does not involve supervising everyone.",
+      "sensitivities": "Being called a cold person; surprise parties disguised as emergency drills."
+    },
+    {
+      "stone_type": "GNEISS",
+      "nickname": "The striped improviser with a practical streak",
+      "temperament": "Resourceful and playful; changes plans cheerfully but remembers who needs warning.",
+      "comforts": "Projects, music at an agreed volume and permission to be more than one mood.",
+      "sensitivities": "Being told to pick a single stripe; having improvisation mistaken for dishonesty."
+    },
+    {
+      "stone_type": "GRANITE",
+      "nickname": "The committee chair of the windowsill",
+      "temperament": "Patient and dependable; can turn choosing a cushion into a three-meeting consultation.",
+      "comforts": "Stable arrangements, shared rituals and companions willing to disagree politely.",
+      "sensitivities": "Furniture moved without minutes; accusations that its speckles are decorative indecision."
+    },
+    {
+      "stone_type": "LIMESTONE",
+      "nickname": "The custodian of ancestral soup",
+      "temperament": "Nurturing and sentimental; keeps a family story for every invented fossil.",
+      "comforts": "Gentle conversation, familiar objects and companions who ask before reorganizing memories.",
+      "sensitivities": "Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch."
+    },
+    {
+      "stone_type": "MARBLE",
+      "nickname": "The opera patron who is also the opera",
+      "temperament": "Affectionate and expressive; believes a compliment should have a lighting plan.",
+      "comforts": "Regular attention, beautiful little rituals and companions who can decline an encore kindly.",
+      "sensitivities": "Being ignored during a dramatic entrance; polishing presented as a personality cure."
+    },
+    {
+      "stone_type": "OBSIDIAN",
+      "nickname": "The velvet-caped emotional detective",
+      "temperament": "Perceptive, private and theatrical; notices every sigh and occasionally invents a sequel.",
+      "comforts": "Clear affection, permission to retreat and compliments that are not jokes about sharpness.",
+      "sensitivities": "Public teasing, unexpected touching and people reading its reflective surface as an invitation."
+    },
+    {
+      "stone_type": "PUMICE",
+      "nickname": "The social balloon with a geological passport",
+      "temperament": "Bouncy, curious and easily delighted; invites the postbox to birthdays.",
+      "comforts": "Company, short playful activities and help remembering that quiet companions still like it.",
+      "sensitivities": "Long punitive silences; being told to calm down without being offered something else to do."
+    },
+    {
+      "stone_type": "SANDSTONE",
+      "nickname": "The traveler who brings the beach indoors",
+      "temperament": "Adaptable and affectionate; leaves emotional breadcrumbs and imaginary sand in every friendship.",
+      "comforts": "Room for small adventures, a welcoming return ritual and no shame about untidiness.",
+      "sensitivities": "Being treated as a renovation problem; promises of permanent stillness."
+    },
+    {
+      "stone_type": "SHALE",
+      "nickname": "The archivist with too many feelings on separate pages",
+      "temperament": "Observant, softly funny and easily overstimulated; needs time to unfold an opinion.",
+      "comforts": "Low-volume conversation, patient invitations and a private shelf nobody borrows.",
+      "sensitivities": "Being rushed to open up; communal confession games and leaf-blower impressions."
+    },
+    {
+      "stone_type": "SLATE",
+      "nickname": "The minimalist librarian of other people's chaos",
+      "temperament": "Quiet, precise and dryly affectionate; writes wonderful notes instead of making speeches.",
+      "comforts": "Clear boundaries, uncluttered space and companionship that does not require constant talking.",
+      "sensitivities": "Loud scraping sounds; anyone calling silence a relationship defect."
+    }
+  ],
+  "pairings": [
+    {
+      "id": "compatibility:basalt+basalt",
+      "stone_types": [
+        "BASALT",
+        "BASALT"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Two captains, one bedtime",
+      "explanation": "Their loyalty is excellent, but both may issue the evening instructions and wait for the other to salute.",
+      "household_agreement": "Alternate responsibility for the bedtime bell; give each a separate small project.",
+      "avoid": "Do not appoint both chief safety officer of the same cushion.",
+      "bureau_note": "At Pebble Haven, a disagreement about lights-out ended only when the lamp joined a union."
+    },
+    {
+      "id": "compatibility:basalt+gneiss",
+      "stone_types": [
+        "BASALT",
+        "GNEISS"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Jazz with a reliable fire exit",
+      "explanation": "Gneiss welcomes a steady partner without losing its playful streak. Basalt appreciates an improviser who still remembers the agreed essentials.",
+      "household_agreement": "Keep core routines stable and let Gneiss choose optional variations.",
+      "avoid": "Do not rewrite essential agreements in the middle of a joke.",
+      "bureau_note": "Their emergency meeting accidentally became a very well-organized jazz quartet."
+    },
+    {
+      "id": "compatibility:basalt+granite",
+      "stone_types": [
+        "BASALT",
+        "GRANITE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The neighborhood watch that remembers birthdays",
+      "explanation": "Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.",
+      "household_agreement": "Give them one shared ritual and some unstructured time without an agenda.",
+      "avoid": "Do not let sensible planning consume every playful activity.",
+      "bureau_note": "They once prepared a fire drill for a birthday candle, then baked the birthday an apology."
+    },
+    {
+      "id": "compatibility:basalt+limestone",
+      "stone_types": [
+        "BASALT",
+        "LIMESTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Security for the family scrapbook",
+      "explanation": "Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.",
+      "household_agreement": "Let Limestone choose the evening story and Basalt arrange the cozy seating.",
+      "avoid": "Do not turn family traditions into mandatory inspections.",
+      "bureau_note": "The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge."
+    },
+    {
+      "id": "compatibility:basalt+marble",
+      "stone_types": [
+        "BASALT",
+        "MARBLE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "Emergency siren versus opening night",
+      "explanation": "Marble reads enthusiastic applause as affection; Basalt treats every encore as a preventable disruption. Shared routines become daily negotiations about who is too much.",
+      "household_agreement": "Prefer separate households; for short visits provide separate resting spaces and a clear end time.",
+      "avoid": "Do not ask Marble to become invisible or Basalt to enjoy continuous premieres.",
+      "bureau_note": "The Bureau blames Mercury being in the Moon. The actual complaint form says: six curtain calls after bedtime."
+    },
+    {
+      "id": "compatibility:basalt+obsidian",
+      "stone_types": [
+        "BASALT",
+        "OBSIDIAN"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Practical love meets dramatic subtitles",
+      "explanation": "Basalt shows care by fixing problems; Obsidian wants its feelings heard before the toolbox arrives.",
+      "household_agreement": "Start disagreements with a listening interval, then ask whether advice is wanted.",
+      "avoid": "Do not answer a confession with a maintenance checklist.",
+      "bureau_note": "Their first successful date consisted of Basalt saying: that sounds difficult, without adding a solution."
+    },
+    {
+      "id": "compatibility:basalt+pumice",
+      "stone_types": [
+        "BASALT",
+        "PUMICE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The safety briefing and the confetti cannon",
+      "explanation": "Basalt can offer reassuring structure, while Pumice brings play. Trouble starts when protection becomes constant correction.",
+      "household_agreement": "Schedule a short lively play period followed by separate quiet activities.",
+      "avoid": "Do not make Pumice earn affection by sitting perfectly still.",
+      "bureau_note": "Pumice was delighted by the evacuation map and immediately colored it as a treasure hunt."
+    },
+    {
+      "id": "compatibility:basalt+sandstone",
+      "stone_types": [
+        "BASALT",
+        "SANDSTONE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "A travel permit for spontaneity",
+      "explanation": "Sandstone wants unexpected adventures; Basalt wants to know when everybody will be home. Neither wish is inherently a rejection of the other.",
+      "household_agreement": "Agree on a return ritual and announce outings without demanding a full expedition plan.",
+      "avoid": "Do not confuse a little mess with a disciplinary incident.",
+      "bureau_note": "Basalt eventually accepted postcards as a legitimate branch of risk reporting."
+    },
+    {
+      "id": "compatibility:basalt+shale",
+      "stone_types": [
+        "BASALT",
+        "SHALE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "A protector learning indoor footsteps",
+      "explanation": "Basalt means to help, but a booming protective voice can make Shale withdraw. Gentle consistency works better than visible command.",
+      "household_agreement": "Use quiet invitations, keep Shale's retreat accessible and let Shale initiate closeness.",
+      "avoid": "No surprise inspections, raised voices or encouragement to toughen up.",
+      "bureau_note": "Their best conversation happened through notes slid beneath a tiny imaginary door."
+    },
+    {
+      "id": "compatibility:basalt+slate",
+      "stone_types": [
+        "BASALT",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Companionship in well-labeled silence",
+      "explanation": "Both value predictable space and promises kept. Slate helps Basalt rest without treating rest as negligence.",
+      "household_agreement": "Offer a shared quiet corner and explicit permission to spend time apart.",
+      "avoid": "Do not mistake their low-volume affection for a lack of attachment.",
+      "bureau_note": "Their anniversary card contained a single check mark. Both cried internally."
+    },
+    {
+      "id": "compatibility:gneiss+gneiss",
+      "stone_types": [
+        "GNEISS",
+        "GNEISS"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "A very competent committee of plot twists",
+      "explanation": "They share creativity and resilience, but simultaneous improvisation can leave practical needs unattended.",
+      "household_agreement": "Rotate responsibility for the stable routine while the other proposes experiments.",
+      "avoid": "Do not change both the plan and the backup plan without telling each other.",
+      "bureau_note": "They built a rotating chore wheel that briefly became a musical instrument."
+    },
+    {
+      "id": "compatibility:gneiss+granite",
+      "stone_types": [
+        "GNEISS",
+        "GRANITE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The plan and its tasteful variations",
+      "explanation": "They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.",
+      "household_agreement": "Let one plan the essentials and the other suggest reversible experiments.",
+      "avoid": "Do not label every new idea a breach of tradition.",
+      "bureau_note": "Their book club includes books, discussion and one unexplained stripe-themed intermission."
+    },
+    {
+      "id": "compatibility:gneiss+limestone",
+      "stone_types": [
+        "GNEISS",
+        "LIMESTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Tradition learns a new dance step",
+      "explanation": "Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.",
+      "household_agreement": "Keep the purpose of a ritual while allowing small agreed variations.",
+      "avoid": "Do not announce that all traditions are canceled as a practical joke.",
+      "bureau_note": "The annual family recital now includes one tasteful stripe of improvisation."
+    },
+    {
+      "id": "compatibility:gneiss+marble",
+      "stone_types": [
+        "GNEISS",
+        "MARBLE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The grand performance acquires jazz hands",
+      "explanation": "Gneiss enjoys Marble's creativity but may joke at moments Marble considers solemn. They need an agreed line between play and ridicule.",
+      "household_agreement": "Agree when improvisation is welcome and reserve some rituals exactly as requested.",
+      "avoid": "Do not remix a heartfelt speech without permission.",
+      "bureau_note": "The wedding march survived, except for one authorized kazoo."
+    },
+    {
+      "id": "compatibility:gneiss+obsidian",
+      "stone_types": [
+        "GNEISS",
+        "OBSIDIAN"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The improviser needs subtitles",
+      "explanation": "Gneiss means playful variation; Obsidian may hear uncertainty about the relationship. Clear context makes humor safer.",
+      "household_agreement": "Explain plan changes plainly and agree on topics that are not used for teasing.",
+      "avoid": "Do not answer requests for reassurance with another riddle.",
+      "bureau_note": "Their fridge note says: new dinner plan, same affection."
+    },
+    {
+      "id": "compatibility:gneiss+pumice",
+      "stone_types": [
+        "GNEISS",
+        "PUMICE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "A workshop full of manageable nonsense",
+      "explanation": "Gneiss can turn Pumice's energy into shared projects without treating curiosity as a defect.",
+      "household_agreement": "Choose short creative tasks and announce the transition to rest in advance.",
+      "avoid": "No projects that require constant activity to maintain approval.",
+      "bureau_note": "Their cardboard spaceship has excellent ventilation and no intention of obeying orbital mechanics."
+    },
+    {
+      "id": "compatibility:gneiss+sandstone",
+      "stone_types": [
+        "GNEISS",
+        "SANDSTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The expedition has a backup snack",
+      "explanation": "Both welcome novelty, and Gneiss can add just enough structure to make Sandstone's plans comfortable for everyone.",
+      "household_agreement": "Agree on the essentials and leave room for small improvised detours.",
+      "avoid": "Do not mistake a flexible plan for permission to ignore individual care needs.",
+      "bureau_note": "They took a scenic route to the kettle and returned with a plausible map."
+    },
+    {
+      "id": "compatibility:gneiss+shale",
+      "stone_types": [
+        "GNEISS",
+        "SHALE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Improvisation with advance notice",
+      "explanation": "Gneiss is considerate enough to adapt, but rapid changes can still unsettle Shale. Predictability around the essentials matters.",
+      "household_agreement": "Announce changes early and offer a quiet alternative to group projects.",
+      "avoid": "No surprise percussion sessions, even if the rhythm spells an apology.",
+      "bureau_note": "The jazz rehearsal became a handwritten playlist. Shale gave it an excellent review."
+    },
+    {
+      "id": "compatibility:gneiss+slate",
+      "stone_types": [
+        "GNEISS",
+        "SLATE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Creative chaos with labeled drawers",
+      "explanation": "Gneiss brings ideas and Slate supplies clarity. Their balance works when organization is supportive rather than a judgment of personality.",
+      "household_agreement": "Keep a shared project space separate from the quiet resting area.",
+      "avoid": "No rearranging private drawers as an exercise in spontaneity.",
+      "bureau_note": "The improvised sculpture has a catalog number. Both consider this a victory."
+    },
+    {
+      "id": "compatibility:granite+granite",
+      "stone_types": [
+        "GRANITE",
+        "GRANITE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The permanently adjourned furniture meeting",
+      "explanation": "They are wonderfully dependable but may postpone every change until both have considered every consequence twice.",
+      "household_agreement": "Rotate small decisions and set a friendly decision deadline for shared arrangements.",
+      "avoid": "Do not require unanimous approval for every cushion adjustment.",
+      "bureau_note": "The first meeting to discuss spontaneous fun is provisionally scheduled for next spring."
+    },
+    {
+      "id": "compatibility:granite+limestone",
+      "stone_types": [
+        "GRANITE",
+        "LIMESTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The dependable Sunday dinner",
+      "explanation": "Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.",
+      "household_agreement": "Keep familiar rituals while inviting one small new experience at a time.",
+      "avoid": "Do not let nostalgia become a ban on every change.",
+      "bureau_note": "Their family recipe includes one cup of patience and a sedimentary amount of gravy."
+    },
+    {
+      "id": "compatibility:granite+marble",
+      "stone_types": [
+        "GRANITE",
+        "MARBLE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The patron and the publicity department",
+      "explanation": "Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.",
+      "household_agreement": "Agree on modest, regular appreciation rituals and protected quiet time.",
+      "avoid": "Do not use extravagant gifts as a substitute for clear attention.",
+      "bureau_note": "Granite's annual review said excellent companion. Marble requested it be read with orchestral backing."
+    },
+    {
+      "id": "compatibility:granite+obsidian",
+      "stone_types": [
+        "GRANITE",
+        "OBSIDIAN"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "A steady audience for complicated feelings",
+      "explanation": "Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.",
+      "household_agreement": "Use direct reassurance and private conversations rather than guessing at silence.",
+      "avoid": "No public jokes about sensitivity or emotional overengineering.",
+      "bureau_note": "Granite listened to all three acts of the problem and did not ask when the interval was."
+    },
+    {
+      "id": "compatibility:granite+pumice",
+      "stone_types": [
+        "GRANITE",
+        "PUMICE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The agenda acquires stickers",
+      "explanation": "Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.",
+      "household_agreement": "Alternate a predictable shared activity with a brief playful one.",
+      "avoid": "Do not schedule an entire day of compulsory stillness or compulsory excitement.",
+      "bureau_note": "Pumice added a standing item called pleasant nonsense to the household agenda."
+    },
+    {
+      "id": "compatibility:granite+sandstone",
+      "stone_types": [
+        "GRANITE",
+        "SANDSTONE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Roots and a borrowed suitcase",
+      "explanation": "Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.",
+      "household_agreement": "Keep a familiar home corner and agree on room for short adventures.",
+      "avoid": "Do not turn every departure into a referendum on loyalty.",
+      "bureau_note": "Granite secretly keeps every postcard, filed by how much it missed the sender."
+    },
+    {
+      "id": "compatibility:granite+shale",
+      "stone_types": [
+        "GRANITE",
+        "SHALE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The archive gets a trustworthy custodian",
+      "explanation": "Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.",
+      "household_agreement": "Offer slow introductions and quiet companionship with no compulsory conversation.",
+      "avoid": "Do not answer on Shale's behalf just because a pause is long.",
+      "bureau_note": "It took a week to exchange a joke. Both agreed it was worth the preparation."
+    },
+    {
+      "id": "compatibility:granite+slate",
+      "stone_types": [
+        "GRANITE",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Order without constant supervision",
+      "explanation": "Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.",
+      "household_agreement": "Write down shared expectations and keep a private shelf for each.",
+      "avoid": "Do not transform their tidy household into a competitive inspection.",
+      "bureau_note": "Visitors describe the atmosphere as a library that remembers to offer tea."
+    },
+    {
+      "id": "compatibility:limestone+limestone",
+      "stone_types": [
+        "LIMESTONE",
+        "LIMESTONE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Whose ancestral soup is this anyway",
+      "explanation": "They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.",
+      "household_agreement": "Alternate rituals and give sentimental belongings separate respectful spaces.",
+      "avoid": "No competitive ancestry or declaring one family story more authentic.",
+      "bureau_note": "Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not."
+    },
+    {
+      "id": "compatibility:limestone+marble",
+      "stone_types": [
+        "LIMESTONE",
+        "MARBLE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The family album goes to finishing school",
+      "explanation": "They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.",
+      "household_agreement": "Separate display decisions from treasured personal keepsakes and ask before tidying.",
+      "avoid": "Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.",
+      "bureau_note": "The old soup bowl now wears a ribbon, strictly by consent."
+    },
+    {
+      "id": "compatibility:limestone+obsidian",
+      "stone_types": [
+        "LIMESTONE",
+        "OBSIDIAN"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Comfort without unwanted excavation",
+      "explanation": "Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.",
+      "household_agreement": "Ask whether company, advice or solitude is wanted before opening the memory album.",
+      "avoid": "Do not dig for a backstory to explain every quiet evening.",
+      "bureau_note": "The approved phrase is would you like tea, not who hurt your tectonic plates."
+    },
+    {
+      "id": "compatibility:limestone+pumice",
+      "stone_types": [
+        "LIMESTONE",
+        "PUMICE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The story gets a very enthusiastic audience",
+      "explanation": "Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.",
+      "household_agreement": "Alternate storytelling with small playful activities and keep rest time predictable.",
+      "avoid": "Do not cast Limestone as an unpaid full-time babysitter.",
+      "bureau_note": "Pumice applauded the same ancestral soup story seven times, sincerely."
+    },
+    {
+      "id": "compatibility:limestone+sandstone",
+      "stone_types": [
+        "LIMESTONE",
+        "SANDSTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "A home for the returning storyteller",
+      "explanation": "Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.",
+      "household_agreement": "Keep a familiar return ritual while allowing new stories and souvenirs.",
+      "avoid": "Do not make travel souvenirs pass an ancestry exam.",
+      "bureau_note": "A grain of imaginary desert sand was adopted into the family scrapbook."
+    },
+    {
+      "id": "compatibility:limestone+shale",
+      "stone_types": [
+        "LIMESTONE",
+        "SHALE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The gentle archive reading circle",
+      "explanation": "Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.",
+      "household_agreement": "Provide a calm corner and ask permission before sharing personal stories with visitors.",
+      "avoid": "No mandatory group reminiscing or pressure to disclose difficult memories.",
+      "bureau_note": "Their favorite activity is remembering a nice afternoon without organizing a reunion."
+    },
+    {
+      "id": "compatibility:limestone+slate",
+      "stone_types": [
+        "LIMESTONE",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Warm hospitality with a closing time",
+      "explanation": "Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.",
+      "household_agreement": "Agree on visiting hours and keep a private shelf for sentimental objects.",
+      "avoid": "Do not equate a request for solitude with ingratitude.",
+      "bureau_note": "Slate wrote a thank-you note for being allowed to leave a lovely gathering early."
+    },
+    {
+      "id": "compatibility:marble+marble",
+      "stone_types": [
+        "MARBLE",
+        "MARBLE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Two divas and a negotiable spotlight",
+      "explanation": "They understand the pleasure of being appreciated, but admiration can become a scarce resource if every moment is a competition.",
+      "household_agreement": "Alternate small celebrations and give equal private reassurance outside performances.",
+      "avoid": "No ranking beauty, brilliance, pedigree or curtain-call duration.",
+      "bureau_note": "The household owns two identical spotlights and a surprisingly detailed peace agreement."
+    },
+    {
+      "id": "compatibility:marble+obsidian",
+      "stone_types": [
+        "MARBLE",
+        "OBSIDIAN"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "Opening night in the hall of mirrors",
+      "explanation": "Both need to feel seen, but Marble seeks an audience where Obsidian seeks intimacy. Shared attention can turn into painful comparison.",
+      "household_agreement": "Prefer separate households and short visits with no competitions or public ranking.",
+      "avoid": "No beauty contests, dramatic jealousy exercises or jokes about who is the real star.",
+      "bureau_note": "An astrologer blamed Venus. The shelter report blamed a single spotlight and two acceptance speeches."
+    },
+    {
+      "id": "compatibility:marble+pumice",
+      "stone_types": [
+        "MARBLE",
+        "PUMICE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Applause with scheduled intervals",
+      "explanation": "Pumice loves a performance and Marble loves an appreciative friend. Both need reminders that ordinary quiet days still count as friendship.",
+      "household_agreement": "Schedule a small show-and-tell and an equally respected no-performance period.",
+      "avoid": "Do not reward escalating drama with unlimited attention.",
+      "bureau_note": "The standing ovation lasted until a staff member introduced the concept of sitting."
+    },
+    {
+      "id": "compatibility:marble+sandstone",
+      "stone_types": [
+        "MARBLE",
+        "SANDSTONE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "The museum floor meets the beach holiday",
+      "explanation": "Marble may experience Sandstone's casual clutter as disrespect, while Sandstone feels judged for simply being at home. Repeated correction erodes warmth.",
+      "household_agreement": "Prefer separate households; shared visits need a clearly designated informal space.",
+      "avoid": "No shame-based cleaning rituals or jokes that Sandstone is shedding its dignity.",
+      "bureau_note": "Marble described one imaginary grain of sand as an installation without curatorial approval."
+    },
+    {
+      "id": "compatibility:marble+shale",
+      "stone_types": [
+        "MARBLE",
+        "SHALE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "The whisper and the chandelier",
+      "explanation": "Marble's expressive arrivals can overwhelm Shale. Shale's quiet retreat can feel like public rejection to Marble, creating an exhausting loop.",
+      "household_agreement": "Prefer separate households and small planned visits without an audience.",
+      "avoid": "Do not ask Shale to applaud through distress or Marble to regard silence as an insult.",
+      "bureau_note": "A chandelier appeared in the archive. Nobody admitted ordering it."
+    },
+    {
+      "id": "compatibility:marble+slate",
+      "stone_types": [
+        "MARBLE",
+        "SLATE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Curtain calls before library hours",
+      "explanation": "Marble can enjoy a quiet, loyal audience if Slate's need for silence is respected. Slate must be able to decline a performance without emotional penalties.",
+      "household_agreement": "Set predictable performance windows and a protected quiet period afterward.",
+      "avoid": "No passive-aggressive encores outside the agreed hours.",
+      "bureau_note": "Slate applauds in writing. Marble frames every review."
+    },
+    {
+      "id": "compatibility:obsidian+obsidian",
+      "stone_types": [
+        "OBSIDIAN",
+        "OBSIDIAN"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Two mirrors, four interpretations",
+      "explanation": "They understand emotional nuance but can reflect each other's anxiety until a small sigh becomes a multi-season mystery.",
+      "household_agreement": "Ask direct questions and use separate retreat spaces before discussing difficult feelings.",
+      "avoid": "No tests of affection based on whether the other guessed an unspoken need.",
+      "bureau_note": "They once spent an afternoon apologizing for different imaginary offenses."
+    },
+    {
+      "id": "compatibility:obsidian+pumice",
+      "stone_types": [
+        "OBSIDIAN",
+        "PUMICE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "The private diary meets a megaphone",
+      "explanation": "Pumice tends to share excitement publicly; Obsidian needs privacy and deliberate emotional boundaries. Good intentions do not erase repeated embarrassment.",
+      "household_agreement": "Prefer separate households; brief supervised play should have explicit privacy rules.",
+      "avoid": "Do not announce Obsidian's feelings to the room or treat retreat as a party invitation.",
+      "bureau_note": "Pumice introduced a secret as our exciting new group project. The curtains closed immediately."
+    },
+    {
+      "id": "compatibility:obsidian+sandstone",
+      "stone_types": [
+        "OBSIDIAN",
+        "SANDSTONE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "A dramatic goodbye needs a return ticket",
+      "explanation": "Sandstone's wandering interests can look like rejection to Obsidian. Clear communication lets curiosity coexist with attachment.",
+      "household_agreement": "Announce departures, return as agreed and leave reassuring notes without making grand vows.",
+      "avoid": "No disappearing as a joke or surprise abandonment games.",
+      "bureau_note": "A postcard saying back after snacks prevented an entire tragic monologue."
+    },
+    {
+      "id": "compatibility:obsidian+shale",
+      "stone_types": [
+        "OBSIDIAN",
+        "SHALE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The confidential feelings department",
+      "explanation": "Both appreciate privacy and careful invitations. They can recognize discomfort without requiring a public explanation.",
+      "household_agreement": "Maintain quiet retreats and an agreed gentle way to check in.",
+      "avoid": "Do not expect one withdrawn companion to guess every need of the other.",
+      "bureau_note": "Their shared diary has two locks and a very moving entry about comfortable silence."
+    },
+    {
+      "id": "compatibility:obsidian+slate",
+      "stone_types": [
+        "OBSIDIAN",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Private company, excellent punctuation",
+      "explanation": "Slate respects privacy and Obsidian values intentional attention. Neither demands constant sociability to prove attachment.",
+      "household_agreement": "Use explicit check-ins and a shared low-stimulation evening ritual.",
+      "avoid": "Do not confuse respect for privacy with never asking how the other feels.",
+      "bureau_note": "Their most romantic gesture was knocking before entering the imaginary emotional office."
+    },
+    {
+      "id": "compatibility:pumice+pumice",
+      "stone_types": [
+        "PUMICE",
+        "PUMICE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "The party that forgot to end",
+      "explanation": "They match each other's enthusiasm so well that neither remembers to wind down. Shared excitement needs a gentle landing.",
+      "household_agreement": "Provide short play sessions, a visible rest routine and separate settling spots.",
+      "avoid": "No unlimited late-night visitors or competitive bouncing championships.",
+      "bureau_note": "The neighbors received an invitation to celebrate the successful delivery of an invitation."
+    },
+    {
+      "id": "compatibility:pumice+sandstone",
+      "stone_types": [
+        "PUMICE",
+        "SANDSTONE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "Expedition to the other end of the rug",
+      "explanation": "Both enjoy small adventures and forgiving company. They are rarely offended by a little harmless disorder.",
+      "household_agreement": "Keep adventures bounded and provide an easy return-to-rest ritual.",
+      "avoid": "Do not confuse mutual enthusiasm with the absence of care needs.",
+      "bureau_note": "They packed three maps and a biscuit to visit a houseplant."
+    },
+    {
+      "id": "compatibility:pumice+shale",
+      "stone_types": [
+        "PUMICE",
+        "SHALE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "Too many notifications for one little archive",
+      "explanation": "Pumice's frequent invitations can overwhelm Shale even when each invitation is friendly. Shale's withdrawal can then make Pumice try harder.",
+      "household_agreement": "Prefer separate households; occasional brief visits need a quiet exit available to Shale.",
+      "avoid": "No repeated coaxing, surprise games or interpreting silence as consent.",
+      "bureau_note": "Shale requested airplane mode. Pumice asked whether the airplane could come to dinner."
+    },
+    {
+      "id": "compatibility:pumice+slate",
+      "stone_types": [
+        "PUMICE",
+        "SLATE"
+      ],
+      "verdict": "NOT_RECOMMENDED",
+      "title": "The silent reading room hosts a parade",
+      "explanation": "Slate needs uninterrupted quiet and Pumice seeks frequent interaction. Sharing a resting area makes one feel invaded and the other rejected.",
+      "household_agreement": "Prefer separate households; meeting time should be brief, planned and away from Slate's resting space.",
+      "avoid": "Do not prescribe exposure to noise as a cure for Slate's preferences.",
+      "bureau_note": "Pumice rang a bell to announce that it would now be quiet."
+    },
+    {
+      "id": "compatibility:sandstone+sandstone",
+      "stone_types": [
+        "SANDSTONE",
+        "SANDSTONE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Two suitcases looking for a calendar",
+      "explanation": "They understand each other's curiosity but can forget the stable rituals that make a shared home feel safe.",
+      "household_agreement": "Keep one reliable daily check-in and a familiar resting area untouched by adventures.",
+      "avoid": "No spontaneous relocation of the entire household while the other naps.",
+      "bureau_note": "Both left a note saying gone exploring and met by accident at the same fern."
+    },
+    {
+      "id": "compatibility:sandstone+shale",
+      "stone_types": [
+        "SANDSTONE",
+        "SHALE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "Postcards from a comfortable distance",
+      "explanation": "Sandstone enjoys novelty; Shale prefers to examine it slowly. They can share stories without having to share every expedition.",
+      "household_agreement": "Make invitations optional and let Shale choose when to hear about an adventure.",
+      "avoid": "Do not surprise Shale with an unannounced group of new friends.",
+      "bureau_note": "The most popular souvenir was a photograph of a place Shale did not have to visit."
+    },
+    {
+      "id": "compatibility:sandstone+slate",
+      "stone_types": [
+        "SANDSTONE",
+        "SLATE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "An explorer with a quiet home port",
+      "explanation": "Slate can appreciate Sandstone's stories when adventures do not repeatedly invade its private space.",
+      "household_agreement": "Keep a protected quiet zone and ask before spreading souvenirs across shared shelves.",
+      "avoid": "Do not convert Slate's resting place into temporary expedition headquarters.",
+      "bureau_note": "The household border is marked by a tasteful sign reading: exciting things beyond this point."
+    },
+    {
+      "id": "compatibility:shale+shale",
+      "stone_types": [
+        "SHALE",
+        "SHALE"
+      ],
+      "verdict": "CONDITIONAL",
+      "title": "A friendship in very small print",
+      "explanation": "Their sensitivity is mutually understood, but both may withdraw at once and assume the other wants no company.",
+      "household_agreement": "Use a gentle agreed check-in signal and allow separate retreats without guilt.",
+      "avoid": "No guessing contests about who should initiate contact first.",
+      "bureau_note": "They invented a bookmark system: green means company welcome, blue means quietly still friends."
+    },
+    {
+      "id": "compatibility:shale+slate",
+      "stone_types": [
+        "SHALE",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "The quiet shelf that feels like home",
+      "explanation": "Both enjoy low-stimulation company and unhurried exchanges. Slate's clear boundaries make Shale's pauses easier to understand.",
+      "household_agreement": "Offer separate private corners alongside a shared reading-time ritual.",
+      "avoid": "Do not mistake their quiet preference for permission to leave every need unspoken.",
+      "bureau_note": "They celebrated a month together by not inviting anyone, mutually and joyfully."
+    },
+    {
+      "id": "compatibility:slate+slate",
+      "stone_types": [
+        "SLATE",
+        "SLATE"
+      ],
+      "verdict": "HARMONIOUS",
+      "title": "A duet for two comfortable silences",
+      "explanation": "They usually understand each other's quiet affection and respect for personal space. Their home can be peaceful without being emotionally empty.",
+      "household_agreement": "Use direct check-ins and distinguish chosen solitude from needing help.",
+      "avoid": "Do not assume that perfect tidiness means every emotional need is met.",
+      "bureau_note": "The Bureau visited once, whispered nice place, and was invited back next year."
+    }
+  ]
+}

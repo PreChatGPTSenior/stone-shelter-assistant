@@ -1,23 +1,29 @@
 # ADR-0016 Use Typesense for lexical retrieval and Qdrant for vectors
 
-- Status: Accepted architecture and experiment plan; not connected or implemented
+> Current source amendment: [ADR-0018](0018-json-compatibility-and-deferred-tarot.md) replaces Markdown compatibility/sample coverage with an authored complete JSON guide and removes the astral catalog from the pilot. Tarot is a separate deferred idea. Earlier source-priority wording below records decision history.
+
+- Status: Accepted architecture; Typesense infrastructure/client lifecycle implemented, indexing/retrieval and later integrations pending
 - Date: 2026-10-30
 - Related: [ADR-0006](0006-rag-and-agent-learning-focus.md), [ADR-0004](0004-postgresql-task-queue.md), [domain model](../domain/model.md)
 - Requirements: [RAG learning requirements](../requirements/rag-learning.md), sections 7.1 and 8.6
+
+## Current sequencing amendment
+
+[ADR-0017](0017-source-first-tool-routed-pilot.md), accepted on 2026-11-08, moves compatibility and astral source authoring before index integration and requires actual bounded LLM tool selection in the pilot. The detailed experiment matrix below remains later work; it does not require production recovery before the first result. See the [per-ticket OpenSpec map](../search/pilot-delivery-plan.md).
 
 ## Context
 
 The owner already has extensive Java/Solr search experience. The objective is to learn Python AI engineering, hybrid retrieval, flexible tools, agentic RAG, evaluation, and observability rather than spend the next increment tuning a familiar search engine.
 
-PY-010 provides an HTTP registration path, a persistent PostgreSQL source database, ten reusable stone requests, profiles, lifetime cases, and life events. The encyclopedia is another existing source; fictional type compatibility and the deferred astral catalog remain distinct planned sources. Search engines, embeddings, LangChain/LangGraph runtime, and provider/tracing integrations are not implemented by this decision.
+PY-010 provides an HTTP registration path, a persistent PostgreSQL source database, ten reusable stone requests, profiles, lifetime cases, and life events. The encyclopedia and authored fictional JSON type-compatibility guide are current reference sources. A separate tarot program is deferred under ADR-0018. Typesense runtime connection is documented in openspec/changes/py-012-typesense-infrastructure, and Qdrant is available in local Compose. Indexing, retrieval, embeddings, LangGraph, and provider/tracing integrations remain pending. The architecture decision itself did not implement them.
 
 ## Selected responsibilities
 
 | Component | Responsibility | Implementation status |
 | --- | --- | --- |
 | PostgreSQL | Authoritative operational records, current availability, shelter responsibility, and durable indexing intent when asynchronous indexing is introduced | Business persistence implemented; indexing intent deferred |
-| Typesense | Initial lexical retrieval, text matching, filtering, and independently inspectable lexical candidates | Selected, not connected |
-| Qdrant | Initial vector retrieval over externally generated embeddings and metadata | Selected, not connected |
+| Typesense | Initial lexical retrieval, text matching, filtering, and independently inspectable lexical candidates | Local infrastructure and async SDK connection implemented; collection/indexing/search pending |
+| Qdrant | Initial vector retrieval over externally generated embeddings and metadata | Local Compose service available; Python client, collections, indexing and retrieval pending |
 | Python retrieval pipeline | Common document identities, orchestration, deduplication, rank fusion, grouping, optional reranking, and evidence assembly | Planned |
 | LangChain | Retrieval/model/tool integration and composition | Accepted learning target; not connected |
 | LangGraph | Explicit agent state, routing, clarification, bounded repeated retrieval, and recovery | Accepted learning target; not connected |
@@ -74,7 +80,7 @@ Ten stones are sufficient to exercise the end-to-end flow, not to claim meaningf
 - Keep mandatory constraints deterministic. The agent may propose relaxation of soft preferences but must not silently weaken hard filters or make adopted/reserved/returned pets available.
 - Trace observable tool choices and execution outcomes; do not claim access to hidden model reasoning.
 - Bound calls, retries, loops, context, elapsed time, and monetary spend. An unavailable engine or absent evidence must not be replaced with invented facts.
-- Keep profile observations, historical events, encyclopedia guidance, fictional compatibility rules, and the future astral catalog distinguishable. Missing profile information means unknown.
+- Keep profile observations, historical events, encyclopedia guidance, and fictional compatibility rules distinguishable. Missing profile information means unknown.
 
 ## Evaluation and observability
 

@@ -279,7 +279,7 @@ Traits form a set, not a mutually exclusive classification or numeric score.
 | `CAUTIOUS_WITH_STRANGERS` | Is wary of unfamiliar people. |
 | `NEEDS_SLOW_INTRODUCTION` | Needs gradual introductions to unfamiliar companions. |
 
-Enjoying human company and being cautious with strangers can coexist. An empty set means no recorded traits, not a negative assessment of social skills. Compatibility with specific stone types belongs in a separate fictional reference document, not this enum.
+Enjoying human company and being cautious with strangers can coexist. An empty set means no recorded traits, not a negative assessment of social skills. Compatibility with specific stone types belongs in the separate fictional JSON reference source, not this enum: stone-rules/type-compatibility/stone-type-compatibility_en.json (ADR-0018). Its type portraits do not overwrite individual traits; no ORM or request fields change.
 
 ## Care levels
 

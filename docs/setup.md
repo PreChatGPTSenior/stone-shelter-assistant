@@ -60,6 +60,38 @@ To stop PostgreSQL while retaining its data:
 docker compose stop postgres
 ```
 
+## Local Typesense infrastructure
+
+The Compose configuration includes the official Typesense 30.2 image pinned to its multi-platform digest. It publishes the HTTP API on 127.0.0.1:58108 by default and keeps index data in the separate typesense-data named volume. This prepares the local lexical-search service; the async Python client is configured during FastAPI lifespan. Collections, indexing, and search operations are not implemented yet.
+
+Set TYPESENSE_API_KEY in the local .env to a private development key and optionally change TYPESENSE_PORT (default 58108). Preserve existing PostgreSQL and storage settings. The key is passed to the server through its environment; never commit the local .env. The .env.example value is a placeholder, not a shared credential.
+
+Start only Typesense and check readiness from the host:
+
+```sh
+docker compose up -d typesense
+docker compose ps typesense
+curl --fail --show-error http://127.0.0.1:58108/health
+```
+
+Use the configured host port if TYPESENSE_PORT was changed. The health endpoint should return {"ok":true}. This is a manual readiness check; the Compose service does not define an in-container healthcheck. No extra healthcheck tools are installed into the official image.
+
+Stop it while retaining index data:
+
+```sh
+docker compose stop typesense
+```
+
+The Python application runs on the host. TypesenseSettings reads TYPESENSE_HOST, TYPESENSE_PORT, TYPESENSE_API_KEY, optional TYPESENSE_PROTOCOL (http by default), and optional TYPESENSE_CONNECTION_TIMEOUT_SECONDS (10 by default). The local host is 127.0.0.1. The official typesense 2.1.1 AsyncClient uses these validated settings with automatic retries disabled. Lifespan creates app.state.typesense_client and closes its HTTP pool on shutdown; it does not issue a readiness request or create collections at startup. No browser integration or CORS setting is needed for that path. Automated search-engine tests must use separate disposable infrastructure, not this persistent index. The connection integration is checked against disposable Testcontainers, not the persistent development index. The session-scoped Typesense container has a random host port and its own explicit key; TypesenseSettings disables dotenv loading in tests. Async client fixtures are function-scoped to match the pytest-asyncio event loop and close their HTTP pools after use. The authenticated SDK smoke test reads /debug and checks the pinned server version. Ordinary tests perform no model/provider calls.
+
+Official references: [installation](https://typesense.org/docs/guide/install-typesense.html) and [server configuration](https://typesense.org/docs/30.2/api/server-configuration.html).
+
+Typesense connection verification on 2026-11-05: `make check` passed (43 tests; mypy checked 82 source files). The SDK emits an AnalyticsV1 deprecation warning while constructing its client; this application does not call that API, and the warning is not suppressed.
+
+## Local Qdrant infrastructure
+
+Compose also provides Qdrant on `127.0.0.1:${QDRANT_PORT:-56333}` with a separate persistent `qdrant-data` volume. Set `QDRANT_PORT` in the local `.env` only if the default host port conflicts. Start it with `docker compose up -d qdrant`; check readiness with `curl --fail --show-error http://127.0.0.1:56333/readyz`. This is service preparation only: Python settings, client ownership, collections, vector indexing and automated Qdrant tests are planned in PY-016.
+
 ## Manage migrations
 
 The manual commands in this section target the database selected by development configuration. Test migrations are applied automatically to the disposable Testcontainers database instead.
