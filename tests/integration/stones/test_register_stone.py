@@ -14,7 +14,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from sqlalchemy.orm import selectinload
 
-from stone_shelter_assistant.assistant.tools import stone_search_tools
+from stone_shelter_assistant.assistant.tools import case_event_search_tools, stone_search_tools
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
 from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
     OPERATIONAL_COLLECTION as QDRANT_COLLECTION,
@@ -22,8 +22,10 @@ from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
 from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     OPERATIONAL_COLLECTION as TYPESENSE_COLLECTION,
 )
+from stone_shelter_assistant.search.stones.case_event_search_service import CaseEventSearchService
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.api_contracts import StoneRegistrationRequest
+from stone_shelter_assistant.stones.enums import CaseEventType
 from stone_shelter_assistant.stones.models import (
     CaseEventModel,
     ShelterCaseModel,
@@ -332,6 +334,57 @@ async def test_stone_search_tools_return_registered_card(
                 "adoption_status": request.shelter_case.adoption_status.value,
                 "current_shelter_id": str(request.shelter_case.current_shelter_id),
             }
+        ]
+
+
+@pytest.mark.asyncio
+async def test_case_event_tools_find_velvet_slate_note_and_timeline(
+    app: FastAPI,
+    registration_sessions: async_sessionmaker[AsyncSession],
+) -> None:
+    fixture = PROJECT_ROOT / "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json"
+    request = StoneRegistrationRequest.model_validate_json(fixture.read_text(encoding="utf-8"))
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/api/v1/stones",
+            content=fixture.read_bytes(),
+            headers={"Content-Type": "application/json"},
+        )
+    assert response.status_code == 201, response.text
+
+    search = CaseEventSearchService(
+        app.state.typesense_client, app.state.qdrant_client, app.state.embeddings
+    )
+    expected = next(
+        event for event in request.shelter_case.events if event.event_type is CaseEventType.RETURNED
+    )
+    filters = {
+        "stone_external_id": str(request.stone.external_id),
+        "event_type": expected.event_type.value,
+        "occurred_from": expected.occurred_at.isoformat(),
+        "occurred_before": "2026-10-05T09:00:00Z",
+    }
+    async with registration_sessions() as session:
+        tools = {
+            tool.name: tool
+            for tool in case_event_search_tools(search, SqlAlchemyShelterCaseRepository(session))
+        }
+        for name, query in (
+            ("search_case_events_lexical", "noisy household"),
+            ("search_case_events_semantic", "returned from a loud home"),
+        ):
+            results = await tools[name].ainvoke({"query": query, "filters": filters})
+            assert [event["event_external_id"] for event in results] == [str(expected.external_id)]
+            assert results[0]["text"] == expected.event_notes
+
+        timeline = await tools["get_case_timeline"].ainvoke(
+            {"case_external_id": str(request.shelter_case.external_id)}
+        )
+        chronological = sorted(request.shelter_case.events, key=lambda event: event.occurred_at)
+        assert [event["event_external_id"] for event in timeline] == [
+            str(event.external_id) for event in chronological
         ]
 
 

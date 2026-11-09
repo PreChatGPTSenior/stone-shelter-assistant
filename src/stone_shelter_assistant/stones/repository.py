@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from stone_shelter_assistant.stones.enums import AdoptionStatus
-from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
+from stone_shelter_assistant.stones.models import CaseEventModel, ShelterCaseModel, StoneModel
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
 
 
@@ -49,3 +49,12 @@ class SqlAlchemyShelterCaseRepository:
             StoneCaseState(stone_id, AdoptionStatus(status), shelter_id)
             for stone_id, status, shelter_id in rows.tuples()
         ]
+
+    async def get_case_timeline(self, case_external_id: UUID) -> list[CaseEventModel]:
+        statement = (
+            select(CaseEventModel)
+            .join(ShelterCaseModel, CaseEventModel.case_id == ShelterCaseModel.id)
+            .where(ShelterCaseModel.external_id == case_external_id)
+            .order_by(CaseEventModel.occurred_at, CaseEventModel.external_id)
+        )
+        return list(await self._session.scalars(statement))

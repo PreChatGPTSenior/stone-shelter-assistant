@@ -1,13 +1,14 @@
 """Input models for stone search."""
 
-from typing import Annotated
+from typing import Annotated, Self
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
 from stone_shelter_assistant.stones.enums import (
     AdoptionStatus,
     CareLevel,
+    CaseEventType,
     SocializationTrait,
     StoneSize,
     StoneType,
@@ -33,3 +34,24 @@ class StoneSearchFilters(BaseModel):
     socialization_traits: list[SocializationTrait] = Field(
         default_factory=list, description="Require every listed trait."
     )
+
+
+class CaseEventSearchFilters(BaseModel):
+    """Filters shared by both case event search methods."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    stone_external_id: UUID | None = None
+    event_type: CaseEventType | None = None
+    occurred_from: AwareDatetime | None = Field(default=None, description="Inclusive start.")
+    occurred_before: AwareDatetime | None = Field(default=None, description="Exclusive end.")
+
+    @model_validator(mode="after")
+    def validate_date_range(self) -> Self:
+        if (
+            self.occurred_from is not None
+            and self.occurred_before is not None
+            and self.occurred_from >= self.occurred_before
+        ):
+            raise ValueError("occurred_from must be earlier than occurred_before")
+        return self

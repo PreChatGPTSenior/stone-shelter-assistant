@@ -1,12 +1,12 @@
 """Build operational search documents from a stone, its profile, and its case."""
 
 import json
-from datetime import UTC, datetime, timedelta
 from uuid import NAMESPACE_URL, uuid5
 
 from stone_shelter_assistant.search.document_content import (
     build_embedding_text,
     calculate_text_hash,
+    to_unix_microseconds,
 )
 from stone_shelter_assistant.search.document_models import (
     DEFAULT_LANGUAGE,
@@ -21,8 +21,6 @@ from stone_shelter_assistant.stones.models import (
     StoneModel,
     StoneProfileModel,
 )
-
-_UNIX_EPOCH = datetime(1970, 1, 1, tzinfo=UTC)
 
 
 def build_stone_document(
@@ -77,7 +75,7 @@ def build_case_event_document(
     """Build one historical document with a stable ID derived from the source event."""
     source_key = f"case-event:{event.external_id}"
     event_label = event.event_type.replace("_", " ").capitalize()
-    occurred_at = (event.occurred_at - _UNIX_EPOCH) // timedelta(microseconds=1)
+    occurred_at = to_unix_microseconds(event.occurred_at)
     return CaseEventSearchDocument.model_validate(
         _document_fields(
             source_key=source_key,
