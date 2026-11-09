@@ -4,6 +4,13 @@ Check a task only when its described behavior has been implemented and observed.
 
 ## Done
 
+- [x] Synchronize `.env.example` with application settings and Compose, including Qdrant and local Ollama embeddings.
+- [x] Organize simulated knowledge sources under `fixtures/knowledge` and update the encyclopedia source path.
+- [x] Require explicit loading of both stone/profile relationships with `lazy="raise"`.
+- [x] Organize search into `infrastructure`, `stones`, and `knowledge`; share document content helpers and build one stone projection for both indexers.
+
+- [x] Consolidate shared settings, API and ORM bases, database factories, and transaction handling in `core`; assemble FastAPI and dependencies at the package root and expose a placeholder assistant questions route.
+- [x] Consolidate stone registration, shelter cases, and profiles into one `stones` package and remove unused domain dataclasses and one-off data loaders.
 - [x] Bootstrap the Python project with uv, FastAPI, Ruff, mypy, pytest, and Docker Compose.
 - [x] Add PostgreSQL settings, async SQLAlchemy sessions, Unit of Work, and Alembic migrations.
 - [x] Run database integration tests against disposable Testcontainers PostgreSQL.

@@ -19,8 +19,8 @@ from testcontainers.core.container import DockerContainer
 from testcontainers.core.wait_strategies import HttpWaitStrategy
 from typesense import AsyncClient
 
-from stone_shelter.infrastructure.typesense import create_typesense_client
-from stone_shelter.settings import DatabaseSettings, QdrantSettings, TypesenseSettings
+from stone_shelter.core.settings import DatabaseSettings, QdrantSettings, TypesenseSettings
+from stone_shelter.search.infrastructure.client_factories import create_typesense_client
 
 POSTGRES_IMAGE = (
     "pgvector/pgvector:0.8.6-pg18-trixie"
@@ -197,26 +197,26 @@ async def app(
     monkeypatch: pytest.MonkeyPatch,
 ) -> AsyncIterator[FastAPI]:
     # Service integration tests do not depend on the HTTP application imports.
-    from stone_shelter.bootstrap.app import create_app
+    from stone_shelter.app import create_app
 
     monkeypatch.setattr(
-        "stone_shelter.bootstrap.app.DatabaseSettings",
+        "stone_shelter.app.DatabaseSettings",
         lambda: migrated_database,
     )
     monkeypatch.setattr(
-        "stone_shelter.bootstrap.app.TypesenseSettings",
+        "stone_shelter.app.TypesenseSettings",
         lambda: typesense_settings,
     )
     monkeypatch.setattr(
-        "stone_shelter.bootstrap.app.QdrantSettings",
+        "stone_shelter.app.QdrantSettings",
         lambda: qdrant_settings,
     )
     monkeypatch.setattr(
-        "stone_shelter.bootstrap.app.OllamaEmbeddingSettings",
+        "stone_shelter.app.OllamaEmbeddingSettings",
         lambda: SimpleNamespace(embedding_dimension=TEST_EMBEDDING_DIMENSION),
     )
     monkeypatch.setattr(
-        "stone_shelter.bootstrap.app.create_embeddings",
+        "stone_shelter.app.create_embeddings",
         lambda _settings: fake_embeddings,
     )
 

@@ -32,20 +32,11 @@ Keep the port values from `.env.example` unless changed locally. Do not commit `
 ```sh
 docker compose up -d --wait postgres typesense qdrant
 uv run alembic upgrade head
-uv run python -m stone_shelter.tools.seed_shelters
 ollama list
 uv run uvicorn stone_shelter.main:app --reload
 ```
 
-The first three services keep data in Docker named volumes. `seed_shelters` creates the two known shelters if needed. `ollama list` should show the configured embedding model; Ollama runs separately from Compose. The API documentation is available at `http://127.0.0.1:8000/docs`.
-
-To submit the authored stone JSON files to an empty local database, run this in another terminal:
-
-```sh
-uv run python -m stone_shelter.tools.load_stones
-```
-
-The loader sends one HTTP request per file. It does not update existing stones; do not replay the same external IDs as an update. Existing PostgreSQL stones are not indexed retroactively by this command.
+The first three services keep data in Docker named volumes. `ollama list` should show the configured embedding model; Ollama runs separately from Compose. The API documentation is available at `http://127.0.0.1:8000/docs`. The local database is not seeded by setup; registration requires existing shelter records. The authored JSON fixtures remain available for isolated integration tests.
 
 ## Checks
 

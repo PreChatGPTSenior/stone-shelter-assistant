@@ -1,10 +1,12 @@
 from pathlib import Path
 
-from stone_shelter.catalog.enums import StoneType
-from stone_shelter.search.encyclopedia import build_encyclopedia_documents
+from stone_shelter.search.knowledge.encyclopedia_document_builder import (
+    build_encyclopedia_documents,
+)
+from stone_shelter.stones.enums import StoneType
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-SOURCE_PATH = "stone-rules/stone-encyclopedias/stone-encyclopedia_en.md"
+SOURCE_PATH = "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md"
 
 
 def test_build_encyclopedia_documents_from_real_source() -> None:

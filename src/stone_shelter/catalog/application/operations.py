@@ -1,1 +1,0 @@
-"""Catalog operations participating in a caller-owned transaction. Later implement the public catalog contract using domain rules and repository ports. Do not create a separate session or commit here."""

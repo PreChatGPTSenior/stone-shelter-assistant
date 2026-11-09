@@ -1,14 +1,14 @@
-"""Future Alembic migration environment. Later connect migration execution to settings and registered SQLAlchemy metadata. This placeholder does not run migrations."""
+"""Run async Alembic migrations against the registered ORM metadata."""
 
 import asyncio
 
 from alembic import context
 from sqlalchemy.engine import Connection
 
-from stone_shelter.infrastructure.database import models  # noqa: F401
-from stone_shelter.infrastructure.database.base import Base
-from stone_shelter.infrastructure.database.engine import create_database_engine
-from stone_shelter.settings import DatabaseSettings
+from stone_shelter.core.base_models import Base
+from stone_shelter.core.database_factories import create_database_engine
+from stone_shelter.core.settings import DatabaseSettings
+from stone_shelter.stones import models as stone_models  # noqa: F401
 
 
 def do_run_migrations(connection: Connection) -> None:
