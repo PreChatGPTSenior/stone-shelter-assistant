@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from stone_shelter_assistant.search.enums import DocumentKind
+from stone_shelter_assistant.search.enums import CompatibilityVerdict, DocumentKind
 from stone_shelter_assistant.stones.enums import (
     AdoptionStatus,
     CareLevel,
@@ -66,22 +66,26 @@ class CaseEventSearchDocument(OperationalSearchDocument):
     occurred_at: int = Field(description="Microseconds since the Unix epoch (UTC)")
 
 
-class EncyclopediaSectionSearchDocument(SearchDocument):
+class KnowledgeSearchDocument(SearchDocument):
+    """Shared source and type filters for the reference collection."""
+
+    source_path: str = Field(min_length=1)
+    stone_types: list[StoneType] = Field(default_factory=list, max_length=2)
+
+
+class EncyclopediaSectionSearchDocument(KnowledgeSearchDocument):
     """One reference section, independent of any individual stone or case."""
 
     document_kind: Literal[DocumentKind.ENCYCLOPEDIA_SECTION] = DocumentKind.ENCYCLOPEDIA_SECTION
-    source_path: str = Field(min_length=1)
     section_path: list[str] = Field(min_length=1)
-    stone_type: StoneType | None = None
+    stone_types: list[StoneType] = Field(default_factory=list, max_length=1)
 
 
 ## compatibility
 
 
-class CompatibilitySearchDocument(SearchDocument):
+class CompatibilitySearchDocument(KnowledgeSearchDocument):
     """Searchable evidence from the stone type compatibility guide."""
-
-    source_path: str = Field(min_length=1)
 
 
 class CompatibilityReadingRulesSearchDocument(CompatibilitySearchDocument):
@@ -95,6 +99,8 @@ class CompatibilityPairSearchDocument(CompatibilitySearchDocument):
 
     document_kind: Literal[DocumentKind.COMPATIBILITY_PAIR] = DocumentKind.COMPATIBILITY_PAIR
     stone_types: list[StoneType] = Field(min_length=2, max_length=2)
+    pair_key: str = Field(min_length=1)
+    verdict: CompatibilityVerdict
 
 
 class CompatibilityTypePortraitSearchDocument(CompatibilitySearchDocument):

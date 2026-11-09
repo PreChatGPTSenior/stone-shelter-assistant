@@ -52,10 +52,10 @@ def test_build_encyclopedia_documents_from_real_source() -> None:
         assert document.text.strip(), title
 
         if title in rock_titles:
-            assert document.stone_type == StoneType[title.upper()], title
+            assert document.stone_types == [StoneType[title.upper()]], title
             assert document.section_path == [title], title
             assert f"**Common name:** {title.lower()}" in document.text, title
             assert "### Geological Profile" in document.text
             assert "### Fictional Care Ritual" in document.text
         else:
-            assert document.stone_type is None, title
+            assert document.stone_types == [], title

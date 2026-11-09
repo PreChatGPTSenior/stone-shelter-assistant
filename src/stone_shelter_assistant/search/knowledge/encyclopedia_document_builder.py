@@ -66,6 +66,7 @@ def build_encyclopedia_documents(
         source_key = f"encyclopedia:{DEFAULT_LANGUAGE}:{section_key}"
         content_hash = calculate_text_hash(build_embedding_text(title, text))
 
+        stone_type = stone_types_by_title.get(title)
         document = EncyclopediaSectionSearchDocument(
             id=uuid5(
                 NAMESPACE_URL,
@@ -81,7 +82,7 @@ def build_encyclopedia_documents(
             content_hash=content_hash,
             source_path=source_path,
             section_path=[title],
-            stone_type=stone_types_by_title.get(title),
+            stone_types=[stone_type] if stone_type is not None else [],
         )
         documents.append(document)
 

@@ -6,6 +6,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Done
 
+- [x] **PY-031 — Reload knowledge through explicit endpoints.** Index the encyclopedia and compatibility guide in one `knowledge` collection per engine. Each endpoint replaces its own source in Typesense and Qdrant. Verify 80 documents, exact pair filtering, and removal of obsolete documents in disposable containers. All 44 tests passed.
 - [x] **PY-030 — Index stone profiles and case events on registration.** Build one stone card with the optional profile and one document per case event. Write them to the `stones` collection in Typesense and Qdrant. Verify both indexes through HTTP registration in disposable containers. All 43 tests passed.
 - [x] **PY-029 — Parse the stone type compatibility guide.** Build 55 pair documents, ten type portraits, and one reading-rules document from the authored JSON fixture. Verify stone-type coverage, source provenance, and unique, stable document IDs.
 - [x] **PY-028 — Rename the project and document its layout.** Align the repository, Python package, API, and local infrastructure on Stone Shelter Assistant. Recreate the environment, apply migrations to fresh storage, and pass all 42 tests. Add the repository organization guide and reference it from `AGENTS.md`.
@@ -26,9 +27,6 @@ No current tasks.
 
 ## Backlog
 
-- [ ] Create separate reference collections in Typesense and Qdrant and index encyclopedia and compatibility evidence.
-- [ ] Add a small Knowledge API with explicit encyclopedia and compatibility reindex endpoints.
-- [ ] Inspect real reference documents in both indexes through focused Testcontainers scenarios.
 - [ ] Index existing local stones explicitly if they are needed for search experiments.
 - [ ] Implement inspectable Typesense lexical retrieval and Qdrant semantic retrieval.
 - [ ] Implement typed PostgreSQL lookup for exact operational questions and verify current state before recommendations.

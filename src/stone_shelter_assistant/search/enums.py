@@ -10,3 +10,9 @@ class DocumentKind(StrEnum):
     COMPATIBILITY_PAIR = "compatibility_pair"
     COMPATIBILITY_TYPE_PORTRAIT = "compatibility_type_portrait"
     COMPATIBILITY_READING_RULES = "compatibility_reading_rules"
+
+
+class CompatibilityVerdict(StrEnum):
+    HARMONIOUS = "HARMONIOUS"
+    CONDITIONAL = "CONDITIONAL"
+    NOT_RECOMMENDED = "NOT_RECOMMENDED"

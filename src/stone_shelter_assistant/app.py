@@ -27,6 +27,7 @@ from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
 from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     ensure_operational_collection as ensure_typesense_operational_collection,
 )
+from stone_shelter_assistant.search.knowledge.router import router as knowledge_router
 from stone_shelter_assistant.stones.router import router as stones_router
 
 
@@ -69,6 +70,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(stones_router)
+    app.include_router(knowledge_router)
     app.include_router(assistant_router)
 
     return app

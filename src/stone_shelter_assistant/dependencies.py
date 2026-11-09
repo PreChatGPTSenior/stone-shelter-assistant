@@ -1,11 +1,13 @@
 """Wire request-scoped services and indexers to database sessions."""
 
 from collections.abc import AsyncIterator
+from pathlib import Path
 
 from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter_assistant.search.knowledge.knowledge_indexer import KnowledgeIndexer
 from stone_shelter_assistant.search.stones.qdrant_indexer import QdrantStoneIndexer
 from stone_shelter_assistant.search.stones.stone_indexing_service import StoneIndexingService
 from stone_shelter_assistant.search.stones.typesense_indexer import TypesenseStoneIndexer
@@ -51,3 +53,13 @@ async def get_stone_indexing_service(
                 embedding_dimension=request.app.state.embedding_dimension,
             ),
         )
+
+
+def get_knowledge_indexer(request: Request) -> KnowledgeIndexer:
+    return KnowledgeIndexer(
+        project_root=Path.cwd(),
+        typesense=request.app.state.typesense_client,
+        qdrant=request.app.state.qdrant_client,
+        embeddings=request.app.state.embeddings,
+        embedding_dimension=request.app.state.embedding_dimension,
+    )

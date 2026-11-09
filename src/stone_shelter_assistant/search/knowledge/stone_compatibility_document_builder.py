@@ -15,7 +15,13 @@ from stone_shelter_assistant.search.document_models import (
     CompatibilitySearchDocument,
     CompatibilityTypePortraitSearchDocument,
 )
+from stone_shelter_assistant.search.enums import CompatibilityVerdict
 from stone_shelter_assistant.stones.enums import StoneType
+
+
+def build_pair_key(first: StoneType, second: StoneType) -> str:
+    """Identify an unordered pair while preserving repeated types."""
+    return "+".join(sorted((first.value, second.value)))
 
 
 def build_stone_compatibility_documents(
@@ -70,28 +76,32 @@ def build_stone_compatibility_documents(
                         f"Sensitivities: {portrait['sensitivities']}"
                     ),
                     source_key=f"{key_prefix}:portrait:{stone_type.value.lower()}",
-                ).model_dump(),
+                ).model_dump(exclude={"stone_types"}),
                 stone_types=[stone_type],
             )
         )
 
     for pair in sections["pairings"]:
-        stone_types = [StoneType(value) for value in pair["stone_types"]]
+        first, second = (StoneType(value) for value in pair["stone_types"])
+        stone_types = [first, second]
+        verdict = CompatibilityVerdict(pair["verdict"])
         pair_name = " + ".join(stone_type.value.title() for stone_type in stone_types)
         documents.append(
             CompatibilityPairSearchDocument(
                 **build_common_document(
                     title=f"{pair_name} — {pair['title']}",
                     text=(
-                        f"Verdict: {pair['verdict']}\n"
+                        f"Verdict: {verdict.value}\n"
                         f"Explanation: {pair['explanation']}\n"
                         f"Household agreement: {pair['household_agreement']}\n"
                         f"Avoid: {pair['avoid']}\n"
                         f"Bureau note: {pair['bureau_note']}"
                     ),
                     source_key=f"{key_prefix}:pair:{pair['id']}",
-                ).model_dump(),
+                ).model_dump(exclude={"stone_types"}),
                 stone_types=stone_types,
+                pair_key=build_pair_key(first, second),
+                verdict=verdict,
             )
         )
 

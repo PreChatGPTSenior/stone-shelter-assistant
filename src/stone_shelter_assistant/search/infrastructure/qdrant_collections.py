@@ -3,6 +3,7 @@ from typing import Final
 from qdrant_client import AsyncQdrantClient, models
 
 OPERATIONAL_COLLECTION: Final[str] = "stones"
+KNOWLEDGE_COLLECTION: Final[str] = "knowledge"
 
 KEYWORD_FILTER_FIELDS: Final[tuple[str, ...]] = (
     "document_kind",
@@ -17,6 +18,14 @@ KEYWORD_FILTER_FIELDS: Final[tuple[str, ...]] = (
     "care_level",
     "event_external_id",
     "event_type",
+)
+
+KNOWLEDGE_KEYWORD_FILTER_FIELDS: Final[tuple[str, ...]] = (
+    "document_kind",
+    "language",
+    "stone_types",
+    "pair_key",
+    "verdict",
 )
 
 
@@ -47,3 +56,20 @@ async def ensure_operational_collection(
         field_name="occurred_at",
         field_schema=models.PayloadSchemaType.INTEGER,
     )
+
+
+async def ensure_knowledge_collection(client: AsyncQdrantClient, vector_size: int) -> None:
+    if await client.collection_exists(KNOWLEDGE_COLLECTION):
+        return
+
+    await client.create_collection(
+        collection_name=KNOWLEDGE_COLLECTION,
+        vectors_config=models.VectorParams(size=vector_size, distance=models.Distance.COSINE),
+    )
+    for field_name in KNOWLEDGE_KEYWORD_FILTER_FIELDS:
+        await client.create_payload_index(
+            collection_name=KNOWLEDGE_COLLECTION,
+            field_name=field_name,
+            field_schema=models.PayloadSchemaType.KEYWORD,
+            wait=True,
+        )

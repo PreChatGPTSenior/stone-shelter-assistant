@@ -52,3 +52,12 @@ uv run pytest
 ```
 
 Integration tests start temporary PostgreSQL, Typesense, and Qdrant containers and replace Ollama embeddings with known vectors. Docker is required, but the local `.env` and persistent services are not used by those tests. `make check` is also available; it applies Ruff fixes and formatting before running mypy and pytest, so it can edit files.
+
+With the API, Typesense, Qdrant, and the configured Ollama embedding model running, reload each reference source explicitly:
+
+```sh
+curl -X POST http://127.0.0.1:8000/api/v1/knowledge/encyclopedia/reindex
+curl -X POST http://127.0.0.1:8000/api/v1/knowledge/compatibility/reindex
+```
+
+Each endpoint deletes and reloads its own source in the shared `knowledge` collection in both engines.
