@@ -13,6 +13,7 @@ SEARCH_SCHEMA_VERSION: Final[int] = 1
 PROJECTION_VERSION: Final[int] = 1
 LANGUAGE_VERSION: Final[str] = "en"
 
+
 class SearchDocument(BaseModel):
     """Common content, provenance, and revision fields for search evidence."""
 

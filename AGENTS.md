@@ -10,5 +10,5 @@
 - Write repository documentation, comments, examples, issue descriptions, and commit messages in English.
 - Never create, edit, move, rename, or delete the root `README.md` or any other README file unless the owner explicitly asks for that specific README change. The owner maintains README content.
 - Keep project context compact: `docs/project-manifesto.md`, `docs/task-log.md`, `docs/adr.md`, and `docs/setup.md`. Do not recreate OpenSpec or expand documentation without an explicit request.
-- Before a commit, check staged changes against these four documents and update only the affected task or decision notes. Do not mark unverified behavior complete.
+- Before every commit, review `docs/task-log.md` against the actual changes and verification results. Add or update affected tasks, move newly completed tasks into the `Done` section at the top, and mark `[x]` only for behavior that has been implemented and observed. Keep unfinished work under `Next` with `[ ]`. Include the updated Task Log in the same commit as the work it describes; if no task state changed, confirm that the log is still accurate. Update `docs/adr.md` only when a decision changes.
 - Do not commit, push, or merge without an explicit request.

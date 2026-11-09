@@ -9,7 +9,11 @@ from stone_shelter.api.ingestion_contracts import (
     StoneRegistrationResponse,
 )
 from stone_shelter.application.register_stone import RegisterStoneService
-from stone_shelter.bootstrap.dependencies import get_qdrant_stone_indexer, get_register_stone_service, get_typesense_stone_indexer
+from stone_shelter.bootstrap.dependencies import (
+    get_qdrant_stone_indexer,
+    get_register_stone_service,
+    get_typesense_stone_indexer,
+)
 from stone_shelter.search.qdrant_index import QdrantStoneIndexer
 from stone_shelter.search.typesense_index import TypesenseStoneIndexer
 

@@ -42,7 +42,8 @@ def build_stone_document(
     source_data = {
         key: value
         for key, value in document_data.items()
-        if key not in {
+        if key
+        not in {
             "language",
             "source_key",
             "schema_version",
@@ -50,20 +51,24 @@ def build_stone_document(
         }
     }
 
-    document_data["source_revision"] = content_hash(json.dumps(
-        source_data,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=False,
-    ))
+    document_data["source_revision"] = content_hash(
+        json.dumps(
+            source_data,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+        )
+    )
 
-    document_data["content_hash"] = content_hash(f"{document_data['title']}\n\n{document_data['text']}")
-
+    document_data["content_hash"] = content_hash(
+        f"{document_data['title']}\n\n{document_data['text']}"
+    )
 
     return StoneSearchDocument.model_validate(document_data)
 
-def content_hash(input):
-    return f"sha256:{sha256(input.encode('utf-8')).hexdigest()}"
+
+def content_hash(value: str) -> str:
+    return f"sha256:{sha256(value.encode('utf-8')).hexdigest()}"
 
 
 def embedding_text(document: StoneSearchDocument) -> str:

@@ -16,9 +16,8 @@ class SqlAlchemyStoneRepository:
     def add(self, stone: StoneModel) -> None:
         self._session.add(stone)
 
-    async def get_by_id(self, stone_id:  UUID) -> StoneModel | None:
+    async def get_by_id(self, stone_id: UUID) -> StoneModel | None:
         return await self._session.get(StoneModel, stone_id)
-
 
 
 class SqlAlchemyShelterCaseRepository:
@@ -26,8 +25,6 @@ class SqlAlchemyShelterCaseRepository:
         self._session = session
 
     async def get_by_stone_id(self, stone_id: UUID) -> ShelterCaseModel | None:
-        statement = select(ShelterCaseModel).where(
-            ShelterCaseModel.stone_id == stone_id
-        )
+        statement = select(ShelterCaseModel).where(ShelterCaseModel.stone_id == stone_id)
         result = await self._session.execute(statement)
         return result.scalar_one_or_none()

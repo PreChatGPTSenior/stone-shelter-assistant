@@ -19,7 +19,6 @@ OPERATIONAL_COLLECTION_SCHEMA: Final[CollectionCreateSchema] = {
         {"name": "projection_version", "type": "int32"},
         {"name": "source_revision", "type": "string"},
         {"name": "content_hash", "type": "string"},
-
         # Common OperationalSearchDocument fields
         {"name": "stone_external_id", "type": "string"},
         {"name": "case_external_id", "type": "string"},
@@ -28,10 +27,8 @@ OPERATIONAL_COLLECTION_SCHEMA: Final[CollectionCreateSchema] = {
         {"name": "stone_size", "type": "string", "facet": True},
         {"name": "adoption_status", "type": "string", "facet": True},
         {"name": "current_shelter_id", "type": "string", "facet": True},
-
         # Kind of operational document
         {"name": "document_kind", "type": "string", "facet": True},
-
         # Only CaseEventSearchDocument has these
         {"name": "event_external_id", "type": "string", "optional": True},
         {"name": "event_type", "type": "string", "optional": True},
@@ -44,10 +41,7 @@ async def ensure_operational_collection(client: AsyncClient) -> None:
     """Create the operational collection if it does not exist."""
     existing_collections = await client.collections.retrieve()
 
-    if any(
-        collection["name"] == OPERATIONAL_COLLECTION
-        for collection in existing_collections
-    ):
+    if any(collection["name"] == OPERATIONAL_COLLECTION for collection in existing_collections):
         return
 
     await client.collections.create(OPERATIONAL_COLLECTION_SCHEMA)
