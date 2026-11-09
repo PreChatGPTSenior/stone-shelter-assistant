@@ -1,9 +1,9 @@
 """Validated search projections shared by lexical and vector adapters."""
 
-from typing import Final, Literal
+from typing import Annotated, Final, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
 from stone_shelter_assistant.search.enums import CompatibilityVerdict, DocumentKind
 from stone_shelter_assistant.stones.enums import (
@@ -110,3 +110,32 @@ class CompatibilityTypePortraitSearchDocument(CompatibilitySearchDocument):
         DocumentKind.COMPATIBILITY_TYPE_PORTRAIT
     )
     stone_types: list[StoneType] = Field(min_length=1, max_length=1)
+
+
+type KnowledgeDocument = Annotated[
+    EncyclopediaSectionSearchDocument
+    | CompatibilityPairSearchDocument
+    | CompatibilityTypePortraitSearchDocument
+    | CompatibilityReadingRulesSearchDocument,
+    Field(discriminator="document_kind"),
+]
+KNOWLEDGE_DOCUMENT_ADAPTER: TypeAdapter[KnowledgeDocument] = TypeAdapter(KnowledgeDocument)
+
+
+type KnowledgeLanguage = Annotated[str, Field(pattern=r"^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$")]
+type KnowledgeDocumentKind = Literal[
+    DocumentKind.ENCYCLOPEDIA_SECTION,
+    DocumentKind.COMPATIBILITY_PAIR,
+    DocumentKind.COMPATIBILITY_TYPE_PORTRAIT,
+    DocumentKind.COMPATIBILITY_READING_RULES,
+]
+
+
+class KnowledgeSearchFilters(BaseModel):
+    """Exact filters shared by the two knowledge searches."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    document_kind: KnowledgeDocumentKind | None = None
+    stone_type: StoneType | None = None
+    language: KnowledgeLanguage | None = None

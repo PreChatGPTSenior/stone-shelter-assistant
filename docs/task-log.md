@@ -6,6 +6,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Done
 
+- [x] **PY-034 — Search reference knowledge in Typesense and Qdrant and look up exact pairs by pair key.** Add lexical and semantic search with shared filters and expose both searches and exact pair lookup as assistant tools. Verify encyclopedia results from both engines, reversed pair order, and a same-type pair using the authored fixtures in disposable containers. All 47 tests passed.
 - [x] **PY-033 — Search case events in Typesense and Qdrant and read timelines from PostgreSQL.** Search event notes with shared filters for stone, event type, and date range. Expose both searches and chronological lookup by case ID as assistant tools. Verify that both searches return Velvet Slate's return note and PostgreSQL returns all five events in order in disposable containers. All 46 tests passed.
 - [x] **PY-032 — Search stone cards in Typesense and Qdrant.** Add lexical and semantic search with shared exact filters, a PostgreSQL lookup for current adoption status and shelter, and three assistant tools. Verify that both searches return a registered fixture card and that the PostgreSQL lookup returns its case state in disposable containers. All 45 tests passed.
 - [x] **PY-031 — Reload knowledge through explicit endpoints.** Index the encyclopedia and compatibility guide in one `knowledge` collection per engine. Each endpoint replaces its own source in Typesense and Qdrant. Verify 80 documents, exact pair filtering, and removal of obsolete documents in disposable containers. All 44 tests passed.
@@ -25,9 +26,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Current
 
-Use authored fixtures in disposable Testcontainers for the current tasks, with controlled embeddings for Qdrant checks. This stage covers search service methods.
-
-- [ ] **PY-034 — Search reference knowledge.** Search `title` and `text` in Typesense and search by meaning in Qdrant. Both paths query `knowledge` with filters for document kind, stone type, and language. Look up an exact compatibility pair in Typesense by `pair_key`. Test encyclopedia and compatibility results, including reversed pair order and pairs with two stones of the same type.
+No current tasks.
 
 ## Backlog
 

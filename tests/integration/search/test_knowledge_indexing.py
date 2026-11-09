@@ -6,6 +6,8 @@ from fastapi import FastAPI
 from qdrant_client import AsyncQdrantClient, models
 from typesense import AsyncClient
 
+from stone_shelter_assistant.assistant.tools import knowledge_search_tools
+from stone_shelter_assistant.search.knowledge.knowledge_search_service import KnowledgeSearchService
 from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
     build_pair_key,
 )
@@ -93,3 +95,40 @@ async def test_knowledge_endpoints_replace_only_the_requested_source(app: FastAP
             assert response.status_code == 200, response.text
             assert (await collection.retrieve())["num_documents"] == remaining
             assert (await qdrant.count("knowledge", exact=True)).count == remaining
+
+
+@pytest.mark.asyncio
+async def test_knowledge_search_tools_find_reference_fixtures(app: FastAPI) -> None:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        for source in ("encyclopedia", "compatibility"):
+            response = await client.post(f"/api/v1/knowledge/{source}/reindex")
+            assert response.status_code == 200, response.text
+
+    search = KnowledgeSearchService(
+        app.state.typesense_client, app.state.qdrant_client, app.state.embeddings
+    )
+    tools = {tool.name: tool for tool in knowledge_search_tools(search)}
+    filters = {
+        "document_kind": "encyclopedia_section",
+        "stone_type": "OBSIDIAN",
+        "language": "en",
+    }
+    for name, query in (
+        ("search_knowledge_lexical", "Obsidian"),
+        ("search_knowledge_semantic", "how to care for volcanic glass"),
+    ):
+        results = await tools[name].ainvoke({"query": query, "filters": filters})
+        assert results[0]["section_path"] == ["Obsidian"]
+
+    pair_lookup = tools["get_compatibility_pair"]
+    mixed = await pair_lookup.ainvoke({"first_type": "BASALT", "second_type": "GNEISS"})
+    reversed_pair = await pair_lookup.ainvoke({"first_type": "GNEISS", "second_type": "BASALT"})
+    same_type = await pair_lookup.ainvoke({"first_type": "BASALT", "second_type": "BASALT"})
+
+    assert mixed["pair_key"] == "BASALT+GNEISS"
+    assert reversed_pair["id"] == mixed["id"]
+    assert same_type["pair_key"] == "BASALT+BASALT"
+    assert same_type["stone_types"] == ["BASALT", "BASALT"]
+    assert same_type["id"] != mixed["id"]
