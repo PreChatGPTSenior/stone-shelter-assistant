@@ -19,8 +19,12 @@ from testcontainers.core.container import DockerContainer
 from testcontainers.core.wait_strategies import HttpWaitStrategy
 from typesense import AsyncClient
 
-from stone_shelter.core.settings import DatabaseSettings, QdrantSettings, TypesenseSettings
-from stone_shelter.search.infrastructure.client_factories import create_typesense_client
+from stone_shelter_assistant.core.settings import (
+    DatabaseSettings,
+    QdrantSettings,
+    TypesenseSettings,
+)
+from stone_shelter_assistant.search.infrastructure.client_factories import create_typesense_client
 
 POSTGRES_IMAGE = (
     "pgvector/pgvector:0.8.6-pg18-trixie"
@@ -44,7 +48,7 @@ def postgres_container() -> Iterator[PostgresContainer]:
         image=POSTGRES_IMAGE,
         username="integration_test",
         password="integration_test",
-        dbname="stone_shelter_test",
+        dbname="stone_shelter_assistant_test",
         driver=None,
     ) as postgres:
         yield postgres
@@ -169,7 +173,7 @@ def migrated_database(
         }
     )
 
-    with TemporaryDirectory(prefix="stone-shelter-migrations-") as working_directory:
+    with TemporaryDirectory(prefix="stone-shelter-assistant-migrations-") as working_directory:
         for arguments in (("upgrade", "head"), ("check",)):
             subprocess.run(
                 [
@@ -197,26 +201,26 @@ async def app(
     monkeypatch: pytest.MonkeyPatch,
 ) -> AsyncIterator[FastAPI]:
     # Service integration tests do not depend on the HTTP application imports.
-    from stone_shelter.app import create_app
+    from stone_shelter_assistant.app import create_app
 
     monkeypatch.setattr(
-        "stone_shelter.app.DatabaseSettings",
+        "stone_shelter_assistant.app.DatabaseSettings",
         lambda: migrated_database,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.TypesenseSettings",
+        "stone_shelter_assistant.app.TypesenseSettings",
         lambda: typesense_settings,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.QdrantSettings",
+        "stone_shelter_assistant.app.QdrantSettings",
         lambda: qdrant_settings,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.OllamaEmbeddingSettings",
+        "stone_shelter_assistant.app.OllamaEmbeddingSettings",
         lambda: SimpleNamespace(embedding_dimension=TEST_EMBEDDING_DIMENSION),
     )
     monkeypatch.setattr(
-        "stone_shelter.app.create_embeddings",
+        "stone_shelter_assistant.app.create_embeddings",
         lambda _settings: fake_embeddings,
     )
 

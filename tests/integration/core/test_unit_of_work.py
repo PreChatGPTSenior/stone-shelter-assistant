@@ -6,12 +6,12 @@ import pytest_asyncio
 from sqlalchemy import Column, Integer, MetaData, Table, select
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from stone_shelter.core.database_factories import (
+from stone_shelter_assistant.core.database_factories import (
     create_database_engine,
     create_session_factory,
 )
-from stone_shelter.core.settings import DatabaseSettings
-from stone_shelter.core.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter_assistant.core.settings import DatabaseSettings
+from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
 
 
 @pytest_asyncio.fixture

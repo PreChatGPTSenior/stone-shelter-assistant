@@ -5,10 +5,10 @@ import asyncio
 from alembic import context
 from sqlalchemy.engine import Connection
 
-from stone_shelter.core.base_models import Base
-from stone_shelter.core.database_factories import create_database_engine
-from stone_shelter.core.settings import DatabaseSettings
-from stone_shelter.stones import models as stone_models  # noqa: F401
+from stone_shelter_assistant.core.base_models import Base
+from stone_shelter_assistant.core.database_factories import create_database_engine
+from stone_shelter_assistant.core.settings import DatabaseSettings
+from stone_shelter_assistant.stones import models as stone_models  # noqa: F401
 
 
 def do_run_migrations(connection: Connection) -> None:
@@ -17,7 +17,9 @@ def do_run_migrations(connection: Connection) -> None:
         target_metadata=Base.metadata,
         version_table_schema="public",
         include_schemas=True,
-        include_name=lambda name, type_, parent_names: type_ != "schema" or name == "stone_shelter",
+        include_name=lambda name, type_, parent_names: (
+            type_ != "schema" or name == "stone_shelter_assistant"
+        ),
     )
 
     with context.begin_transaction():

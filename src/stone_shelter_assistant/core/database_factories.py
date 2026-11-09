@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from stone_shelter.core.settings import DatabaseSettings
+from stone_shelter_assistant.core.settings import DatabaseSettings
 
 
 def create_database_engine(settings: DatabaseSettings) -> AsyncEngine:

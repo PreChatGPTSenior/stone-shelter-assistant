@@ -24,7 +24,7 @@ Start only the database when needed with `docker compose up -d --wait postgres`.
 | MinIO console | http://127.0.0.1:59001 |
 | Ollama (separate host installation) | http://127.0.0.1:11434 |
 
-All published ports bind to loopback. The Compose project name is `stone-shelter-py`; its network and volumes are separate from the Java project. Image layers may be shared, but data volumes are not. Redis persistence is disabled; Redis data does not survive container replacement.
+All published ports bind to loopback. The default Compose project name is `stone-shelter-assistant`; its network and volumes are separate from the Java project. Image layers may be shared, but data volumes are not. Redis persistence is disabled; Redis data does not survive container replacement.
 
 PostgreSQL data is mounted at `/var/lib/postgresql`, matching the PostgreSQL 18 image layout. The image contains pgvector binaries, but the database extension must be enabled later through an explicit migration. No business tables, application migrations, buckets or reference documents are created by this setup.
 

@@ -3,7 +3,7 @@
 import pytest
 from pydantic import SecretStr, ValidationError
 
-from stone_shelter.core.settings import DatabaseSettings
+from stone_shelter_assistant.core.settings import DatabaseSettings
 
 
 def test_database_settings_reject_invalid_port() -> None:

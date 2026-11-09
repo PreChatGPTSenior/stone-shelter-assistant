@@ -9,7 +9,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
 
 
 class Base(DeclarativeBase):
-    metadata = MetaData(schema="stone_shelter")
+    metadata = MetaData(schema="stone_shelter_assistant")
 
     id: Mapped[UUID] = mapped_column(
         Uuid(as_uuid=True),

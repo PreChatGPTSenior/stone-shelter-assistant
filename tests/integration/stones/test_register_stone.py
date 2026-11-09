@@ -14,23 +14,23 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from sqlalchemy.orm import selectinload
 
-from stone_shelter.core.unit_of_work import SqlAlchemyUnitOfWork
-from stone_shelter.search.infrastructure.qdrant_collections import (
+from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
     OPERATIONAL_COLLECTION as QDRANT_COLLECTION,
 )
-from stone_shelter.search.infrastructure.typesense_collections import (
+from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     OPERATIONAL_COLLECTION as TYPESENSE_COLLECTION,
 )
-from stone_shelter.stones.api_contracts import StoneRegistrationRequest
-from stone_shelter.stones.models import (
+from stone_shelter_assistant.stones.api_contracts import StoneRegistrationRequest
+from stone_shelter_assistant.stones.models import (
     CaseEventModel,
     ShelterCaseModel,
     ShelterModel,
     StoneModel,
     StoneProfileModel,
 )
-from stone_shelter.stones.repository import SqlAlchemyStoneRepository
-from stone_shelter.stones.service import RegisterStoneService
+from stone_shelter_assistant.stones.repository import SqlAlchemyStoneRepository
+from stone_shelter_assistant.stones.service import RegisterStoneService
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEST_DATA = PROJECT_ROOT / "tests/fixtures/stone-registration"

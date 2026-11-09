@@ -6,7 +6,7 @@ from qdrant_client import AsyncQdrantClient
 from sqlalchemy.ext.asyncio import AsyncEngine
 from typesense import AsyncClient
 
-from stone_shelter.app import create_app
+from stone_shelter_assistant.app import create_app
 
 
 def test_lifespan_initializes_and_disposes_shared_resources(
@@ -42,37 +42,39 @@ def test_lifespan_initializes_and_disposes_shared_resources(
     embeddings_creator = Mock(return_value=embeddings)
 
     monkeypatch.setattr(
-        "stone_shelter.app.DatabaseSettings",
+        "stone_shelter_assistant.app.DatabaseSettings",
         settings_class,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.create_database_engine",
+        "stone_shelter_assistant.app.create_database_engine",
         engine_creator,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.create_session_factory",
+        "stone_shelter_assistant.app.create_session_factory",
         factory_creator,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.TypesenseSettings",
+        "stone_shelter_assistant.app.TypesenseSettings",
         typesense_settings_class,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.create_typesense_client",
+        "stone_shelter_assistant.app.create_typesense_client",
         typesense_creator,
     )
     monkeypatch.setattr(
-        "stone_shelter.app.ensure_typesense_operational_collection",
+        "stone_shelter_assistant.app.ensure_typesense_operational_collection",
         ensure_collection,
     )
-    monkeypatch.setattr("stone_shelter.app.QdrantSettings", qdrant_settings_class)
-    monkeypatch.setattr("stone_shelter.app.create_qdrant_client", qdrant_creator)
+    monkeypatch.setattr("stone_shelter_assistant.app.QdrantSettings", qdrant_settings_class)
+    monkeypatch.setattr("stone_shelter_assistant.app.create_qdrant_client", qdrant_creator)
     monkeypatch.setattr(
-        "stone_shelter.app.ensure_qdrant_operational_collection",
+        "stone_shelter_assistant.app.ensure_qdrant_operational_collection",
         ensure_qdrant_collection,
     )
-    monkeypatch.setattr("stone_shelter.app.OllamaEmbeddingSettings", embedding_settings_class)
-    monkeypatch.setattr("stone_shelter.app.create_embeddings", embeddings_creator)
+    monkeypatch.setattr(
+        "stone_shelter_assistant.app.OllamaEmbeddingSettings", embedding_settings_class
+    )
+    monkeypatch.setattr("stone_shelter_assistant.app.create_embeddings", embeddings_creator)
 
     app = create_app()
 

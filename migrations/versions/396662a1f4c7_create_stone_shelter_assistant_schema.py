@@ -1,4 +1,4 @@
-"""Create stone shelter schema
+"""Create Stone Shelter Assistant schema
 
 Revision ID: 396662a1f4c7
 Revises: e9ada39a7f45
@@ -19,8 +19,8 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    op.execute(CreateSchema("stone_shelter"))
+    op.execute(CreateSchema("stone_shelter_assistant"))
 
 
 def downgrade() -> None:
-    op.execute(DropSchema("stone_shelter"))
+    op.execute(DropSchema("stone_shelter_assistant"))

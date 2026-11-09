@@ -4,14 +4,17 @@ from uuid import NAMESPACE_URL, uuid5
 
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 
-from stone_shelter.search.document_content import build_embedding_text, calculate_text_hash
-from stone_shelter.search.document_models import (
+from stone_shelter_assistant.search.document_content import (
+    build_embedding_text,
+    calculate_text_hash,
+)
+from stone_shelter_assistant.search.document_models import (
     DEFAULT_LANGUAGE,
     PROJECTION_VERSION,
     SEARCH_SCHEMA_VERSION,
     EncyclopediaSectionSearchDocument,
 )
-from stone_shelter.stones.enums import StoneType
+from stone_shelter_assistant.stones.enums import StoneType
 
 GENERAL_SECTIONS = {
     "About This Guide",
@@ -66,7 +69,7 @@ def build_encyclopedia_documents(
         document = EncyclopediaSectionSearchDocument(
             id=uuid5(
                 NAMESPACE_URL,
-                f"urn:stone-shelter:search-document:{source_key}",
+                f"urn:stone-shelter-assistant:search-document:{source_key}",
             ),
             title=title,
             text=text,

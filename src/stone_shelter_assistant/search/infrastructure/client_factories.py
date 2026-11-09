@@ -4,7 +4,7 @@ from langchain_ollama import OllamaEmbeddings
 from qdrant_client import AsyncQdrantClient
 from typesense import AsyncClient
 
-from stone_shelter.core.settings import (
+from stone_shelter_assistant.core.settings import (
     OllamaEmbeddingSettings,
     QdrantSettings,
     TypesenseSettings,

@@ -1,11 +1,11 @@
 import pytest
 from sqlalchemy import text
 
-from stone_shelter.core.database_factories import (
+from stone_shelter_assistant.core.database_factories import (
     create_database_engine,
     create_session_factory,
 )
-from stone_shelter.core.settings import DatabaseSettings
+from stone_shelter_assistant.core.settings import DatabaseSettings
 
 
 @pytest.mark.asyncio

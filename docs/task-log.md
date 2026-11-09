@@ -4,6 +4,8 @@ Check a task only when its described behavior has been implemented and observed.
 
 ## Done
 
+- [x] Rename the repository, checkout, Python package, API, and local infrastructure to Stone Shelter Assistant; recreate the environment, apply migrations to fresh storage, and pass all 42 tests.
+- [x] Document repository organization rules in a dedicated guide and require agents to follow it through `AGENTS.md`.
 - [x] Synchronize `.env.example` with application settings and Compose, including Qdrant and local Ollama embeddings.
 - [x] Organize simulated knowledge sources under `fixtures/knowledge` and update the encyclopedia source path.
 - [x] Require explicit loading of both stone/profile relationships with `lazy="raise"`.

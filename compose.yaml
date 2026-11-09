@@ -1,5 +1,5 @@
 # Local infrastructure for the Python backend; application runs with uv on the host.
-name: stone-shelter-py
+name: stone-shelter-assistant
 
 services:
   postgres:
@@ -49,7 +49,7 @@ services:
       retries: 12
 
   minio:
-    image: stone-shelter-minio:RELEASE.2025-04-22T22-12-26Z
+    image: stone-shelter-assistant-minio:RELEASE.2025-04-22T22-12-26Z
     build:
       context: ./infra/minio
     command: server /data --console-address ":9001"

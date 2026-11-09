@@ -4,16 +4,16 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
 
-from stone_shelter.dependencies import (
+from stone_shelter_assistant.dependencies import (
     get_register_stone_service,
     get_stone_indexing_service,
 )
-from stone_shelter.search.stones.stone_indexing_service import StoneIndexingService
-from stone_shelter.stones.api_contracts import (
+from stone_shelter_assistant.search.stones.stone_indexing_service import StoneIndexingService
+from stone_shelter_assistant.stones.api_contracts import (
     StoneRegistrationRequest,
     StoneRegistrationResponse,
 )
-from stone_shelter.stones.service import RegisterStoneService
+from stone_shelter_assistant.stones.service import RegisterStoneService
 
 router = APIRouter(prefix="/api/v1/stones", tags=["stones"])
 

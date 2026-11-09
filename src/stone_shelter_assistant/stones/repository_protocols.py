@@ -3,7 +3,7 @@
 from typing import Protocol
 from uuid import UUID
 
-from stone_shelter.stones.models import ShelterCaseModel, StoneModel
+from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
 
 
 class StoneRepository(Protocol):

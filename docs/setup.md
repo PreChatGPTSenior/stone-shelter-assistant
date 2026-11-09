@@ -1,5 +1,7 @@
 # Local setup
 
+The repository and checkout directory are named `stone-shelter-assistant`. The Python package is `stone_shelter_assistant`.
+
 Run commands from the repository root. The application uses persistent local services; integration tests use disposable Testcontainers and never use the local PostgreSQL database.
 
 ## Requirements
@@ -27,13 +29,15 @@ OLLAMA_EMBEDDING_DIMENSION=1024
 
 Keep the port values from `.env.example` unless changed locally. Do not commit `.env`.
 
+Use `COMPOSE_PROJECT_NAME=stone-shelter-assistant` and the `stone_shelter_assistant` SQL schema. The PostgreSQL user is `stone_shelter_assistant_app`, keeping the default schema independent of the application schema. The renamed learning project starts with fresh local storage.
+
 ## Start the local application
 
 ```sh
 docker compose up -d --wait postgres typesense qdrant
 uv run alembic upgrade head
 ollama list
-uv run uvicorn stone_shelter.main:app --reload
+uv run uvicorn stone_shelter_assistant.main:app --reload
 ```
 
 The first three services keep data in Docker named volumes. `ollama list` should show the configured embedding model; Ollama runs separately from Compose. The API documentation is available at `http://127.0.0.1:8000/docs`. The local database is not seeded by setup; registration requires existing shelter records. The authored JSON fixtures remain available for isolated integration tests.

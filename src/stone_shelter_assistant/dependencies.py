@@ -5,15 +5,15 @@ from collections.abc import AsyncIterator
 from fastapi import Request
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from stone_shelter.core.unit_of_work import SqlAlchemyUnitOfWork
-from stone_shelter.search.stones.qdrant_indexer import QdrantStoneIndexer
-from stone_shelter.search.stones.stone_indexing_service import StoneIndexingService
-from stone_shelter.search.stones.typesense_indexer import TypesenseStoneIndexer
-from stone_shelter.stones.repository import (
+from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter_assistant.search.stones.qdrant_indexer import QdrantStoneIndexer
+from stone_shelter_assistant.search.stones.stone_indexing_service import StoneIndexingService
+from stone_shelter_assistant.search.stones.typesense_indexer import TypesenseStoneIndexer
+from stone_shelter_assistant.stones.repository import (
     SqlAlchemyShelterCaseRepository,
     SqlAlchemyStoneRepository,
 )
-from stone_shelter.stones.service import RegisterStoneService
+from stone_shelter_assistant.stones.service import RegisterStoneService
 
 
 async def get_register_stone_service(

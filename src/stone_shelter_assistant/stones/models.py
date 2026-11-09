@@ -7,7 +7,7 @@ from sqlalchemy import DateTime, ForeignKey, String, Text, Uuid
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from stone_shelter.core.base_models import (
+from stone_shelter_assistant.core.base_models import (
     Base,
     CreatedAtMixin,
     UpdatedAtMixin,

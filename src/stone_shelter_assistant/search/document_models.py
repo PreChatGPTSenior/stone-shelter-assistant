@@ -5,8 +5,8 @@ from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
-from stone_shelter.search.enums import DocumentKind
-from stone_shelter.stones.enums import AdoptionStatus, CaseEventType, StoneSize, StoneType
+from stone_shelter_assistant.search.enums import DocumentKind
+from stone_shelter_assistant.stones.enums import AdoptionStatus, CaseEventType, StoneSize, StoneType
 
 SEARCH_SCHEMA_VERSION: Final[int] = 1
 PROJECTION_VERSION: Final[int] = 1

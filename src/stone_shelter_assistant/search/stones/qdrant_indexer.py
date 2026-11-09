@@ -1,9 +1,9 @@
 from langchain_core.embeddings import Embeddings
 from qdrant_client import AsyncQdrantClient, models
 
-from stone_shelter.search.document_content import build_embedding_text
-from stone_shelter.search.document_models import StoneSearchDocument
-from stone_shelter.search.infrastructure.qdrant_collections import OPERATIONAL_COLLECTION
+from stone_shelter_assistant.search.document_content import build_embedding_text
+from stone_shelter_assistant.search.document_models import StoneSearchDocument
+from stone_shelter_assistant.search.infrastructure.qdrant_collections import OPERATIONAL_COLLECTION
 
 
 class QdrantStoneIndexer:

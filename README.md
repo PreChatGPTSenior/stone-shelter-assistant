@@ -1,4 +1,4 @@
- 🪨 Stone Shelter Lab
+ 🪨 Stone Shelter Assistant
 ----
 *An experimental RAG laboratory disguised as a pet adoption shelter for rocks.*
 ----

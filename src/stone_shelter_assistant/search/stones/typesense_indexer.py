@@ -1,7 +1,9 @@
 from typesense import AsyncClient
 
-from stone_shelter.search.document_models import StoneSearchDocument
-from stone_shelter.search.infrastructure.typesense_collections import OPERATIONAL_COLLECTION
+from stone_shelter_assistant.search.document_models import StoneSearchDocument
+from stone_shelter_assistant.search.infrastructure.typesense_collections import (
+    OPERATIONAL_COLLECTION,
+)
 
 
 class TypesenseStoneIndexer:

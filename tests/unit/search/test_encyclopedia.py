@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from stone_shelter.search.knowledge.encyclopedia_document_builder import (
+from stone_shelter_assistant.search.knowledge.encyclopedia_document_builder import (
     build_encyclopedia_documents,
 )
-from stone_shelter.stones.enums import StoneType
+from stone_shelter_assistant.stones.enums import StoneType
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SOURCE_PATH = "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md"

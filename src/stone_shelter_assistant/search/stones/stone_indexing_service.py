@@ -2,10 +2,10 @@
 
 from uuid import UUID
 
-from stone_shelter.search.stones.qdrant_indexer import QdrantStoneIndexer
-from stone_shelter.search.stones.stone_document_builder import build_stone_document
-from stone_shelter.search.stones.typesense_indexer import TypesenseStoneIndexer
-from stone_shelter.stones.repository_protocols import (
+from stone_shelter_assistant.search.stones.qdrant_indexer import QdrantStoneIndexer
+from stone_shelter_assistant.search.stones.stone_document_builder import build_stone_document
+from stone_shelter_assistant.search.stones.typesense_indexer import TypesenseStoneIndexer
+from stone_shelter_assistant.stones.repository_protocols import (
     ShelterCaseRepository,
     StoneRepository,
 )

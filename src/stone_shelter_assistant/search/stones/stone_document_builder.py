@@ -2,14 +2,17 @@
 
 import json
 
-from stone_shelter.search.document_content import build_embedding_text, calculate_text_hash
-from stone_shelter.search.document_models import (
+from stone_shelter_assistant.search.document_content import (
+    build_embedding_text,
+    calculate_text_hash,
+)
+from stone_shelter_assistant.search.document_models import (
     DEFAULT_LANGUAGE,
     PROJECTION_VERSION,
     SEARCH_SCHEMA_VERSION,
     StoneSearchDocument,
 )
-from stone_shelter.stones.models import ShelterCaseModel, StoneModel
+from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
 
 
 def build_stone_document(

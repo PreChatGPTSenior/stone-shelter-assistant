@@ -5,8 +5,8 @@ from uuid import UUID
 from pydantic import AwareDatetime, Field, field_validator
 from pydantic_core import PydanticCustomError
 
-from stone_shelter.core.api_base_models import ApiRequest, ApiResponse
-from stone_shelter.stones.enums import (
+from stone_shelter_assistant.core.api_base_models import ApiRequest, ApiResponse
+from stone_shelter_assistant.stones.enums import (
     AdoptionStatus,
     CareLevel,
     CaseEventType,

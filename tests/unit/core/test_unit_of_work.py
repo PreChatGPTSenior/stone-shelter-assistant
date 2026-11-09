@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from stone_shelter.core.unit_of_work import SqlAlchemyUnitOfWork, UnitOfWork
+from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork, UnitOfWork
 
 
 @pytest.mark.asyncio

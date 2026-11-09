@@ -2,15 +2,15 @@
 
 from uuid import UUID
 
-from stone_shelter.core.unit_of_work import UnitOfWork
-from stone_shelter.stones.api_contracts import StoneRegistrationRequest
-from stone_shelter.stones.models import (
+from stone_shelter_assistant.core.unit_of_work import UnitOfWork
+from stone_shelter_assistant.stones.api_contracts import StoneRegistrationRequest
+from stone_shelter_assistant.stones.models import (
     CaseEventModel,
     ShelterCaseModel,
     StoneModel,
     StoneProfileModel,
 )
-from stone_shelter.stones.repository_protocols import StoneRepository
+from stone_shelter_assistant.stones.repository_protocols import StoneRepository
 
 
 class RegisterStoneService:

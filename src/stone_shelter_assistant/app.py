@@ -5,29 +5,29 @@ from contextlib import AsyncExitStack, asynccontextmanager
 
 from fastapi import FastAPI
 
-from stone_shelter.assistant.router import router as assistant_router
-from stone_shelter.core.database_factories import (
+from stone_shelter_assistant.assistant.router import router as assistant_router
+from stone_shelter_assistant.core.database_factories import (
     create_database_engine,
     create_session_factory,
 )
-from stone_shelter.core.settings import (
+from stone_shelter_assistant.core.settings import (
     DatabaseSettings,
     OllamaEmbeddingSettings,
     QdrantSettings,
     TypesenseSettings,
 )
-from stone_shelter.search.infrastructure.client_factories import (
+from stone_shelter_assistant.search.infrastructure.client_factories import (
     create_embeddings,
     create_qdrant_client,
     create_typesense_client,
 )
-from stone_shelter.search.infrastructure.qdrant_collections import (
+from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
     ensure_operational_collection as ensure_qdrant_operational_collection,
 )
-from stone_shelter.search.infrastructure.typesense_collections import (
+from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     ensure_operational_collection as ensure_typesense_operational_collection,
 )
-from stone_shelter.stones.router import router as stones_router
+from stone_shelter_assistant.stones.router import router as stones_router
 
 
 @asynccontextmanager
@@ -63,7 +63,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 def create_app() -> FastAPI:
     """Build and configure the HTTP application."""
     app = FastAPI(
-        title="Stone Shelter API",
+        title="Stone Shelter Assistant API",
         version="0.1.0",
         lifespan=lifespan,
     )

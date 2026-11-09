@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from stone_shelter.stones.models import ShelterCaseModel, StoneModel
+from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
 
 
 class SqlAlchemyStoneRepository:

@@ -2,6 +2,7 @@
 
 This compact record captures current choices and their reasons. The fictional premise and learning goal take precedence over production completeness.
 
+- **Project identity:** Use Stone Shelter Assistant as the display name, `stone-shelter-assistant` for the repository and Python distribution, and `stone_shelter_assistant` for the Python package. Use the same naming in the SQL schema, local database configuration, Compose project, and search-document namespace. Start with fresh storage for the rename; backward compatibility and data migration are outside this learning task.
 - **Learning scope:** Build a working happy-path pilot first, then evaluate and improve it. The exercise teaches Python, hybrid search, RAG, agent routing, and evaluation.
 - **Project stack:** Use uv, FastAPI, Pydantic, SQLAlchemy with asyncpg, Alembic, Ruff, mypy, and pytest-asyncio. Add other libraries only when their learning task needs them.
 - **Code ownership:** The owner writes application code while learning; assistance focuses on explanation, review, and explicitly delegated edits.
@@ -17,4 +18,4 @@ This compact record captures current choices and their reasons. The fictional pr
 - **Agent path:** Use LangChain tools and a bounded LangGraph so an LLM can select appropriate retrieval; the answer must cite evidence. Test conversations remain short, at most five turns.
 - **Observability and evaluation:** Start with Langfuse tracing and a recorded baseline. Evaluate retrieval and free-form answer quality after the first working pilot; then compare strategies, models, prompts, and costs.
 - **Deferred operations:** Queues, outbox delivery, retries, automatic cross-index recovery, full CRUD/UI, and production deployment are not prerequisites for the pilot. Keep failures visible rather than claiming distributed atomicity.
-- **Documentation:** Keep one manifesto, one task log, this decision record, and setup instructions. OpenSpec is not part of this project's current workflow.
+- **Documentation:** Keep one manifesto, one task log, this decision record, setup instructions, and a compact [repository organization guide](repository-organization.md). Agent instructions reference the guide so placement rules have one home. OpenSpec is not part of this project's current workflow.

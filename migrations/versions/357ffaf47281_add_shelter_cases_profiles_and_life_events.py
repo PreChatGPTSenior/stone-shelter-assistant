@@ -41,7 +41,7 @@ def upgrade() -> None:
         sa.Column("version", sa.Integer(), nullable=False),
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.create_table(
         "shelter_cases",
@@ -67,24 +67,24 @@ def upgrade() -> None:
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["current_shelter_id"],
-            ["stone_shelter.shelters.id"],
+            ["stone_shelter_assistant.shelters.id"],
         ),
         sa.ForeignKeyConstraint(
             ["stone_id"],
-            ["stone_shelter.stones.id"],
+            ["stone_shelter_assistant.stones.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("case_number"),
         sa.UniqueConstraint("external_id"),
         sa.UniqueConstraint("stone_id"),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.create_index(
-        op.f("ix_stone_shelter_shelter_cases_current_shelter_id"),
+        op.f("ix_stone_shelter_assistant_shelter_cases_current_shelter_id"),
         "shelter_cases",
         ["current_shelter_id"],
         unique=False,
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.create_table(
         "stone_profiles",
@@ -110,11 +110,11 @@ def upgrade() -> None:
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["stone_id"],
-            ["stone_shelter.stones.id"],
+            ["stone_shelter_assistant.stones.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("stone_id"),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.create_table(
         "case_events",
@@ -132,21 +132,23 @@ def upgrade() -> None:
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["case_id"],
-            ["stone_shelter.shelter_cases.id"],
+            ["stone_shelter_assistant.shelter_cases.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("external_id"),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.create_index(
-        op.f("ix_stone_shelter_case_events_case_id"),
+        op.f("ix_stone_shelter_assistant_case_events_case_id"),
         "case_events",
         ["case_id"],
         unique=False,
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.add_column(
-        "stones", sa.Column("external_id", sa.Uuid(), nullable=False), schema="stone_shelter"
+        "stones",
+        sa.Column("external_id", sa.Uuid(), nullable=False),
+        schema="stone_shelter_assistant",
     )
     op.add_column(
         "stones",
@@ -156,7 +158,7 @@ def upgrade() -> None:
             server_default=sa.text("now()"),
             nullable=False,
         ),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.add_column(
         "stones",
@@ -166,15 +168,17 @@ def upgrade() -> None:
             server_default=sa.text("now()"),
             nullable=False,
         ),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
     op.add_column(
-        "stones", sa.Column("version", sa.Integer(), nullable=False), schema="stone_shelter"
+        "stones",
+        sa.Column("version", sa.Integer(), nullable=False),
+        schema="stone_shelter_assistant",
     )
     op.create_unique_constraint(
-        "uq_stones_external_id", "stones", ["external_id"], schema="stone_shelter"
+        "uq_stones_external_id", "stones", ["external_id"], schema="stone_shelter_assistant"
     )
-    op.drop_column("stones", "admission_date", schema="stone_shelter")
+    op.drop_column("stones", "admission_date", schema="stone_shelter_assistant")
     # ### end Alembic commands ###
 
 
@@ -189,25 +193,27 @@ def downgrade() -> None:
             autoincrement=False,
             nullable=False,
         ),
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
-    op.drop_constraint("uq_stones_external_id", "stones", schema="stone_shelter", type_="unique")
-    op.drop_column("stones", "version", schema="stone_shelter")
-    op.drop_column("stones", "updated_at", schema="stone_shelter")
-    op.drop_column("stones", "created_at", schema="stone_shelter")
-    op.drop_column("stones", "external_id", schema="stone_shelter")
+    op.drop_constraint(
+        "uq_stones_external_id", "stones", schema="stone_shelter_assistant", type_="unique"
+    )
+    op.drop_column("stones", "version", schema="stone_shelter_assistant")
+    op.drop_column("stones", "updated_at", schema="stone_shelter_assistant")
+    op.drop_column("stones", "created_at", schema="stone_shelter_assistant")
+    op.drop_column("stones", "external_id", schema="stone_shelter_assistant")
     op.drop_index(
-        op.f("ix_stone_shelter_case_events_case_id"),
+        op.f("ix_stone_shelter_assistant_case_events_case_id"),
         table_name="case_events",
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
-    op.drop_table("case_events", schema="stone_shelter")
-    op.drop_table("stone_profiles", schema="stone_shelter")
+    op.drop_table("case_events", schema="stone_shelter_assistant")
+    op.drop_table("stone_profiles", schema="stone_shelter_assistant")
     op.drop_index(
-        op.f("ix_stone_shelter_shelter_cases_current_shelter_id"),
+        op.f("ix_stone_shelter_assistant_shelter_cases_current_shelter_id"),
         table_name="shelter_cases",
-        schema="stone_shelter",
+        schema="stone_shelter_assistant",
     )
-    op.drop_table("shelter_cases", schema="stone_shelter")
-    op.drop_table("shelters", schema="stone_shelter")
+    op.drop_table("shelter_cases", schema="stone_shelter_assistant")
+    op.drop_table("shelters", schema="stone_shelter_assistant")
     # ### end Alembic commands ###
