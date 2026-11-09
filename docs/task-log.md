@@ -1,31 +1,29 @@
 # Task Log
 
-Check a task only when its described behavior has been implemented and observed. This is a learning checklist, not a release plan.
+Select any item from **Backlog**. Discuss its scope, then move it to **Current** and assign the next unused `PY-NNN` ID. Backlog order is optional. Move a task to **Done** with the same ID once its result has been implemented and verified.
+
+Completed entries summarize the work that landed. Existing IDs are reused where the history identifies them. `PY-027` and `PY-028` are retrospective IDs for maintenance work. Keep legacy GitHub IDs `PY-013` through `PY-026` reserved.
 
 ## Done
 
-- [x] Rename the repository, checkout, Python package, API, and local infrastructure to Stone Shelter Assistant; recreate the environment, apply migrations to fresh storage, and pass all 42 tests.
-- [x] Document repository organization rules in a dedicated guide and require agents to follow it through `AGENTS.md`.
-- [x] Synchronize `.env.example` with application settings and Compose, including Qdrant and local Ollama embeddings.
-- [x] Organize simulated knowledge sources under `fixtures/knowledge` and update the encyclopedia source path.
-- [x] Require explicit loading of both stone/profile relationships with `lazy="raise"`.
-- [x] Organize search into `infrastructure`, `stones`, and `knowledge`; share document content helpers and build one stone projection for both indexers.
+- [x] **PY-028 — Rename the project and document its layout.** Align the repository, Python package, API, and local infrastructure on Stone Shelter Assistant. Recreate the environment, apply migrations to fresh storage, and pass all 42 tests. Add the repository organization guide and reference it from `AGENTS.md`.
+- [x] **PY-027 — Simplify repository structure.** Replace OpenSpec with compact project documentation. Consolidate registration in `stones` and shared technical foundations in `core`. Move app assembly to the package root and add the placeholder questions route. Remove unused scaffolding, domain dataclasses, and one-off loaders. Split search into infrastructure, stones, and knowledge, share document helpers, and build one projection for both indexers. Require explicit loading of stone/profile relationships, move reference fixtures to `fixtures/knowledge`, and synchronize the environment template with Compose and the application.
+- [x] **PY-012 — Set up local search and verify initial indexing.** Connect and test Typesense in a disposable container. Verify that one HTTP registration indexes the stone in Typesense and Qdrant using controlled embeddings.
+- [x] **PY-011 — Prepare initial search evidence.** Split the English encyclopedia into fourteen search documents and author the fictional compatibility guide with ten rock types and 55 unordered pairs. This entry covers the groundwork that landed.
+- [x] **PY-010 — Register a complete stone record.** Accept one stone with its shelter case, optional profile, and supplied events through HTTP.
+- [x] **PY-009 — Prepare registration fixtures.** Add the registration contracts and ten authored JSON examples, and prepare persistent local PostgreSQL for development.
+- [x] **PY-008 — Define the shelter domain and ingestion contracts.** Describe stones, profiles, shelters, cases, and incremental case events.
+- [x] **PY-007 — Isolate integration tests.** Run PostgreSQL integration tests in disposable Testcontainers.
+- [x] **PY-003 — Create stones.** Persist a stone with a UUID through the initial create endpoint.
+- [x] **PY-002 — Add database support.** Add PostgreSQL settings, async SQLAlchemy sessions, Unit of Work, and Alembic migrations.
+- [x] **PY-001 — Bootstrap the project.** Configure uv, FastAPI, Ruff, mypy, pytest, and Docker Compose.
 
-- [x] Consolidate shared settings, API and ORM bases, database factories, and transaction handling in `core`; assemble FastAPI and dependencies at the package root and expose a placeholder assistant questions route.
-- [x] Consolidate stone registration, shelter cases, and profiles into one `stones` package and remove unused domain dataclasses and one-off data loaders.
-- [x] Bootstrap the Python project with uv, FastAPI, Ruff, mypy, pytest, and Docker Compose.
-- [x] Add PostgreSQL settings, async SQLAlchemy sessions, Unit of Work, and Alembic migrations.
-- [x] Run database integration tests against disposable Testcontainers PostgreSQL.
-- [x] Register one stone with its shelter case, optional profile, and supplied events through HTTP.
-- [x] Prepare ten authored stone-registration JSON examples and a persistent local PostgreSQL development database.
-- [x] Add an English stone encyclopedia and split it into fourteen search documents.
-- [x] Author a fictional JSON compatibility guide covering ten types and all 55 unordered pairs.
-- [x] Connect a Typesense client and verify it against a disposable Typesense container.
-- [x] Build an initial stone search document and index one registration through HTTP into Typesense and Qdrant using controlled test embeddings.
+## Current
 
-## Next
+- [ ] **PY-029 — Parse the stone type compatibility guide.** Read the [authored JSON fixture](../fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json) and produce searchable evidence for pairings, type portraits, and reading rules. Preserve both stone types in pair evidence, retain source provenance, and use stable evidence IDs. Verify the parser against the fixture. Collection setup, indexing, and HTTP endpoints remain separate tasks.
 
-- [ ] Parse the compatibility JSON into searchable pair, type-portrait, and guide-rule evidence.
+## Backlog
+
 - [ ] Create separate reference collections in Typesense and Qdrant and index encyclopedia and compatibility evidence.
 - [ ] Add a small Knowledge API with explicit encyclopedia and compatibility reindex endpoints.
 - [ ] Inspect real reference documents in both indexes through focused Testcontainers scenarios.
