@@ -19,7 +19,29 @@ from stone_shelter_assistant.search.stones.search_contracts import (
 )
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.enums import StoneType
-from stone_shelter_assistant.stones.repository_protocols import ShelterCaseRepository
+from stone_shelter_assistant.stones.repository_protocols import (
+    ShelterCaseRepository,
+    StoneRepository,
+)
+
+
+def stone_lookup_tools(stones: StoneRepository) -> list[BaseTool]:
+    @tool
+    async def get_stone_details(
+        stone_id: UUID | None = None,
+        stone_external_id: UUID | None = None,
+    ) -> dict[str, object] | None:
+        """Read a stone, optional profile, and current case from PostgreSQL.
+
+        Provide exactly one ID: stone_id is a stone card's internal id;
+        stone_external_id is the external stone ID available in cards and events.
+        Returns None when the stone does not exist. Use get_case_timeline with
+        shelter_case.external_id to read its history separately.
+        """
+        details = await stones.get_details(stone_id=stone_id, stone_external_id=stone_external_id)
+        return details.model_dump(mode="json") if details is not None else None
+
+    return [get_stone_details]
 
 
 def stone_search_tools(search: StoneSearchService, cases: ShelterCaseRepository) -> list[BaseTool]:

@@ -14,7 +14,11 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from sqlalchemy.orm import selectinload
 
-from stone_shelter_assistant.assistant.tools import case_event_search_tools, stone_search_tools
+from stone_shelter_assistant.assistant.tools import (
+    case_event_search_tools,
+    stone_lookup_tools,
+    stone_search_tools,
+)
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
 from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
     OPERATIONAL_COLLECTION as QDRANT_COLLECTION,
@@ -335,6 +339,51 @@ async def test_stone_search_tools_return_registered_card(
                 "current_shelter_id": str(request.shelter_case.current_shelter_id),
             }
         ]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("with_profile", [True, False], ids=["with-profile", "without-profile"])
+async def test_stone_details_tool_reads_fixture_by_both_ids(
+    registration_sessions: async_sessionmaker[AsyncSession],
+    with_profile: bool,
+) -> None:
+    fixture = PROJECT_ROOT / "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json"
+    request = StoneRegistrationRequest.model_validate_json(fixture.read_text(encoding="utf-8"))
+    if not with_profile:
+        request = request.model_copy(update={"profile": None})
+    stone_id = await register(registration_sessions, request)
+
+    results = []
+    for identity in (
+        {"stone_id": str(stone_id)},
+        {"stone_external_id": str(request.stone.external_id)},
+    ):
+        async with registration_sessions() as session:
+            tools = {
+                tool.name: tool for tool in stone_lookup_tools(SqlAlchemyStoneRepository(session))
+            }
+            results.append(await tools["get_stone_details"].ainvoke(identity))
+
+    assert results[0] == results[1]
+    details = results[0]
+    assert details["id"] == str(stone_id)
+    for field, expected in request.stone.model_dump(mode="json").items():
+        assert details[field] == expected
+
+    if request.profile is None:
+        assert details["profile"] is None
+    else:
+        expected_profile = request.profile.model_dump(mode="json")
+        assert set(details["profile"]["socialization_traits"]) == set(
+            expected_profile["socialization_traits"]
+        )
+        for field, expected in expected_profile.items():
+            if field != "socialization_traits":
+                assert details["profile"][field] == expected
+
+    for field, expected in request.shelter_case.model_dump(mode="json", exclude={"events"}).items():
+        assert details["shelter_case"][field] == expected
+    assert "events" not in details["shelter_case"]
 
 
 @pytest.mark.asyncio

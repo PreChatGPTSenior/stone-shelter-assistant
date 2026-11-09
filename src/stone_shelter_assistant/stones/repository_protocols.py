@@ -6,11 +6,15 @@ from uuid import UUID
 
 from stone_shelter_assistant.stones.models import CaseEventModel, ShelterCaseModel, StoneModel
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
+from stone_shelter_assistant.stones.stone_contracts import StoneDetails
 
 
 class StoneRepository(Protocol):
     def add(self, stone: StoneModel) -> None: ...
     async def get_by_id(self, stone_id: UUID) -> StoneModel | None: ...
+    async def get_details(
+        self, *, stone_id: UUID | None = None, stone_external_id: UUID | None = None
+    ) -> StoneDetails | None: ...
 
 
 class ShelterCaseRepository(Protocol):

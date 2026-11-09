@@ -10,6 +10,7 @@ from sqlalchemy.orm import selectinload
 from stone_shelter_assistant.stones.enums import AdoptionStatus
 from stone_shelter_assistant.stones.models import CaseEventModel, ShelterCaseModel, StoneModel
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
+from stone_shelter_assistant.stones.stone_contracts import StoneDetails
 
 
 class SqlAlchemyStoneRepository:
@@ -23,6 +24,26 @@ class SqlAlchemyStoneRepository:
         return await self._session.get(
             StoneModel, stone_id, options=[selectinload(StoneModel.profile)]
         )
+
+    async def get_details(
+        self, *, stone_id: UUID | None = None, stone_external_id: UUID | None = None
+    ) -> StoneDetails | None:
+        """Read a current card using exactly one internal or external stone ID."""
+        if (stone_id is None) == (stone_external_id is None):
+            raise ValueError("Provide exactly one of stone_id or stone_external_id")
+        identity = (
+            StoneModel.id == stone_id
+            if stone_id is not None
+            else StoneModel.external_id == stone_external_id
+        )
+        statement = (
+            select(StoneModel)
+            .where(identity)
+            .options(selectinload(StoneModel.profile), selectinload(StoneModel.shelter_case))
+            .execution_options(populate_existing=True)
+        )
+        stone = await self._session.scalar(statement)
+        return StoneDetails.model_validate(stone) if stone is not None else None
 
 
 class SqlAlchemyShelterCaseRepository:
