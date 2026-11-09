@@ -14,6 +14,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from sqlalchemy.orm import selectinload
 
+from stone_shelter_assistant.assistant.tools import stone_search_tools
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
 from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
     OPERATIONAL_COLLECTION as QDRANT_COLLECTION,
@@ -21,6 +22,7 @@ from stone_shelter_assistant.search.infrastructure.qdrant_collections import (
 from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     OPERATIONAL_COLLECTION as TYPESENSE_COLLECTION,
 )
+from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.api_contracts import StoneRegistrationRequest
 from stone_shelter_assistant.stones.models import (
     CaseEventModel,
@@ -29,7 +31,10 @@ from stone_shelter_assistant.stones.models import (
     StoneModel,
     StoneProfileModel,
 )
-from stone_shelter_assistant.stones.repository import SqlAlchemyStoneRepository
+from stone_shelter_assistant.stones.repository import (
+    SqlAlchemyShelterCaseRepository,
+    SqlAlchemyStoneRepository,
+)
 from stone_shelter_assistant.stones.service import RegisterStoneService
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -281,6 +286,53 @@ async def test_registration_indexes_stone_profile_and_events_in_both_engines(
         assert point.payload == {key: value for key, value in document.items() if key != "id"}
         assert isinstance(point.vector, list)
         assert len(point.vector) == app.state.embedding_dimension
+
+
+@pytest.mark.asyncio
+async def test_stone_search_tools_return_registered_card(
+    app: FastAPI,
+    registration_sessions: async_sessionmaker[AsyncSession],
+) -> None:
+    fixture = PROJECT_ROOT / "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json"
+    request = StoneRegistrationRequest.model_validate_json(fixture.read_text(encoding="utf-8"))
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/api/v1/stones",
+            content=fixture.read_bytes(),
+            headers={"Content-Type": "application/json"},
+        )
+    assert response.status_code == 201, response.text
+    stone_id = response.json()["id"]
+
+    search = StoneSearchService(
+        app.state.typesense_client, app.state.qdrant_client, app.state.embeddings
+    )
+    async with registration_sessions() as session:
+        tools = {
+            tool.name: tool
+            for tool in stone_search_tools(search, SqlAlchemyShelterCaseRepository(session))
+        }
+        for name, query in (
+            ("search_stones_lexical", request.stone.name),
+            ("search_stones_semantic", "a stone that prefers a quiet home"),
+        ):
+            cards = await tools[name].ainvoke(
+                {"query": query, "filters": {"case_number": request.shelter_case.case_number}}
+            )
+            assert any(
+                card["id"] == stone_id and card["document_kind"] == "stone" for card in cards
+            )
+
+        states = await tools["get_current_stone_statuses"].ainvoke({"stone_ids": [stone_id]})
+        assert states == [
+            {
+                "stone_id": stone_id,
+                "adoption_status": request.shelter_case.adoption_status.value,
+                "current_shelter_id": str(request.shelter_case.current_shelter_id),
+            }
+        ]
 
 
 @pytest.mark.asyncio

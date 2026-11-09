@@ -1,12 +1,15 @@
 """Access stones and shelter cases through the current database session."""
 
+from collections.abc import Sequence
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
+from stone_shelter_assistant.stones.enums import AdoptionStatus
 from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
+from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
 
 
 class SqlAlchemyStoneRepository:
@@ -34,3 +37,15 @@ class SqlAlchemyShelterCaseRepository:
         )
         result = await self._session.execute(statement)
         return result.scalar_one_or_none()
+
+    async def get_current_states(self, stone_ids: Sequence[UUID]) -> list[StoneCaseState]:
+        statement = select(
+            ShelterCaseModel.stone_id,
+            ShelterCaseModel.adoption_status,
+            ShelterCaseModel.current_shelter_id,
+        ).where(ShelterCaseModel.stone_id.in_(stone_ids))
+        rows = await self._session.execute(statement)
+        return [
+            StoneCaseState(stone_id, AdoptionStatus(status), shelter_id)
+            for stone_id, status, shelter_id in rows.tuples()
+        ]
