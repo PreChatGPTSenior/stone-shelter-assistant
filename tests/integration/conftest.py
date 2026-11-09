@@ -1,4 +1,4 @@
-"""Shared fixtures for disposable PostgreSQL and Typesense integration tests."""
+"""Shared fixtures for disposable PostgreSQL, Typesense, and Qdrant integration tests."""
 
 import json
 import os
@@ -7,10 +7,12 @@ import sys
 from collections.abc import AsyncIterator, Iterator
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 
 import pytest
 import pytest_asyncio
 from fastapi import FastAPI
+from langchain_core.embeddings import Embeddings
 from pydantic import SecretStr
 from testcontainers.community.postgres import PostgresContainer
 from testcontainers.core.container import DockerContainer
@@ -18,7 +20,7 @@ from testcontainers.core.wait_strategies import HttpWaitStrategy
 from typesense import AsyncClient
 
 from stone_shelter.infrastructure.typesense import create_typesense_client
-from stone_shelter.settings import DatabaseSettings, TypesenseSettings
+from stone_shelter.settings import DatabaseSettings, QdrantSettings, TypesenseSettings
 
 POSTGRES_IMAGE = (
     "pgvector/pgvector:0.8.6-pg18-trixie"
@@ -29,6 +31,8 @@ TYPESENSE_IMAGE = (
     "typesense/typesense:30.2"
     "@sha256:610f2d34b1f93d00762869da2c67736775e5798d19a2c8b91b014b8a0cc1e110"
 )
+QDRANT_IMAGE = "qdrant/qdrant:v1.16.3"
+TEST_EMBEDDING_DIMENSION = 8
 
 # Used only by disposable integration-test containers.
 TYPESENSE_TEST_API_KEY = "integration-test-typesense-key"
@@ -81,6 +85,45 @@ def typesense_settings(
         api_key=SecretStr(TYPESENSE_TEST_API_KEY),
         connection_timeout_seconds=10.0,
     )
+
+
+@pytest.fixture(scope="session")
+def qdrant_container() -> Iterator[DockerContainer]:
+    """Provide a disposable Qdrant instance with no persistent data volume."""
+    wait_strategy = HttpWaitStrategy(6333, "/readyz").for_status_code(200).with_startup_timeout(60)
+    container = DockerContainer(QDRANT_IMAGE).with_exposed_ports(6333).waiting_for(wait_strategy)
+
+    with container as qdrant:
+        yield qdrant
+
+
+@pytest.fixture(scope="session")
+def qdrant_settings(qdrant_container: DockerContainer) -> QdrantSettings:
+    """Connect only to the disposable container, not the local Qdrant service."""
+    return QdrantSettings(
+        _env_file=None,
+        host=qdrant_container.get_container_host_ip(),
+        port=int(qdrant_container.get_exposed_port(6333)),
+    )
+
+
+class FakeEmbeddings(Embeddings):
+    """Produce a known vector without connecting to the local Ollama server."""
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        assert all(text.strip() for text in texts)
+        return [[1.0] + [0.0] * (TEST_EMBEDDING_DIMENSION - 1) for _ in texts]
+
+    def embed_query(self, text: str) -> list[float]:
+        return self.embed_documents([text])[0]
+
+    async def aembed_documents(self, texts: list[str]) -> list[list[float]]:
+        return self.embed_documents(texts)
+
+
+@pytest.fixture
+def fake_embeddings() -> FakeEmbeddings:
+    return FakeEmbeddings()
 
 
 @pytest_asyncio.fixture
@@ -149,6 +192,8 @@ def migrated_database(
 async def app(
     migrated_database: DatabaseSettings,
     typesense_settings: TypesenseSettings,
+    qdrant_settings: QdrantSettings,
+    fake_embeddings: FakeEmbeddings,
     monkeypatch: pytest.MonkeyPatch,
 ) -> AsyncIterator[FastAPI]:
     # Service integration tests do not depend on the HTTP application imports.
@@ -161,6 +206,18 @@ async def app(
     monkeypatch.setattr(
         "stone_shelter.bootstrap.app.TypesenseSettings",
         lambda: typesense_settings,
+    )
+    monkeypatch.setattr(
+        "stone_shelter.bootstrap.app.QdrantSettings",
+        lambda: qdrant_settings,
+    )
+    monkeypatch.setattr(
+        "stone_shelter.bootstrap.app.OllamaEmbeddingSettings",
+        lambda: SimpleNamespace(embedding_dimension=TEST_EMBEDDING_DIMENSION),
+    )
+    monkeypatch.setattr(
+        "stone_shelter.bootstrap.app.create_embeddings",
+        lambda _settings: fake_embeddings,
     )
 
     application = create_app()

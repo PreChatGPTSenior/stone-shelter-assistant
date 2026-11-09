@@ -1,6 +1,6 @@
 """Validated search projections shared by lexical and vector adapters."""
 
-from typing import Literal
+from typing import Final, Literal
 from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
@@ -9,6 +9,9 @@ from stone_shelter.adoption.enums import AdoptionStatus, CaseEventType
 from stone_shelter.catalog.enums import StoneSize, StoneType
 from stone_shelter.search.enums import DocumentKind
 
+SEARCH_SCHEMA_VERSION: Final[int] = 1
+PROJECTION_VERSION: Final[int] = 1
+LANGUAGE_VERSION: Final[str] = "en"
 
 class SearchDocument(BaseModel):
     """Common content, provenance, and revision fields for search evidence."""

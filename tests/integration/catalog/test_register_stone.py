@@ -24,6 +24,8 @@ from stone_shelter.application.register_stone import RegisterStoneService
 from stone_shelter.catalog.persistence.models import StoneModel, StoneProfileModel
 from stone_shelter.catalog.persistence.repository import SqlAlchemyStoneRepository
 from stone_shelter.infrastructure.database.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter.search.qdrant_schema import OPERATIONAL_COLLECTION as QDRANT_COLLECTION
+from stone_shelter.search.typesense_schema import OPERATIONAL_COLLECTION as TYPESENSE_COLLECTION
 from stone_shelter.tools.load_stones import load_stones
 from stone_shelter.tools.seed_shelters import seed_shelters
 
@@ -152,6 +154,75 @@ async def test_registration_endpoint_persists_complete_graph(
             assert profile.trigger_notes == request.profile.trigger_notes
             assert profile.preferred_environment == request.profile.preferred_environment
             assert profile.version == 1
+
+
+@pytest.mark.asyncio
+async def test_registration_indexes_stone_in_typesense_and_qdrant(
+    app: FastAPI,
+    registration_sessions: async_sessionmaker[AsyncSession],
+) -> None:
+    request_file = PROJECT_ROOT / "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json"
+    request = StoneRegistrationRequest.model_validate_json(request_file.read_text(encoding="utf-8"))
+
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.post(
+            "/api/v1/stones",
+            content=request_file.read_bytes(),
+            headers={"Content-Type": "application/json"},
+        )
+
+    assert response.status_code == 201, response.text
+    stone_id = UUID(response.json()["id"])
+
+    # A fresh database session verifies that registration committed before indexing.
+    async with registration_sessions() as session:
+        stone = await session.get(StoneModel, stone_id)
+        case = await session.scalar(
+            select(ShelterCaseModel).where(ShelterCaseModel.stone_id == stone_id)
+        )
+
+    assert stone is not None
+    assert stone.external_id == request.stone.external_id
+    assert case is not None
+    assert case.external_id == request.shelter_case.external_id
+
+    typesense_document = await (
+        app.state.typesense_client.collections[TYPESENSE_COLLECTION]
+        .documents[str(stone_id)]
+        .retrieve()
+    )
+
+    assert typesense_document["id"] == str(stone_id)
+    assert typesense_document["title"] == request.stone.name
+    assert typesense_document["text"] == request.stone.biography
+    assert typesense_document["stone_type"] == request.stone.stone_type.value
+    assert typesense_document["adoption_status"] == request.shelter_case.adoption_status.value
+    assert typesense_document["current_shelter_id"] == str(request.shelter_case.current_shelter_id)
+
+    points = await app.state.qdrant_client.retrieve(
+        collection_name=QDRANT_COLLECTION,
+        ids=[stone_id],
+        with_payload=True,
+        with_vectors=True,
+    )
+
+    assert len(points) == 1
+    assert str(points[0].id) == str(stone_id)
+
+    payload = points[0].payload
+    assert payload is not None
+    assert payload["title"] == typesense_document["title"]
+    assert payload["text"] == typesense_document["text"]
+    assert payload["stone_type"] == typesense_document["stone_type"]
+    assert payload["adoption_status"] == typesense_document["adoption_status"]
+    assert payload["current_shelter_id"] == typesense_document["current_shelter_id"]
+
+    vector = points[0].vector
+    assert isinstance(vector, list)
+    assert len(vector) == app.state.embedding_dimension
 
 
 @pytest.mark.asyncio

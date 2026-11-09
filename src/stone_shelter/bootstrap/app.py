@@ -8,8 +8,21 @@ from fastapi import FastAPI
 from stone_shelter.catalog.api.router import router as catalog_router
 from stone_shelter.infrastructure.database.engine import create_database_engine
 from stone_shelter.infrastructure.database.session import create_session_factory
+from stone_shelter.infrastructure.embeddings import create_embeddings
+from stone_shelter.infrastructure.qdrant import create_qdrant_client
 from stone_shelter.infrastructure.typesense import create_typesense_client
-from stone_shelter.settings import DatabaseSettings, TypesenseSettings
+from stone_shelter.search.qdrant_schema import (
+    ensure_operational_collection as ensure_qdrant_operational_collection,
+)
+from stone_shelter.search.typesense_schema import (
+    ensure_operational_collection as ensure_typesense_operational_collection,
+)
+from stone_shelter.settings import (
+    DatabaseSettings,
+    OllamaEmbeddingSettings,
+    QdrantSettings,
+    TypesenseSettings,
+)
 
 
 @asynccontextmanager
@@ -21,8 +34,24 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         typesense_client = create_typesense_client(TypesenseSettings())
         resources.push_async_callback(typesense_client.api_call.aclose)
 
+        await ensure_typesense_operational_collection(typesense_client)
+
         app.state.session_factory = create_session_factory(engine)
         app.state.typesense_client = typesense_client
+
+        qdrant_client = create_qdrant_client(QdrantSettings())
+        resources.push_async_callback(qdrant_client.close)
+        app.state.qdrant_client = qdrant_client
+
+        embedding_settings = OllamaEmbeddingSettings()
+        embeddings = create_embeddings(embedding_settings)
+        app.state.embeddings = embeddings
+        app.state.embedding_dimension = embedding_settings.embedding_dimension
+
+        await ensure_qdrant_operational_collection(
+            qdrant_client, vector_size=embedding_settings.embedding_dimension
+        )
+
         yield
 
 
