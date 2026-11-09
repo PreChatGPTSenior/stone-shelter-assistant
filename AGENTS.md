@@ -8,6 +8,7 @@
 - Keep PostgreSQL authoritative for operational records. Do not infer current adoption status from case events or invent missing source data.
 - Run automated database and search integration tests only against disposable Testcontainers, never against the persistent local application database. Do not delete local data or volumes without an explicit request.
 - Prefer meaningful scenario tests to tests that repeat implementation details. Keep the first pilot on a visible happy path; defer queues, retries, recovery frameworks, and broad negative-path matrices until selected as learning tasks.
+- Keep command and check output short. For successful runs, read only the exit status and a brief summary. Open large or detailed logs only when diagnosing an error, and read the relevant excerpt.
 - Write repository documentation, comments, examples, issue descriptions, and commit messages in English.
 - Never create, edit, move, rename, or delete the root `README.md` unless the owner explicitly asks for that specific change. The owner maintains the repository's front-page README; other README files are not covered by this restriction.
 - Keep project context compact: `docs/project-manifesto.md`, `docs/task-log.md`, `docs/adr.md`, `docs/setup.md`, and `docs/repository-organization.md`. Do not recreate OpenSpec or expand documentation without an explicit request.
