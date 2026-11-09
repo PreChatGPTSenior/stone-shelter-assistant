@@ -23,7 +23,7 @@ async def test_knowledge_endpoints_replace_only_the_requested_source(app: FastAP
         for source, count in (("encyclopedia", 14), ("compatibility", 66)):
             response = await client.post(f"/api/v1/knowledge/{source}/reindex")
             assert response.status_code == 200, response.text
-            assert response.json() == {"indexed_documents": count}
+            assert response.json() == {f"indexed_{source}_documents": count}
 
     collection = typesense_client.collections["knowledge"]
     assert (await collection.retrieve())["num_documents"] == 80
