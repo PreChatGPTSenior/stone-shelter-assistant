@@ -169,7 +169,7 @@ async def test_registration_endpoint_persists_complete_graph(
 
 
 @pytest.mark.asyncio
-async def test_registration_indexes_stone_in_typesense_and_qdrant(
+async def test_registration_indexes_stone_profile_and_events_in_both_engines(
     app: FastAPI,
     registration_sessions: async_sessionmaker[AsyncSession],
 ) -> None:
@@ -201,15 +201,26 @@ async def test_registration_indexes_stone_in_typesense_and_qdrant(
     assert case is not None
     assert case.external_id == request.shelter_case.external_id
 
-    typesense_document = await (
-        app.state.typesense_client.collections[TYPESENSE_COLLECTION]
-        .documents[str(stone_id)]
-        .retrieve()
-    )
+    typesense_documents = app.state.typesense_client.collections[TYPESENSE_COLLECTION].documents
+    typesense_document = await typesense_documents[str(stone_id)].retrieve()
 
     assert typesense_document["id"] == str(stone_id)
     assert typesense_document["title"] == request.stone.name
-    assert typesense_document["text"] == request.stone.biography
+    assert request.stone.biography is not None
+    assert request.stone.biography in typesense_document["text"]
+    profile = request.profile
+    assert profile is not None
+    assert profile.care_level is not None
+    assert profile.health_notes is not None
+    assert profile.trigger_notes is not None
+    assert profile.preferred_environment is not None
+    assert profile.health_notes in typesense_document["text"]
+    assert profile.trigger_notes in typesense_document["text"]
+    assert profile.preferred_environment in typesense_document["text"]
+    assert typesense_document["care_level"] == profile.care_level.value
+    assert set(typesense_document["socialization_traits"]) == {
+        trait.value for trait in profile.socialization_traits
+    }
     assert typesense_document["stone_type"] == request.stone.stone_type.value
     assert typesense_document["adoption_status"] == request.shelter_case.adoption_status.value
     assert typesense_document["current_shelter_id"] == str(request.shelter_case.current_shelter_id)
@@ -235,6 +246,41 @@ async def test_registration_indexes_stone_in_typesense_and_qdrant(
     vector = points[0].vector
     assert isinstance(vector, list)
     assert len(vector) == app.state.embedding_dimension
+
+    result = await typesense_documents.search(
+        {
+            "q": "*",
+            "query_by": "text",
+            "filter_by": (
+                f"document_kind:=case_event && case_external_id:={request.shelter_case.external_id}"
+            ),
+        }
+    )
+    event_documents = {
+        hit["document"]["event_external_id"]: hit["document"] for hit in result["hits"]
+    }
+    assert result["found"] == len(request.shelter_case.events)
+    assert event_documents.keys() == {
+        str(event.external_id) for event in request.shelter_case.events
+    }
+
+    event_points = await app.state.qdrant_client.retrieve(
+        collection_name=QDRANT_COLLECTION,
+        ids=[document["id"] for document in event_documents.values()],
+        with_payload=True,
+        with_vectors=True,
+    )
+    points_by_id = {str(point.id): point for point in event_points}
+    assert points_by_id.keys() == {document["id"] for document in event_documents.values()}
+
+    for event in request.shelter_case.events:
+        document = event_documents[str(event.external_id)]
+        assert document["text"] == event.event_notes
+        assert document["event_type"] == event.event_type.value
+        point = points_by_id[document["id"]]
+        assert point.payload == {key: value for key, value in document.items() if key != "id"}
+        assert isinstance(point.vector, list)
+        assert len(point.vector) == app.state.embedding_dimension
 
 
 @pytest.mark.asyncio

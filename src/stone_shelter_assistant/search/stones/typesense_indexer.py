@@ -1,6 +1,9 @@
 from typesense import AsyncClient
 
-from stone_shelter_assistant.search.document_models import StoneSearchDocument
+from stone_shelter_assistant.search.document_models import (
+    CaseEventSearchDocument,
+    StoneSearchDocument,
+)
 from stone_shelter_assistant.search.infrastructure.typesense_collections import (
     OPERATIONAL_COLLECTION,
 )
@@ -13,7 +16,7 @@ class TypesenseStoneIndexer:
     ) -> None:
         self._typesense_client = typesense_client
 
-    async def index(self, document: StoneSearchDocument) -> None:
+    async def index(self, document: StoneSearchDocument | CaseEventSearchDocument) -> None:
         await self._typesense_client.collections[OPERATIONAL_COLLECTION].documents.upsert(
             document.model_dump(mode="json")
         )

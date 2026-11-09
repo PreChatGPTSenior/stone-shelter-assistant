@@ -3,10 +3,17 @@
 from typing import Final, Literal
 from uuid import UUID
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from stone_shelter_assistant.search.enums import DocumentKind
-from stone_shelter_assistant.stones.enums import AdoptionStatus, CaseEventType, StoneSize, StoneType
+from stone_shelter_assistant.stones.enums import (
+    AdoptionStatus,
+    CareLevel,
+    CaseEventType,
+    SocializationTrait,
+    StoneSize,
+    StoneType,
+)
 
 SEARCH_SCHEMA_VERSION: Final[int] = 1
 PROJECTION_VERSION: Final[int] = 1
@@ -31,27 +38,23 @@ class SearchDocument(BaseModel):
 
 
 class OperationalSearchDocument(SearchDocument):
-    """Source identities and current-state filters for an individual stone."""
+    """Identities shared by a stone card and its historical events."""
 
     stone_external_id: UUID
     case_external_id: UUID
     case_number: str = Field(min_length=1)
     stone_type: StoneType
-    stone_size: StoneSize
-    adoption_status: AdoptionStatus
-    current_shelter_id: UUID
 
 
 class StoneSearchDocument(OperationalSearchDocument):
-    """Searchable identity and biography of one stone."""
+    """One stone's biography, profile, and current case filters."""
 
     document_kind: Literal[DocumentKind.STONE] = DocumentKind.STONE
-
-
-class StoneProfileSearchDocument(OperationalSearchDocument):
-    """One existing profile rendered as labeled source facts."""
-
-    document_kind: Literal[DocumentKind.PROFILE] = DocumentKind.PROFILE
+    stone_size: StoneSize
+    adoption_status: AdoptionStatus
+    current_shelter_id: UUID
+    socialization_traits: list[SocializationTrait] = Field(default_factory=list)
+    care_level: CareLevel | None = None
 
 
 class CaseEventSearchDocument(OperationalSearchDocument):
@@ -60,7 +63,7 @@ class CaseEventSearchDocument(OperationalSearchDocument):
     document_kind: Literal[DocumentKind.CASE_EVENT] = DocumentKind.CASE_EVENT
     event_external_id: UUID
     event_type: CaseEventType
-    occurred_at: AwareDatetime
+    occurred_at: int = Field(description="Microseconds since the Unix epoch (UTC)")
 
 
 class EncyclopediaSectionSearchDocument(SearchDocument):

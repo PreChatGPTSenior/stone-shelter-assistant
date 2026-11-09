@@ -2,14 +2,21 @@ from typing import Final
 
 from qdrant_client import AsyncQdrantClient, models
 
-OPERATIONAL_COLLECTION: Final[str] = "operational_stone_search_documents"
+OPERATIONAL_COLLECTION: Final[str] = "stones"
 
-FILTER_FIELDS: Final[tuple[str, ...]] = (
+KEYWORD_FILTER_FIELDS: Final[tuple[str, ...]] = (
     "document_kind",
+    "stone_external_id",
+    "case_external_id",
+    "case_number",
     "stone_type",
     "stone_size",
     "adoption_status",
     "current_shelter_id",
+    "socialization_traits",
+    "care_level",
+    "event_external_id",
+    "event_type",
 )
 
 
@@ -28,9 +35,15 @@ async def ensure_operational_collection(
         ),
     )
 
-    for field_name in FILTER_FIELDS:
+    for field_name in KEYWORD_FILTER_FIELDS:
         await client.create_payload_index(
             collection_name=OPERATIONAL_COLLECTION,
             field_name=field_name,
             field_schema=models.PayloadSchemaType.KEYWORD,
         )
+
+    await client.create_payload_index(
+        collection_name=OPERATIONAL_COLLECTION,
+        field_name="occurred_at",
+        field_schema=models.PayloadSchemaType.INTEGER,
+    )

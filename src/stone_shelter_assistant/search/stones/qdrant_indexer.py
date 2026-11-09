@@ -2,7 +2,10 @@ from langchain_core.embeddings import Embeddings
 from qdrant_client import AsyncQdrantClient, models
 
 from stone_shelter_assistant.search.document_content import build_embedding_text
-from stone_shelter_assistant.search.document_models import StoneSearchDocument
+from stone_shelter_assistant.search.document_models import (
+    CaseEventSearchDocument,
+    StoneSearchDocument,
+)
 from stone_shelter_assistant.search.infrastructure.qdrant_collections import OPERATIONAL_COLLECTION
 
 
@@ -17,7 +20,7 @@ class QdrantStoneIndexer:
         self._embeddings = embeddings
         self._embedding_dimension = embedding_dimension
 
-    async def index(self, document: StoneSearchDocument) -> None:
+    async def index(self, document: StoneSearchDocument | CaseEventSearchDocument) -> None:
         text = build_embedding_text(document.title, document.text)
         vector = (await self._embeddings.aembed_documents([text]))[0]
 

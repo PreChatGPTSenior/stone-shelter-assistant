@@ -4,6 +4,7 @@ from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from stone_shelter_assistant.stones.models import ShelterCaseModel, StoneModel
 
@@ -16,7 +17,9 @@ class SqlAlchemyStoneRepository:
         self._session.add(stone)
 
     async def get_by_id(self, stone_id: UUID) -> StoneModel | None:
-        return await self._session.get(StoneModel, stone_id)
+        return await self._session.get(
+            StoneModel, stone_id, options=[selectinload(StoneModel.profile)]
+        )
 
 
 class SqlAlchemyShelterCaseRepository:
@@ -24,6 +27,10 @@ class SqlAlchemyShelterCaseRepository:
         self._session = session
 
     async def get_by_stone_id(self, stone_id: UUID) -> ShelterCaseModel | None:
-        statement = select(ShelterCaseModel).where(ShelterCaseModel.stone_id == stone_id)
+        statement = (
+            select(ShelterCaseModel)
+            .where(ShelterCaseModel.stone_id == stone_id)
+            .options(selectinload(ShelterCaseModel.events))
+        )
         result = await self._session.execute(statement)
         return result.scalar_one_or_none()

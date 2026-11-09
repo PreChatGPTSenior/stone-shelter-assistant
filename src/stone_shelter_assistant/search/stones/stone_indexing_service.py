@@ -2,8 +2,15 @@
 
 from uuid import UUID
 
+from stone_shelter_assistant.search.document_models import (
+    CaseEventSearchDocument,
+    StoneSearchDocument,
+)
 from stone_shelter_assistant.search.stones.qdrant_indexer import QdrantStoneIndexer
-from stone_shelter_assistant.search.stones.stone_document_builder import build_stone_document
+from stone_shelter_assistant.search.stones.stone_document_builder import (
+    build_case_event_document,
+    build_stone_document,
+)
 from stone_shelter_assistant.search.stones.typesense_indexer import TypesenseStoneIndexer
 from stone_shelter_assistant.stones.repository_protocols import (
     ShelterCaseRepository,
@@ -33,6 +40,10 @@ class StoneIndexingService:
         if case is None:
             raise LookupError(f"Case for stone {stone_id} was not found")
 
-        document = build_stone_document(stone, case)
-        await self._typesense_indexer.index(document)
-        await self._qdrant_indexer.index(document)
+        documents: list[StoneSearchDocument | CaseEventSearchDocument] = [
+            build_stone_document(stone, case, stone.profile),
+            *(build_case_event_document(stone, case, event) for event in case.events),
+        ]
+        for document in documents:
+            await self._typesense_indexer.index(document)
+            await self._qdrant_indexer.index(document)
