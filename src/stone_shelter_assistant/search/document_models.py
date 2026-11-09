@@ -70,3 +70,34 @@ class EncyclopediaSectionSearchDocument(SearchDocument):
     source_path: str = Field(min_length=1)
     section_path: list[str] = Field(min_length=1)
     stone_type: StoneType | None = None
+
+
+## compatibility
+
+
+class CompatibilitySearchDocument(SearchDocument):
+    """Searchable evidence from the stone type compatibility guide."""
+
+    source_path: str = Field(min_length=1)
+
+
+class CompatibilityReadingRulesSearchDocument(CompatibilitySearchDocument):
+    document_kind: Literal[DocumentKind.COMPATIBILITY_READING_RULES] = (
+        DocumentKind.COMPATIBILITY_READING_RULES
+    )
+
+
+class CompatibilityPairSearchDocument(CompatibilitySearchDocument):
+    """Searchable advice for a pair of stone types."""
+
+    document_kind: Literal[DocumentKind.COMPATIBILITY_PAIR] = DocumentKind.COMPATIBILITY_PAIR
+    stone_types: list[StoneType] = Field(min_length=2, max_length=2)
+
+
+class CompatibilityTypePortraitSearchDocument(CompatibilitySearchDocument):
+    """Searchable portrait of one stone type."""
+
+    document_kind: Literal[DocumentKind.COMPATIBILITY_TYPE_PORTRAIT] = (
+        DocumentKind.COMPATIBILITY_TYPE_PORTRAIT
+    )
+    stone_types: list[StoneType] = Field(min_length=1, max_length=1)

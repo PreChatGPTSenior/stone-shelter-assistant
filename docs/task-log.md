@@ -6,6 +6,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Done
 
+- [x] **PY-029 — Parse the stone type compatibility guide.** Build 55 pair documents, ten type portraits, and one reading-rules document from the authored JSON fixture. Verify stone-type coverage, source provenance, and unique, stable document IDs.
 - [x] **PY-028 — Rename the project and document its layout.** Align the repository, Python package, API, and local infrastructure on Stone Shelter Assistant. Recreate the environment, apply migrations to fresh storage, and pass all 42 tests. Add the repository organization guide and reference it from `AGENTS.md`.
 - [x] **PY-027 — Simplify repository structure.** Replace OpenSpec with compact project documentation. Consolidate registration in `stones` and shared technical foundations in `core`. Move app assembly to the package root and add the placeholder questions route. Remove unused scaffolding, domain dataclasses, and one-off loaders. Split search into infrastructure, stones, and knowledge, share document helpers, and build one projection for both indexers. Require explicit loading of stone/profile relationships, move reference fixtures to `fixtures/knowledge`, and synchronize the environment template with Compose and the application.
 - [x] **PY-012 — Set up local search and verify initial indexing.** Connect and test Typesense in a disposable container. Verify that one HTTP registration indexes the stone in Typesense and Qdrant using controlled embeddings.
@@ -20,7 +21,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Current
 
-- [ ] **PY-029 — Parse the stone type compatibility guide.** Read the [authored JSON fixture](../fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json) and produce searchable evidence for pairings, type portraits, and reading rules. Preserve both stone types in pair evidence, retain source provenance, and use stable evidence IDs. Verify the parser against the fixture. Collection setup, indexing, and HTTP endpoints remain separate tasks.
+No current tasks.
 
 ## Backlog
 
