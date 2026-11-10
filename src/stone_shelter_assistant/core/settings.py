@@ -64,3 +64,31 @@ class OllamaEmbeddingSettings(BaseSettings):
     base_url: str = Field(min_length=1)
     embedding_model: str = Field(min_length=1)
     embedding_dimension: int = Field(gt=0)
+
+
+class OpenRouterSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_prefix="OPENROUTER_",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+        str_strip_whitespace=True,
+        hide_input_in_errors=True,
+    )
+
+    model: str = Field(default="openrouter/free", min_length=1)
+    api_key: SecretStr = Field(min_length=1)
+
+
+class LangfuseSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_prefix="LANGFUSE_",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+        hide_input_in_errors=True,
+    )
+
+    public_key: str = Field(min_length=1)
+    secret_key: SecretStr = Field(min_length=1)
+    base_url: str = "https://cloud.langfuse.com"

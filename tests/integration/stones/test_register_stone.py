@@ -37,6 +37,7 @@ from stone_shelter_assistant.stones.models import (
     StoneModel,
     StoneProfileModel,
 )
+from stone_shelter_assistant.stones.read_services import StoneReadService
 from stone_shelter_assistant.stones.repository import (
     SqlAlchemyShelterCaseRepository,
     SqlAlchemyStoneRepository,
@@ -316,10 +317,10 @@ async def test_stone_search_tools_return_registered_card(
         app.state.typesense_client, app.state.qdrant_client, app.state.embeddings
     )
     async with registration_sessions() as session:
-        tools = {
-            tool.name: tool
-            for tool in stone_search_tools(search, SqlAlchemyShelterCaseRepository(session))
-        }
+        stones = StoneReadService(
+            SqlAlchemyStoneRepository(session), SqlAlchemyShelterCaseRepository(session)
+        )
+        tools = {tool.name: tool for tool in stone_search_tools(search, stones)}
         for name, query in (
             ("search_stones_lexical", request.stone.name),
             ("search_stones_semantic", "a stone that prefers a quiet home"),
@@ -359,9 +360,10 @@ async def test_stone_details_tool_reads_fixture_by_both_ids(
         {"stone_external_id": str(request.stone.external_id)},
     ):
         async with registration_sessions() as session:
-            tools = {
-                tool.name: tool for tool in stone_lookup_tools(SqlAlchemyStoneRepository(session))
-            }
+            stones = StoneReadService(
+                SqlAlchemyStoneRepository(session), SqlAlchemyShelterCaseRepository(session)
+            )
+            tools = {tool.name: tool for tool in stone_lookup_tools(stones)}
             results.append(await tools["get_stone_details"].ainvoke(identity))
 
     assert results[0] == results[1]
@@ -416,10 +418,10 @@ async def test_case_event_tools_find_velvet_slate_note_and_timeline(
         "occurred_before": "2026-10-05T09:00:00Z",
     }
     async with registration_sessions() as session:
-        tools = {
-            tool.name: tool
-            for tool in case_event_search_tools(search, SqlAlchemyShelterCaseRepository(session))
-        }
+        stones = StoneReadService(
+            SqlAlchemyStoneRepository(session), SqlAlchemyShelterCaseRepository(session)
+        )
+        tools = {tool.name: tool for tool in case_event_search_tools(search, stones)}
         for name, query in (
             ("search_case_events_lexical", "noisy household"),
             ("search_case_events_semantic", "returned from a loud home"),

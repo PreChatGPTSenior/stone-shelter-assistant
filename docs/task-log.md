@@ -27,7 +27,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Current
 
-- [ ] **PY-036 — Build and evaluate the search workflow through the application.** Use one FastAPI resource lifecycle for the two knowledge reloads, the local stone fixture reset, and the manual baseline. Use the Madame Obsidian baseline to verify real data through HTTP. Connect a bounded LangGraph to `POST /api/v1/questions` and inspect its cited answers, PostgreSQL checks, budget reservations and settlement, and Langfuse traces. Add reproducible automated tests after the manual run, then evaluate the same scenarios across multiple models and record the results. See [Phase 2 ADR](phase-2-adr.md).
+- [ ] **PY-036 — Build and evaluate the search workflow through the application.** The shared FastAPI app serves fixture reloads, the manual baseline, and the bounded LangGraph at `POST /api/v1/questions`. Verified the Madame Obsidian and quiet-home scenarios with OpenRouter, mandatory PostgreSQL card and status lookups, and Langfuse traces labeled by scenario and fixture version. Remaining work covers budget reservations and settlement, reproducible workflow tests, and cross-model answer evaluation. See [Phase 2 ADR](phase-2-adr.md).
 
 ## Backlog
 

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from langchain_core.tools import BaseTool
 
 from stone_shelter_assistant.assistant.api_contracts import QuestionRequest
-from stone_shelter_assistant.dependencies import get_manual_search_tools, get_stone_fixture_loader
+from stone_shelter_assistant.dependencies import get_search_tools, get_stone_fixture_loader
 from stone_shelter_assistant.stones.fixture_loader import StoneFixtureLoader
 
 router = APIRouter(prefix="/api/v1/testing", tags=["manual-testing"])
@@ -23,7 +23,7 @@ async def normalize_data(
 @router.post("/manual-test")
 async def manual_test(
     payload: QuestionRequest,
-    tools: Annotated[dict[str, BaseTool], Depends(get_manual_search_tools)],
+    tools: Annotated[dict[str, BaseTool], Depends(get_search_tools)],
 ) -> dict[str, object]:
     """Run the Madame Obsidian and granite baseline with the real search tools."""
     name = "Madame Obsidian"

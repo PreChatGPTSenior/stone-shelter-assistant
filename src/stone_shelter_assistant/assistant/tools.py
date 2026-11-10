@@ -19,13 +19,10 @@ from stone_shelter_assistant.search.stones.search_contracts import (
 )
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.enums import StoneType
-from stone_shelter_assistant.stones.repository_protocols import (
-    ShelterCaseRepository,
-    StoneRepository,
-)
+from stone_shelter_assistant.stones.read_services import StoneReadService
 
 
-def stone_lookup_tools(stones: StoneRepository) -> list[BaseTool]:
+def stone_lookup_tools(stones: StoneReadService) -> list[BaseTool]:
     @tool
     async def get_stone_details(
         stone_id: UUID | None = None,
@@ -44,7 +41,7 @@ def stone_lookup_tools(stones: StoneRepository) -> list[BaseTool]:
     return [get_stone_details]
 
 
-def stone_search_tools(search: StoneSearchService, cases: ShelterCaseRepository) -> list[BaseTool]:
+def stone_search_tools(search: StoneSearchService, stones: StoneReadService) -> list[BaseTool]:
     @tool
     async def search_stones_lexical(
         query: str = "",
@@ -80,14 +77,14 @@ def stone_search_tools(search: StoneSearchService, cases: ShelterCaseRepository)
                 "adoption_status": state.adoption_status.value,
                 "current_shelter_id": str(state.current_shelter_id),
             }
-            for state in await cases.get_current_states(stone_ids)
+            for state in await stones.get_current_states(stone_ids)
         ]
 
     return [search_stones_lexical, search_stones_semantic, get_current_stone_statuses]
 
 
 def case_event_search_tools(
-    search: CaseEventSearchService, cases: ShelterCaseRepository
+    search: CaseEventSearchService, stones: StoneReadService
 ) -> list[BaseTool]:
     @tool
     async def search_case_events_lexical(
@@ -116,15 +113,7 @@ def case_event_search_tools(
     @tool
     async def get_case_timeline(case_external_id: UUID) -> list[dict[str, str]]:
         """Read the complete chronological history of a known case by its external ID."""
-        return [
-            {
-                "event_external_id": str(event.external_id),
-                "event_type": event.event_type,
-                "occurred_at": event.occurred_at.isoformat(),
-                "event_notes": event.event_notes,
-            }
-            for event in await cases.get_case_timeline(case_external_id)
-        ]
+        return await stones.get_case_timeline(case_external_id)
 
     return [search_case_events_lexical, search_case_events_semantic, get_case_timeline]
 

@@ -78,5 +78,6 @@ curl --fail-with-body \
 ```
 
 The second endpoint reads the prepared data and returns the three tool results.
-Send the same question JSON to `POST /api/v1/questions` to exercise the future workflow.
-That route returns HTTP 501 until the graph is connected.
+Send the same question JSON to `POST /api/v1/questions` to run LangGraph with OpenRouter and get a Langfuse `trace_id`. Set `OPENROUTER_API_KEY`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY` in `.env`. The optional request field `model_id` overrides `OPENROUTER_MODEL`, whose default is `openrouter/free`. Set `LANGFUSE_BASE_URL` if your Langfuse project uses a host other than `https://cloud.langfuse.com`.
+
+For an evaluation run, send `eval_case_id` and `fixture_version` in the request. Reuse those values when comparing the same question and data on different models. Each request still gets a distinct trace ID.

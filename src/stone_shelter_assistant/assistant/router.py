@@ -1,15 +1,18 @@
-"""HTTP entry point for future assistant questions."""
+"""HTTP entry point for assistant questions."""
 
-from fastapi import APIRouter, HTTPException, status
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 
 from stone_shelter_assistant.assistant.api_contracts import QuestionRequest
+from stone_shelter_assistant.dependencies import QuestionWorkflow, get_question_workflow
 
 router = APIRouter(prefix="/api/v1", tags=["assistant"])
 
 
-@router.post("/questions", status_code=status.HTTP_501_NOT_IMPLEMENTED)
-async def ask_question(_payload: QuestionRequest) -> None:
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Question answering is not implemented yet.",
-    )
+@router.post("/questions")
+async def ask_question(
+    payload: QuestionRequest,
+    workflow: Annotated[QuestionWorkflow, Depends(get_question_workflow)],
+) -> dict[str, object]:
+    return await workflow(payload)

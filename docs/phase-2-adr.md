@@ -2,7 +2,7 @@
 
 Date: 2026-11-09
 
-Status: HTTP entry points and manual baseline implemented. LangGraph and model evaluation are pending.
+Status: The pilot HTTP route runs LangGraph with OpenRouter and Langfuse. Budget enforcement and cross-model evaluation are pending.
 
 This document consolidates the discussion of the first agent-driven search workflow, mandatory LLM budget reservations, and end-to-end observability. It supplements [Architecture Decisions](adr.md). Implementation progress remains in [Task Log](task-log.md); this document does not mark planned behavior as complete.
 
@@ -20,8 +20,8 @@ Existing capabilities:
 - PostgreSQL lookups return current status and shelter, complete case timelines, and stone details by internal or external ID.
 - Exact compatibility lookup uses a symmetric `pair_key` in Typesense.
 - Assistant tools already use LangChain `@tool` in `assistant/tools.py`.
-- `/api/v1/questions` currently returns HTTP 501.
-- Local Ollama supplies embeddings. At inspection, `langchain-core` and `langchain-ollama` were installed; LangGraph and an OpenRouter chat adapter were not.
+- `/api/v1/questions` runs the pilot graph and returns a Langfuse trace ID.
+- Local Ollama supplies embeddings. OpenRouter supplies the agent and answer models.
 
 PostgreSQL remains authoritative for operational facts. Search indexes are projections. Current adoption status must never be reconstructed from historical events.
 
@@ -63,9 +63,9 @@ flowchart LR
 
 Use a typed LangGraph state and the ready-made `ToolNode` to execute existing LangChain tools and return tool results to message history. Use conditional routing with an explicit call counter. For the pilot, allow at most four model-selected tool calls, one per round. Mandatory status verification is separate from this retrieval allowance.
 
-After the final permitted tool result, proceed directly to verification and answer generation. Do not make another retrieval decision call. All model calls, including decisions that produce no tool call, are subject to budget control.
+The agent finishes retrieval by selecting up to three stone IDs from the search results. After the fourth retrieval call, the model can only submit that selection. The graph reads a PostgreSQL card for each selected ID before the separate status check. All model calls go through the budget interface.
 
-The initial allowlist needs `search_stones_lexical`, `get_stone_details`, and `get_compatibility_pair`. Other existing tools remain available for later scenarios:
+The agent can use `search_stones_lexical`, `search_stones_semantic`, and `get_compatibility_pair`. The graph owns card and status lookups:
 
 | Purpose | Existing tools |
 | --- | --- |
@@ -79,7 +79,7 @@ The initial allowlist needs `search_stones_lexical`, `get_stone_details`, and `g
 
 ### Mandatory verification
 
-Collect candidate stone IDs from actual tool results. Code invokes `get_current_stone_statuses` for those candidates before generating a recommendation, regardless of whether the model requested that tool. An earlier details lookup does not replace this check.
+Validate the selected IDs against actual search results. After loading the cards, invoke `get_current_stone_statuses` once for the candidates whose cards were found. The answer uses the checked statuses for current availability.
 
 For the pilot, only a confirmed `AVAILABLE` status permits an adoption recommendation. Missing status does not establish eligibility. A result of `RESERVED`, `ADOPTED`, or `RETURNED` excludes the stone from adoption recommendations. Availability describes the time of the check; this workflow does not reserve or adopt stones.
 
@@ -97,7 +97,7 @@ Code validates that recommended IDs belong to checked, eligible candidates and c
 
 ### State and boundaries
 
-State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget state, and correlation identifiers. Expose the asynchronous graph through an assistant service behind `POST /api/v1/questions`. FastAPI lifespan opens the shared clients and session factory once. The questions, knowledge, and manual testing routes reuse those resources through the application. Keep test conversations to at most five turns.
+State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget outcomes, and correlation identifiers. The budget service owns shared balances and reservations. Expose the asynchronous graph through an assistant service behind `POST /api/v1/questions`. FastAPI lifespan opens the shared clients and session factory once. The questions, knowledge, and manual testing routes reuse those resources through the application. Keep test conversations to at most five turns.
 
 ## 4. Generation and embeddings
 
@@ -109,9 +109,14 @@ Record model identity, generation limits, prompt version, and pricing assumption
 
 The user clarified that reservation means reserving LLM spending capacity. Stone reservation is outside this workflow.
 
-Apply one shared budget-controlled model wrapper to both `agent` and `answer`. Every model invocation must pass through it. The proposed initial scope is a monetary limit per graph invocation.
+Use two spending limits in USD for each calendar month in UTC:
 
-Track `limit`, `spent`, and `reserved` using `Decimal`. The admission condition is:
+- The **application budget** covers all OpenRouter usage from the application.
+- The **user budget** covers OpenRouter usage attributed to one application user across their questions. The server assigns `local-test-user` for the pilot.
+
+Set the limits in server configuration. Apply one shared budget-controlled model wrapper to both `agent` and `answer`. Every OpenRouter call must pass through it. The skeleton's per-run budget is temporary and will be replaced by the two monthly limits for paid calls.
+
+Track `limit`, `spent`, and `reserved` using `Decimal`. Both budgets must meet the admission condition:
 
 ```text
 spent + reserved + reserve_amount <= limit
@@ -119,15 +124,15 @@ spent + reserved + reserve_amount <= limit
 
 ### Reservation lifecycle
 
-1. Calculate the reservation for the complete input: instructions, history, tool schemas, and tool results, plus the maximum permitted output. Include billable reasoning when applicable. Use the configured model and applicable tariff. A strict monetary ceiling requires a defensible upper bound on call cost; an approximate token count with an arbitrary margin is not a guarantee.
-2. Check the balance and increase `reserved` as one operation, before sending the request. Budget admission is controlled by code.
-3. On completion, record provider-reported cost and usage, add actual cost to `spent`, remove the corresponding reservation, and release its unused amount. Preserve generation identity for correlation and any later reconciliation.
-4. If the budget cannot admit a call, stop with a deterministic message generated by code. The final answer has the same reservation requirement; there is no extra unbudgeted final LLM call.
+1. Calculate the reservation from the complete input, including instructions, history, tool schemas, and tool results, plus the maximum permitted output. Include billable reasoning when applicable. Use the configured model and applicable tariff. A strict monetary ceiling requires a defensible upper bound on call cost.
+2. Before sending each request to OpenRouter, check both monthly balances and record the reservation against both in one atomic operation. If either balance is insufficient, leave both unchanged. This prevents parallel requests from reserving the same available balance. The application makes this decision independently of the model.
+3. On completion, use the actual cost reported by OpenRouter in `usage.cost` to settle the reservation and release unused capacity in both budgets. Record one charge attributed to both scopes, together with the `user_id`, `trace_id`, and OpenRouter generation ID when available.
+4. If either budget cannot admit a call, stop with a deterministic result. Final answer generation follows the same reservation rule.
 5. If a request was definitely not sent, release its reservation. If its outcome or charge is unknown, retain the reservation and stop the run. A timeout after sending does not prove that no charge occurred. Release or settle that reservation only after its outcome is established.
 
 Reservations are internal application accounting. OpenRouter performs actual billing. The adapter must expose the cost and usage needed for settlement; verify this when integrating the selected adapter version. Unknown cost must not be silently treated as zero. If an actual charge exceeds the estimate, record the real cost and stop further spending rather than hiding the overrun.
 
-The four-tool limit and the monetary budget are independent controls. Storage and recovery of unresolved reservations across process restarts remain an implementation decision; do not claim a durable cross-run spending guarantee from in-memory state.
+The four-tool limit and the monetary budgets are independent controls. PostgreSQL and Redis are both candidates for storing spending and reservations. Choose the backend in a separate decision based on atomic updates across both budgets, durability, and recovery of unresolved reservations after a restart. The monthly accounting must persist across questions and process restarts.
 
 ## 6. Observability in the first pilot
 
@@ -138,11 +143,12 @@ Include Langfuse from the first working scenario, as selected in the main ADR. T
 | Identifier | Scope |
 | --- | --- |
 | `user_id = "local-test-user"` | All requests from the single learning-project user |
-| `session_id` | One short conversation containing one or more questions |
+| `eval_case_id` | Stable scenario label across evaluation runs |
+| `fixture_version` | Version of the fixture data loaded for the run |
 | `trace_id` | Complete handling of one question across the application stack |
 | `span_id` | One operation within the trace |
 
-A new question gets a new `trace_id`. Questions from the same user share `user_id`; questions in the same conversation also share `session_id`. A user-wide trace would mix separate executions, so user and session attributes provide that grouping.
+A new question gets a new `trace_id`. Requests share the test `user_id`. Evaluation requests may supply the scenario and fixture labels as trace metadata. Conversation sessions are deferred.
 
 Create a root trace for each questions request that invokes the assistant service. Propagate the same context through the graph, services, tools, and client operations. Add `trace_id` to structured application logs and include it in the pilot HTTP result.
 
@@ -185,7 +191,7 @@ question
     └── validate_sources_and_recommendations
 ```
 
-Langfuse observes budget decisions; the budget component enforces them. No account-management system is needed for the one test user. Langfuse hosting and exact SDK configuration remain to be selected during implementation.
+Langfuse observes budget decisions. The budget component owns enforcement. The pilot uses the Langfuse endpoint configured by `LANGFUSE_BASE_URL`. Budget admission currently allows every model call.
 
 ## 7. Manual verification, tests, and evaluation
 
@@ -195,7 +201,7 @@ Prepare the development dataset through three separate POST requests. Use the ex
 2. `/api/v1/knowledge/compatibility/reindex` replaces compatibility documents in both indexes.
 3. `/api/v1/testing/normalize-data` replaces shelters, stones, profiles, cases, and events in PostgreSQL and rebuilds the `stones` collections in Typesense and Qdrant. The POST request starts the reset immediately.
 
-Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a deterministic baseline. It runs the three existing tools and returns the name search hit, PostgreSQL card with status, and compatibility rule with granite. Use the same question at `POST /api/v1/questions` once the graph is connected. For that run, use a real OpenRouter model under an explicit budget and inspect the answer, sources, tool sequence, status check, budget reservation and settlement, and Langfuse trace.
+Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a deterministic baseline. It runs the three existing tools and returns the name search hit, PostgreSQL card with status, and compatibility rule with granite. Use the same question at `POST /api/v1/questions` with `openrouter/free` to inspect the answer, sources, tool sequence, PostgreSQL status check, and Langfuse trace. Evaluate paid models and reservation behavior after budget enforcement is implemented.
 
 Then add reproducible automated checks using authored fixtures, a controllable tool-calling model stub, controlled embeddings, and disposable Testcontainers. Populate only the temporary services needed by each test. Automated tests must never use the persistent development database.
 
@@ -204,12 +210,13 @@ Then add reproducible automated checks using authored fixtures, a controllable t
 | Madame Obsidian end to end | Tool calls consume real fixture-backed results; answer references retrieved evidence and a checked available candidate. |
 | Stale search status | After indexing, change only test PostgreSQL status to `RESERVED`; mandatory verification excludes the stone even if the model omits a status call. |
 | Retrieval call bound | A model stub requesting more tools cannot execute beyond four permitted calls. |
-| Insufficient budget | No model invocation occurs without a successful reservation. |
-| Settlement | Actual cost updates spending and unused reserved capacity becomes available. |
-| Shared invocation budget | Decision calls and final answer generation consume the same run budget. |
+| Insufficient budget | A refusal by either monthly budget prevents the model call and leaves both balances unchanged. |
+| Settlement | The OpenRouter charge counts toward both budgets and unused reserved capacity becomes available. |
+| Shared monthly budgets | Decision calls, final answer generation, and later questions all use the applicable monthly balances. |
+| Concurrent reservation | Parallel calls cannot reserve the same available capacity. |
 | Unknown call outcome | Reservation remains held and further model execution stops. |
 | Trace propagation | One question produces a root trace with correctly parented graph, tool, backend, and budget spans. |
-| Conversation correlation | A second question has a different trace ID and retains the user and conversation identifiers. |
+| Evaluation correlation | Independent requests have distinct trace IDs and can share a scenario or fixture version. |
 
 Use a test span collector for automated tracing checks. Run the relevant existing regression checks when implementation changes land.
 
@@ -219,13 +226,13 @@ Once the service passes its checks, evaluate answers from multiple real models o
 
 The backend phase focuses on the search workflow, budget admission and reservations, observability, traceability, and answer evaluation. Deliver the assistant service behind the pilot HTTP route with status verification, cited results, and tracing. Inspect real-data runs first, add automated checks second, and complete the answer evaluation across models third.
 
-Use the minimal `/api/v1/questions` route early to exercise the application and its dependencies. It returns HTTP 501 until LangGraph is connected. Finalize the HTTP contract and decide what to stream once the backend checks pass and the cross-model evaluation shows that answers are controlled.
+Use the minimal `/api/v1/questions` route to exercise the application and its dependencies. Finalize the HTTP contract and decide what to stream once the backend checks pass and the cross-model evaluation shows that answers are controlled.
 
 After the first scenario works, add scenarios using semantic search, event notes, timelines, and encyclopedia material as needed. Compare retrieval, embeddings, chunks, lexical and semantic fusion, and reranking through controlled experiments after establishing a baseline.
 
 Queues, automatic retries, distributed recovery, full CRUD/UI, production deployment, and broad negative-case matrices are deferred. So are stone reservation and adoption writes. Budget uncertainty handling and stale-status verification remain in scope because they enforce explicit pilot requirements.
 
-Before implementation, select the concrete model, tariff source, run budget, output limits, and Langfuse deployment. Verify cost metadata and the reservation upper-bound calculation against that configuration. Assign task IDs through the existing Task Log workflow when implementation scope is selected; this document creates no completed implementation task.
+Before making paid calls, select the concrete model, tariff source, monthly budget amounts, output limits, budget storage backend, and Langfuse deployment. Verify cost metadata and the reservation upper-bound calculation against that configuration. Assign task IDs through the existing Task Log workflow when implementation scope is selected.
 
 ## 9. Reference documentation
 
