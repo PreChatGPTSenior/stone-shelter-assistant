@@ -2,6 +2,8 @@
 
 This compact record captures current choices and their reasons. The fictional premise and learning goal take precedence over production completeness.
 
+The [Phase 2 ADR](phase-2-adr.md) records the search workflow design, including budget reservations and end-to-end tracing.
+
 - **Project identity:** Use Stone Shelter Assistant as the display name, `stone-shelter-assistant` for the repository and Python distribution, and `stone_shelter_assistant` for the Python package. Use the same naming in the SQL schema, local database configuration, Compose project, and search-document namespace. Start with fresh storage for the rename; backward compatibility and data migration are outside this learning task.
 - **Learning scope:** Build a working happy-path pilot first, then evaluate and improve it. The exercise teaches Python, hybrid search, RAG, agent routing, and evaluation.
 - **Project stack:** Use uv, FastAPI, Pydantic, SQLAlchemy with asyncpg, Alembic, Ruff, mypy, and pytest-asyncio. Add other libraries only when their learning task needs them.
