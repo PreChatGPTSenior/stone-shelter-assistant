@@ -10,7 +10,7 @@ Application paths below are relative to `src/stone_shelter_assistant`.
 
 3. **Keep shared foundations in `core`.** Store application settings, API and ORM bases, PostgreSQL connection factories, and Unit of Work here. Put search-specific components in `search`. Extract shared components when actual callers need them.
 
-4. **Assemble the application at the package root.** `app.py` creates FastAPI and manages shared resource lifecycles. `dependencies.py` wires request-scoped dependencies. `main.py` provides the Uvicorn entry point.
+4. **Assemble the application at the package root.** `app.py` creates FastAPI and manages shared resource lifecycles. `dependencies.py` wires request-scoped dependencies. Uvicorn loads the application through the `app.py` factory.
 
 5. **Respect the search subpackages.** `search/infrastructure` owns client factories, collection schemas, and collection setup. `search/stones` prepares and indexes stone, profile, and case-event documents. `search/knowledge` processes and indexes reference sources. Shared search document models, content helpers, and enums live directly in `search`.
 

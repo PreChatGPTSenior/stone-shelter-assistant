@@ -27,7 +27,7 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 
 ## Current
 
-- [ ] **PY-036 — Build and evaluate the direct search workflow.** Build a bounded LangGraph using the existing LangChain tools and call it through the assistant service from `main` on actual project data. Inspect cited answers and Langfuse traces, including tool decisions, PostgreSQL status verification, and LLM budget reservation and settlement. Add reproducible automated tests after the manual run, then evaluate answers on the same scenarios across multiple models and record the results. API and streaming follow the backend acceptance criteria in the [Phase 2 ADR](phase-2-adr.md).
+- [ ] **PY-036 — Build and evaluate the search workflow through the application.** Use one FastAPI resource lifecycle for the two knowledge reloads, the local stone fixture reset, and the manual baseline. Use the Madame Obsidian baseline to verify real data through HTTP. Connect a bounded LangGraph to `POST /api/v1/questions` and inspect its cited answers, PostgreSQL checks, budget reservations and settlement, and Langfuse traces. Add reproducible automated tests after the manual run, then evaluate the same scenarios across multiple models and record the results. See [Phase 2 ADR](phase-2-adr.md).
 
 ## Backlog
 
@@ -36,5 +36,5 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 - [ ] Combine lexical and vector evidence into a first hybrid retrieval path.
 - [ ] Measure retrieval quality before changing the search design.
 - [ ] Compare embeddings, chunking, fusion, and reranking through controlled experiments.
-- [ ] Design and implement the questions API and streaming after the direct service passes its checks and cross-model answer evaluation is complete.
+- [ ] Finalize the questions API contract and streaming after backend checks and cross-model answer evaluation.
 - [ ] Revisit source updates, indexing recovery, and broader application behavior only when selected as learning tasks.

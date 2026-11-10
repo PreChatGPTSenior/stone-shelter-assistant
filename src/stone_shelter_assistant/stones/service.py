@@ -3,6 +3,7 @@
 from uuid import UUID
 
 from stone_shelter_assistant.core.unit_of_work import UnitOfWork
+from stone_shelter_assistant.search.stones.stone_indexing_service import StoneIndexingService
 from stone_shelter_assistant.stones.api_contracts import StoneRegistrationRequest
 from stone_shelter_assistant.stones.models import (
     CaseEventModel,
@@ -54,3 +55,14 @@ class RegisterStoneService:
         self._repository.add(stone)
         await self._uow.commit()
         return stone.id
+
+
+class StoneIngestionService:
+    def __init__(self, registration: RegisterStoneService, indexer: StoneIndexingService) -> None:
+        self._registration = registration
+        self._indexer = indexer
+
+    async def ingest(self, request: StoneRegistrationRequest) -> UUID:
+        stone_id = await self._registration.register(request)
+        await self._indexer.index(stone_id)
+        return stone_id

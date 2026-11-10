@@ -4,16 +4,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
 
-from stone_shelter_assistant.dependencies import (
-    get_register_stone_service,
-    get_stone_indexing_service,
-)
-from stone_shelter_assistant.search.stones.stone_indexing_service import StoneIndexingService
+from stone_shelter_assistant.dependencies import get_stone_ingestion_service
 from stone_shelter_assistant.stones.api_contracts import (
     StoneRegistrationRequest,
     StoneRegistrationResponse,
 )
-from stone_shelter_assistant.stones.service import RegisterStoneService
+from stone_shelter_assistant.stones.service import StoneIngestionService
 
 router = APIRouter(prefix="/api/v1/stones", tags=["stones"])
 
@@ -25,12 +21,6 @@ router = APIRouter(prefix="/api/v1/stones", tags=["stones"])
 )
 async def register_stone(
     request: StoneRegistrationRequest,
-    register_stone_service: Annotated[RegisterStoneService, Depends(get_register_stone_service)],
-    indexing_stone_service: Annotated[StoneIndexingService, Depends(get_stone_indexing_service)],
+    ingestion: Annotated[StoneIngestionService, Depends(get_stone_ingestion_service)],
 ) -> StoneRegistrationResponse:
-    created_id = await register_stone_service.register(request)
-
-    # NOTE: Learning-project happy path. Retry and recovery are intentionally omitted.
-    await indexing_stone_service.index(created_id)
-
-    return StoneRegistrationResponse(id=created_id)
+    return StoneRegistrationResponse(id=await ingestion.ingest(request))

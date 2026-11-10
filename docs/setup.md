@@ -37,7 +37,7 @@ Use `COMPOSE_PROJECT_NAME=stone-shelter-assistant` and the `stone_shelter_assist
 docker compose up -d --wait postgres typesense qdrant
 uv run alembic upgrade head
 ollama list
-uv run uvicorn stone_shelter_assistant.main:app --reload
+uv run uvicorn stone_shelter_assistant.app:create_app --factory --reload
 ```
 
 The first three services keep data in Docker named volumes. `ollama list` should show the configured embedding model; Ollama runs separately from Compose. The API documentation is available at `http://127.0.0.1:8000/docs`. The local database is not seeded by setup; registration requires existing shelter records. The authored JSON fixtures remain available for isolated integration tests.
@@ -61,3 +61,22 @@ curl -X POST http://127.0.0.1:8000/api/v1/knowledge/compatibility/reindex
 ```
 
 Each endpoint deletes and reloads its own source in the shared `knowledge` collection in both engines.
+
+## Local HTTP baseline
+
+Run the two knowledge reloads above, then replace the local stone and shelter fixtures.
+The reset deletes the current operational records and both `stones` search collections before
+repopulating them. Use it as a maintenance operation in the local development environment.
+
+```sh
+curl --fail-with-body -X POST \
+  http://127.0.0.1:8000/api/v1/testing/normalize-data
+
+curl --fail-with-body \
+  --json '{"question":"Is Madame Obsidian available and compatible with granite?"}' \
+  http://127.0.0.1:8000/api/v1/testing/manual-test
+```
+
+The second endpoint reads the prepared data and returns the three tool results.
+Send the same question JSON to `POST /api/v1/questions` to exercise the future workflow.
+That route returns HTTP 501 until the graph is connected.

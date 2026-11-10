@@ -2,7 +2,7 @@
 
 Date: 2026-11-09
 
-Status: Design baseline from the Phase 2 discussion; implementation is pending.
+Status: HTTP entry points and manual baseline implemented. LangGraph and model evaluation are pending.
 
 This document consolidates the discussion of the first agent-driven search workflow, mandatory LLM budget reservations, and end-to-end observability. It supplements [Architecture Decisions](adr.md). Implementation progress remains in [Task Log](task-log.md); this document does not mark planned behavior as complete.
 
@@ -97,7 +97,7 @@ Code validates that recommended IDs belong to checked, eligible candidates and c
 
 ### State and boundaries
 
-State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget state, and correlation identifiers. Expose the asynchronous graph through an assistant service. A small `main` entry point calls that service directly and prints the answer, sources, and `trace_id` for manual inspection. Keep test conversations to at most five turns.
+State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget state, and correlation identifiers. Expose the asynchronous graph through an assistant service behind `POST /api/v1/questions`. FastAPI lifespan opens the shared clients and session factory once. The questions, knowledge, and manual testing routes reuse those resources through the application. Keep test conversations to at most five turns.
 
 ## 4. Generation and embeddings
 
@@ -144,7 +144,7 @@ Include Langfuse from the first working scenario, as selected in the main ADR. T
 
 A new question gets a new `trace_id`. Questions from the same user share `user_id`; questions in the same conversation also share `session_id`. A user-wide trace would mix separate executions, so user and session attributes provide that grouping.
 
-Create a root trace for each direct service invocation. Propagate the same context through the graph, services, tools, and client operations. Add `trace_id` to structured application logs and show it in the direct runner output. Design how HTTP exposes the trace ID during the final API step.
+Create a root trace for each questions request that invokes the assistant service. Propagate the same context through the graph, services, tools, and client operations. Add `trace_id` to structured application logs and include it in the pilot HTTP result.
 
 Use the Langfuse LangChain/LangGraph callback for framework operations and explicit nested spans for budget operations and PostgreSQL, Typesense, Qdrant, and Ollama calls. These are client-side spans; visibility into a provider's or database server's internal execution is not implied.
 
@@ -189,7 +189,13 @@ Langfuse observes budget decisions; the budget component enforces them. No accou
 
 ## 7. Manual verification, tests, and evaluation
 
-First, run the service from `main` against actual project records in the development services and a real OpenRouter model under an explicit budget. Start with Madame Obsidian. Inspect the answer and its sources alongside the Langfuse trace. Check the tool sequence, the fresh PostgreSQL status, budget reservation and settlement, and the final recommendation decision.
+Prepare the development dataset through three separate POST requests. Use the existing knowledge endpoints to replace the encyclopedia and compatibility guide independently, then use the local testing router to replace the operational fixture data:
+
+1. `/api/v1/knowledge/encyclopedia/reindex` replaces encyclopedia documents in Typesense and Qdrant.
+2. `/api/v1/knowledge/compatibility/reindex` replaces compatibility documents in both indexes.
+3. `/api/v1/testing/normalize-data` replaces shelters, stones, profiles, cases, and events in PostgreSQL and rebuilds the `stones` collections in Typesense and Qdrant. The POST request starts the reset immediately.
+
+Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a deterministic baseline. It runs the three existing tools and returns the name search hit, PostgreSQL card with status, and compatibility rule with granite. Use the same question at `POST /api/v1/questions` once the graph is connected. For that run, use a real OpenRouter model under an explicit budget and inspect the answer, sources, tool sequence, status check, budget reservation and settlement, and Langfuse trace.
 
 Then add reproducible automated checks using authored fixtures, a controllable tool-calling model stub, controlled embeddings, and disposable Testcontainers. Populate only the temporary services needed by each test. Automated tests must never use the persistent development database.
 
@@ -207,13 +213,13 @@ Then add reproducible automated checks using authored fixtures, a controllable t
 
 Use a test span collector for automated tracing checks. Run the relevant existing regression checks when implementation changes land.
 
-Once the service passes its checks, evaluate answers from multiple real models on the same set of questions and project data. Record each model's configuration, answer, sources, trace ID, latency, and cost. Review whether claims are supported, recommendations reflect the checked status, and the service handles missing evidence and budget stops predictably. Use the traces to distinguish model decisions from retrieval and orchestration behavior. Record the results and resolve failures in those required behaviors before proceeding to the API.
+Once the service passes its checks, evaluate answers from multiple real models on the same set of questions and project data. Record each model's configuration, answer, sources, trace ID, latency, and cost. Review whether claims are supported, recommendations reflect the checked status, and the service handles missing evidence and budget stops predictably. Use the traces to distinguish model decisions from retrieval and orchestration behavior. Record the results and resolve failures in those required behaviors before finalizing the API contract and streaming.
 
 ## 8. Delivery boundaries and later work
 
-The backend phase focuses on the search workflow, budget admission and reservations, observability, traceability, and answer evaluation. Deliver the directly callable service with status verification, cited results, and tracing. Inspect real-data runs first, add automated checks second, and complete the answer evaluation across models third.
+The backend phase focuses on the search workflow, budget admission and reservations, observability, traceability, and answer evaluation. Deliver the assistant service behind the pilot HTTP route with status verification, cited results, and tracing. Inspect real-data runs first, add automated checks second, and complete the answer evaluation across models third.
 
-API design and streaming are the final step. Begin work on `/api/v1/questions` and decide what to stream once the backend checks pass and the cross-model evaluation shows that answers are controlled. Use the observed service behavior to design the HTTP contract and any streaming events.
+Use the minimal `/api/v1/questions` route early to exercise the application and its dependencies. It returns HTTP 501 until LangGraph is connected. Finalize the HTTP contract and decide what to stream once the backend checks pass and the cross-model evaluation shows that answers are controlled.
 
 After the first scenario works, add scenarios using semantic search, event notes, timelines, and encyclopedia material as needed. Compare retrieval, embeddings, chunks, lexical and semantic fusion, and reranking through controlled experiments after establishing a baseline.
 
