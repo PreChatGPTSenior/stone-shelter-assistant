@@ -97,7 +97,7 @@ Code validates that recommended IDs belong to checked, eligible candidates and c
 
 ### State and boundaries
 
-State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget state, and correlation identifiers. Begin with a directly callable asynchronous graph. Connect the HTTP endpoint as the next small step. Keep test conversations to at most five turns.
+State needs message history, a tool-call counter, candidates, evidence, checked statuses, budget state, and correlation identifiers. Expose the asynchronous graph through an assistant service. A small `main` entry point calls that service directly and prints the answer, sources, and `trace_id` for manual inspection. Keep test conversations to at most five turns.
 
 ## 4. Generation and embeddings
 
@@ -144,7 +144,7 @@ Include Langfuse from the first working scenario, as selected in the main ADR. T
 
 A new question gets a new `trace_id`. Questions from the same user share `user_id`; questions in the same conversation also share `session_id`. A user-wide trace would mix separate executions, so user and session attributes provide that grouping.
 
-Create a root trace for direct graph invocation. Once HTTP is connected, start it at the request boundary and return `trace_id` in the response. Propagate the same context through the graph, services, tools, and client operations. Add `trace_id` to structured application logs.
+Create a root trace for each direct service invocation. Propagate the same context through the graph, services, tools, and client operations. Add `trace_id` to structured application logs and show it in the direct runner output. Design how HTTP exposes the trace ID during the final API step.
 
 Use the Langfuse LangChain/LangGraph callback for framework operations and explicit nested spans for budget operations and PostgreSQL, Typesense, Qdrant, and Ollama calls. These are client-side spans; visibility into a provider's or database server's internal execution is not implied.
 
@@ -187,9 +187,11 @@ question
 
 Langfuse observes budget decisions; the budget component enforces them. No account-management system is needed for the one test user. Langfuse hosting and exact SDK configuration remain to be selected during implementation.
 
-## 7. Minimal verification
+## 7. Manual verification, tests, and evaluation
 
-Use existing authored fixtures, a controllable tool-calling model stub, controlled embeddings, and disposable Testcontainers. Populate only the temporary services needed by each scenario. Do not load stones into the persistent local application database for this phase.
+First, run the service from `main` against actual project records in the development services and a real OpenRouter model under an explicit budget. Start with Madame Obsidian. Inspect the answer and its sources alongside the Langfuse trace. Check the tool sequence, the fresh PostgreSQL status, budget reservation and settlement, and the final recommendation decision.
+
+Then add reproducible automated checks using authored fixtures, a controllable tool-calling model stub, controlled embeddings, and disposable Testcontainers. Populate only the temporary services needed by each test. Automated tests must never use the persistent development database.
 
 | Scenario | Required observation |
 | --- | --- |
@@ -203,15 +205,17 @@ Use existing authored fixtures, a controllable tool-calling model stub, controll
 | Trace propagation | One question produces a root trace with correctly parented graph, tool, backend, and budget spans. |
 | Conversation correlation | A second question has a different trace ID and retains the user and conversation identifiers. |
 
-Use a test span collector for automated tracing checks. Inspect one controlled manual run in Langfuse to confirm the displayed tree. Any real-model smoke run is separate from ordinary tests and must have an explicit budget. Run the relevant existing regression checks when implementation changes land.
+Use a test span collector for automated tracing checks. Run the relevant existing regression checks when implementation changes land.
 
-These tests establish orchestration, accounting, grounding references, and trace propagation. A scripted model and controlled vectors do not evaluate real model routing, semantic ranking, answer quality, chunking, or embedding quality.
+Once the service passes its checks, evaluate answers from multiple real models on the same set of questions and project data. Record each model's configuration, answer, sources, trace ID, latency, and cost. Review whether claims are supported, recommendations reflect the checked status, and the service handles missing evidence and budget stops predictably. Use the traces to distinguish model decisions from retrieval and orchestration behavior. Record the results and resolve failures in those required behaviors before proceeding to the API.
 
 ## 8. Delivery boundaries and later work
 
-First deliver the directly callable graph with mandatory budget admission, reservations, status verification, cited results, and tracing. Then expose it through `/api/v1/questions`.
+The backend phase focuses on the search workflow, budget admission and reservations, observability, traceability, and answer evaluation. Deliver the directly callable service with status verification, cited results, and tracing. Inspect real-data runs first, add automated checks second, and complete the answer evaluation across models third.
 
-After the first scenario works, add scenarios using semantic search, event notes, timelines, and encyclopedia material as needed. Combine lexical and semantic evidence and evaluate retrieval and answer quality through controlled experiments. Compare models, embeddings, chunks, fusion, and reranking only after establishing a baseline.
+API design and streaming are the final step. Begin work on `/api/v1/questions` and decide what to stream once the backend checks pass and the cross-model evaluation shows that answers are controlled. Use the observed service behavior to design the HTTP contract and any streaming events.
+
+After the first scenario works, add scenarios using semantic search, event notes, timelines, and encyclopedia material as needed. Compare retrieval, embeddings, chunks, lexical and semantic fusion, and reranking through controlled experiments after establishing a baseline.
 
 Queues, automatic retries, distributed recovery, full CRUD/UI, production deployment, and broad negative-case matrices are deferred. So are stone reservation and adoption writes. Budget uncertainty handling and stale-status verification remain in scope because they enforce explicit pilot requirements.
 
