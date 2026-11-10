@@ -28,13 +28,13 @@ Completed entries summarize the work that landed. Existing IDs are reused where 
 ## Current
 
 - [ ] **PY-036 — Build and evaluate the search workflow through the application.** The shared FastAPI app serves fixture reloads, the manual baseline, and the bounded LangGraph at `POST /api/v1/questions`. Verified the Madame Obsidian and quiet-home scenarios with OpenRouter, mandatory PostgreSQL card and status lookups, and Langfuse traces labeled by scenario and fixture version. Remaining work covers budget reservations and settlement, reproducible workflow tests, and cross-model answer evaluation. See [Phase 2 ADR](phase-2-adr.md).
+- [ ] **PY-037 — Improve candidate search.** Record the retrieval baseline for the Madame Obsidian and quiet-home-with-granite questions using the same fixtures and model. Compare which candidates lexical and semantic search return and which ones reach card loading. Use the results to choose one targeted search change, then rerun both questions through `POST /api/v1/questions` and compare the candidates and Langfuse traces.
 
 ## Backlog
 
 - [ ] Index existing local stones explicitly if they are needed for search experiments.
 - [ ] Add typed PostgreSQL lookups for other exact operational questions.
 - [ ] Combine lexical and vector evidence into a first hybrid retrieval path.
-- [ ] Measure retrieval quality before changing the search design.
 - [ ] Compare embeddings, chunking, fusion, and reranking through controlled experiments.
 - [ ] Finalize the questions API contract and streaming after backend checks and cross-model answer evaluation.
 - [ ] Revisit source updates, indexing recovery, and broader application behavior only when selected as learning tasks.
