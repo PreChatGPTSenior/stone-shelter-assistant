@@ -172,6 +172,8 @@ def get_question_workflow(
                 ],
                 details_tool=tools["get_stone_details"],
                 status_tool=tools["get_current_stone_statuses"],
+                compatibility_tool=tools["get_compatibility_pair"],
+                encyclopedia_tool=tools["search_knowledge_lexical"],
                 config={"callbacks": [callback], "run_name": "search-workflow"},
             )
             root.update(output=result)

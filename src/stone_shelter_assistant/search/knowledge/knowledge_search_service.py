@@ -3,6 +3,7 @@
 from langchain_core.embeddings import Embeddings
 from qdrant_client import AsyncQdrantClient, models
 from typesense import AsyncClient
+from typesense.exceptions import ObjectNotFound
 
 from stone_shelter_assistant.search.document_models import (
     DEFAULT_LANGUAGE,
@@ -80,14 +81,18 @@ class KnowledgeSearchService:
         documents = self._typesense.collections[
             typesense_collections.KNOWLEDGE_COLLECTION
         ].documents
-        result = await documents.search(
-            {
-                "q": query.strip() or "*",
-                "query_by": "title,text",
-                "filter_by": " && ".join(f"{field}:=`{value}`" for field, value in matches),
-                "per_page": limit,
-            }
-        )
+        try:
+            result = await documents.search(
+                {
+                    "q": query.strip() or "*",
+                    "query_by": "title,text",
+                    "filter_by": " && ".join(f"{field}:=`{value}`" for field, value in matches),
+                    "per_page": limit,
+                }
+            )
+        except ObjectNotFound:
+            # The knowledge collection is created by the first fixture reload.
+            return []
         return [
             KNOWLEDGE_DOCUMENT_ADAPTER.validate_python(hit["document"])
             for hit in result.get("hits", [])

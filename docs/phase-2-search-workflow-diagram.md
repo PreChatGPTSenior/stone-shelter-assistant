@@ -7,6 +7,7 @@ flowchart TD
         tools[ToolNode: run the selected tool]
         cards[Read selected stone cards from PostgreSQL]
         verify[Verify: read current status from PostgreSQL]
+        evaluate[Evaluate: apply criteria and record reasons]
         answer[Answer: assemble and validate result]
         stop[Stop: return budget reason]
         budget[Budget interface: admit each model call]
@@ -16,10 +17,13 @@ flowchart TD
         tools -->|Tool calls remain| agent
         tools -->|Four tool calls used: selection only| agent
         cards --> verify
-        verify --> answer
+        verify --> evaluate
+        evaluate --> answer
         agent -->|Budget rejected or cost unknown| stop
+        evaluate -->|Budget rejected| stop
         answer -->|Budget rejected or cost unknown| stop
         agent -.-> budget
+        evaluate -.-> budget
         answer -.-> budget
     end
 
