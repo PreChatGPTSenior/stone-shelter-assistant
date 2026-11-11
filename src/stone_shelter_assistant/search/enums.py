@@ -16,3 +16,8 @@ class CompatibilityVerdict(StrEnum):
     HARMONIOUS = "HARMONIOUS"
     CONDITIONAL = "CONDITIONAL"
     NOT_RECOMMENDED = "NOT_RECOMMENDED"
+
+
+class AccommodationFactType(StrEnum):
+    DECISION_ROTATION_AGREED = "decision_rotation_agreed"
+    DECISION_DEADLINE_AGREED = "decision_deadline_agreed"

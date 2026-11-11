@@ -69,7 +69,7 @@ class RankingPolicy:
 
 
 RANKING_POLICY = RankingPolicy(
-    version="candidate-evaluation-v3",
+    version="candidate-evaluation-v4",
     shortlist_limit=3,
     default_recommendation_limit=3,
     criteria={

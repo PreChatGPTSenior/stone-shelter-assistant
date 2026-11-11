@@ -371,6 +371,20 @@
       ],
       "verdict": "CONDITIONAL",
       "title": "The permanently adjourned furniture meeting",
+      "conditions": [
+        {
+          "id": "rotate_decisions",
+          "fact_type": "decision_rotation_agreed",
+          "expected_value": true,
+          "source_quote": "Rotate small decisions"
+        },
+        {
+          "id": "decision_deadline",
+          "fact_type": "decision_deadline_agreed",
+          "expected_value": true,
+          "source_quote": "set a friendly decision deadline for shared arrangements."
+        }
+      ],
       "explanation": "They are wonderfully dependable but may postpone every change until both have considered every consequence twice.",
       "household_agreement": "Rotate small decisions and set a friendly decision deadline for shared arrangements.",
       "avoid": "Do not require unanimous approval for every cushion adjustment.",

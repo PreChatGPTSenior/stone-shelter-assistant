@@ -1,0 +1,1981 @@
+{
+  "ticket": "PY-037",
+  "recorded_date": "2026-11-11",
+  "session_id": "2026-11-11-PY-037",
+  "dataset_name": "PY-037/quiet-home-candidate-assessment",
+  "input_file": "../input.json",
+  "input_sha256": "641bd32979601dadde95c172e6c495a6fd2a42c509ba0ec27304e45a49b13dac",
+  "source_trace_id": "17b4b712756b6168102f0d40683616e7",
+  "max_output_tokens": 8192,
+  "scope": "One frozen evidence-assessment case. One completed response per model. Dots retried once after a provider error.",
+  "check_definitions": {
+    "dto_valid": "The response parses as AssessedEvidence.",
+    "evidence_grounded": "Every individual quote matches a supplied source field and candidate ID. Character fragment IDs belong to the frozen criteria.",
+    "character_coverage": "Both candidates have confirmed character evidence for the quiet-home criterion.",
+    "no_invented_compatibility": "Individual compatibility and accommodation lists are empty because neither card establishes a granite-specific preference and the household fact establishes no conditional arrangements."
+  },
+  "token_accounting": "output_tokens includes reasoning. estimated_visible_output_tokens is reported output_tokens minus reported reasoning tokens, without retokenizing the returned JSON.",
+  "summary": [
+    {
+      "model_id": "openai/gpt-6-luna",
+      "requested_reasoning": "medium",
+      "seconds": 14.41,
+      "model_call": {
+        "model_name": "openai/gpt-6-luna",
+        "id": "gen-1794391034-rLKhn0FHw6goaZfZi4SH",
+        "cost": 0.000585675,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1130,
+          "output_tokens": 889,
+          "total_tokens": 2019,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1127
+          },
+          "output_token_details": {
+            "reasoning": 700
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 189,
+      "passed": false,
+      "trace_id": "968402d26b6f6bf2b92e20075c44a14e",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=98f91000aa019b24",
+      "failed_checks": [
+        "evidence_grounded",
+        "character_coverage"
+      ]
+    },
+    {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "requested_reasoning": "high",
+      "seconds": 35.58,
+      "model_call": {
+        "model_name": "deepseek/deepseek-v4.1-flash",
+        "id": "gen-1794391034-aRrWUVF9PBC8Kk3aMmV7",
+        "cost": 0.00463879,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1398,
+          "output_tokens": 6857,
+          "total_tokens": 8255,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 6576
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 281,
+      "passed": false,
+      "trace_id": "2cae10a2bbd76d4668c60c15f0b59903",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=c3aead7ff4aa38e6",
+      "failed_checks": [
+        "no_invented_compatibility"
+      ]
+    },
+    {
+      "model_id": "anthropic/claude-sonnet-5",
+      "requested_reasoning": "medium",
+      "seconds": 15.18,
+      "model_call": {
+        "model_name": "anthropic/claude-sonnet-5",
+        "id": "gen-1794391049-xhBTx8UjhDiyXEYygFRW",
+        "cost": 0.01895,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 2380,
+          "output_tokens": 1419,
+          "total_tokens": 3799,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 970
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 449,
+      "passed": false,
+      "trace_id": "6b8b57a4355d2fdf6091f349dc47ec80",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=1c172de466c38738",
+      "failed_checks": [
+        "no_invented_compatibility"
+      ]
+    },
+    {
+      "model_id": "google/gemini-3.8-flash",
+      "requested_reasoning": "medium",
+      "seconds": 15.22,
+      "model_call": {
+        "model_name": "google/gemini-3.8-flash",
+        "id": "gen-1794391065-P6aYVABsh0OZkpDJrhRB",
+        "cost": 0.00931275,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1517,
+          "output_tokens": 2180,
+          "total_tokens": 3697,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 1942
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 238,
+      "passed": true,
+      "trace_id": "9957d18cce0ab00ba053ef2d6030c836",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=39845c70f5b40518",
+      "failed_checks": []
+    },
+    {
+      "model_id": "openai/gpt-6.1-terra",
+      "requested_reasoning": "medium",
+      "seconds": 5.62,
+      "model_call": {
+        "model_name": "openai/gpt-6.1-terra",
+        "id": "gen-1794391070-38xpah0c9fcKrmxVQaSb",
+        "cost": 0.00341175,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1130,
+          "output_tokens": 400,
+          "total_tokens": 1530,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1127
+          },
+          "output_token_details": {
+            "reasoning": 156
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 244,
+      "passed": true,
+      "trace_id": "47bc61699107bb2edebb58c4ff62363b",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=6d32a1659426ed6c",
+      "failed_checks": []
+    },
+    {
+      "model_id": "dots-studio/dots-3-note-preview:free",
+      "requested_reasoning": "medium",
+      "seconds": 81.41,
+      "model_call": {
+        "model_name": "dots-studio/dots-3-note-preview:free",
+        "id": "gen-1794391133-t6M8wev4tMyhEsJXBtaA",
+        "cost": 0.0,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 930,
+          "output_tokens": 7787,
+          "total_tokens": 8717,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 6168
+          }
+        }
+      },
+      "estimated_visible_output_tokens": 1619,
+      "passed": false,
+      "trace_id": "ca16544a818a9981b3955a29e18dfa9f",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=f7024ec8f8affe14",
+      "failed_checks": [
+        "evidence_grounded",
+        "character_coverage",
+        "no_invented_compatibility"
+      ]
+    }
+  ],
+  "reported_successful_call_cost_usd": 0.036898965,
+  "attempts": [
+    {
+      "model_id": "openai/gpt-6-luna",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": false,
+      "character_coverage": false,
+      "no_invented_compatibility": true,
+      "model_call": {
+        "model_name": "openai/gpt-6-luna",
+        "id": "gen-1794391034-rLKhn0FHw6goaZfZi4SH",
+        "cost": 0.000585675,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1130,
+          "output_tokens": 889,
+          "total_tokens": 2019,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1127
+          },
+          "output_token_details": {
+            "reasoning": 700
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "unknown",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": "missing_evidence",
+              "policy_rule": "unknown",
+              "base_score": 0.25,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "conditional",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "conditional",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "conditional",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_unconfirmed",
+              "base_score": 0.5,
+              "action": "conditional_option",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "unknown",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": "missing_evidence",
+              "policy_rule": "unknown",
+              "base_score": 0.25,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "OBSIDIAN",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "confirmed",
+            "quote": "prefers a peaceful home",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "OBSIDIAN",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "confirmed",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "GRANITE",
+            "source_ref": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "finding": "confirmed",
+            "quote": "enjoys quiet evenings",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": []
+      },
+      "seconds": 14.41,
+      "passed": false,
+      "trace_id": "968402d26b6f6bf2b92e20075c44a14e",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=98f91000aa019b24",
+      "estimated_visible_output_tokens": 189
+    },
+    {
+      "model_id": "anthropic/claude-sonnet-5",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": true,
+      "character_coverage": true,
+      "no_invented_compatibility": false,
+      "model_call": {
+        "model_name": "anthropic/claude-sonnet-5",
+        "id": "gen-1794391049-xhBTx8UjhDiyXEYygFRW",
+        "cost": 0.01895,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 2380,
+          "output_tokens": 1419,
+          "total_tokens": 3799,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 970
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A thoughtful stone who enjoys quiet evenings.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 2,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A thoughtful stone who enjoys quiet evenings.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": "где уже есть гранит.",
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_confirmed",
+              "base_score": 0.75,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "An affectionate stone who prefers a peaceful home.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "An affectionate stone who prefers a peaceful home.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "profile.preferred_environment",
+            "finding": "confirmed",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "A thoughtful stone who enjoys quiet evenings.",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": [
+          {
+            "pair_key": "GRANITE+GRANITE",
+            "household_fragment_id": 2,
+            "pair_quote": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment."
+          }
+        ]
+      },
+      "seconds": 15.18,
+      "passed": false,
+      "trace_id": "6b8b57a4355d2fdf6091f349dc47ec80",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=1c172de466c38738",
+      "estimated_visible_output_tokens": 449
+    },
+    {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "requested_reasoning": "high",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": true,
+      "character_coverage": true,
+      "no_invented_compatibility": false,
+      "model_call": {
+        "model_name": "deepseek/deepseek-v4.1-flash",
+        "id": "gen-1794391034-aRrWUVF9PBC8Kk3aMmV7",
+        "cost": 0.00463879,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1398,
+          "output_tokens": 6857,
+          "total_tokens": 8255,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 6576
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A thoughtful stone who enjoys quiet evenings.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 2,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A thoughtful stone who enjoys quiet evenings.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "conditional",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "conditional",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "conditional",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_unconfirmed",
+              "base_score": 0.5,
+              "action": "conditional_option",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "trigger_notes",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "Becomes anxious around vacuum cleaners.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "An affectionate stone who prefers a peaceful home.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "An affectionate stone who prefers a peaceful home.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "profile.preferred_environment",
+            "finding": "confirmed",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "profile.trigger_notes",
+            "finding": "confirmed",
+            "quote": "Becomes anxious around vacuum cleaners.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "A thoughtful stone who enjoys quiet evenings.",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": [
+          {
+            "pair_key": "GRANITE+GRANITE",
+            "household_fragment_id": 2,
+            "pair_quote": "где уже есть гранит."
+          }
+        ]
+      },
+      "seconds": 35.58,
+      "passed": false,
+      "trace_id": "2cae10a2bbd76d4668c60c15f0b59903",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=c3aead7ff4aa38e6",
+      "estimated_visible_output_tokens": 281
+    },
+    {
+      "model_id": "openai/gpt-6.1-terra",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": true,
+      "character_coverage": true,
+      "no_invented_compatibility": true,
+      "model_call": {
+        "model_name": "openai/gpt-6.1-terra",
+        "id": "gen-1794391070-38xpah0c9fcKrmxVQaSb",
+        "cost": 0.00341175,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1130,
+          "output_tokens": 400,
+          "total_tokens": 1530,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1127
+          },
+          "output_token_details": {
+            "reasoning": 156
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "enjoys quiet evenings",
+                  "scope": null
+                },
+                {
+                  "source_id": "encyclopedia:en:granite",
+                  "field": "text",
+                  "source_kind": "encyclopedia",
+                  "priority": 3,
+                  "weight": 0.5,
+                  "supports_requirement": false,
+                  "finding": "confirmed",
+                  "quote": "It does not fuss or resent infrequent attention.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 2,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "enjoys quiet evenings",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "conditional",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "conditional",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "conditional",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_unconfirmed",
+              "base_score": 0.5,
+              "action": "conditional_option",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "prefers a peaceful home",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "prefers a peaceful home",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "profile.preferred_environment",
+            "finding": "confirmed",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "enjoys quiet evenings",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "encyclopedia",
+            "finding": "confirmed",
+            "quote": "It does not fuss or resent infrequent attention.",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": []
+      },
+      "seconds": 5.62,
+      "passed": true,
+      "trace_id": "47bc61699107bb2edebb58c4ff62363b",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=6d32a1659426ed6c",
+      "estimated_visible_output_tokens": 244
+    },
+    {
+      "model_id": "dots-studio/dots-3-note-preview:free",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": false,
+      "evidence_grounded": false,
+      "character_coverage": false,
+      "no_invented_compatibility": false,
+      "error": "BadRequestResponseError: Provider returned error",
+      "seconds": 2.0,
+      "passed": false,
+      "trace_id": "559c0e044fd189b16d2a6d60e9cb2e9a",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=f757daf365527be0",
+      "estimated_visible_output_tokens": null
+    },
+    {
+      "model_id": "google/gemini-3.8-flash",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": true,
+      "character_coverage": true,
+      "no_invented_compatibility": true,
+      "model_call": {
+        "model_name": "google/gemini-3.8-flash",
+        "id": "gen-1794391065-P6aYVABsh0OZkpDJrhRB",
+        "cost": 0.00931275,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1517,
+          "output_tokens": 2180,
+          "total_tokens": 3697,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 1942
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A thoughtful stone who enjoys quiet evenings.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 2,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A thoughtful stone who enjoys quiet evenings.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "conditional",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "conditional",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "conditional",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_unconfirmed",
+              "base_score": 0.5,
+              "action": "conditional_option",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 2,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "An affectionate stone who prefers a peaceful home.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "An affectionate stone who prefers a peaceful home.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "profile.preferred_environment",
+            "finding": "confirmed",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": "A thoughtful stone who enjoys quiet evenings.",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": []
+      },
+      "seconds": 15.22,
+      "passed": true,
+      "trace_id": "9957d18cce0ab00ba053ef2d6030c836",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=39845c70f5b40518",
+      "estimated_visible_output_tokens": 238
+    },
+    {
+      "model_id": "dots-studio/dots-3-note-preview:free",
+      "requested_reasoning": "medium",
+      "max_tokens": 8192,
+      "dto_valid": true,
+      "evidence_grounded": false,
+      "character_coverage": false,
+      "no_invented_compatibility": false,
+      "model_call": {
+        "model_name": "dots-studio/dots-3-note-preview:free",
+        "id": "gen-1794391133-t6M8wev4tMyhEsJXBtaA",
+        "cost": 0.0,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 930,
+          "output_tokens": 7787,
+          "total_tokens": 8717,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 6168
+          }
+        }
+      },
+      "candidate_evaluations": [
+        {
+          "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "unknown",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": "missing_evidence",
+              "policy_rule": "unknown",
+              "base_score": 0.25,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "conditional",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "status": null,
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "conditional",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "conditional",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "conditions_unconfirmed",
+              "base_score": 0.5,
+              "action": "conditional_option",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        },
+        {
+          "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "eligible": true,
+          "reasons": [
+            {
+              "criterion": "availability",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": null,
+              "source_id": "verified_statuses",
+              "status": "AVAILABLE",
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": null,
+              "base_score": null,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "character",
+              "finding": "unknown",
+              "required": false,
+              "question_quote": "Подбери до двух камней для тихого дома,",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "evidence": [],
+              "chosen_evidence": null,
+              "conflict": false,
+              "unknown_reason": "missing_evidence",
+              "policy_rule": "unknown",
+              "base_score": 0.25,
+              "action": "rank",
+              "lookup_only": false
+            },
+            {
+              "criterion": "compatibility",
+              "finding": "confirmed",
+              "required": false,
+              "question_quote": "где уже есть гранит.",
+              "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "status": null,
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "household_quote": null,
+              "evidence": [
+                {
+                  "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                  "field": "verdict",
+                  "source_kind": "compatibility_pair",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": null,
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+                "field": "verdict",
+                "source_kind": "compatibility_pair",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": null,
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "harmonious",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ],
+          "exclusion_rules": [],
+          "outcome": "facts_only",
+          "ranking": null
+        }
+      ],
+      "assessment": {
+        "character": [
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "Becomes anxious around vacuum cleaners.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "CAUTIOUS_WITH_STRANGERS, ENJOYS_HUMAN_COMPANY, NEEDS_SLOW_INTRODUCTION",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "An affectionate stone who prefers a peaceful home.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "A quiet home with a predictable routine.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "**Character archetype:** dramatic introvert.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "Obsidian sits in the corner wearing black, reflects half the room, and pretends it accidentally became the most striking object in the interior. Its vibe is a nighttime stage, subdued lighting, and a conversation after midnight.  ",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "source_ref": "080b0899-70b3-4fd4-9cf4-0c9c2c04adfc",
+            "finding": "contradicted",
+            "quote": "It values personal space: it enjoys being admired, while being passed from hand to hand feels overly familiar.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "finding": "contradicted",
+            "quote": "A thoughtful stone who enjoys quiet evenings.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "finding": "contradicted",
+            "quote": "**Character archetype:** keeper of order.",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "finding": "contradicted",
+            "quote": "Granite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  ",
+            "fragment_id": 1
+          },
+          {
+            "stone_id": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "source_ref": "1ee25e48-b1c5-4cf0-9fa3-cdcfee9ae96f",
+            "finding": "contradicted",
+            "quote": "It likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.",
+            "fragment_id": 1
+          }
+        ],
+        "individual_compatibility": [],
+        "accommodations": [
+          {
+            "pair_key": "GRANITE+GRANITE",
+            "household_fragment_id": 2,
+            "pair_quote": "Verdict: CONDITIONAL Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice. Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements. Avoid: Do not require unanimous approval for every cushion adjustment."
+          }
+        ]
+      },
+      "seconds": 81.41,
+      "passed": false,
+      "trace_id": "ca16544a818a9981b3955a29e18dfa9f",
+      "experiment_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/experiments/results?baseline=f7024ec8f8affe14",
+      "estimated_visible_output_tokens": 1619
+    }
+  ]
+}

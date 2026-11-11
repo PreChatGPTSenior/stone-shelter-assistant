@@ -1,23 +1,26 @@
 """Wire request-scoped services and indexers to database sessions."""
 
 from collections.abc import AsyncIterator, Awaitable, Callable
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated
+from zoneinfo import ZoneInfo
 
 from fastapi import Depends, Request
 from langchain_core.tools import BaseTool
 from langchain_openrouter import ChatOpenRouter
 from langfuse import Langfuse, propagate_attributes
-from langfuse.langchain import CallbackHandler
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from stone_shelter_assistant.assistant.api_contracts import QuestionRequest
+from stone_shelter_assistant.assistant.reference_lookup import ReferenceTools
 from stone_shelter_assistant.assistant.tools import (
     case_event_search_tools,
     knowledge_search_tools,
     stone_lookup_tools,
     stone_search_tools,
 )
+from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler, trace_result
 from stone_shelter_assistant.assistant.workflow import run_workflow
 from stone_shelter_assistant.core.settings import LangfuseSettings, OpenRouterSettings
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
@@ -133,13 +136,57 @@ def get_question_workflow(
 ) -> QuestionWorkflow:
     async def ask(payload: QuestionRequest) -> dict[str, object]:
         openrouter = OpenRouterSettings()
-        model = ChatOpenRouter(
-            model_name=payload.model_id or openrouter.model,
-            openrouter_api_key=openrouter.api_key,
-            temperature=0,
-            max_tokens=3072,
-            max_retries=0,
-            request_timeout=45_000,
+        default_model_id = payload.model_id or openrouter.model
+        agent_model_id = (
+            payload.agent_model_id or payload.model_id or openrouter.agent_model or openrouter.model
+        )
+        selection_model_id = (
+            payload.selection_model_id
+            or payload.model_id
+            or openrouter.selection_model
+            or agent_model_id
+        )
+        parsing_model_id = (
+            payload.parsing_model_id
+            or payload.model_id
+            or openrouter.parsing_model
+            or selection_model_id
+        )
+        model_ids = {
+            "agent": agent_model_id,
+            "select_candidates": selection_model_id,
+            "parse_question": parsing_model_id,
+            "plan_tools": payload.planning_model_id
+            or payload.model_id
+            or openrouter.planning_model
+            or parsing_model_id,
+            "evaluate_candidates": payload.evaluation_model_id
+            or payload.model_id
+            or openrouter.evaluation_model,
+            "answer": payload.answer_model_id
+            or payload.model_id
+            or openrouter.answer_model
+            or openrouter.model,
+        }
+        models = {
+            model_id: ChatOpenRouter(
+                model_name=model_id,
+                openrouter_api_key=openrouter.api_key,
+                max_tokens=3072,
+                max_retries=0,
+                request_timeout=45_000,
+            )
+            for model_id in dict.fromkeys(model_ids.values())
+        }
+        evaluation_max_tokens = payload.evaluation_max_tokens or openrouter.evaluation_max_tokens
+        evaluation_effort = (
+            payload.evaluation_reasoning_effort or openrouter.evaluation_reasoning_effort
+        )
+        evaluation_model = models[model_ids["evaluate_candidates"]].model_copy(
+            update={
+                "max_tokens": evaluation_max_tokens,
+                "request_timeout": 180_000,
+            }
         )
         tracing = LangfuseSettings()
         langfuse = Langfuse(
@@ -150,21 +197,49 @@ def get_question_workflow(
         eval_metadata = payload.model_dump(
             include={"eval_case_id", "fixture_version"}, exclude_none=True
         )
+        eval_metadata.update(
+            agent_model_id=model_ids["agent"],
+            selection_model_id=model_ids["select_candidates"],
+            parsing_model_id=model_ids["parse_question"],
+            planning_model_id=model_ids["plan_tools"],
+            evaluation_model_id=model_ids["evaluate_candidates"],
+            answer_model_id=model_ids["answer"],
+            evaluation_max_tokens=str(evaluation_max_tokens),
+            evaluation_reasoning_effort=evaluation_effort,
+        )
         with (
             langfuse.start_as_current_observation(
                 name="questions",
                 as_type="span",
-                input={"question": payload.question, "model_id": model.model},
+                input={
+                    "question": payload.question,
+                    "model_id": default_model_id,
+                    "model_ids": model_ids,
+                },
             ) as root,
-            propagate_attributes(user_id="local-test-user", metadata=eval_metadata),
+            propagate_attributes(
+                user_id="local-test-user",
+                session_id=f"{datetime.now(ZoneInfo('Asia/Tbilisi')):%Y-%m-%d}-PY-037",
+                metadata=eval_metadata,
+            ),
         ):
-            callback = CallbackHandler(
+            callback = WorkflowTraceHandler(
                 public_key=tracing.public_key,
                 trace_context={"trace_id": root.trace_id, "parent_span_id": root.id},
             )
             result = await run_workflow(
                 question=payload.question,
-                model=model,
+                agent_model=models[model_ids["agent"]],
+                selection_model=models[model_ids["select_candidates"]],
+                selection_uses_json_schema=selection_model_id
+                in openrouter.selection_json_schema_models,
+                parsing_model=models[model_ids["parse_question"]],
+                planning_model=models[model_ids["plan_tools"]],
+                evaluation_model=evaluation_model,
+                evaluation_reasoning={"effort": evaluation_effort},
+                evaluation_uses_json_schema=model_ids["evaluate_candidates"]
+                in openrouter.evaluation_json_schema_models,
+                answer_model=models[model_ids["answer"]],
                 agent_tools=[
                     tools["search_stones_lexical"],
                     tools["search_stones_semantic"],
@@ -174,10 +249,21 @@ def get_question_workflow(
                 status_tool=tools["get_current_stone_statuses"],
                 compatibility_tool=tools["get_compatibility_pair"],
                 encyclopedia_tool=tools["search_knowledge_lexical"],
+                reference_tools=ReferenceTools(
+                    stone_status=tools["get_stone_status_by_name"],
+                    encyclopedia=tools["search_knowledge_lexical"],
+                    exact_pair=tools["get_compatibility_pair"],
+                    pair_list=tools["list_compatibility_pairs"],
+                ),
                 config={"callbacks": [callback], "run_name": "search-workflow"},
             )
-            root.update(output=result)
-            return {**result, "model_id": model.model, "trace_id": root.trace_id}
+            root.update(output=trace_result(result, include_answer=True))
+            return {
+                **result,
+                "model_id": default_model_id,
+                "model_ids": model_ids,
+                "trace_id": root.trace_id,
+            }
 
     return ask
 

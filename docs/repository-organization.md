@@ -20,6 +20,8 @@ Application paths below are relative to `src/stone_shelter_assistant`.
 
 8. **Keep simulated input data in `fixtures`.** Stone examples belong in `fixtures/stones`, and reference knowledge in `fixtures/knowledge`. Test-only invalid scenarios belong in `tests/fixtures`. Treat knowledge files as authored examples of supplied sources in this fictional learning project.
 
+   Frozen model-evaluation cases belong in `tests/fixtures/agent-eval/<case>/`. Keep an archival `input.json`, a case README with reviewed expectations, and versioned `runs/` records with model settings, DTOs, check outcomes, usage, cost, and Langfuse links. Preserve failed attempts alongside completed responses. Link each run to the exact input SHA-256.
+
 9. **Complete moves through their callers.** Update imports, fixture paths, tests, and affected documentation when renaming or moving files. Verify the affected application entry points and scenarios.
 
 10. **Load ORM relationships explicitly.** Declare relationships with `lazy="raise"` and load the relationships needed by each query explicitly, for example with `selectinload`.

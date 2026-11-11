@@ -61,9 +61,9 @@ flowchart LR
 
 ### Agent and tools
 
-Use a typed LangGraph state and the ready-made `ToolNode` to execute existing LangChain tools and return tool results to message history. Use conditional routing with an explicit call counter. For the pilot, allow at most four model-selected tool calls, one per round. Mandatory status verification is separate from this retrieval allowance.
+Use a typed LangGraph state and the ready-made `ToolNode` to execute existing LangChain tools and return tool results to message history. Search allows up to four model calls and four retrieval tool calls. When a turn requests multiple tools, execute valid calls within the remaining allowance. Mandatory status verification is separate from retrieval.
 
-The agent finishes retrieval by selecting up to three stone IDs from the search results. After the fourth retrieval call, the model can only submit that selection. The graph reads a PostgreSQL card for each selected ID before the separate status check. All model calls go through the budget interface.
+The first model call parses the original question and its numbered fragments. A second model proposes an ordered tool plan and a reason. The graph checks scope and dependencies before execution. Named status uses a direct PostgreSQL lookup, care uses the encyclopedia, and compatibility uses exact pairs or pairs filtered by one type and verdict. Candidate recommendations enter the bounded search loop. When search finishes or reaches either limit, a structured call selects up to three retrieved IDs after filtering and deduplication. The graph reads the PostgreSQL cards before the separate status check. Each model stage outside search makes at most one model call.
 
 The agent can use `search_stones_lexical`, `search_stones_semantic`, and `get_compatibility_pair`. The graph owns card and status lookups:
 
@@ -201,7 +201,33 @@ Prepare the development dataset through three separate POST requests. Use the ex
 2. `/api/v1/knowledge/compatibility/reindex` replaces compatibility documents in both indexes.
 3. `/api/v1/testing/normalize-data` replaces shelters, stones, profiles, cases, and events in PostgreSQL and rebuilds the `stones` collections in Typesense and Qdrant. The POST request starts the reset immediately.
 
-Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a deterministic baseline. It runs the three existing tools and returns the name search hit, PostgreSQL card with status, and compatibility rule with granite. Use the same question at `POST /api/v1/questions` with `openrouter/free` to inspect the answer, sources, tool sequence, PostgreSQL status check, and Langfuse trace. Evaluate paid models and reservation behavior after budget enforcement is implemented.
+Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a deterministic baseline. It runs the three existing tools and returns the name search hit, PostgreSQL card with status, and compatibility rule with granite. Use the same question at `POST /api/v1/questions` with `openrouter/free` to inspect the answer, sources, tool sequence, PostgreSQL status check, and Langfuse trace. Explicitly authorized, opt-in paid model comparisons may replay a frozen assessment case with bounded output tokens while budget admission remains a stub. Reservation behavior is evaluated when enforcement is implemented.
+
+### Conditional pair decisions
+
+Conditional pair eligibility is computed from author-defined mandatory conditions and typed household facts. A model-supplied rule quotation and household fragment ID cannot confirm accommodations. The current model assessment DTO contains character and individual-compatibility evidence only. Historical `ConfirmedAccommodation` outputs remain readable for frozen replays and have no decision authority.
+
+Each authored condition has an ID, fact type, expected boolean, and verbatim rule quotation. The initial granite–granite annotation requires both `decision_rotation_agreed` and `decision_deadline_agreed`. `parse_question` extracts established agreements or explicit denials as typed facts, and the graph restores their original question quotes from fragment IDs. A missing pair scope means a household-wide agreement. An explicit `applies_to_pair` restricts a fact to that unordered pair, preserving repeated types.
+
+All mandatory conditions must be marked and confirmed. Missing facts, denials, conflicting values, invalid rule quotations, duplicate condition IDs, and facts scoped to another pair cannot confirm the rule. Existing documents without condition annotations remain conditional. Per-condition results and supporting facts are recorded with each candidate reason. The graph renders “Условия не подтверждены.” for unconfirmed or unmarked conditional rules. Reindex compatibility knowledge after reviewing the updated fixture to make the annotation available to live runs. The policy version is `candidate-evaluation-v4`.
+
+### Frozen model-assessment records
+
+Archive model-evaluation inputs and results under `tests/fixtures/agent-eval/<case>/`. Each case stores the exact input messages, DTO schema, parsed criteria, recorded cards and statuses, source evidence, fixture version, source trace/observation IDs, and input SHA-256. Versioned run records store requested model and reasoning settings, output allowance, returned DTOs, validation and scenario checks, reported token usage, elapsed time, cost, and Langfuse links. Retain unsuccessful attempts and record retries explicitly.
+
+Schema validity and semantic correctness are separate checks. Preserve expected facts and source-grounding requirements independently of model outputs. A frozen replay compares the same assessment input across models and does not re-run search or question parsing. Keep input snapshots and historical run files immutable. A changed prompt, DTO schema, evidence selection, or criterion interpretation requires a separately versioned snapshot.
+
+The first [quiet-home assessment archive](../tests/fixtures/agent-eval/quiet-home-with-granite/README.md) records five paid models and Dots at an 8192-token output allowance. All six completed DTOs after one Dots provider-error retry. Terra and Gemini passed the scenario checks. The archive documents the remaining source-grounding and accommodation errors. The current test continues to read its original fixture path until a separately authorized Python change relocates that reference.
+
+### DeepEval on full questions runs
+
+DeepEval belongs to the optional `eval` dependency group. It runs in the opt-in test process after the HTTP question completes. The application graph owns condition enforcement, source validation, and candidate decisions. G-Eval scores semantic character-evidence support with a separate Terra judge, a 4096-token allowance, medium reasoning, and an initial threshold of 0.8. Judge calls and reported costs remain identifiable separately from the assessed model.
+
+The question contract accepts `evaluation_max_tokens` and `evaluation_reasoning_effort`. Assessment defaults are 8192 output tokens and medium reasoning, with a per-request high override for the selected DeepSeek model. Other stage token caps remain separate. Common model construction leaves temperature unspecified to avoid forcing an unsupported parameter across providers. The evaluated models use strict JSON Schema.
+
+Store end-to-end HTTP comparisons separately from fixed-input model replays, since parsing and candidate selection can vary. Publish recorded HTTP results to `PY-037/quiet-home-questions-v4` for experiment comparison, linking each record to its actual request trace. Score and archive failed upstream attempts explicitly. Exact source-reference and quotation checks accompany semantic judge scores.
+
+The targeted [granite–granite Luna case](../tests/fixtures/agent-eval/quiet-home-granite-pair/README.md) verifies both authored conditions as `unknown` through the graph. It also exposed a G-Eval false positive for a source-reference error. Semantic judge approval cannot override failed identifier checks or graph decisions. Expanding or calibrating the judge rubric remains evaluation work.
 
 Then add reproducible automated checks using authored fixtures, a controllable tool-calling model stub, controlled embeddings, and disposable Testcontainers. Populate only the temporary services needed by each test. Automated tests must never use the persistent development database.
 
@@ -232,7 +258,7 @@ After the first scenario works, add scenarios using semantic search, event notes
 
 Queues, automatic retries, distributed recovery, full CRUD/UI, production deployment, and broad negative-case matrices are deferred. So are stone reservation and adoption writes. Budget uncertainty handling and stale-status verification remain in scope because they enforce explicit pilot requirements.
 
-Before making paid calls, select the concrete model, tariff source, monthly budget amounts, output limits, budget storage backend, and Langfuse deployment. Verify cost metadata and the reservation upper-bound calculation against that configuration. Assign task IDs through the existing Task Log workflow when implementation scope is selected.
+Before each opt-in paid experiment, select the concrete models, tariff source, output limits, reasoning settings, and Langfuse destination, then record actual usage and cost. Monthly budget amounts, storage, and reservation upper-bound enforcement remain implementation work. Assign task IDs through the existing Task Log workflow when implementation scope is selected.
 
 ## 9. Reference documentation
 

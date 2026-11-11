@@ -102,6 +102,7 @@ def build_stone_compatibility_documents(
                 stone_types=stone_types,
                 pair_key=build_pair_key(first, second),
                 verdict=verdict,
+                conditions=pair.get("conditions", []),
             )
         )
 

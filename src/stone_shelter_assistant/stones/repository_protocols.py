@@ -6,7 +6,7 @@ from uuid import UUID
 
 from stone_shelter_assistant.stones.models import CaseEventModel, ShelterCaseModel, StoneModel
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
-from stone_shelter_assistant.stones.stone_contracts import StoneDetails
+from stone_shelter_assistant.stones.stone_contracts import NamedStoneStatus, StoneDetails
 
 
 class StoneRepository(Protocol):
@@ -15,6 +15,7 @@ class StoneRepository(Protocol):
     async def get_details(
         self, *, stone_id: UUID | None = None, stone_external_id: UUID | None = None
     ) -> StoneDetails | None: ...
+    async def get_status_by_name(self, name: str) -> list[NamedStoneStatus]: ...
 
 
 class ShelterCaseRepository(Protocol):

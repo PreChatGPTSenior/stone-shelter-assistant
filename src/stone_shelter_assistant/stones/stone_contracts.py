@@ -45,3 +45,10 @@ class StoneDetails(BaseModel):
     biography: str | None
     profile: StoneProfileDetails | None
     shelter_case: ShelterCaseDetails
+
+
+class NamedStoneStatus(BaseModel):
+    stone_id: UUID
+    name: str
+    stone_type: StoneType
+    adoption_status: AdoptionStatus

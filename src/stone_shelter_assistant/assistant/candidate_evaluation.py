@@ -1,10 +1,11 @@
 """Apply the pilot's recommendation rules to checked candidate evidence."""
 
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, model_validator
 
 from stone_shelter_assistant.assistant.ranking_policy import (
     RANKING_POLICY,
@@ -18,7 +19,7 @@ from stone_shelter_assistant.search.document_models import (
     CompatibilityPairSearchDocument,
     EncyclopediaSectionSearchDocument,
 )
-from stone_shelter_assistant.search.enums import CompatibilityVerdict
+from stone_shelter_assistant.search.enums import AccommodationFactType, CompatibilityVerdict
 from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
     build_pair_key,
 )
@@ -33,15 +34,39 @@ type Outcome = Literal[
     "facts_only",
     "criteria_unavailable",
 ]
-type AssessmentStatus = Literal["not_needed", "parsed", "invalid_response"]
+type AssessmentStatus = Literal[
+    "not_needed", "parsed", "invalid_response", "invalid_source_ref"
+]
+type SourceRef = Literal[
+    "biography",
+    "profile.preferred_environment",
+    "profile.trigger_notes",
+    "profile.socialization_traits",
+    "encyclopedia",
+]
 
 
 class QuotedCriterion(BaseModel):
+    fragment_id: int = Field(ge=1)
     question_quote: str = Field(min_length=1)
 
 
 class HouseholdFact(QuotedCriterion):
     existing_stone_type: StoneType | None = None
+    fact_type: AccommodationFactType | None = None
+    value: StrictBool | None = None
+    applies_to_pair: tuple[StoneType, StoneType] | None = None
+
+    @model_validator(mode="after")
+    def validate_accommodation_fact(self) -> Self:
+        if self.fact_type is None:
+            if self.value is not None or self.applies_to_pair is not None:
+                raise ValueError("Accommodation values and pair scope require a fact type")
+        elif self.value is None or self.existing_stone_type is not None:
+            raise ValueError(
+                "An accommodation fact requires a boolean and cannot assert a stone type"
+            )
+        return self
 
 
 class CompatibilityCriterion(QuotedCriterion):
@@ -58,26 +83,16 @@ class CompatibilityTarget:
     quote: str
     required: bool
     existing_household: bool
+    lookup_only: bool = False
 
 
 class SearchCriteria(BaseModel):
     recommendation_limit: int = Field(ge=0, le=RANKING_POLICY.shortlist_limit)
+    requested_availability: list[QuotedCriterion] = Field(default_factory=list)
+    requested_compatibility: list[CompatibilityCriterion] = Field(default_factory=list)
     household_facts: list[HouseholdFact]
     requirements: CriteriaGroup
     preferences: CriteriaGroup
-
-    def quotes(self) -> list[str]:
-        """Return the verbatim excerpts used to extract the request."""
-        return [
-            item.question_quote
-            for item in (
-                *self.household_facts,
-                *self.requirements.character,
-                *self.requirements.compatibility,
-                *self.preferences.character,
-                *self.preferences.compatibility,
-            )
-        ]
 
     def compatibility_targets(self) -> dict[StoneType, CompatibilityTarget]:
         """Check explicit pair criteria and types already living in the household."""
@@ -107,18 +122,27 @@ class SearchCriteria(BaseModel):
                     stone_type,
                     CompatibilityTarget(quote, stone_type in required_types, stone_type in facts),
                 )
+        for item in self.requested_compatibility:
+            targets.setdefault(
+                item.household_type,
+                CompatibilityTarget(
+                    item.question_quote, required=False, existing_household=False, lookup_only=True
+                ),
+            )
         return targets
 
 
 class QuotedFinding(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     stone_id: str
-    source_ref: str
+    source_ref: SourceRef
     finding: Literal["confirmed", "contradicted"]
     quote: str = Field(min_length=1)
 
 
 class CharacterFinding(QuotedFinding):
-    question_quote: str
+    fragment_id: int
 
 
 class IndividualCompatibilityFinding(QuotedFinding):
@@ -126,17 +150,43 @@ class IndividualCompatibilityFinding(QuotedFinding):
     scope: Literal["preference", "cohabitation"]
 
 
-class ConfirmedAccommodation(BaseModel):
+# Legacy model output retained for archived replays, without decision authority.
+class LegacyCharacterFinding(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    stone_id: str
+    source_ref: str
+    finding: Literal["confirmed", "contradicted"]
+    quote: str = Field(min_length=1)
+    fragment_id: int
+
+
+class LegacyIndividualCompatibilityFinding(LegacyCharacterFinding):
     pair_key: str
-    household_quote: str = Field(min_length=1)
+    scope: Literal["preference", "cohabitation"]
+
+
+class ConfirmedAccommodation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    pair_key: str
+    household_fragment_id: int
     pair_quote: str = Field(min_length=1)
 
 
 class AssessedEvidence(BaseModel):
-    character: list[CharacterFinding] = Field(default_factory=list)
-    individual_compatibility: list[IndividualCompatibilityFinding] = Field(default_factory=list)
+    model_config = ConfigDict(extra="forbid")
+
+    character: list[LegacyCharacterFinding] = Field(default_factory=list)
+    individual_compatibility: list[LegacyIndividualCompatibilityFinding] = Field(default_factory=list)
     accommodations: list[ConfirmedAccommodation] = Field(default_factory=list)
 
+
+class CandidateEvidence(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    character: list[CharacterFinding]
+    individual_compatibility: list[IndividualCompatibilityFinding]
 
 @dataclass(frozen=True)
 class SourceText:
@@ -158,6 +208,56 @@ class Evidence(BaseModel):
     scope: Literal["preference", "cohabitation"] | None = None
 
 
+class ConditionCheck(BaseModel):
+    condition_id: str
+    fact_type: AccommodationFactType
+    expected_value: bool
+    rule_quote: str
+    status: Literal["confirmed", "contradicted", "unknown", "conflict", "invalid_rule"]
+    facts: list[HouseholdFact] = Field(default_factory=list)
+
+
+def check_pair_conditions(
+    pair: CompatibilityPairSearchDocument, facts: list[HouseholdFact]
+) -> list[ConditionCheck]:
+    """Compare every authored condition with typed household facts, without model verdicts."""
+    checks = []
+    condition_ids = [condition.id for condition in pair.conditions]
+    for condition in pair.conditions:
+        matching = [
+            fact
+            for fact in facts
+            if fact.fact_type == condition.fact_type
+            and (
+                fact.applies_to_pair is None
+                or build_pair_key(*fact.applies_to_pair) == pair.pair_key
+            )
+        ]
+        values = {fact.value for fact in matching}
+        status: Literal["confirmed", "contradicted", "unknown", "conflict", "invalid_rule"]
+        if condition.source_quote not in pair.text or condition_ids.count(condition.id) != 1:
+            status = "invalid_rule"
+        elif not matching:
+            status = "unknown"
+        elif len(values) != 1:
+            status = "conflict"
+        elif condition.expected_value in values:
+            status = "confirmed"
+        else:
+            status = "contradicted"
+        checks.append(
+            ConditionCheck(
+                condition_id=condition.id,
+                fact_type=condition.fact_type,
+                expected_value=condition.expected_value,
+                rule_quote=condition.source_quote,
+                status=status,
+                facts=matching,
+            )
+        )
+    return checks
+
+
 class Reason(BaseModel):
     criterion: Literal["availability", "character", "compatibility"]
     finding: Finding
@@ -168,13 +268,18 @@ class Reason(BaseModel):
     pair_key: str | None = None
     verdict: CompatibilityVerdict | None = None
     household_quote: str | None = None
+    conditions_status: Literal["confirmed", "unconfirmed", "unmarked"] | None = None
+    condition_checks: list[ConditionCheck] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
     chosen_evidence: Evidence | None = None
     conflict: bool = False
-    unknown_reason: Literal["missing_evidence", "assessment_invalid"] | None = None
+    unknown_reason: Literal[
+        "missing_evidence", "invalid_source_ref", "assessment_invalid"
+    ] | None = None
     policy_rule: str | None = None
     base_score: float | None = None
     action: Action = "rank"
+    lookup_only: bool = False
 
 
 class ScoredReason(BaseModel):
@@ -235,6 +340,28 @@ def candidate_sources(
     return sources
 
 
+CHARACTER_CONTEXT_SECTIONS = {"### Psychological Vibe", "### Ideal Places at Home"}
+
+
+def assessment_source_text(source: SourceText) -> str:
+    """Select authored character sections without summarizing or prioritizing evidence."""
+    if source.kind != "encyclopedia":
+        return source.text
+    sections = re.split(r"(?m)(?=^### )", source.text)
+    fragments = [
+        line.strip()
+        for line in sections[0].splitlines()
+        if line.startswith("**Character archetype:**")
+    ]
+    fragments.extend(
+        section.strip()
+        for section in sections[1:]
+        if section.splitlines()[0].strip() in CHARACTER_CONTEXT_SECTIONS
+    )
+    # Preserve evidence from documents whose section structure is not recognized.
+    return "\n\n".join(fragments) if fragments else source.text
+
+
 def validate_evidence(
     findings: Sequence[QuotedFinding], sources: Mapping[str, SourceText], criterion: Criterion
 ) -> list[Evidence]:
@@ -278,7 +405,7 @@ def character_reasons(
     stone_id: str,
     criteria: SearchCriteria,
     sources: Mapping[str, SourceText],
-    assessment: AssessedEvidence,
+    assessment: CandidateEvidence,
     assessment_status: AssessmentStatus,
 ) -> list[Reason]:
     """Use the strongest applicable source and preserve competing quotes."""
@@ -289,7 +416,7 @@ def character_reasons(
                 [
                     item
                     for item in assessment.character
-                    if item.stone_id == stone_id and item.question_quote == criterion.question_quote
+                    if item.stone_id == stone_id and item.fragment_id == criterion.fragment_id
                 ],
                 sources,
                 "character",
@@ -299,11 +426,15 @@ def character_reasons(
                 (item for item in evidence if not required or item.supports_requirement),
                 None,
             )
-            unknown_reason: Literal["missing_evidence", "assessment_invalid"] | None = None
+            unknown_reason: Literal[
+                "missing_evidence", "invalid_source_ref", "assessment_invalid"
+            ] | None = None
             if chosen is None:
                 unknown_reason = (
                     "assessment_invalid"
                     if assessment_status == "invalid_response"
+                    else "invalid_source_ref"
+                    if assessment_status == "invalid_source_ref"
                     else "missing_evidence"
                 )
             reasons.append(
@@ -332,7 +463,7 @@ def compatibility_reason(
     pair: CompatibilityPairSearchDocument | None,
     facts: list[HouseholdFact],
     sources: Mapping[str, SourceText],
-    assessment: AssessedEvidence,
+    assessment: CandidateEvidence,
 ) -> Reason:
     """Keep the exact pair verdict and relevant individual observations separately."""
     individual = validate_evidence(
@@ -344,26 +475,23 @@ def compatibility_reason(
         sources,
         "compatibility",
     )
-    accommodation = next(
-        (
-            item
-            for item in assessment.accommodations
-            if item.pair_key == key
-            and pair is not None
-            and item.pair_quote.strip()
-            and item.pair_quote in pair.text
-            and item.household_quote.strip()
-            and any(item.household_quote in fact.question_quote for fact in facts)
-        ),
-        None,
-    )
     verdict = pair.verdict if pair is not None else None
+    checks = (
+        check_pair_conditions(pair, facts)
+        if pair and verdict == CompatibilityVerdict.CONDITIONAL
+        else []
+    )
+    conditions_status: Literal["confirmed", "unconfirmed", "unmarked"] | None = None
     result: PairResult = "unknown_existing_household" if target.existing_household else "unknown"
     match verdict:
         case CompatibilityVerdict.HARMONIOUS:
             result = "harmonious"
         case CompatibilityVerdict.CONDITIONAL:
-            result = "conditions_confirmed" if accommodation else "conditions_unconfirmed"
+            confirmed = bool(checks) and all(check.status == "confirmed" for check in checks)
+            conditions_status = (
+                "confirmed" if confirmed else "unconfirmed" if checks else "unmarked"
+            )
+            result = "conditions_confirmed" if confirmed else "conditions_unconfirmed"
         case CompatibilityVerdict.NOT_RECOMMENDED:
             result = "not_recommended"
     pair_rule = RANKING_POLICY.pair_rules[result]
@@ -377,7 +505,6 @@ def compatibility_reason(
             priority=source_rule.priority,
             weight=source_rule.weight,
             supports_requirement=source_rule.supports_requirement,
-            quote=accommodation.pair_quote if accommodation else None,
         )
         if pair is not None
         else None
@@ -397,7 +524,11 @@ def compatibility_reason(
         preference_findings
     ) > 1
     chosen = pair_evidence
-    if cohabitation is not None and pair_rule.action != "exclude":
+    if (
+        cohabitation is not None
+        and pair_rule.action != "exclude"
+        and not (result == "conditions_unconfirmed" and cohabitation.finding == "confirmed")
+    ):
         if RANKING_POLICY.cohabitation_resolution == "source_priority":
             if pair_evidence is None or evidence_order(cohabitation) < evidence_order(
                 pair_evidence
@@ -416,14 +547,16 @@ def compatibility_reason(
         source_id=pair.source_key if pair is not None else None,
         pair_key=key,
         verdict=verdict,
-        household_quote=accommodation.household_quote if accommodation else None,
+        conditions_status=conditions_status,
+        condition_checks=checks,
         evidence=([pair_evidence] if pair_evidence else []) + individual,
         chosen_evidence=chosen,
         conflict=conflict,
         unknown_reason="missing_evidence" if rule.finding == "unknown" else None,
         policy_rule=result,
         base_score=rule.score,
-        action=rule.action,
+        action="rank" if target.lookup_only else rule.action,
+        lookup_only=target.lookup_only,
     )
 
 
@@ -433,7 +566,7 @@ def evaluate_candidate(
     status: str | None,
     pairs: Mapping[str, CompatibilityPairSearchDocument | None],
     sources: Mapping[str, SourceText],
-    assessment: AssessedEvidence,
+    assessment: CandidateEvidence,
     assessment_status: AssessmentStatus,
 ) -> CandidateEvaluation:
     """Apply availability, compatibility vetoes, and explicit requirements."""
@@ -498,12 +631,18 @@ def evaluate_candidate(
     )
 
 
-def calculate_ranking(candidate: CandidateEvaluation) -> RankingCalculation:
+def calculate_ranking(
+    candidate: CandidateEvaluation, *, include_lookups: bool
+) -> RankingCalculation:
     """Keep the score, source multiplier, and normalized contribution for each criterion."""
     groups: dict[Criterion, list[ScoredReason]] = {}
     for criterion in RANKING_POLICY.criteria:
         for reason in candidate.reasons:
-            if reason.criterion != criterion or reason.base_score is None:
+            if (
+                reason.criterion != criterion
+                or reason.base_score is None
+                or (reason.lookup_only and not include_lookups)
+            ):
                 continue
             source = reason.chosen_evidence
             weight = source.weight if source else RANKING_POLICY.missing_source_weight
@@ -578,7 +717,9 @@ def recommendation_order(
 ) -> list[str]:
     """Set a disposition and a calculation for every candidate."""
     for candidate in evaluations:
-        candidate.ranking = calculate_ranking(candidate)
+        candidate.ranking = calculate_ranking(
+            candidate, include_lookups=criteria is not None and criteria.recommendation_limit == 0
+        )
     if criteria is None:
         for candidate in evaluations:
             candidate.outcome = "criteria_unavailable"

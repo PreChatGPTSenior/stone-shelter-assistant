@@ -12,7 +12,7 @@ from stone_shelter_assistant.search.document_models import (
     KnowledgeDocument,
     KnowledgeSearchFilters,
 )
-from stone_shelter_assistant.search.enums import DocumentKind
+from stone_shelter_assistant.search.enums import CompatibilityVerdict, DocumentKind
 from stone_shelter_assistant.search.infrastructure import qdrant_collections, typesense_collections
 from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
     build_pair_key,
@@ -74,6 +74,17 @@ class KnowledgeSearchService:
         if not isinstance(pair, CompatibilityPairSearchDocument):
             raise ValueError("Expected a compatibility pair document")
         return pair
+
+    async def list_compatibility_pairs(
+        self, stone_type: StoneType, verdict: CompatibilityVerdict, language: str = DEFAULT_LANGUAGE
+    ) -> list[CompatibilityPairSearchDocument]:
+        filters = KnowledgeSearchFilters(
+            document_kind=DocumentKind.COMPATIBILITY_PAIR, stone_type=stone_type, language=language
+        )
+        documents = await self._search_lexical(
+            "", [*_exact_matches(filters), ("verdict", verdict.value)], limit=len(StoneType)
+        )
+        return [doc for doc in documents if isinstance(doc, CompatibilityPairSearchDocument)]
 
     async def _search_lexical(
         self, query: str, matches: list[tuple[str, str]], limit: int

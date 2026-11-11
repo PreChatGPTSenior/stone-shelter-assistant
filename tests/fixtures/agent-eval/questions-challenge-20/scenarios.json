@@ -1,0 +1,912 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "status": "prepared_not_model_evaluated",
+  "endpoint": "/api/v1/questions",
+  "description": "Twenty future end-to-end scenarios over all ten authored stone records. Russian questions are intentional multilingual model inputs; expectations are English.",
+  "stones": [
+    {
+      "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+      "name": "Brave Gneiss",
+      "stone_type": "GNEISS",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/3b41b31d-5a1f-43ef-af77-c107bb7ae382.json"
+    },
+    {
+      "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+      "name": "Sir Pebble",
+      "stone_type": "GRANITE",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json"
+    },
+    {
+      "external_id": "4a7ebdcb-0433-4d59-be40-9040e908ba66",
+      "name": "Mossy Limestone",
+      "stone_type": "LIMESTONE",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/4a7ebdcb-0433-4d59-be40-9040e908ba66.json"
+    },
+    {
+      "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+      "name": "Madame Obsidian",
+      "stone_type": "OBSIDIAN",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json"
+    },
+    {
+      "external_id": "83a3033b-807e-439e-86e8-2d94769b21ea",
+      "name": "Sunny Marble",
+      "stone_type": "MARBLE",
+      "status": "ADOPTED",
+      "fixture": "fixtures/stones/83a3033b-807e-439e-86e8-2d94769b21ea.json"
+    },
+    {
+      "external_id": "9c09973a-5ece-4649-8923-eb210dd023ed",
+      "name": "Wandering Sandstone",
+      "stone_type": "SANDSTONE",
+      "status": "RESERVED",
+      "fixture": "fixtures/stones/9c09973a-5ece-4649-8923-eb210dd023ed.json"
+    },
+    {
+      "external_id": "abcbd2b8-234c-4653-a9cf-d3c022073750",
+      "name": "Professor Quartzless",
+      "stone_type": "GRANITE",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json"
+    },
+    {
+      "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+      "name": "Velvet Slate",
+      "stone_type": "SLATE",
+      "status": "RETURNED",
+      "fixture": "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json"
+    },
+    {
+      "external_id": "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+      "name": "Homeward Pumice",
+      "stone_type": "PUMICE",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf.json"
+    },
+    {
+      "external_id": "dfa0ae9a-f070-495f-a489-cf3ecbc1912b",
+      "name": "Captain Basalt",
+      "stone_type": "BASALT",
+      "status": "RESERVED",
+      "fixture": "fixtures/stones/dfa0ae9a-f070-495f-a489-cf3ecbc1912b.json"
+    }
+  ],
+  "global_checks": [
+    "Resolve run-specific internal IDs from stable external IDs; never freeze disposable UUIDs.",
+    "Verify current operational state in PostgreSQL. Recommend only AVAILABLE stones.",
+    "Validate candidate identity, source_ref membership, exact quotation, and criterion fragment independently of the semantic judge.",
+    "A valid source label alone does not prove that this candidate has that source.",
+    "Score retrieval coverage, parsing, routing, evidence, policy decisions and answer completeness separately.",
+    "An empty answer or empty findings cannot pass solely through vacuous source-reference validation.",
+    "General encyclopedia personality cannot establish an individual mandatory character requirement.",
+    "Keep unavailable candidates and unconfirmed conditional options out of unconditional recommendations.",
+    "Missing tooling or incomplete routing is a capability failure, not a model reasoning success.",
+    "No paid calls are authorized by this manifest. Store future runs separately with actual input, schema, model settings, fixture hashes, costs and trace IDs."
+  ],
+  "scenarios": [
+    {
+      "id": "Q01",
+      "slug": "madame-baseline",
+      "question": "Is Madame Obsidian available and compatible with granite?",
+      "origin": "existing_baseline",
+      "intent": "status_and_compatibility",
+      "challenge": "Existing English baseline: combine operational availability with the exact fictional pair rule.",
+      "focus_stone_ids": [
+        "67269139-e8b8-4c7d-aa58-33b88162ec70"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+          "Keep individual biography separate from the type-pair rule."
+        ],
+        "forbidden": [
+          "Do not infer individual cohabitation history from a harmonious type rule."
+        ],
+        "pair": {
+          "key": "GRANITE+OBSIDIAN",
+          "verdict": "HARMONIOUS"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
+      "baseline_reference": "docs/setup.md"
+    },
+    {
+      "id": "Q02",
+      "slug": "quiet-home-baseline",
+      "question": "Подбери до двух камней для тихого дома, где уже есть гранит. Кто сейчас доступен и почему может подойти?",
+      "origin": "existing_baseline",
+      "intent": "recommendation",
+      "challenge": "Existing broad search baseline: recall, shortlist, evidence and conditional options.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "67269139-e8b8-4c7d-aa58-33b88162ec70",
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Return at most two recommendations, all verified AVAILABLE.",
+          "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+          "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it."
+        ],
+        "forbidden": [
+          "Do not require one fixed shortlist or order before inspecting retrieval.",
+          "Do not count conditional options as unconditional recommendations."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
+      "baseline_reference": "tests/fixtures/agent-eval/quiet-home-with-granite"
+    },
+    {
+      "id": "Q03",
+      "slug": "granite-unknown-baseline",
+      "question": "Подбери одного гранитного камня для тихого дома, где уже живёт другой гранит. Кто сейчас доступен и почему может подойти?",
+      "origin": "existing_baseline",
+      "intent": "recommendation",
+      "challenge": "Archived Luna regression: correct quote must bind to biography, not a UUID.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Retrieve Sir Pebble; his biography supports the quiet-home requirement.",
+          "Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+          "Both authored granite conditions remain unknown."
+        ],
+        "forbidden": [
+          "Never borrow Sir Pebble's biography for Professor Quartzless."
+        ],
+        "condition_checks": {
+          "pair_key": "GRANITE+GRANITE",
+          "rotate_decisions": "unknown",
+          "decision_deadline": "unknown"
+        },
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
+      "baseline_reference": "tests/fixtures/agent-eval/quiet-home-granite-pair"
+    },
+    {
+      "id": "Q04",
+      "slug": "granite-agreed",
+      "question": "Подбери одного гранитного камня для тихого дома, где уже живёт гранит. Мы уже договорились по очереди принимать мелкие решения и установили срок принятия совместных решений.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Positive control for two explicit established agreements.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Both granite conditions are confirmed.",
+          "Sir Pebble can be recommended if retrieved and verified AVAILABLE.",
+          "The authored verdict stays CONDITIONAL; its conditions_status becomes confirmed."
+        ],
+        "forbidden": [
+          "Do not rewrite the source verdict to HARMONIOUS."
+        ],
+        "condition_checks": {
+          "pair_key": "GRANITE+GRANITE",
+          "rotate_decisions": "confirmed",
+          "decision_deadline": "confirmed"
+        },
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q05",
+      "slug": "granite-one-agreement",
+      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы договорились принимать мелкие решения по очереди. Про срок совместных решений пока ничего не решили.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Partial completion must not satisfy all mandatory conditions.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Rotation is confirmed; deadline is unknown.",
+          "Sir Pebble remains a conditional option."
+        ],
+        "forbidden": [
+          "One confirmed condition cannot confirm the pair."
+        ],
+        "condition_checks": {
+          "pair_key": "GRANITE+GRANITE",
+          "rotate_decisions": "confirmed",
+          "decision_deadline": "unknown"
+        },
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q06",
+      "slug": "granite-intention",
+      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы хотим когда-нибудь договориться о поочерёдных решениях и сроках, но пока этого не сделали.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Future intention versus established household fact.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "No positive established agreement may be extracted.",
+          "Neither condition is confirmed; keep the option conditional."
+        ],
+        "forbidden": [
+          "Do not turn 'want to agree' into an agreement."
+        ],
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q07",
+      "slug": "granite-denial",
+      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Решения мы уже принимаем по очереди, но устанавливать срок совместных решений мы отказались.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Negation must survive parsing and deterministic checking.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Rotation is confirmed; deadline is contradicted.",
+          "The pair remains unconfirmed under the current policy."
+        ],
+        "forbidden": [
+          "Do not silently drop the denial or describe both conditions as fulfilled."
+        ],
+        "condition_checks": {
+          "pair_key": "GRANITE+GRANITE",
+          "rotate_decisions": "confirmed",
+          "decision_deadline": "contradicted"
+        },
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q08",
+      "slug": "granite-wrong-scope",
+      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Поочерёдные решения и сроки мы уже согласовали только для пары базальт–гнейс. На гранитные пары эти соглашения не распространяются.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Agreement facts scoped to another unordered pair.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Both granite condition checks have no applicable positive facts and remain unknown.",
+          "Typed agreements, if extracted, retain BASALT+GNEISS scope."
+        ],
+        "forbidden": [
+          "Do not widen scoped facts to household-wide facts."
+        ],
+        "condition_checks": {
+          "pair_key": "GRANITE+GRANITE",
+          "rotate_decisions": "unknown",
+          "decision_deadline": "unknown"
+        },
+        "pair": {
+          "key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q09",
+      "slug": "obsidian-vacuum",
+      "question": "Подбери одного обсидианового камня. Он обязательно должен спокойно переносить пылесос: у нас он работает каждый день. Любовь к людям желательна, но это не обязательное условие.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Separate a hard requirement from a positive preference and retain negative evidence.",
+      "focus_stone_ids": [
+        "67269139-e8b8-4c7d-aa58-33b88162ec70"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Madame's trigger_notes contradict the vacuum requirement.",
+          "If evaluated, exclude her for the unmet requirement even though she enjoys human company.",
+          "If no candidate is returned, separately score retrieval so an empty shortlist cannot masquerade as successful evaluation."
+        ],
+        "forbidden": [
+          "Positive socialization must not cancel the mandatory trigger conflict."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q10",
+      "slug": "gneiss-children",
+      "question": "Подбери одного гнейса для семьи с детьми: хорошее отношение к детям обязательно. Любовь к прогулкам в саду лишь пожелание.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Typed profile evidence versus optional event-only evidence.",
+      "focus_stone_ids": [
+        "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/3b41b31d-5a1f-43ef-af77-c107bb7ae382.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Retrieve Brave Gneiss and verify AVAILABLE.",
+          "GOOD_WITH_CHILDREN supports the required criterion through profile.socialization_traits.",
+          "Garden visits are optional; if mentioned as an observed fact, cite the event that actually contains them."
+        ],
+        "forbidden": [
+          "Do not treat the old adoption or return event as current availability.",
+          "Do not cite the generic biography for the child-friendly claim."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q11",
+      "slug": "slate-loud-home",
+      "question": "Подбери одного сланцевого камня для дома с громкой музыкой. Спокойная реакция на музыку обязательна; опыт ухода у меня есть.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Both operational ineligibility and conflicting individual evidence.",
+      "focus_stone_ids": [
+        "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Velvet Slate cannot be recommended because current status is RETURNED.",
+          "If assessed, trigger_notes contradict the loud-music requirement."
+        ],
+        "forbidden": [
+          "Caregiver experience does not change adoption status or erase a trigger."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q12",
+      "slug": "basalt-reserved",
+      "question": "Captain Basalt встречался с семьёй, которая любит тихие настольные игры. Значит ли это, что он сам любит тишину, и можно ли забрать его сейчас?",
+      "origin": "new",
+      "intent": "status_and_evidence",
+      "challenge": "Do not transfer another person's preference to the stone.",
+      "focus_stone_ids": [
+        "dfa0ae9a-f070-495f-a489-cf3ecbc1912b"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/dfa0ae9a-f070-495f-a489-cf3ecbc1912b.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Report RESERVED from current PostgreSQL state.",
+          "The meeting note describes the family, not an established preference of Captain Basalt.",
+          "His empty profile supplies no quiet-home confirmation."
+        ],
+        "forbidden": [
+          "Never claim AVAILABLE from the admission note.",
+          "Do not turn an empty profile into a positive personality assessment."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Requires evidence/history or multi-name routing beyond the current single-name reference path; record capability failures separately."
+    },
+    {
+      "id": "Q13",
+      "slug": "marble-adopted",
+      "question": "Можно ли сейчас забрать Sunny Marble? В старой записи сказано, что он доступен. И доказывает ли имя Sunny, что у него солнечный характер?",
+      "origin": "new",
+      "intent": "status_and_evidence",
+      "challenge": "Stale historical availability and a suggestive name.",
+      "focus_stone_ids": [
+        "83a3033b-807e-439e-86e8-2d94769b21ea"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/83a3033b-807e-439e-86e8-2d94769b21ea.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Report ADOPTED; no recommendation for adoption now.",
+          "Name and generic biography do not establish a cheerful personality."
+        ],
+        "forbidden": [
+          "Do not prefer the old admission note over current status."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Current reference route lacks individual biography/profile lookup for this combined question; record incomplete evidence as a capability failure."
+    },
+    {
+      "id": "Q14",
+      "slug": "limestone-reservation-ended",
+      "question": "Mossy Limestone был зарезервирован. Он всё ещё занят или его уже можно забрать? Нужен именно текущий статус.",
+      "origin": "new",
+      "intent": "status",
+      "challenge": "A stale reservation must not veto an available stone.",
+      "focus_stone_ids": [
+        "4a7ebdcb-0433-4d59-be40-9040e908ba66"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/4a7ebdcb-0433-4d59-be40-9040e908ba66.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Report AVAILABLE from PostgreSQL.",
+          "If discussing history, reservation ended after reservation began."
+        ],
+        "forbidden": [
+          "Do not report RESERVED based on a search hit from the older event."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q15",
+      "slug": "sandstone-transfer",
+      "question": "Wandering Sandstone числится по делу 0008-2026-P1. Он сейчас в P1 или P2 и можно ли его забрать?",
+      "origin": "new",
+      "intent": "status_and_location",
+      "challenge": "Stable case number is not current shelter identity.",
+      "focus_stone_ids": [
+        "9c09973a-5ece-4649-8923-eb210dd023ed"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/9c09973a-5ece-4649-8923-eb210dd023ed.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Current shelter is P2 - Quiet Quarry and status is RESERVED.",
+          "Lifetime case number remains 0008-2026-P1."
+        ],
+        "forbidden": [
+          "Do not derive current shelter from the P1 suffix.",
+          "Transfer does not imply availability."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q16",
+      "slug": "pumice-general-company",
+      "question": "Подбери одного камня типа пемза в дом, где уже живёт гранит. Достаточно ли того, что он любит компанию других камней, чтобы считать совместимость доказанной?",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "General sociability is not target-specific cohabitation evidence.",
+      "focus_stone_ids": [
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+          "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+          "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists."
+        ],
+        "forbidden": [
+          "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability."
+        ],
+        "pair": {
+          "key": "GRANITE+PUMICE",
+          "verdict": "CONDITIONAL"
+        }
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q17",
+      "slug": "professor-name-and-noise",
+      "question": "Подбери одного гранитного камня, у которого в биографии или профиле явно подтверждена любовь к тихому дому. Название Professor Quartzless и большое количество наблюдений сами по себе доказательством не считаю.",
+      "origin": "new",
+      "intent": "recommendation",
+      "challenge": "Two granites; generic biography and 99 repeated observations must not dominate evidence.",
+      "focus_stone_ids": [
+        "abcbd2b8-234c-4653-a9cf-d3c022073750",
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+          "Professor is GRANITE despite Quartzless in the name.",
+          "If Professor is evaluated, the required character evidence remains unknown."
+        ],
+        "forbidden": [
+          "No biography quote may migrate between these stones.",
+          "Event frequency is not evidence strength under the current assessment source policy."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
+    },
+    {
+      "id": "Q18",
+      "slug": "granite-comparison",
+      "question": "Сравни Sir Pebble и Professor Quartzless: оба ли доступны и у кого именно в биографии сказано, что он любит тихие вечера? Не переноси описание одного на другого.",
+      "origin": "new",
+      "intent": "multi_candidate_comparison",
+      "challenge": "Multiple named entities and exact candidate/source/quote binding.",
+      "focus_stone_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        },
+        {
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Both are AVAILABLE.",
+          "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+          "Read and cite both identities; an answer covering only one is incomplete."
+        ],
+        "forbidden": [
+          "Do not accept a partial single-name answer as a passing comparison."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Requires evidence/history or multi-name routing beyond the current single-name reference path; record capability failures separately."
+    },
+    {
+      "id": "Q19",
+      "slug": "slate-history",
+      "question": "Почему вернули Velvet Slate, что сделали после возвращения и доступен ли он сейчас? Восстанови порядок событий по датам.",
+      "origin": "new",
+      "intent": "history_and_status",
+      "challenge": "Reverse-ordered fixture events, retrieval and authoritative current status.",
+      "focus_stone_ids": [
+        "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/af5f85d4-9cc7-48a9-a1e6-aad5d8fec581.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+          "The care event provided a calming blanket and gentle surface inspection.",
+          "Current status is RETURNED, not automatically AVAILABLE after care."
+        ],
+        "forbidden": [
+          "Do not use array order as chronology or fabricate a recovery clearance."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Requires evidence/history or multi-name routing beyond the current single-name reference path; record capability failures separately."
+    },
+    {
+      "id": "Q20",
+      "slug": "limestone-care",
+      "question": "Mossy Limestone — известняк. Можно ли очищать его уксусом и держать на постоянно мокрой полке? Что об этом говорит справочник, и есть ли у него личные особенности ухода?",
+      "origin": "new",
+      "intent": "care",
+      "challenge": "General material care versus missing individual profile.",
+      "focus_stone_ids": [
+        "4a7ebdcb-0433-4d59-be40-9040e908ba66"
+      ],
+      "evidence": [
+        {
+          "file": "fixtures/stones/4a7ebdcb-0433-4d59-be40-9040e908ba66.json",
+          "pointers": [
+            "/stone",
+            "/profile",
+            "/shelterCase"
+          ]
+        }
+      ],
+      "expected": {
+        "required": [
+          "Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+          "Recommend a dry location and care grounded in the limestone chapter.",
+          "No individual profile is supplied; do not invent personal conditions."
+        ],
+        "forbidden": [
+          "Keep geological care facts separate from fictional temperament."
+        ]
+      },
+      "execution_status": "not_run",
+      "capability_note": "Current reference route lacks individual biography/profile lookup for this combined question; record incomplete evidence as a capability failure."
+    }
+  ],
+  "knowledge_sources": {
+    "compatibility": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+    "encyclopedia": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md"
+  }
+}

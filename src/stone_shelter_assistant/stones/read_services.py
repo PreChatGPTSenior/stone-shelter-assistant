@@ -8,7 +8,7 @@ from stone_shelter_assistant.stones.repository_protocols import (
     StoneRepository,
 )
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
-from stone_shelter_assistant.stones.stone_contracts import StoneDetails
+from stone_shelter_assistant.stones.stone_contracts import NamedStoneStatus, StoneDetails
 
 
 class StoneReadService:
@@ -29,6 +29,9 @@ class StoneReadService:
 
     async def get_current_states(self, stone_ids: Sequence[UUID]) -> list[StoneCaseState]:
         return await self._cases.get_current_states(stone_ids)
+
+    async def get_status_by_name(self, name: str) -> list[NamedStoneStatus]:
+        return await self._stones.get_status_by_name(name)
 
     async def get_case_timeline(self, case_external_id: UUID) -> list[dict[str, str]]:
         events = await self._cases.get_case_timeline(case_external_id)

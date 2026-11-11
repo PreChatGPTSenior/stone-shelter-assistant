@@ -3,14 +3,14 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from stone_shelter_assistant.stones.enums import AdoptionStatus
 from stone_shelter_assistant.stones.models import CaseEventModel, ShelterCaseModel, StoneModel
 from stone_shelter_assistant.stones.stone_case_state import StoneCaseState
-from stone_shelter_assistant.stones.stone_contracts import StoneDetails
+from stone_shelter_assistant.stones.stone_contracts import NamedStoneStatus, StoneDetails
 
 
 class SqlAlchemyStoneRepository:
@@ -44,6 +44,23 @@ class SqlAlchemyStoneRepository:
         )
         stone = await self._session.scalar(statement)
         return StoneDetails.model_validate(stone) if stone is not None else None
+
+    async def get_status_by_name(self, name: str) -> list[NamedStoneStatus]:
+        """Read current status in one query and return at most two matches to detect ambiguity."""
+        statement = (
+            select(
+                StoneModel.id.label("stone_id"),
+                StoneModel.name,
+                StoneModel.stone_type,
+                ShelterCaseModel.adoption_status,
+            )
+            .join(StoneModel.shelter_case)
+            .where(func.lower(StoneModel.name) == func.lower(name.strip()))
+            .order_by(StoneModel.id)
+            .limit(2)
+        )
+        rows = await self._session.execute(statement)
+        return [NamedStoneStatus.model_validate(row) for row in rows.mappings()]
 
 
 class SqlAlchemyShelterCaseRepository:

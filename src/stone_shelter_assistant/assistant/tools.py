@@ -11,6 +11,7 @@ from stone_shelter_assistant.search.document_models import (
     KnowledgeLanguage,
     KnowledgeSearchFilters,
 )
+from stone_shelter_assistant.search.enums import CompatibilityVerdict
 from stone_shelter_assistant.search.knowledge.knowledge_search_service import KnowledgeSearchService
 from stone_shelter_assistant.search.stones.case_event_search_service import CaseEventSearchService
 from stone_shelter_assistant.search.stones.search_contracts import (
@@ -38,7 +39,12 @@ def stone_lookup_tools(stones: StoneReadService) -> list[BaseTool]:
         details = await stones.get_details(stone_id=stone_id, stone_external_id=stone_external_id)
         return details.model_dump(mode="json") if details is not None else None
 
-    return [get_stone_details]
+    @tool
+    async def get_stone_status_by_name(name: str) -> list[dict[str, object]]:
+        """Read current PostgreSQL status and type by exact name, returning up to two matches."""
+        return [item.model_dump(mode="json") for item in await stones.get_status_by_name(name)]
+
+    return [get_stone_details, get_stone_status_by_name]
 
 
 def stone_search_tools(search: StoneSearchService, stones: StoneReadService) -> list[BaseTool]:
@@ -153,4 +159,19 @@ def knowledge_search_tools(search: KnowledgeSearchService) -> list[BaseTool]:
         pair = await search.get_compatibility_pair(first_type, second_type, language)
         return pair.model_dump(mode="json") if pair is not None else None
 
-    return [search_knowledge_lexical, search_knowledge_semantic, get_compatibility_pair]
+    @tool
+    async def list_compatibility_pairs(
+        stone_type: StoneType, verdict: CompatibilityVerdict
+    ) -> list[dict[str, object]]:
+        """List authored compatibility rules for one type and the exact verdict."""
+        return [
+            pair.model_dump(mode="json")
+            for pair in await search.list_compatibility_pairs(stone_type, verdict)
+        ]
+
+    return [
+        search_knowledge_lexical,
+        search_knowledge_semantic,
+        get_compatibility_pair,
+        list_compatibility_pairs,
+    ]

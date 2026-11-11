@@ -78,6 +78,53 @@ curl --fail-with-body \
 ```
 
 The second endpoint reads the prepared data and returns the three tool results.
-Send the same question JSON to `POST /api/v1/questions` to run LangGraph with OpenRouter and get a Langfuse `trace_id`. Set `OPENROUTER_API_KEY`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY` in `.env`. The optional request field `model_id` overrides `OPENROUTER_MODEL`, whose default is `openrouter/free`. Set `LANGFUSE_BASE_URL` if your Langfuse project uses a host other than `https://cloud.langfuse.com`.
+Send the same question JSON to `POST /api/v1/questions` to run LangGraph with OpenRouter and get a Langfuse `trace_id`. Set `OPENROUTER_API_KEY`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY` in `.env`. Set `LANGFUSE_BASE_URL` if your Langfuse project uses a host other than `https://cloud.langfuse.com`.
+
+For the agent, evaluation, and answer stages, model selection uses the first configured value in this order:
+
+1. The stage request field `agent_model_id`, `evaluation_model_id`, or `answer_model_id`.
+2. The shared request field `model_id`.
+3. The stage default `OPENROUTER_AGENT_MODEL`, `OPENROUTER_EVALUATION_MODEL`, or `OPENROUTER_ANSWER_MODEL`.
+4. The default `dots-studio/dots-3-note-preview:free` for evaluation. The agent and answer stages fall back to `OPENROUTER_MODEL`, which defaults to `openrouter/free`.
+
+The response and Langfuse trace input include the effective stage selections in `model_ids`. The response field `model_id` still reports the shared fallback. The evaluation model runs when character or compatibility evidence needs interpretation.
+
+The shortlist stage uses `selection_model_id`, then the shared request `model_id`, then `OPENROUTER_SELECTION_MODEL`, then the resolved agent model. The question parser uses `parsing_model_id`, then the shared request `model_id`, then `OPENROUTER_PARSING_MODEL`, then the resolved shortlist model. The planner uses `planning_model_id`, then the shared request `model_id`, then `OPENROUTER_PLANNING_MODEL`, then the resolved parser model.
+
+Parsing and planning run first. Status, care, and compatibility use the validated reference plan. Recommendations enter search, with separate limits of four model calls and four tool calls. Each model stage outside search makes at most one call. The plan and its reason are recorded in Langfuse.
+
+To try strict shortlist output, set `selection_model_id` to `nvidia/nemotron-3.5-super-vl:free` or `dots-studio/dots-3-note-preview:free`. The shortlist stage uses strict JSON Schema for the model IDs in `OPENROUTER_SELECTION_JSON_SCHEMA_MODELS` (a JSON array) and function calling for the rest. Langfuse records the chosen output method and how many duplicate criteria were removed. The response includes `candidate_decisions` with the checked adoption status and graph disposition for each card.
+
+Evidence assessment uses strict JSON Schema for the models in `OPENROUTER_EVALUATION_JSON_SCHEMA_MODELS` (a JSON array) and function calling for other models. Its Langfuse output records `assessment_output_method` when the stage calls a model.
 
 For an evaluation run, send `eval_case_id` and `fixture_version` in the request. Reuse those values when comparing the same question and data on different models. Each request still gets a distinct trace ID.
+
+### Frozen candidate-assessment replay
+
+The [agent-evaluation fixture archive](../tests/fixtures/agent-eval/quiet-home-with-granite/README.md) stores the fixed input, reviewed expectations, and six-model comparison results together. It also documents token accounting and the Dots provider-error retry. The current replay test reads the original fixture path described below.
+
+The opt-in test in `tests/live/test_candidate_assessment.py` replays the failed Dots observation saved in `tests/fixtures/assistant/quiet-home-assessment.json`. It uses the application's structured-output wrapper and candidate scoring with recorded cards, statuses, criteria, and evidence. The snapshot contains the original prompt and schema and requires no database or search services.
+
+Run the six-model experiment explicitly. It makes paid OpenRouter calls and records comparable runs in the Langfuse dataset `PY-037/quiet-home-candidate-assessment`.
+
+```bash
+RUN_OPENROUTER_EVALUATION=1 uv run pytest -q -s tests/live/test_candidate_assessment.py
+```
+
+Set `OPENROUTER_EVALUATION_MODEL` to one of the model IDs in the test to replay only that model. All calls allow 8192 output tokens. DeepSeek requests high reasoning, and the other five models request medium. Each model is checked for a valid DTO, exact source references and quotes, character coverage, and unsupported compatibility conditions. Failed model checks deliberately fail the test. Ordinary test runs skip the experiment.
+
+### Full questions flow with DeepEval
+
+The `eval` dependency group includes DeepEval. The opt-in integration test rebuilds authored fixtures in disposable Testcontainers, calls `POST /api/v1/questions`, reads the recorded parser and assessment outputs from Langfuse, and scores them with deterministic checks and G-Eval. Knowledge retrieval in this test is lexical. Stone-card semantic retrieval uses real Ollama embeddings. Unused knowledge vectors and case-event vectors are excluded from the live experiment setup.
+
+```bash
+RUN_OPENROUTER_EVALUATION=1 DEEPEVAL_TELEMETRY_OPT_OUT=YES uv run --group eval pytest -q -s tests/integration/test_questions_model_evaluation.py
+```
+
+The test accepts a single model or comma-separated IDs in `OPENROUTER_EVALUATION_MODEL`. Normal stage settings select the upstream models. Set `OPENROUTER_EVALUATION_QUESTION` and `OPENROUTER_EVALUATION_CASE_ID` for a separate question variant. `OPENROUTER_EXPECT_CONDITION_PAIR=GRANITE+GRANITE` additionally requires both authored condition IDs to appear with status `unknown`.
+
+The questions request supports `evaluation_max_tokens` and `evaluation_reasoning_effort`. Their defaults are `OPENROUTER_EVALUATION_MAX_TOKENS=8192` and `OPENROUTER_EVALUATION_REASONING_EFFORT=medium`. Pass `high` explicitly for the selected DeepSeek model. The assessment stage has a 180-second request timeout. Other stages keep their own model instances and token limits. Model construction leaves temperature unspecified, allowing each selected model's supported settings.
+
+G-Eval uses `openai/gpt-6.1-terra` with medium reasoning, a 4096-token allowance, a versioned rubric, and threshold 0.8. Judge calls and their reported cost are recorded separately. Exact source IDs and quotations are checked independently of the judge. Langfuse scores attach to the HTTP request trace. The `PY-037/quiet-home-questions-v4` dataset compares recorded results and links them to the original HTTP traces. Publishing comparison records does not call the models again.
+
+The [full-flow comparison](../tests/fixtures/agent-eval/quiet-home-with-granite/runs/2026-11-11-questions-v4-deepeval.json) retains upstream failures and the settings used for subsequent attempts. Its completed requests selected an unmarked conditional pair. The separate [granite–granite case](../tests/fixtures/agent-eval/quiet-home-granite-pair/README.md) exercises both authored conditions through the graph.

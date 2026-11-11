@@ -3,9 +3,13 @@
 from typing import Annotated, Final, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, TypeAdapter
 
-from stone_shelter_assistant.search.enums import CompatibilityVerdict, DocumentKind
+from stone_shelter_assistant.search.enums import (
+    AccommodationFactType,
+    CompatibilityVerdict,
+    DocumentKind,
+)
 from stone_shelter_assistant.stones.enums import (
     AdoptionStatus,
     CareLevel,
@@ -94,6 +98,17 @@ class CompatibilityReadingRulesSearchDocument(CompatibilitySearchDocument):
     )
 
 
+class CompatibilityCondition(BaseModel):
+    """One author-defined mandatory condition, grounded in the pair rule's text."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str = Field(min_length=1)
+    fact_type: AccommodationFactType
+    expected_value: StrictBool
+    source_quote: str = Field(min_length=1)
+
+
 class CompatibilityPairSearchDocument(CompatibilitySearchDocument):
     """Searchable advice for a pair of stone types."""
 
@@ -101,6 +116,7 @@ class CompatibilityPairSearchDocument(CompatibilitySearchDocument):
     stone_types: list[StoneType] = Field(min_length=2, max_length=2)
     pair_key: str = Field(min_length=1)
     verdict: CompatibilityVerdict
+    conditions: list[CompatibilityCondition] = Field(default_factory=list)
 
 
 class CompatibilityTypePortraitSearchDocument(CompatibilitySearchDocument):
