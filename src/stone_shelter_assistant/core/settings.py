@@ -101,7 +101,6 @@ class OpenRouterSettings(BaseSettings):
     selection_model: str | None = Field(default=None, min_length=1)
     selection_json_schema_models: frozenset[str] = DEFAULT_JSON_SCHEMA_MODELS
     parsing_model: str | None = Field(default=None, min_length=1)
-    planning_model: str | None = Field(default=None, min_length=1)
     evaluation_model: str = Field(default="dots-studio/dots-3-note-preview:free", min_length=1)
     evaluation_max_tokens: int = Field(default=8192, ge=1)
     evaluation_reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"] = "medium"

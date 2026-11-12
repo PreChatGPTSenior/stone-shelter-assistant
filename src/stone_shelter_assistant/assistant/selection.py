@@ -32,6 +32,7 @@ class FragmentReference(BaseModel):
 
 
 class HouseholdFactReference(FragmentReference):
+    question_quote: str = Field(min_length=1)
     existing_stone_type: StoneType | None = None
     fact_type: AccommodationFactType | None = None
     value: StrictBool | None = None
@@ -41,6 +42,14 @@ class HouseholdFactReference(FragmentReference):
 class CompatibilityReference(FragmentReference):
     household_type: StoneType
     first_type: StoneType | None = None
+
+
+class CriterionReference(FragmentReference):
+    question_quote: str = Field(min_length=1)
+
+
+class CompatibilityCriterionReference(CompatibilityReference):
+    question_quote: str = Field(min_length=1)
 
 
 class RequestedCompatibilityReference(CompatibilityReference):
@@ -69,24 +78,33 @@ class PairListReference(FragmentReference):
 
 
 class CriteriaReferences(BaseModel):
-    character: list[FragmentReference] = Field(default_factory=list)
-    compatibility: list[CompatibilityReference] = Field(default_factory=list)
+    character: list[CriterionReference] = Field(default_factory=list)
+    compatibility: list[CompatibilityCriterionReference] = Field(default_factory=list)
 
-    def resolve(self, fragments: Mapping[int, str]) -> CriteriaGroup:
+    def resolve(self, fragments: Mapping[int, str], *, group_id: str) -> CriteriaGroup:
+        for character_ref in self.character:
+            if character_ref.fragment_id not in fragments or character_ref.question_quote not in fragments[character_ref.fragment_id]:
+                raise ValueError("Criterion quote must be a source-bound original subquote")
+        for compatibility_ref in self.compatibility:
+            if compatibility_ref.fragment_id not in fragments or compatibility_ref.question_quote not in fragments[compatibility_ref.fragment_id]:
+                raise ValueError("Criterion quote must be a source-bound original subquote")
         return CriteriaGroup(
             character=[
                 QuotedCriterion(
-                    fragment_id=item.fragment_id, question_quote=fragments[item.fragment_id]
+                    criterion_id=f"{group_id}.character.{index}",
+                    fragment_id=item.fragment_id,
+                    question_quote=item.question_quote,
                 )
-                for item in self.character
+                for index, item in enumerate(self.character, start=1)
             ],
             compatibility=[
                 CompatibilityCriterion(
+                    criterion_id=f"{group_id}.compatibility.{index}",
                     fragment_id=item.fragment_id,
-                    question_quote=fragments[item.fragment_id],
+                    question_quote=item.question_quote,
                     household_type=item.household_type,
                 )
-                for item in self.compatibility
+                for index, item in enumerate(self.compatibility, start=1)
             ],
         )
 
@@ -151,13 +169,90 @@ class ParseQuestion(BaseModel):
             ),
         )
 
+    def parsed_atoms(self, fragments: Mapping[int, str]) -> list[dict[str, object]]:
+        """Expose the complete typed parse as source-bound atoms for a coverage audit."""
+        atoms: list[dict[str, object]] = []
+
+        def add(atom_id: str, category: str, fragment_id: int, quote: str, payload: object) -> None:
+            atoms.append(
+                {
+                    "atom_id": atom_id,
+                    "category": category,
+                    "fragment_id": fragment_id,
+                    "quote": quote,
+                    "parsed_value": payload.model_dump(mode="json")
+                    if isinstance(payload, BaseModel)
+                    else payload,
+                }
+            )
+
+        for role, references in (("requirement", self.requirements), ("preference", self.preferences)):
+            for index, criterion_ref in enumerate(references.character, start=1):
+                add(
+                    f"{role}.character.{index}",
+                    f"{role}_character",
+                    criterion_ref.fragment_id,
+                    criterion_ref.question_quote,
+                    criterion_ref,
+                )
+            for index, compatibility_ref in enumerate(references.compatibility, start=1):
+                add(
+                    f"{role}.compatibility.{index}",
+                    f"{role}_compatibility",
+                    compatibility_ref.fragment_id,
+                    compatibility_ref.question_quote,
+                    compatibility_ref,
+                )
+        for index, household_ref in enumerate(self.household_facts, start=1):
+            add(
+                f"household_fact.{index}",
+                "household_fact",
+                household_ref.fragment_id,
+                household_ref.question_quote,
+                household_ref,
+            )
+        ref_groups = (
+            ("requested_availability", "requested_availability", self.requested_availability),
+            ("requested_compatibility", "requested_compatibility", self.requested_compatibility),
+            ("requested_care", "requested_care", self.requested_care),
+            ("unsupported_care", "unsupported_care", self.unsupported_care),
+            ("requested_pair_lists", "requested_pair_list", self.requested_pair_lists),
+        )
+        for prefix, category, values in ref_groups:
+            for index, requested_ref in enumerate(values, start=1):
+                add(
+                    f"{prefix}.{index}",
+                    category,
+                    requested_ref.fragment_id,
+                    fragments[requested_ref.fragment_id],
+                    requested_ref,
+                )
+        for atom_id, category, named_ref in (
+            ("named_stone", "named_stone", self.named_stone),
+            ("recommendation_target", "recommendation_target", self.recommendation_target),
+            ("requested_stone_info", "requested_stone_info", self.requested_stone_info),
+        ):
+            if named_ref is not None:
+                add(
+                    atom_id,
+                    category,
+                    named_ref.fragment_id,
+                    fragments[named_ref.fragment_id],
+                    named_ref,
+                )
+        candidate_type = self.retrieval.candidate_type if self.retrieval else None
+        if candidate_type is not None:
+            add("retrieval.candidate_type", "candidate_type", candidate_type.fragment_id,
+                fragments[candidate_type.fragment_id], candidate_type)
+        return atoms
+
     def grounding_proposals(self, fragments: Mapping[int, str]) -> list[GroundingProposal]:
         proposals = [
             GroundingProposal(
                 proposal_id=f"agreement:{index}",
                 concept_id=fact.fact_type.value,
                 fragment_id=fact.fragment_id,
-                question_quote=fragments[fact.fragment_id],
+                question_quote=fact.question_quote,
                 proposed_value=fact.value,
                 applies_to_pair=fact.applies_to_pair,
             )
@@ -263,21 +358,28 @@ class ParseQuestion(BaseModel):
     def resolve(
         self, fragments: Mapping[int, str], supported: frozenset[str] = frozenset()
     ) -> tuple[SearchCriteria, int]:
-        requirements = self.requirements.resolve(fragments)
-        preferences = self.preferences.resolve(fragments)
-        required_character = {item.fragment_id: item for item in requirements.character}
+        for fact in self.household_facts:
+            if fact.fragment_id not in fragments or fact.question_quote not in fragments[fact.fragment_id]:
+                raise ValueError("Household fact quote must be a source-bound original subquote")
+        requirements = self.requirements.resolve(fragments, group_id="requirement")
+        preferences = self.preferences.resolve(fragments, group_id="preference")
+        required_character = {
+            (item.fragment_id, item.question_quote): item for item in requirements.character
+        }
         required_compatibility = {
-            (item.fragment_id, item.household_type): item for item in requirements.compatibility
+            (item.fragment_id, item.question_quote, item.household_type): item
+            for item in requirements.compatibility
         }
         preferred_character = {
-            item.fragment_id: item
+            (item.fragment_id, item.question_quote): item
             for item in preferences.character
-            if item.fragment_id not in required_character
+            if (item.fragment_id, item.question_quote) not in required_character
         }
         preferred_compatibility = {
-            (item.fragment_id, item.household_type): item
+            (item.fragment_id, item.question_quote, item.household_type): item
             for item in preferences.compatibility
-            if (item.fragment_id, item.household_type) not in required_compatibility
+            if (item.fragment_id, item.question_quote, item.household_type)
+            not in required_compatibility
         }
         duplicates_removed = (
             len(requirements.character)
@@ -293,23 +395,26 @@ class ParseQuestion(BaseModel):
             recommendation_limit=min(self.recommendation_limit, RANKING_POLICY.shortlist_limit),
             requested_availability=[
                 QuotedCriterion(
+                    criterion_id=f"requested_availability.{index}",
                     fragment_id=item.fragment_id, question_quote=fragments[item.fragment_id]
                 )
-                for item in self.requested_availability
+                for index, item in enumerate(self.requested_availability, start=1)
             ],
             requested_compatibility=[
                 CompatibilityCriterion(
+                    criterion_id=f"requested_compatibility.{index}",
                     fragment_id=item.fragment_id,
                     question_quote=fragments[item.fragment_id],
                     household_type=item.household_type,
                 )
-                for item in self.requested_compatibility
+                for index, item in enumerate(self.requested_compatibility, start=1)
                 if item.target == "candidate"
             ],
             household_facts=[
                 HouseholdFact(
-                    question_quote=fragments[item.fragment_id],
-                    **item.model_dump(),
+                    criterion_id=f"household_fact.{index + 1}",
+                    question_quote=item.question_quote,
+                    **item.model_dump(exclude={"question_quote"}),
                 )
                 for index, item in enumerate(self.household_facts)
                 if item.fact_type is None or f"agreement:{index}" in supported
@@ -324,6 +429,24 @@ class ParseQuestion(BaseModel):
             ),
         )
         return criteria, duplicates_removed
+
+
+def validate_parsed_atoms(
+    atoms: list[dict[str, object]], fragments: Mapping[int, str]
+) -> None:
+    """Reject parser atoms that are blank or not bound to their source fragment."""
+    atom_ids: set[str] = set()
+    for atom in atoms:
+        atom_id = atom.get("atom_id")
+        fragment_id = atom.get("fragment_id")
+        quote = atom.get("quote")
+        if not isinstance(atom_id, str) or not atom_id or atom_id in atom_ids:
+            raise ValueError("Parsed atom IDs must be present and unique")
+        atom_ids.add(atom_id)
+        if not isinstance(fragment_id, int) or fragment_id not in fragments:
+            raise ValueError("Parsed atom must reference a known question fragment")
+        if not isinstance(quote, str) or not quote.strip() or quote not in fragments[fragment_id]:
+            raise ValueError("Parsed atom quote must be a nonblank original subquote")
 
 
 class SelectCandidates(BaseModel):

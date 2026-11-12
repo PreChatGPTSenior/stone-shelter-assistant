@@ -40,7 +40,9 @@ type Outcome = Literal[
     "facts_only",
     "criteria_unavailable",
 ]
-type AssessmentStatus = Literal["not_needed", "parsed", "invalid_response", "invalid_source_ref"]
+type AssessmentStatus = Literal[
+    "not_needed", "parsed", "invalid_response", "invalid_source_ref", "invalid_criterion_binding"
+]
 type SourceRef = Literal[
     "biography",
     "profile.preferred_environment",
@@ -52,6 +54,7 @@ type SourceRef = Literal[
 
 
 class QuotedCriterion(BaseModel):
+    criterion_id: str = Field(min_length=1)
     fragment_id: int = Field(ge=1)
     question_quote: str = Field(min_length=1)
 
@@ -157,6 +160,7 @@ class QuotedFinding(BaseModel):
 
 
 class CharacterFinding(QuotedFinding):
+    criterion_id: str = Field(min_length=1)
     fragment_id: int
 
 
@@ -269,6 +273,7 @@ class Reason(BaseModel):
     finding: Finding
     required: bool
     question_quote: str | None = None
+    criterion_id: str | None = None
     source_id: str | None = None
     status: str | None = None
     pair_key: str | None = None
@@ -451,7 +456,9 @@ def character_reasons(
             findings = [
                 item
                 for item in assessment.character
-                if item.stone_id == stone_id and item.fragment_id == criterion.fragment_id
+                if item.stone_id == stone_id
+                and item.criterion_id == criterion.criterion_id
+                and item.fragment_id == criterion.fragment_id
             ]
             evidence = validate_evidence(
                 findings,
@@ -469,7 +476,7 @@ def character_reasons(
             if chosen is None:
                 unknown_reason = (
                     "assessment_invalid"
-                    if assessment_status == "invalid_response"
+                    if assessment_status in {"invalid_response", "invalid_criterion_binding"}
                     else "invalid_source_ref"
                     if assessment_status == "invalid_source_ref"
                     or any(source_for_finding(item, sources) is None for item in findings)
@@ -481,6 +488,7 @@ def character_reasons(
                     finding=chosen.finding if chosen else "unknown",
                     required=required,
                     question_quote=criterion.question_quote,
+                    criterion_id=criterion.criterion_id,
                     evidence=evidence,
                     chosen_evidence=chosen,
                     conflict=len({item.finding for item in evidence}) > 1,

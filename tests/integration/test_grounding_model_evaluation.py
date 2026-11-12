@@ -16,9 +16,9 @@ from langchain_openrouter import ChatOpenRouter
 from langfuse import Langfuse
 from langgraph.runtime import Runtime
 from pydantic import BaseModel
+from tests.evaluation.grounding_cases import parsed_grounding_case
 
 from stone_shelter_assistant.assistant import workflow
-from stone_shelter_assistant.assistant.selection import ParseQuestion
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
 from stone_shelter_assistant.core.settings import (
     LangfuseSettings,
@@ -98,27 +98,7 @@ async def test_measure_grounding_on_held_out_questions(
             evaluation_reasoning={"effort": "medium"},
         )
         for case in cases:
-            fields: dict[str, Any] = {
-                "recommendation_limit": 1,
-                "retrieval": {
-                    "lexical_query": "companion",
-                    "semantic_query": "a suitable companion",
-                },
-            }
-            if case["concept_id"] == "candidate_type":
-                fields["retrieval"]["candidate_type"] = {
-                    "fragment_id": 1,
-                    "stone_type": case["proposed_type"],
-                }
-            else:
-                fields["household_facts"] = [
-                    {
-                        "fragment_id": 1,
-                        "fact_type": case["concept_id"],
-                        "value": case["proposed_value"],
-                    }
-                ]
-            parsed = ParseQuestion.model_validate(fields)
+            parsed = parsed_grounding_case(case)
 
             async def verify(state: Any) -> dict[str, object]:
                 return await workflow.ground_question(state, runtime=Runtime(context=context))

@@ -12,7 +12,6 @@ class QuestionRequest(ApiRequest):
     model_id: str | None = Field(default=None, min_length=1)
     selection_model_id: str | None = Field(default=None, min_length=1)
     parsing_model_id: str | None = Field(default=None, min_length=1)
-    planning_model_id: str | None = Field(default=None, min_length=1)
     evaluation_model_id: str | None = Field(default=None, min_length=1)
     evaluation_max_tokens: int | None = Field(default=None, ge=1)
     evaluation_reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"] | None = (

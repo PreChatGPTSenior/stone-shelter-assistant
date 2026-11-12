@@ -3,14 +3,18 @@
 import pytest
 from pydantic import ValidationError
 
-from stone_shelter_assistant.assistant.selection import FragmentReference, ParseQuestion
+from stone_shelter_assistant.assistant.selection import CriterionReference, ParseQuestion
 
 
 def test_missing_preference_list_is_empty_without_losing_requirements() -> None:
     parsed = ParseQuestion.model_validate(
         {
             "recommendation_limit": 3,
-            "requirements": {"character": [{"fragment_id": 1}]},
+            "requirements": {
+                "character": [
+                    {"fragment_id": 1, "question_quote": "stay quiet in the early morning"}
+                ]
+            },
             "preferences": {"character": []},
             "retrieval": {
                 "lexical_query": "quiet morning",
@@ -30,7 +34,9 @@ def test_missing_preference_list_is_empty_without_losing_requirements() -> None:
 def test_optional_groups_and_lists_do_not_share_mutable_defaults() -> None:
     first = ParseQuestion(recommendation_limit=1)
     second = ParseQuestion(recommendation_limit=1)
-    first.preferences.character.append(FragmentReference(fragment_id=1))
+    first.preferences.character.append(
+        CriterionReference(fragment_id=1, question_quote="quiet")
+    )
     assert second.preferences.character == []
     criteria, _ = second.resolve({})
     assert criteria.household_facts == criteria.requested_availability == []

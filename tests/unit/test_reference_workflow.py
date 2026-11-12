@@ -15,6 +15,10 @@ from langgraph.runtime import Runtime
 
 from stone_shelter_assistant.assistant import workflow
 from stone_shelter_assistant.assistant.candidate_evaluation import CandidateEvidence
+from stone_shelter_assistant.assistant.question_grounding import (
+    GroundingResponse,
+    QuestionCoverageAudit,
+)
 from stone_shelter_assistant.assistant.reference_evidence import (
     ReferenceAnswer,
     ReferenceEvidence,
@@ -35,6 +39,10 @@ from stone_shelter_assistant.assistant.tool_planning import (
 from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument
 from stone_shelter_assistant.search.knowledge.encyclopedia_document_builder import (
     build_encyclopedia_documents,
+)
+from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+    GroundingEntry,
+    build_grounding_snapshot,
 )
 from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
     build_pair_key,
@@ -135,9 +143,6 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             requested_stone_info={"fragment_id": 1, "topic": topic},
         )
     parsed = ParseQuestion.model_validate(fields)
-    criteria, _ = parsed.resolve({1: question})
-    request = parsed.resolve_references({1: question})
-    allowed = permitted_tools(criteria, request)
     path = "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md"
     chapters = build_encyclopedia_documents((ROOT / path).read_text(), path)
     path = "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json"
@@ -226,8 +231,13 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                 model_calls.append(schema)
                 if schema is ParseQuestion:
                     output: Any = parsed
-                elif schema is ToolPlan:
-                    output = ToolPlan(tools=allowed, reason="Cover the parsed reference request")
+                elif schema is GroundingResponse:
+                    output = GroundingResponse(
+                        decisions=[],
+                        question_coverage=QuestionCoverageAudit(
+                            status="complete", summary="Every parsed request is covered."
+                        ),
+                    )
                 elif schema is SelectCandidates:
                     output = SelectCandidates(stone_ids=[])
                 elif schema is ReferenceEvidence:
@@ -290,13 +300,24 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             return RunnableLambda(respond)
 
     model: Any = FixtureModel()
+    grounding_catalog: Any = AsyncMock()
+    if case == "mixed":
+        entries = json.loads(
+            (ROOT / "fixtures/knowledge/grounding/grounding_en-v1.json").read_text()
+        )
+        grounding_catalog = SimpleNamespace(
+            load=AsyncMock(
+                return_value=build_grounding_snapshot(
+                    [GroundingEntry.model_validate(entry) for entry in entries], "en", "en-v1"
+                )
+            )
+        )
     result: Any = await workflow.run_workflow(
         question,
-        grounding_catalog=AsyncMock(),
+        grounding_catalog=grounding_catalog,
         selection_model=model,
         selection_uses_json_schema=True,
         parsing_model=model,
-        planning_model=model,
         evaluation_model=model,
         evaluation_uses_json_schema=True,
         answer_model=model,
@@ -555,15 +576,11 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
     async def run_scenario(scenario_name: str, scenario: dict[str, Any]) -> None:
         question = scenario["question"]
         parsed = ParseQuestion.model_validate(scenario["fields"])
-        criteria, _ = parsed.resolve({1: question})
-        request = parsed.resolve_references({1: question})
-        allowed = permitted_tools(criteria, request)
         evidence_inputs: list[dict[str, Any]] = []
         answer_inputs: list[dict[str, Any]] = []
         calls: list[str] = []
         current_scenario = scenario_name
         current_parse = parsed
-        current_allowed_tools = allowed
         current_evidence_inputs = evidence_inputs
         current_answer_inputs = answer_inputs
         current_calls = calls
@@ -645,9 +662,12 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
                 def respond(messages: Any) -> dict[str, Any]:
                     if schema is ParseQuestion:
                         output: Any = current_parse
-                    elif schema is ToolPlan:
-                        output = ToolPlan(
-                            tools=current_allowed_tools, reason="Read the exact pair rule"
+                    elif schema is GroundingResponse:
+                        output = GroundingResponse(
+                            decisions=[],
+                            question_coverage=QuestionCoverageAudit(
+                                status="complete", summary="All parsed request atoms are covered."
+                            ),
                         )
                     elif schema is SelectCandidates:
                         output = SelectCandidates(stone_ids=[])
@@ -699,14 +719,23 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
                 return RunnableLambda(respond)
 
         model: Any = PairFixtureModel()
+        grounding_catalog = AsyncMock()
+        if scenario_name == "mixed":
+            entries = json.loads(
+                (ROOT / "fixtures/knowledge/grounding/grounding_en-v1.json").read_text()
+            )
+            grounding_catalog.load = AsyncMock(
+                return_value=build_grounding_snapshot(
+                    [GroundingEntry.model_validate(entry) for entry in entries], "en", "en-v1"
+                )
+            )
         result: Any = await workflow.run_workflow(
             question,
-            grounding_catalog=AsyncMock(),
+            grounding_catalog=grounding_catalog,
             selection_model=model,
             selection_uses_json_schema=True,
             parsing_model=model,
-            planning_model=model,
-            evaluation_model=model,
+                evaluation_model=model,
             evaluation_uses_json_schema=True,
             answer_model=model,
             retrieval_tools=[search_stones_hybrid] if scenario_name == "mixed" else [],
@@ -864,6 +893,7 @@ async def test_reference_and_recommendation_targets_are_explicitly_independent()
         "permitted_tools": allowed,
         "tool_plan": ToolPlan(tools=allowed, reason="Read both goals"),
         "plan_status": "accepted",
+        "question_coverage_status": "complete",
         "question_fragments": {1: question},
         "result": {
             "answer": "Named individual result",
@@ -1061,7 +1091,12 @@ async def test_eight_household_pairs_are_all_checked_and_rendered() -> None:
         {
             "recommendation_limit": 1,
             "household_facts": [
-                {"fragment_id": 1, "existing_stone_type": target} for target in targets
+                {
+                    "fragment_id": 1,
+                    "question_quote": target,
+                    "existing_stone_type": target,
+                }
+                for target in targets
             ],
         }
     )

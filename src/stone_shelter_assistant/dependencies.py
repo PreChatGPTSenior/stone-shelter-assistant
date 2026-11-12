@@ -167,10 +167,6 @@ def get_question_workflow(
         model_ids = {
             "select_candidates": selection_model_id,
             "parse_question": parsing_model_id,
-            "plan_tools": payload.planning_model_id
-            or payload.model_id
-            or openrouter.planning_model
-            or parsing_model_id,
             "evaluate_candidates": payload.evaluation_model_id
             or payload.model_id
             or openrouter.evaluation_model,
@@ -213,7 +209,6 @@ def get_question_workflow(
         eval_metadata.update(
             selection_model_id=model_ids["select_candidates"],
             parsing_model_id=model_ids["parse_question"],
-            planning_model_id=model_ids["plan_tools"],
             evaluation_model_id=model_ids["evaluate_candidates"],
             answer_model_id=model_ids["answer"],
             evaluation_max_tokens=str(evaluation_max_tokens),
@@ -246,7 +241,6 @@ def get_question_workflow(
                 selection_uses_json_schema=selection_model_id
                 in openrouter.selection_json_schema_models,
                 parsing_model=models[model_ids["parse_question"]],
-                planning_model=models[model_ids["plan_tools"]],
                 evaluation_model=evaluation_model,
                 evaluation_reasoning={"effort": evaluation_effort},
                 evaluation_uses_json_schema=model_ids["evaluate_candidates"]

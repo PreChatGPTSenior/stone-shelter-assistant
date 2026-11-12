@@ -34,6 +34,7 @@ def granite_pair() -> CompatibilityPairSearchDocument:
 
 def agreement(kind: AccommodationFactType, value: bool = True) -> HouseholdFact:
     return HouseholdFact(
+        criterion_id=f"test.fact.{kind.value}",
         fragment_id=2,
         question_quote="We have agreed on these household arrangements.",
         fact_type=kind,
@@ -45,6 +46,7 @@ def test_existing_granite_does_not_confirm_household_agreements(
     granite_pair: CompatibilityPairSearchDocument,
 ) -> None:
     fact = HouseholdFact(
+        criterion_id="household_fact.1",
         fragment_id=2,
         question_quote="where granite already lives.",
         existing_stone_type=StoneType.GRANITE,
@@ -78,9 +80,9 @@ def test_parser_restores_typed_fact_quotes_and_all_conditions_are_required(
             "requested_availability": [],
             "requested_compatibility": [],
             "household_facts": [
-                {"fragment_id": 1, "existing_stone_type": "GRANITE"},
-                {"fragment_id": 2, "fact_type": "decision_rotation_agreed", "value": True},
-                {"fragment_id": 3, "fact_type": "decision_deadline_agreed", "value": True},
+                {"fragment_id": 1, "question_quote": fragments[1], "existing_stone_type": "GRANITE"},
+                {"fragment_id": 2, "question_quote": fragments[2], "fact_type": "decision_rotation_agreed", "value": True},
+                {"fragment_id": 3, "question_quote": fragments[3], "fact_type": "decision_deadline_agreed", "value": True},
             ],
             "requirements": {"character": [], "compatibility": []},
             "preferences": {"character": [], "compatibility": []},
@@ -151,9 +153,15 @@ def test_invalid_rule_quote_does_not_confirm_condition(
 
 def test_typed_fact_requires_its_own_boolean_value() -> None:
     with pytest.raises(ValidationError):
-        HouseholdFact(fragment_id=1, question_quote="Granite is here", value=True)
+        HouseholdFact(
+            criterion_id="test.invalid.1",
+            fragment_id=1,
+            question_quote="Granite is here",
+            value=True,
+        )
     with pytest.raises(ValidationError):
         HouseholdFact(
+            criterion_id="test.invalid.2",
             fragment_id=1,
             question_quote="Granite is here",
             fact_type=AccommodationFactType.DECISION_ROTATION_AGREED,

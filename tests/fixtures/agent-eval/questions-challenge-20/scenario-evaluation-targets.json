@@ -1,0 +1,206 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "review_note": "Explicit reviewed coverage targets; never derive targets from focus_stone_ids. Retrieval positives are coverage probes, not a required exact shortlist or recommendation.",
+  "scenarios": {
+    "Q01": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q12": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q13": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q14": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q15": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q19": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q20": {
+      "stage_applicability": "not_applicable",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Factual reference or care request; candidate recommendation stages are not required."
+    },
+    "Q02": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "67269139-e8b8-4c7d-aa58-33b88162ec70",
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+      ],
+      "counterexample_external_ids": [
+        "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+      ],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels."
+    },
+    "Q03": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      }
+    },
+    "Q04": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels."
+    },
+    "Q05": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      }
+    },
+    "Q06": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      }
+    },
+    "Q07": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      }
+    },
+    "Q08": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      }
+    },
+    "Q09": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "67269139-e8b8-4c7d-aa58-33b88162ec70"
+      ],
+      "counterexample_external_ids": [
+        "67269139-e8b8-4c7d-aa58-33b88162ec70"
+      ],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels.",
+      "expected_dispositions": {
+        "67269139-e8b8-4c7d-aa58-33b88162ec70": "excluded"
+      },
+      "expected_dispositions_when_evaluated": true
+    },
+    "Q10": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels."
+    },
+    "Q16": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels."
+    },
+    "Q17": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5"
+      ],
+      "counterexample_external_ids": [
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "filter_ineligible_external_ids": [],
+      "reason": "Reviewed retrieval coverage targets for candidate-focused scenario; not exact answer/rank labels."
+    },
+    "Q11": {
+      "stage_applicability": "recommendation_filter_only",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [
+        "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581"
+      ],
+      "reason": "The named target is RETURNED and policy-ineligible under AVAILABLE-only search; report exclusion separately from recall."
+    },
+    "Q18": {
+      "stage_applicability": "unsupported_capability",
+      "positive_retrieval_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "comparison_external_ids": [
+        "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+      ],
+      "reason": "Two-name comparison is unsupported by current single-name reference contract; this is a capability failure, never successful not_applicable."
+    }
+  }
+}

@@ -25,17 +25,18 @@ async def test_selection_uses_parsed_requirements_preferences_and_household(
             "recommendation_limit": 1,
             "household_facts": [
                 {
+                    "criterion_id": "household_fact.1",
                     "fragment_id": 1,
                     "question_quote": "A granite lives here.",
                     "existing_stone_type": "GRANITE",
                 }
             ],
             "requirements": {
-                "character": [{"fragment_id": 2, "question_quote": "Must tolerate children."}],
+                "character": [{"criterion_id": "requirement.character.1", "fragment_id": 2, "question_quote": "Must tolerate children."}],
                 "compatibility": [],
             },
             "preferences": {
-                "character": [{"fragment_id": 3, "question_quote": "Quiet would be nice."}],
+                "character": [{"criterion_id": "preference.character.1", "fragment_id": 3, "question_quote": "Quiet would be nice."}],
                 "compatibility": [],
             },
         }

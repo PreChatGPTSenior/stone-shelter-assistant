@@ -21,6 +21,9 @@ from pydantic import BaseModel, ValidationError
 
 TRACE_FIELDS = (
     "grounding_status",
+    "question_coverage_status",
+    "question_coverage_audit",
+    "blocked_tools",
     "grounding_error_type",
     "grounding_catalog",
     "grounding_decisions",
@@ -70,6 +73,9 @@ def trace_result(result: dict[str, Any], *, include_answer: bool = False) -> dic
             "candidate_decisions",
             "plan_status",
             "grounding_status",
+    "question_coverage_status",
+    "question_coverage_audit",
+    "blocked_tools",
             "stop_reason",
         )
         if key in result

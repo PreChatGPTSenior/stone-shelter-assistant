@@ -62,19 +62,30 @@ def check_assessment(assessment: CandidateEvidence, snapshot: dict[str, Any]) ->
     }
     sources = json.loads(snapshot["messages"][1]["content"])["candidate_sources"]
     supplied = {(item["stone_id"], item["source_ref"]): item["text"] for item in sources}
-    allowed_fragments = {
-        criterion.fragment_id
+    criterion_fragments = {
+        criterion.criterion_id: criterion.fragment_id
         for criterion in (*criteria.requirements.character, *criteria.preferences.character)
     }
     grounded = all(
         (finding.stone_id, finding.source_ref) in supplied
         and finding.quote in supplied[(finding.stone_id, finding.source_ref)]
         for finding in (*assessment.character, *assessment.individual_compatibility)
-    ) and all(finding.fragment_id in allowed_fragments for finding in assessment.character)
-    covered = {
-        finding.stone_id
+    ) and all(
+        finding.criterion_id in criterion_fragments
+        and finding.fragment_id == criterion_fragments[finding.criterion_id]
         for finding in assessment.character
-        if finding.finding == "confirmed" and finding.fragment_id in allowed_fragments
+    )
+    covered = {
+        (finding.stone_id, finding.criterion_id)
+        for finding in assessment.character
+        if finding.finding == "confirmed"
+        and finding.criterion_id in criterion_fragments
+        and finding.fragment_id == criterion_fragments[finding.criterion_id]
+    }
+    expected_coverage = {
+        (str(card.id), criterion_id)
+        for card in cards
+        for criterion_id in criterion_fragments
     }
     evaluations = [
         evaluate_candidate(
@@ -93,7 +104,7 @@ def check_assessment(assessment: CandidateEvidence, snapshot: dict[str, Any]) ->
     return {
         "dto_valid": True,
         "evidence_grounded": grounded,
-        "character_coverage": covered == {str(card.id) for card in cards},
+        "character_coverage": covered == expected_coverage,
         "no_invented_compatibility": not assessment.individual_compatibility,
         "candidate_evaluations": evaluations,
         "assessment": assessment.model_dump(mode="json"),

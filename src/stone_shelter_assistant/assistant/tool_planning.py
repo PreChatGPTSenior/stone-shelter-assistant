@@ -1,5 +1,6 @@
-"""Typed lookup requests and the model's proposed tool plan."""
+"""Typed lookup requests and deterministic tool ordering."""
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -42,7 +43,7 @@ class ReferenceRequest(BaseModel):
 
 
 class ToolPlan(BaseModel):
-    """Order the tools needed for the parsed goals and briefly explain the choice."""
+    """Hold a deterministic ordered plan for the parsed goals."""
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
@@ -82,6 +83,24 @@ def permitted_tools(criteria: SearchCriteria, request: ReferenceRequest) -> list
     if request.pair_lists or request.stone_info == "overview":
         tools.append("list_compatibility_pairs")
     return tools
+
+
+def deterministic_tool_plan(allowed: Sequence[PlannedTool]) -> ToolPlan:
+    """Order the code-permitted tool set by fixed data dependencies."""
+    order: tuple[PlannedTool, ...] = (
+        "get_stone_status_by_name",
+        "get_stone_details",
+        "get_case_timeline",
+        "search_knowledge_lexical",
+        "get_compatibility_pair",
+        "list_compatibility_pairs",
+        "search_candidates",
+    )
+    allowed_set = set(allowed)
+    return ToolPlan(
+        tools=[tool for tool in order if tool in allowed_set],
+        reason="Ordered from parsed goals and fixed lookup dependencies.",
+    )
 
 
 def plan_error(plan: ToolPlan, allowed: list[PlannedTool], request: ReferenceRequest) -> str | None:

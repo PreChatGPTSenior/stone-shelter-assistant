@@ -20,12 +20,16 @@ from tests.unit.search.test_rrf import card
 
 from stone_shelter_assistant.assistant import workflow
 from stone_shelter_assistant.assistant.candidate_evaluation import (
+    CandidateEvaluation,
     CandidateEvidence,
+    Evidence,
+    Reason,
     SearchCriteria,
 )
 from stone_shelter_assistant.assistant.question_grounding import (
     GroundingDecision,
     GroundingResponse,
+    QuestionCoverageAudit,
 )
 from stone_shelter_assistant.assistant.reference_evidence import (
     ReferenceAnswer,
@@ -39,12 +43,16 @@ from stone_shelter_assistant.assistant.selection import (
     RetrievalRequest,
     SelectCandidates,
 )
-from stone_shelter_assistant.assistant.tool_planning import ReferenceRequest, ToolPlan
+from stone_shelter_assistant.assistant.tool_planning import ReferenceRequest
 from stone_shelter_assistant.assistant.tools import stone_search_tools
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
+from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument
 from stone_shelter_assistant.search.knowledge.grounding_catalog import (
     GroundingEntry,
     build_grounding_snapshot,
+)
+from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
+    build_stone_compatibility_documents,
 )
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.enums import AdoptionStatus, StoneType
@@ -157,9 +165,17 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
             "requested_availability": [],
             "requested_compatibility": [],
             "household_facts": [
-                {"fragment_id": 1, "fact_type": "decision_rotation_agreed", "value": False}
+                {
+                    "fragment_id": 1,
+                    "question_quote": "Tell me what Madame Obsidian likes and find one quiet stone.",
+                    "fact_type": "decision_rotation_agreed",
+                    "value": False,
+                }
             ],
-            "requirements": {"character": [{"fragment_id": 1}], "compatibility": []},
+            "requirements": {
+                "character": [{"fragment_id": 1, "question_quote": "quiet stone"}],
+                "compatibility": [],
+            },
             "preferences": {"character": [], "compatibility": []},
             "retrieval": {
                 "lexical_query": "quiet evenings",
@@ -170,15 +186,6 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
             "requested_stone_info": {"fragment_id": 1, "topic": "preferences"},
         }
     )
-    from stone_shelter_assistant.assistant.tool_planning import permitted_tools
-
-    parsed_criteria, _ = parsed.resolve(
-        {1: "Tell me what Madame Obsidian likes and find one quiet stone."}
-    )
-    parsed_reference = parsed.resolve_references(
-        {1: "Tell me what Madame Obsidian likes and find one quiet stone."}
-    )
-    allowed_plan = permitted_tools(parsed_criteria, parsed_reference)
     outputs = {
         GroundingResponse: GroundingResponse(
             decisions=[
@@ -186,15 +193,15 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                     proposal_id="agreement:0",
                     finding="unknown",
                     fragment_id=1,
-                    quote="Tell me what Madame Obsidian likes and find one quiet stone.",
+                quote="Tell me what Madame Obsidian likes and find one quiet stone.",
                     reason="No agreement was stated.",
                 )
-            ]
+            ],
+            question_coverage=QuestionCoverageAudit(
+                status="complete", summary="All parsed fixture atoms are represented."
+            ),
         ),
         ParseQuestion: parsed,
-        ToolPlan: ToolPlan(
-            tools=allowed_plan, reason="Read the named profile and search candidates"
-        ),
         SelectCandidates: SelectCandidates(stone_ids=[sid]),
         CandidateEvidence: CandidateEvidence.model_validate(
             {
@@ -205,6 +212,7 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                         "finding": "confirmed",
                         "quote": "enjoys quiet evenings",
                         "fragment_id": 1,
+                        "criterion_id": "requirement.character.1",
                     }
                 ],
                 "individual_compatibility": [],
@@ -302,7 +310,6 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                 selection_model=model,
                 selection_uses_json_schema=True,
                 parsing_model=model,
-                planning_model=model,
                 evaluation_model=model,
                 evaluation_uses_json_schema=True,
                 answer_model=model,
@@ -452,6 +459,244 @@ def test_collector_excludes_hits_dropped_by_fusion() -> None:
         ],
     }
     assert list(workflow.retrieved_candidates(state)) == ["kept"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("case", "expected_prose_ids"),
+    [
+        ("card", {"stone-a", "stone-b"}),
+        ("observations", {"stone-a", "stone-b"}),
+        ("cross_candidate", {"stone-a"}),
+        ("unknown", {"stone-a"}),
+        ("mixed_good_bad", {"stone-b"}),
+        ("empty", {"stone-b"}),
+        ("shared_encyclopedia", {"stone-a", "stone-b"}),
+        ("shared_compatibility", {"stone-a", "stone-b"}),
+    ],
+)
+async def test_answer_accepts_only_per_candidate_bound_explanations(
+    monkeypatch: pytest.MonkeyPatch,
+    case: str,
+    expected_prose_ids: set[str],
+) -> None:
+    monkeypatch.setattr(workflow, "get_config", lambda: {})
+    ids = {"stone-a": str(uuid4()), "stone-b": str(uuid4())}
+    event_ids = {"stone-a": "event-a", "stone-b": "event-b"}
+    shared_id = "encyclopedia:en:granite"
+    shared_evidence = Evidence(
+        source_id=shared_id,
+        field="text",
+        source_kind="encyclopedia",
+        priority=4,
+        weight=0.5,
+        supports_requirement=False,
+        finding="confirmed",
+        quote="Granite is generally steady.",
+    )
+    pair_document = None
+    if case == "shared_compatibility":
+        guide_path = "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json"
+        documents = build_stone_compatibility_documents(
+            (Path(__file__).parents[2] / guide_path).read_text(), guide_path
+        )
+        pair_document = next(
+            document
+            for document in documents
+            if isinstance(document, CompatibilityPairSearchDocument)
+            and document.pair_key == "GRANITE+GRANITE"
+        )
+        pair_evidence = Evidence(
+            source_id=pair_document.source_key,
+            field="verdict",
+            source_kind="compatibility_pair",
+            priority=1,
+            weight=1.0,
+            supports_requirement=True,
+            finding="confirmed",
+        )
+    event_sources: dict[str, dict[str, object]] = {
+        f"case-event:{event_ids[name]}": {
+            "tool": "get_case_timeline",
+            "data": {"event_notes": f"{name} observation quote."},
+        }
+        for name in ids
+    }
+    evaluation_sources: dict[str, dict[str, object]] = {
+        **event_sources,
+        shared_id: {
+            "tool": "search_knowledge_lexical",
+            "data": {"text": "Granite is generally steady."},
+        },
+    }
+    if pair_document is not None:
+        evaluation_sources[pair_document.source_key] = {
+            "tool": "get_compatibility_pair",
+            "data": pair_document.model_dump(mode="json"),
+        }
+    candidate_evaluations = []
+    for name in ids:
+        own_evidence = Evidence(
+            source_id=f"case-event:{event_ids[name]}",
+            field="event_notes",
+            source_kind="observation",
+            priority=2,
+            weight=0.95,
+            supports_requirement=True,
+            finding="confirmed",
+            quote=f"{name} observation quote.",
+        )
+        reason_evidence = [own_evidence]
+        if case == "shared_encyclopedia":
+            reason_evidence.append(shared_evidence)
+        reasons = [
+            Reason(
+                criterion="availability",
+                finding="confirmed",
+                required=True,
+                source_id="verified_statuses",
+                status="AVAILABLE",
+            ),
+            Reason(
+                criterion="character",
+                finding="confirmed",
+                required=True,
+                question_quote="Prefer a calm companion.",
+                evidence=reason_evidence,
+                chosen_evidence=own_evidence,
+            ),
+        ]
+        if pair_document is not None:
+            reasons.append(
+                Reason(
+                    criterion="compatibility",
+                    finding="confirmed",
+                    required=False,
+                    source_id=pair_document.source_key,
+                    pair_key=pair_document.pair_key,
+                    verdict=pair_document.verdict,
+                    evidence=[pair_evidence],
+                    chosen_evidence=pair_evidence,
+                )
+            )
+        candidate_evaluations.append(
+            CandidateEvaluation(
+                stone_id=ids[name],
+                external_id=f"external-{name}",
+                eligible=True,
+                reasons=reasons,
+                exclusion_rules=[],
+                outcome="recommended",
+            )
+        )
+
+    pair_source_id = pair_document.source_key if pair_document is not None else "unused-pair"
+    citations = {
+        "card": {
+            "stone-a": [f"stone-card:{ids['stone-a']}"],
+            "stone-b": [f"stone-card:{ids['stone-b']}"],
+        },
+        "observations": {name: [f"case-event:{event_ids[name]}"] for name in ids},
+        "cross_candidate": {
+            "stone-a": [f"stone-card:{ids['stone-a']}"],
+            "stone-b": [f"case-event:{event_ids['stone-a']}"],
+        },
+        "unknown": {
+            "stone-a": [f"stone-card:{ids['stone-a']}"],
+            "stone-b": ["unknown-source"],
+        },
+        "mixed_good_bad": {
+            "stone-a": [f"stone-card:{ids['stone-a']}", f"case-event:{event_ids['stone-b']}"],
+            "stone-b": [f"stone-card:{ids['stone-b']}"],
+        },
+        "empty": {
+            "stone-a": [],
+            "stone-b": [f"stone-card:{ids['stone-b']}"],
+        },
+        "shared_encyclopedia": {
+            "stone-a": [shared_id],
+            "stone-b": [shared_id],
+        },
+        "shared_compatibility": {
+            "stone-a": [pair_source_id],
+            "stone-b": [pair_source_id],
+        },
+    }[case]
+    draft = workflow.AnswerDraft(
+        explanations=[
+            workflow.CandidateExplanation(
+                stone_id=ids[name],
+                explanation=f"Generated explanation for {name}.",
+                evidence_ids=citations[name],
+            )
+            for name in ids
+        ]
+    )
+    allowed_in_prompt: dict[str, list[str]] = {}
+
+    class FixtureAnswerModel:
+        def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
+            def answer(messages: Any) -> dict[str, Any]:
+                payload = json.loads(messages[-1].content)
+                allowed_in_prompt.update(
+                    {
+                        stone_id: candidate["allowed_evidence_ids"]
+                        for stone_id, candidate in payload["candidates"].items()
+                    }
+                )
+                return {
+                    "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                    "parsed": draft,
+                }
+
+            return RunnableLambda(answer)
+
+    state: workflow.SearchState = {
+        "question": "Find a calm companion.",
+        "messages": [],
+        "tools_used": 1,
+        "candidate_cards": {ids[name]: {"name": name} for name in ids},
+        "verified_statuses": {ids[name]: "AVAILABLE" for name in ids},
+        "recommended_stone_ids": [ids["stone-a"], ids["stone-b"]],
+        "candidate_evaluations": [item.model_dump(mode="json") for item in candidate_evaluations],
+        "evaluation_sources": evaluation_sources,
+    }
+    result = await workflow.answer(
+        state,
+        runtime=Runtime(
+            context=cast(
+                Any,
+                SimpleNamespace(
+                    details_tool=SimpleNamespace(name="get_stone_details"),
+                    compatibility_tool=SimpleNamespace(name="get_compatibility_pair"),
+                    answer_model=FixtureAnswerModel(),
+                ),
+            )
+        ),
+    )
+    answer_text = cast(dict[str, Any], result["result"])["answer"]
+    for name in ids:
+        generated = f"Generated explanation for {name}." in answer_text
+        assert generated is (name in expected_prose_ids)
+    assert all(
+        f"stone-card:{stone_id}" in allowed for stone_id, allowed in allowed_in_prompt.items()
+    )
+    assert f"case-event:{event_ids['stone-a']}" not in allowed_in_prompt[ids["stone-b"]]
+    if case == "shared_encyclopedia":
+        assert all(shared_id in allowed for allowed in allowed_in_prompt.values())
+    if case == "shared_compatibility":
+        assert pair_document is not None
+        assert all(pair_document.source_key in allowed for allowed in allowed_in_prompt.values())
+    fallback_name = {
+        "cross_candidate": "stone-b",
+        "unknown": "stone-b",
+        "mixed_good_bad": "stone-a",
+        "empty": "stone-a",
+    }.get(case)
+    if fallback_name:
+        assert f"{fallback_name} observation quote." in answer_text
+        sources = cast(dict[str, Any], result["result"])["sources"]
+        assert f"case-event:{event_ids[fallback_name]}" in sources
 
 
 @pytest.mark.asyncio
@@ -671,6 +916,7 @@ async def test_candidate_assessment_loads_svetlana_observations_with_event_prove
         {
             "stone_id": str(card.id),
             "fragment_id": 1,
+            "criterion_id": "requirement.character.1",
             "source_ref": "observation",
             "observation_external_id": event["event_external_id"],
             "finding": "contradicted",
@@ -695,6 +941,7 @@ async def test_candidate_assessment_loads_svetlana_observations_with_event_prove
                 {
                     "stone_id": str(card.id),
                     "fragment_id": 1,
+                    "criterion_id": "requirement.character.1",
                     "source_ref": "biography",
                     "finding": "contradicted",
                     "quote": "loves singing loudly on a windowsill, especially early in the morning",
@@ -724,13 +971,14 @@ async def test_candidate_assessment_loads_svetlana_observations_with_event_prove
             "requirements": {
                 "character": []
                 if compatibility_only
-                else [{"fragment_id": 1, "question_quote": "Must stay quiet in the morning."}],
+                else [{"criterion_id": "requirement.character.1", "fragment_id": 1, "question_quote": "Must stay quiet in the morning."}],
                 "compatibility": [],
             },
             "preferences": {
                 "character": [],
                 "compatibility": [
                     {
+                        "criterion_id": "preference.compatibility.1",
                         "fragment_id": 1,
                         "question_quote": "Ideally compatible with granite.",
                         "household_type": "GRANITE",

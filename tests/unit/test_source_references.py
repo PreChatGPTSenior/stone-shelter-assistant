@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
+from tests.live.test_candidate_assessment import check_assessment
 
 from stone_shelter_assistant.assistant.candidate_evaluation import (
     CandidateEvidence,
@@ -24,6 +25,7 @@ def test_uuid_source_ref_is_rejected_and_classified_through_parser_wrapper() -> 
                 "character": [
                     {
                         "stone_id": "candidate",
+                        "criterion_id": "preference.character.1",
                         "source_ref": "d484c7c8-9bf9-47bf-8b45-34a8db1f1b60",
                         "finding": "confirmed",
                         "quote": "enjoys quiet evenings",
@@ -63,6 +65,7 @@ def test_reference_presence_and_quote_support_are_separate(
         "character": [
             {
                 "stone_id": "candidate",
+                "criterion_id": "preference.character.1",
                 "fragment_id": 1,
                 "finding": "confirmed",
                 "source_ref": ref,
@@ -101,6 +104,96 @@ def test_schema_rejection_remains_visible_in_candidate_reason() -> None:
     assert reasons[0].unknown_reason == "invalid_source_ref"
 
 
+def test_two_required_atoms_in_one_fragment_need_separate_findings() -> None:
+    criteria = SearchCriteria.model_validate(
+        {
+            "recommendation_limit": 1,
+            "household_facts": [],
+            "requirements": {
+                "character": [
+                    {
+                        "criterion_id": "requirement.character.1",
+                        "fragment_id": 1,
+                        "question_quote": "thoughtful",
+                    },
+                    {
+                        "criterion_id": "requirement.character.2",
+                        "fragment_id": 1,
+                        "question_quote": "quiet evenings",
+                    },
+                ],
+                "compatibility": [],
+            },
+            "preferences": {"character": [], "compatibility": []},
+        }
+    )
+    sources = {
+        "biography": SourceText(
+            "biography", "stone-card:candidate", "biography", "A thoughtful stone who enjoys quiet evenings."
+        )
+    }
+
+    def finding(criterion_id: str, quote: str) -> dict[str, object]:
+        return {
+            "stone_id": "candidate",
+            "criterion_id": criterion_id,
+            "fragment_id": 1,
+            "source_ref": "biography",
+            "finding": "confirmed",
+            "quote": quote,
+        }
+
+    one_finding = CandidateEvidence.model_validate(
+        {
+            "character": [finding("requirement.character.1", "thoughtful")],
+            "individual_compatibility": [],
+        }
+    )
+    one_reason_each = character_reasons(
+        "candidate", criteria, sources, one_finding, "parsed"
+    )
+    assert [(reason.criterion_id, reason.finding) for reason in one_reason_each] == [
+        ("requirement.character.1", "confirmed"),
+        ("requirement.character.2", "unknown"),
+    ]
+    assert one_reason_each[1].unknown_reason == "missing_evidence"
+
+    both_findings = CandidateEvidence.model_validate(
+        {
+            "character": [
+                finding("requirement.character.1", "thoughtful"),
+                finding("requirement.character.2", "quiet evenings"),
+            ],
+            "individual_compatibility": [],
+        }
+    )
+    both_reasons = character_reasons("candidate", criteria, sources, both_findings, "parsed")
+    assert [reason.finding for reason in both_reasons] == ["confirmed", "confirmed"]
+
+
+def test_live_assessment_check_rejects_unrecognized_criterion_id_without_model_call() -> None:
+    snapshot = json.loads(FIXTURE.read_text())
+    assessment = CandidateEvidence.model_validate(
+        {
+            "character": [
+                {
+                    "stone_id": card["id"],
+                    "criterion_id": "fabricated.character.1",
+                    "fragment_id": 1,
+                    "source_ref": "biography",
+                    "finding": "confirmed",
+                    "quote": card["biography"],
+                }
+                for card in snapshot["cards"]
+            ],
+            "individual_compatibility": [],
+        }
+    )
+    checks = check_assessment(assessment, snapshot)
+    assert checks["evidence_grounded"] is False
+    assert checks["character_coverage"] is False
+
+
 @pytest.mark.parametrize(
     ("include_profile", "expected_source"),
     [(True, "profile"), (False, "observation")],
@@ -135,7 +228,7 @@ def test_authoritative_profile_and_observations_rank_before_biography(
             "recommendation_limit": 1,
             "household_facts": [],
             "requirements": {
-                "character": [{"fragment_id": 1, "question_quote": "Must stay quiet."}],
+                "character": [{"criterion_id": "requirement.character.1", "fragment_id": 1, "question_quote": "Must stay quiet."}],
                 "compatibility": [],
             },
             "preferences": {"character": [], "compatibility": []},
@@ -144,6 +237,7 @@ def test_authoritative_profile_and_observations_rank_before_biography(
     findings = [
         {
             "stone_id": "candidate",
+            "criterion_id": "requirement.character.1",
             "fragment_id": 1,
             "source_ref": "biography",
             "observation_external_id": "94156b7f-cc92-4d65-861e-bd87e8662fb5",
@@ -152,6 +246,7 @@ def test_authoritative_profile_and_observations_rank_before_biography(
         },
         {
             "stone_id": "candidate",
+            "criterion_id": "requirement.character.1",
             "fragment_id": 1,
             "source_ref": "observation",
             "observation_external_id": event_id,
@@ -163,6 +258,7 @@ def test_authoritative_profile_and_observations_rank_before_biography(
         findings.append(
             {
                 "stone_id": "candidate",
+            "criterion_id": "requirement.character.1",
                 "fragment_id": 1,
                 "source_ref": "profile.preferred_environment",
                 "finding": "confirmed",
@@ -194,6 +290,7 @@ def test_observation_external_id_must_match_an_authoritative_event() -> None:
             "character": [
                 {
                     "stone_id": "candidate",
+                    "criterion_id": "preference.character.1",
                     "fragment_id": 1,
                     "source_ref": "observation",
                     "observation_external_id": "94156b7f-cc92-4d65-861e-bd87e8662fb5",
@@ -216,6 +313,7 @@ def test_observation_source_requires_an_event_external_id() -> None:
                 "character": [
                     {
                         "stone_id": "candidate",
+                        "criterion_id": "requirement.character.1",
                         "fragment_id": 1,
                         "source_ref": "observation",
                         "finding": "confirmed",
