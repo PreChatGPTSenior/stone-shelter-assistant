@@ -24,9 +24,14 @@ from stone_shelter_assistant.assistant.reference_evidence import (
     check_reference_quotes,
     reference_citations_valid,
 )
-from stone_shelter_assistant.assistant.reference_lookup import ReferenceTools
+from stone_shelter_assistant.assistant.reference_lookup import ReferenceTools, read_reference
 from stone_shelter_assistant.assistant.selection import ParseQuestion, SelectCandidates
-from stone_shelter_assistant.assistant.tool_planning import ToolPlan, permitted_tools, plan_error
+from stone_shelter_assistant.assistant.tool_planning import (
+    ReferenceRequest,
+    ToolPlan,
+    permitted_tools,
+    plan_error,
+)
 from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument
 from stone_shelter_assistant.search.knowledge.encyclopedia_document_builder import (
     build_encyclopedia_documents,
@@ -45,8 +50,10 @@ ROOT = Path(__file__).parents[2]
     "case",
     [
         "overview",
+        "overview_care_partial",
         "preferences",
         "care",
+        "care_empty",
         "unsupported",
         "missing",
         "invalid_citation",
@@ -60,7 +67,14 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         (ROOT / "tests/fixtures/assistant/quiet-home-assessment.json").read_text()
     )
     card: dict[str, Any] = next(c for c in snapshot["cards"] if c["name"] == "Madame Obsidian")
-    if case in ("overview", "invalid_citation", "missing_scope", "history", "mixed"):
+    if case in (
+        "overview",
+        "overview_care_partial",
+        "invalid_citation",
+        "missing_scope",
+        "history",
+        "mixed",
+    ):
         fixture = json.loads(
             (ROOT / "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json").read_text()
         )
@@ -77,17 +91,26 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         }
     topic = (
         "overview"
-        if case in ("overview", "missing", "invalid_citation", "missing_scope")
+        if case
+        in (
+            "overview",
+            "overview_care_partial",
+            "missing",
+            "invalid_citation",
+            "missing_scope",
+        )
         else "history"
         if case == "history"
         else "preferences"
     )
     question = {
         "overview": "Tell me about Svetlana.",
+        "overview_care_partial": "Tell me about Svetlana and how should I care for marble?",
         "invalid_citation": "Tell me about Svetlana.",
         "missing_scope": "Tell me about Svetlana.",
         "preferences": "What does Madame Obsidian like?",
         "care": "How should I care for obsidian?",
+        "care_empty": "How should I care for obsidian?",
         "unsupported": "How should I care for onyx?",
         "missing": "Tell me about Missing Stone.",
         "history": "What is in Svetlana's history?",
@@ -97,7 +120,9 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
     if case == "mixed":
         fields["retrieval"] = {"lexical_query": "quiet", "semantic_query": "quiet companion"}
         fields["requested_care"] = [{"fragment_id": 1, "stone_type": "OBSIDIAN"}]
-    if case == "care":
+    if case == "overview_care_partial":
+        fields["requested_care"] = [{"fragment_id": 1, "stone_type": "MARBLE"}]
+    if case in {"care", "care_empty"}:
         fields["requested_care"] = [{"fragment_id": 1, "stone_type": "OBSIDIAN"}]
     elif case == "unsupported":
         fields["unsupported_care"] = [{"fragment_id": 1, "material": "onyx"}]
@@ -214,11 +239,30 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                                 for s in data["sources"]
                                 if case != "missing_scope" or s["scope"] != "history"
                                 if case != "mixed" or s["scope"] != "encyclopedia"
+                                if case != "care_empty"
+                                if case != "overview_care_partial" or s["scope"] == "individual"
                             ]
                         }
                     )
                 elif schema is ReferenceAnswer:
                     data = json.loads(messages[-1].content)
+                    if not data["quotes"]:
+                        source = data["sources"][0]
+                        output = ReferenceAnswer(
+                            sections=[
+                                ReferenceSection(
+                                    scope=source["scope"],
+                                    explanation="The source contains care information.",
+                                    source_ids=[source["source_id"]],
+                                )
+                            ]
+                        )
+                        return {
+                            "raw": AIMessage(
+                                content="", response_metadata={"finish_reason": "stop"}
+                            ),
+                            "parsed": output,
+                        }
                     grouped: dict[ReferenceScope, list[dict[str, Any]]] = {
                         q["scope"]: [] for q in data["quotes"]
                     }
@@ -292,13 +336,25 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         assert "No stone found" in result["answer"]
         assert calls == ["identity"] and not result["sources"]
     else:
-        assert ReferenceEvidence in model_calls and ReferenceAnswer in model_calls
-        if case == "care":
+        assert ReferenceEvidence in model_calls
+        if case != "care_empty":
+            assert ReferenceAnswer in model_calls
+        if case in {"care", "care_empty"}:
             assert calls == ["encyclopedia_section"]
+            if case == "care_empty":
+                assert result["answer"].count("No validated care summary. Original source:") == 0
+                assert result["answer"].count("No validated evidence summary is available.") == 1
+                chapter = result["sources"]["encyclopedia:en:obsidian"]["data"]["text"]
+                assert result["answer"].count(chapter) == 1
         else:
             assert calls[:2] == ["identity", "card"]
             assert result["verified_statuses"][card["id"]] == "AVAILABLE"
-        if case in ("overview", "invalid_citation", "missing_scope"):
+        if case in (
+            "overview",
+            "overview_care_partial",
+            "invalid_citation",
+            "missing_scope",
+        ):
             assert "compatibility_type_portrait" in calls and calls.count("pairs") == 3
             assert len(result["sources"]) == 18
             assert "singing loudly" in result["answer"]
@@ -306,6 +362,9 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             assert "General type compatibility" in result["answer"]
             if case == "missing_scope":
                 assert "No validated summary for this scope" in result["answer"]
+            if case == "overview_care_partial":
+                chapter = result["sources"]["encyclopedia:en:marble"]["data"]["text"]
+                assert result["answer"].count(chapter) == 1
         elif case == "preferences":
             assert calls == ["identity", "card"]
             assert "peaceful home" in result["answer"]
@@ -313,6 +372,56 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             assert "case-event:" in result["answer"]
             assert "05:00" in result["answer"]
         assert "invented-source" not in result["answer"]
+
+
+@pytest.mark.asyncio
+async def test_distinct_named_recommendation_lookup_preserves_reference_identity() -> None:
+    names = {
+        "Svetlana": {
+            "stone_id": "11111111-1111-4111-8111-111111111111",
+            "name": "Svetlana",
+            "stone_type": "MARBLE",
+            "adoption_status": "AVAILABLE",
+        },
+        "Madame Obsidian": {
+            "stone_id": "22222222-2222-4222-8222-222222222222",
+            "name": "Madame Obsidian",
+            "stone_type": "OBSIDIAN",
+            "adoption_status": "AVAILABLE",
+        },
+    }
+
+    @tool
+    async def lookup(name: str) -> list[dict[str, Any]]:
+        """Read exact PostgreSQL name matches."""
+        return [names[name]]
+
+    request = ReferenceRequest(
+        stone_name="Svetlana",
+        recommendation_name="Madame Obsidian",
+        care_types=[],
+        pairs=[],
+        pair_lists=[],
+    )
+    result = await read_reference(
+        ToolPlan(tools=["get_stone_status_by_name"], reason="Resolve each named identity"),
+        request,
+        ReferenceTools(
+            stone_status=lookup,
+            stone_details=lookup,
+            timeline=lookup,
+            encyclopedia=lookup,
+            exact_pair=lookup,
+            pair_list=lookup,
+        ),
+        {},
+        include_status=False,
+    )
+    assert result.stone is not None and result.stone.name == "Svetlana"
+    assert result.recommendation_stone is not None
+    assert result.recommendation_stone.name == "Madame Obsidian"
+    assert result.recommendation_issue is None
+    assert len(result.sources) == 2
 
 
 @pytest.mark.asyncio

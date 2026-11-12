@@ -44,6 +44,14 @@
             "sv-bio",
             "sv-observations"
           ]
+        },
+        {
+          "id": "event-date-not-onset",
+          "kind": "prohibition",
+          "statement": "Do not claim the singing began on the observation date; the event date records when staff observed it, not when the behavior started.",
+          "source_ids": [
+            "sv-observations"
+          ]
         }
       ],
       "samples": [
@@ -68,7 +76,8 @@
           "expected": {
             "morning": true,
             "complaints": true,
-            "subject": true
+            "subject": true,
+            "event-date-not-onset": true
           }
         },
         {
@@ -92,7 +101,8 @@
           "expected": {
             "morning": false,
             "complaints": true,
-            "subject": true
+            "subject": true,
+            "event-date-not-onset": true
           }
         },
         {
@@ -116,7 +126,33 @@
           "expected": {
             "morning": true,
             "complaints": true,
-            "subject": false
+            "subject": false,
+            "event-date-not-onset": true
+          }
+        },
+        {
+          "id": "event-date-misread-as-start",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "Svetlana enjoys loud early-morning singing on a windowsill.",
+              "source_ids": [
+                "sv-bio"
+              ]
+            },
+            {
+              "scope": "history",
+              "explanation": "Staff observed loud singing every morning at 05:00 and recorded two neighbor complaints. Svetlana began the behavior on November 2, 2026.",
+              "source_ids": [
+                "sv-observations"
+              ]
+            }
+          ],
+          "expected": {
+            "morning": true,
+            "complaints": true,
+            "subject": true,
+            "event-date-not-onset": false
           }
         }
       ]
@@ -331,6 +367,14 @@
           "source_ids": [
             "granite-pair"
           ]
+        },
+        {
+          "id": "delay-reason",
+          "kind": "requirement",
+          "statement": "Explain why the granite pair is conditional: although dependable, they may postpone every change until they have considered the consequences repeatedly.",
+          "source_ids": [
+            "granite-pair"
+          ]
         }
       ],
       "samples": [
@@ -348,7 +392,8 @@
           "expected": {
             "rotation": true,
             "deadline": true,
-            "not-confirmed": true
+            "not-confirmed": true,
+            "delay-reason": true
           }
         },
         {
@@ -365,7 +410,8 @@
           "expected": {
             "rotation": true,
             "deadline": false,
-            "not-confirmed": true
+            "not-confirmed": true,
+            "delay-reason": false
           }
         },
         {
@@ -382,7 +428,8 @@
           "expected": {
             "rotation": false,
             "deadline": false,
-            "not-confirmed": true
+            "not-confirmed": true,
+            "delay-reason": false
           }
         },
         {
@@ -399,7 +446,26 @@
           "expected": {
             "rotation": true,
             "deadline": true,
-            "not-confirmed": false
+            "not-confirmed": false,
+            "delay-reason": false
+          }
+        },
+        {
+          "id": "agreements-listed-no-reason",
+          "sections": [
+            {
+              "scope": "compatibility",
+              "explanation": "The guide asks the household to rotate small decisions and set a deadline for shared arrangements. It does not say they have agreed already.",
+              "source_ids": [
+                "granite-pair"
+              ]
+            }
+          ],
+          "expected": {
+            "rotation": true,
+            "deadline": true,
+            "not-confirmed": true,
+            "delay-reason": false
           }
         }
       ]

@@ -56,6 +56,7 @@ def permitted_tools(criteria: SearchCriteria, request: ReferenceRequest) -> list
     needs_stone = (
         request.stone_info is not None
         or bool(criteria.requested_availability)
+        or request.recommendation_name is not None
         or (bool(request.stone_name) and any(pair.first_type is None for pair in request.pairs))
         or (
             not criteria.recommendation_limit
@@ -63,7 +64,7 @@ def permitted_tools(criteria: SearchCriteria, request: ReferenceRequest) -> list
         )
     )
     if needs_stone:
-        if request.stone_name is None:
+        if request.stone_name is None and request.recommendation_name is None:
             if request.stone_info is not None:
                 return []
         else:

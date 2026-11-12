@@ -38,6 +38,8 @@ class ReferenceTools:
 @dataclass
 class ReferenceResult:
     stone: NamedStoneStatus | None = None
+    recommendation_stone: NamedStoneStatus | None = None
+    recommendation_issue: str | None = None
     card: StoneDetails | None = None
     lines: list[str] = field(default_factory=list)
     sources: dict[str, dict[str, object]] = field(default_factory=dict)
@@ -58,22 +60,37 @@ async def read_reference(
     for step in plan.tools:
         match step:
             case "get_stone_status_by_name":
-                matches = await tools.stone_status.ainvoke(
-                    {"name": request.stone_name}, config=config
-                )
-                if len(matches) == 1:
-                    result.stone = NamedStoneStatus.model_validate(matches[0])
-                    stone = result.stone
-                    result.sources[f"stone-status:{stone.stone_id}"] = {
-                        "tool": tools.stone_status.name,
-                        "data": stone.model_dump(mode="json"),
-                    }
-                elif matches:
-                    result.lines.append(
-                        f"Multiple stones are named {request.stone_name}. Please clarify."
+                names = list(
+                    dict.fromkeys(
+                        name
+                        for name in (request.stone_name, request.recommendation_name)
+                        if name is not None
                     )
-                else:
-                    result.lines.append(f"No stone found with the name {request.stone_name}.")
+                )
+                resolved: dict[str, NamedStoneStatus | None] = {}
+                for name in names:
+                    matches = await tools.stone_status.ainvoke({"name": name}, config=config)
+                    identity = (
+                        NamedStoneStatus.model_validate(matches[0]) if len(matches) == 1 else None
+                    )
+                    resolved[name.casefold()] = identity
+                    if identity is not None:
+                        result.sources[f"stone-status:{identity.stone_id}"] = {
+                            "tool": tools.stone_status.name,
+                            "data": identity.model_dump(mode="json"),
+                        }
+                    elif name == request.recommendation_name:
+                        result.recommendation_issue = "ambiguous" if matches else "not_found"
+                    elif matches:
+                        result.lines.append(f"Multiple stones are named {name}. Please clarify.")
+                    else:
+                        result.lines.append(f"No stone found with the name {name}.")
+                if request.stone_name is not None:
+                    result.stone = resolved.get(request.stone_name.casefold())
+                if request.recommendation_name is not None:
+                    result.recommendation_stone = resolved.get(
+                        request.recommendation_name.casefold()
+                    )
             case "get_stone_details":
                 if result.stone is None:
                     continue

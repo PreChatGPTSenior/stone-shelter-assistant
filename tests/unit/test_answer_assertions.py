@@ -2,7 +2,8 @@
 
 import json
 from pathlib import Path
-from typing import cast
+from types import SimpleNamespace
+from typing import Any, cast
 
 import pytest
 from pydantic import ValidationError
@@ -17,6 +18,10 @@ from tests.evaluation.answer_assertions import (
     calibration_metrics,
     load_case_sources,
     structural_citations_pass,
+)
+from tests.live.test_reference_answer_assertions import (
+    _archive_judge_result,
+    _capture_telemetry,
 )
 
 ROOT = Path(__file__).parents[2]
@@ -165,3 +170,94 @@ def test_empty_or_prohibition_only_evaluation_cannot_be_a_completeness_pass() ->
         assertion["kind"] = "prohibition"
     with pytest.raises(ValidationError):
         AssertionCase.model_validate(data)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("failure", ["flush", "get_many"])
+async def test_telemetry_failure_keeps_the_paid_judge_result_archived(
+    tmp_path: Path, failure: str
+) -> None:
+    archive = tmp_path / "calibration.json"
+    record = {"assessment": {"findings": [{"assertion_id": "morning", "verdict": "pass"}]}}
+
+    def persist() -> None:
+        archive.write_text(json.dumps({"records": [record]}))
+
+    class FailingTelemetry:
+        api: Any
+
+        def flush(self) -> None:
+            if failure == "flush":
+                raise OSError("Langfuse flush unavailable")
+
+    def get_many(**_: Any) -> Any:
+        raise OSError("Langfuse observations unavailable")
+
+    client = FailingTelemetry()
+    client.api = SimpleNamespace(observations=SimpleNamespace(get_many=get_many))
+    await _capture_telemetry(client, "trace-id", record, persist)  # type: ignore[arg-type]
+
+    archived = json.loads(archive.read_text())["records"][0]
+    assert archived["assessment"]["findings"][0]["verdict"] == "pass"
+    assert archived["telemetry_errors"] == ["OSError"]
+    assert "technical_error_type" not in archived
+    metrics = calibration_metrics(
+        [
+            (
+                {"morning": True},
+                AnswerAssessment(
+                    findings=[
+                        AssertionFinding(
+                            assertion_id="morning",
+                            verdict="pass",
+                            reason="The checked answer states the observation.",
+                            answer_quote="Staff observed daily singing.",
+                            evidence=[],
+                        )
+                    ]
+                ),
+            )
+        ]
+    )
+    assert metrics["technical_errors"] == 0
+    assert metrics["agreement"] == 1
+
+
+def test_judge_result_is_checkpointed_before_langfuse_context_exit() -> None:
+    record = {"assessment": {"findings": [{"assertion_id": "morning", "verdict": "pass"}]}}
+    expected = {"morning": True}
+    assessment = AnswerAssessment(
+        findings=[
+            AssertionFinding(
+                assertion_id="morning",
+                verdict="pass",
+                reason="The answer states the observation.",
+                answer_quote="Staff observed daily singing.",
+                evidence=[],
+            )
+        ]
+    )
+    records: list[dict[str, Any]] = []
+    measurements: list[tuple[dict[str, bool], AnswerAssessment | None]] = []
+    archive: list[dict[str, Any]] = []
+
+    class FailingObservationContext:
+        def __enter__(self) -> Any:
+            return self
+
+        def __exit__(self, *_: Any) -> None:
+            raise OSError("Langfuse context exit failed")
+
+    with pytest.raises(OSError, match="context exit failed"):
+        with FailingObservationContext():
+            _archive_judge_result(
+                record,
+                expected,
+                assessment,
+                records,
+                measurements,
+                lambda: archive.append({"records": list(records)}),
+            )
+
+    assert archive[0]["records"][0]["assessment"] == record["assessment"]
+    assert calibration_metrics(measurements)["technical_errors"] == 0

@@ -4,6 +4,7 @@ import asyncio
 import hashlib
 import json
 import os
+from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,50 @@ from stone_shelter_assistant.core.settings import LangfuseSettings, OpenRouterSe
 
 ROOT = Path(__file__).parents[2]
 FOLDER = ROOT / "tests/fixtures/agent-eval/reference-answer-assertions"
+
+
+def _archive_judge_result(
+    record: dict[str, Any],
+    expected: dict[str, bool],
+    parsed: AnswerAssessment | None,
+    records: list[dict[str, Any]],
+    measurements: list[tuple[dict[str, bool], AnswerAssessment | None]],
+    persist: Callable[[], None],
+) -> None:
+    """Checkpoint semantic output before leaving the Langfuse observation context."""
+    measurements.append((expected, parsed))
+    records.append(record)
+    persist()
+
+
+async def _capture_telemetry(
+    client: Langfuse,
+    trace_id: str,
+    record: dict[str, Any],
+    persist: Callable[[], None],
+) -> None:
+    """Archive the judge result first; telemetry failure must not erase semantic grading."""
+    persist()
+    observations = []
+    try:
+        await asyncio.to_thread(client.flush)
+        for _ in range(8):
+            observations = (
+                await asyncio.to_thread(
+                    client.api.observations.get_many,
+                    trace_id=trace_id,
+                    fields="basic,io,model,usage",
+                    limit=100,
+                )
+            ).data
+            if any(o.type == "GENERATION" and o.output for o in observations):
+                break
+            await asyncio.sleep(2)
+        record["observations"] = [o.model_dump(mode="json") for o in observations]
+    except Exception as error:
+        record.setdefault("telemetry_errors", []).append(type(error).__name__)
+        record["observations"] = [o.model_dump(mode="json") for o in observations]
+    persist()
 
 
 @pytest.mark.asyncio
@@ -61,8 +106,32 @@ async def test_calibrate_reference_answer_assertion_judge() -> None:
         AssertionCase.model_validate(c)
         for c in json.loads((FOLDER / "cases.json").read_text())["cases"]
     ]
-    records = []
-    measurements = []
+    paths = {FOLDER / "cases.json", *(ROOT / s.file for c in cases for s in c.sources)}
+    fixture_hashes = {
+        str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)
+    }
+    records: list[dict[str, Any]] = []
+    measurements: list[tuple[dict[str, bool], AnswerAssessment | None]] = []
+    output = FOLDER / "runs"
+    output.mkdir(exist_ok=True)
+    archive_path = output / (datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ") + ".json")
+
+    def persist_archive() -> None:
+        result = {
+            "mode": "frozen-answer-judge-calibration",
+            "judge_model": model_id,
+            "reasoning_effort": "medium",
+            "max_tokens": 4096,
+            "max_retries": 0,
+            "fixture_hashes": fixture_hashes,
+            "metrics": calibration_metrics(measurements) if measurements else None,
+            "records": records,
+            "note": "No application search/answer generation. Calibration does not establish universal semantic correctness.",
+        }
+        temporary_path = archive_path.with_suffix(".json.tmp")
+        temporary_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+        temporary_path.replace(archive_path)
+
     for case in cases:
         sources = load_case_sources(case, ROOT)
         for sample in case.samples:
@@ -106,58 +175,36 @@ async def test_calibrate_reference_answer_assertion_judge() -> None:
                     record["report"] = assessment_report(case, sample, sources, proposed)
                     validate_assessment(case, sample, sources, proposed)
                     parsed = proposed
-                    for finding in parsed.findings:
-                        client.create_score(
-                            trace_id=root.trace_id,
-                            name="assertion." + finding.assertion_id,
-                            value=float(finding.verdict == "pass"),
-                            comment=finding.verdict + ": " + finding.reason,
-                        )
                 except Exception as error:
                     parsed = None
                     record["technical_error_type"] = type(error).__name__
                 record["trace_id"] = root.trace_id
-                root.update(
-                    output={k: record[k] for k in ("report", "technical_error_type") if k in record}
+                _archive_judge_result(
+                    record, sample.expected, parsed, records, measurements, persist_archive
                 )
-            measurements.append((sample.expected, parsed))
-            await asyncio.to_thread(client.flush)
-            observations = []
-            for _ in range(8):
-                observations = (
-                    await asyncio.to_thread(
-                        client.api.observations.get_many,
-                        trace_id=record["trace_id"],
-                        fields="basic,io,model,usage",
-                        limit=100,
+                if parsed is not None:
+                    for finding in parsed.findings:
+                        try:
+                            client.create_score(
+                                trace_id=root.trace_id,
+                                name="assertion." + finding.assertion_id,
+                                value=float(finding.verdict == "pass"),
+                                comment=finding.verdict + ": " + finding.reason,
+                            )
+                        except Exception as error:
+                            record.setdefault("telemetry_errors", []).append(type(error).__name__)
+                try:
+                    root.update(
+                        output={
+                            k: record[k] for k in ("report", "technical_error_type") if k in record
+                        }
                     )
-                ).data
-                if any(o.type == "GENERATION" and o.output for o in observations):
-                    break
-                await asyncio.sleep(2)
-            record["observations"] = [o.model_dump(mode="json") for o in observations]
-            records.append(record)
+                except Exception as error:
+                    record.setdefault("telemetry_errors", []).append(type(error).__name__)
+                persist_archive()
+            await _capture_telemetry(client, record["trace_id"], record, persist_archive)
     metrics = calibration_metrics(measurements)
-    paths = {FOLDER / "cases.json", *(ROOT / s.file for c in cases for s in c.sources)}
-    result = {
-        "mode": "frozen-answer-judge-calibration",
-        "judge_model": model_id,
-        "reasoning_effort": "medium",
-        "max_tokens": 4096,
-        "max_retries": 0,
-        "fixture_hashes": {
-            str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-            for p in sorted(paths)
-        },
-        "metrics": metrics,
-        "records": records,
-        "note": "No application search/answer generation. Calibration does not establish universal semantic correctness.",
-    }
-    output = FOLDER / "runs"
-    output.mkdir(exist_ok=True)
-    (output / (datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ") + ".json")).write_text(
-        json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-    )
+    persist_archive()
     assert all(
         metrics[key] == 0
         for key in ("false_passes", "false_failures", "abstentions", "technical_errors")

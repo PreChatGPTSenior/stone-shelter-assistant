@@ -89,6 +89,7 @@ class SearchState(MessagesState):
     search_end_reason: NotRequired[str]
     question_fragments: NotRequired[dict[int, str]]
     selection_status: NotRequired[str]
+    selection_note: NotRequired[str]
     selection_output_method: NotRequired[str]
     duplicate_criteria_removed: NotRequired[int]
     selected_stone_ids: NotRequired[list[str]]
@@ -407,6 +408,35 @@ async def select_candidates(
     state: SearchState, *, runtime: Runtime[RunContext]
 ) -> dict[str, object]:
     candidates = retrieved_candidates(state)
+    request = state.get("reference_request")
+    if request is not None and request.recommendation_name is not None:
+        reference = state.get("reference_result")
+        issue = reference.recommendation_issue if reference is not None else "not_resolved"
+        identity = reference.recommendation_stone if reference is not None else None
+        if issue is not None or identity is None:
+            note = (
+                f"The name {request.recommendation_name} matches multiple stones; please clarify."
+                if issue == "ambiguous"
+                else f"No stone was found with the name {request.recommendation_name}."
+                if issue == "not_found"
+                else f"The name {request.recommendation_name} could not be resolved; no recommendation was selected."
+            )
+            return {
+                "selected_stone_ids": [],
+                "selection_status": "named_target_" + (issue or "not_resolved"),
+                "selection_note": note,
+            }
+        exact_id = str(identity.stone_id)
+        if exact_id not in candidates:
+            return {
+                "selected_stone_ids": [],
+                "selection_status": "named_candidate_not_retrieved",
+                "selection_note": (
+                    f"{request.recommendation_name} was found in PostgreSQL but not in the "
+                    "candidate search results, so no substitute was selected."
+                ),
+            }
+        candidates = {exact_id: candidates[exact_id]}
     if not candidates:
         return {"selected_stone_ids": [], "selection_status": "no_search_results"}
 
@@ -701,6 +731,9 @@ async def plan_tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dic
                     "each candidate's current status in PostgreSQL after the search. If the question "
                     "also asks about a named individual, include every required reference tool too; "
                     "the graph will execute both branches and combine their results. "
+                    "When the parsed recommendation has an exact name, also include "
+                    "get_stone_status_by_name; selection is restricted to that PostgreSQL identity, "
+                    "and no substitute is chosen if the name is absent or ambiguous. "
                     "For a direct status lookup by name, use get_stone_status_by_name. "
                     "For stone_info, first get_stone_status_by_name, then get_stone_details. "
                     "For a named history or overview, get_case_timeline must follow the card and "
@@ -830,6 +863,7 @@ async def answer_reference(
     model_details: dict[str, object] = {}
     answer_status = "facts_only"
     draft = None
+    rendered_raw_source_ids: set[str] = set()
     if quotes and runtime.context.budget.try_reserve(PLACEHOLDER_RESERVE):
         model = runtime.context.answer_model.with_structured_output(
             ReferenceAnswer,
@@ -892,6 +926,7 @@ async def answer_reference(
         lines.append("No validated evidence summary is available. Original sources follow.")
         for source in reference.context_sources.values():
             lines.append(f"**{SCOPE_TITLES[source.scope]}** · {source.source_id}\n{source.text}")
+            rendered_raw_source_ids.add(source.source_id)
     rendered_source_ids = (
         {source_id for section in draft.sections for source_id in section.source_ids}
         if draft
@@ -908,16 +943,17 @@ async def answer_reference(
                     f"No validated summary for this scope. Original source:\n{source.text}"
                 )
                 rendered_source_ids.add(source.source_id)
+                rendered_raw_source_ids.add(source.source_id)
     care_types = set(state["reference_request"].care_types)
     if state["reference_request"].stone_info == "care" and reference.card is not None:
         care_types.add(reference.card.stone_type)
     if care_types:
-        quoted_sources = {quote.source_id for quote in quotes}
         for source in reference.context_sources.values():
             if (
                 source.scope == "encyclopedia"
-                and source.source_id not in quoted_sources
+                and source.source_id not in rendered_raw_source_ids
                 and source.source_id in reference.sources
+                and source.text not in "\n\n".join(lines)
             ):
                 payload = reference.sources[source.source_id].get("data", {})
                 document = (
@@ -930,6 +966,7 @@ async def answer_reference(
                         f"**{SCOPE_TITLES[source.scope]}** · {source.source_id}\n"
                         f"No validated care summary. Original source:\n{source.text}"
                     )
+                    rendered_raw_source_ids.add(source.source_id)
     for source_id in sorted(reference.exact_pair_source_ids):
         source = reference.context_sources[source_id]
         if source.text not in "\n\n".join(lines):
@@ -1466,7 +1503,9 @@ async def answer(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[st
         lines.append(line)
 
     result: dict[str, object] = {
-        "answer": "\n\n".join(lines) if lines else "No checked candidates.",
+        "answer": "\n\n".join(lines)
+        if lines
+        else state.get("selection_note", "No checked candidates."),
         "sources": sources,
         "verified_statuses": statuses,
         "recommended_stone_ids": recommendations,
