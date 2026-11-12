@@ -42,6 +42,7 @@ class ReferenceResult:
     lines: list[str] = field(default_factory=list)
     sources: dict[str, dict[str, object]] = field(default_factory=dict)
     context_sources: dict[str, ReferenceSource] = field(default_factory=dict)
+    exact_pair_source_ids: set[str] = field(default_factory=set)
 
 
 async def read_reference(
@@ -218,6 +219,10 @@ async def read_reference(
                         "tool": tools.exact_pair.name,
                         "data": pair.model_dump(mode="json"),
                     }
+                    result.context_sources[pair.source_key] = ReferenceSource(
+                        source_id=pair.source_key, scope="compatibility", text=pair.text
+                    )
+                    result.exact_pair_source_ids.add(pair.source_key)
                     result.lines.append(
                         f"{first.value} + {requested.second_type.value} · `{pair.verdict.value}`"
                     )

@@ -35,6 +35,7 @@ from stone_shelter_assistant.search.knowledge.stone_compatibility_document_build
     build_pair_key,
     build_stone_compatibility_documents,
 )
+from stone_shelter_assistant.stones.enums import StoneType
 
 ROOT = Path(__file__).parents[2]
 
@@ -312,6 +313,351 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             assert "case-event:" in result["answer"]
             assert "05:00" in result["answer"]
         assert "invented-source" not in result["answer"]
+
+
+@pytest.mark.asyncio
+async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -> None:
+    path = "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json"
+    guide = build_stone_compatibility_documents((ROOT / path).read_text(), path)
+    pairs = {
+        document.pair_key: document
+        for document in guide
+        if isinstance(document, CompatibilityPairSearchDocument)
+    }
+    card: dict[str, Any] = next(
+        c
+        for c in json.loads(
+            (ROOT / "tests/fixtures/assistant/quiet-home-assessment.json").read_text()
+        )["cards"]
+        if c["name"] == "Sir Pebble"
+    )
+    scenarios: dict[str, dict[str, Any]] = {
+        "types": {
+            "question": "Explain the GRANITE plus GRANITE compatibility rule and agreement.",
+            "fields": {
+                "recommendation_limit": 0,
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GRANITE",
+                        "first_type": "GRANITE",
+                        "target": "types",
+                    }
+                ],
+            },
+            "pair_key": "GRANITE+GRANITE",
+        },
+        "named": {
+            "question": "How does Sir Pebble pair with GRANITE, and what agreement is needed?",
+            "fields": {
+                "recommendation_limit": 0,
+                "named_stone": {"fragment_id": 1, "name": "Sir Pebble"},
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GRANITE",
+                        "target": "named_stone",
+                    }
+                ],
+            },
+            "pair_key": "GRANITE+GRANITE",
+        },
+        "harmonious": {
+            "question": "Explain the GRANITE plus OBSIDIAN compatibility rule.",
+            "fields": {
+                "recommendation_limit": 0,
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "OBSIDIAN",
+                        "first_type": "GRANITE",
+                        "target": "types",
+                    }
+                ],
+            },
+            "pair_key": "GRANITE+OBSIDIAN",
+        },
+        "no_evidence": {
+            "question": "Explain the GRANITE plus GRANITE compatibility rule and agreement.",
+            "fields": {
+                "recommendation_limit": 0,
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GRANITE",
+                        "first_type": "GRANITE",
+                        "target": "types",
+                    }
+                ],
+            },
+            "pair_key": "GRANITE+GRANITE",
+        },
+        "missing": {
+            "question": "Explain the GRANITE plus GNEISS compatibility rule.",
+            "fields": {
+                "recommendation_limit": 0,
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GNEISS",
+                        "first_type": "GRANITE",
+                        "target": "types",
+                    }
+                ],
+            },
+            "pair_key": None,
+        },
+        "mixed": {
+            "question": (
+                "Find a quiet companion, explain how to care for OBSIDIAN, and explain the "
+                "GRANITE plus GRANITE compatibility rule."
+            ),
+            "fields": {
+                "recommendation_limit": 1,
+                "retrieval": {"lexical_query": "quiet", "semantic_query": "quiet companion"},
+                "requested_care": [{"fragment_id": 1, "stone_type": "OBSIDIAN"}],
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GRANITE",
+                        "first_type": "GRANITE",
+                        "target": "types",
+                    }
+                ],
+            },
+            "pair_key": "GRANITE+GRANITE",
+        },
+    }
+
+    scenarios["verdict_only"] = dict(scenarios["types"])
+    scenarios["overview_partial"] = {
+        "question": "Tell me about Sir Pebble and explain his compatibility with GRANITE.",
+        "fields": {
+            "recommendation_limit": 0,
+            "named_stone": {"fragment_id": 1, "name": "Sir Pebble"},
+            "requested_stone_info": {"fragment_id": 1, "topic": "overview"},
+            "requested_compatibility": [
+                {"fragment_id": 1, "household_type": "GRANITE", "target": "named_stone"}
+            ],
+        },
+        "pair_key": "GRANITE+GRANITE",
+    }
+
+    async def run_scenario(scenario_name: str, scenario: dict[str, Any]) -> None:
+        question = scenario["question"]
+        parsed = ParseQuestion.model_validate(scenario["fields"])
+        criteria, _ = parsed.resolve({1: question})
+        request = parsed.resolve_references({1: question})
+        allowed = permitted_tools(criteria, request)
+        evidence_inputs: list[dict[str, Any]] = []
+        answer_inputs: list[dict[str, Any]] = []
+        calls: list[str] = []
+        current_scenario = scenario_name
+        current_parse = parsed
+        current_allowed_tools = allowed
+        current_evidence_inputs = evidence_inputs
+        current_answer_inputs = answer_inputs
+        current_calls = calls
+
+        @tool
+        async def get_stone_status_by_name(name: str) -> list[dict[str, Any]]:
+            """Read Sir Pebble's authoritative type and status."""
+            current_calls.append("identity")
+            assert name == "Sir Pebble"
+            return [
+                {
+                    "stone_id": card["id"],
+                    "name": card["name"],
+                    "stone_type": card["stone_type"],
+                    "adoption_status": "AVAILABLE",
+                }
+            ]
+
+        @tool
+        async def get_stone_details(stone_id: str) -> dict[str, Any]:
+            """Read the card only for the combined named overview."""
+            assert current_scenario == "overview_partial" and stone_id == card["id"]
+            return card
+
+        @tool
+        async def get_case_timeline(case_external_id: str) -> list[dict[str, str]]:
+            """Read an empty timeline only for the combined named overview."""
+            assert current_scenario == "overview_partial"
+            return []
+
+        @tool
+        async def search_knowledge_lexical(
+            filters: dict[str, Any], limit: int
+        ) -> list[dict[str, Any]]:
+            """Read authored encyclopedia evidence for the mixed request."""
+            assert current_scenario in {"mixed", "overview_partial"} and limit == 1
+            path = "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md"
+            chapters = build_encyclopedia_documents((ROOT / path).read_text(), path)
+            return [
+                document.model_dump(mode="json")
+                for document in [*chapters, *guide]
+                if filters["stone_type"] in document.stone_types
+                and document.model_dump()["document_kind"] == filters["document_kind"]
+            ][:limit]
+
+        @tool
+        async def get_compatibility_pair(
+            first_type: str, second_type: str
+        ) -> dict[str, Any] | None:
+            """Read the authored rule for one exact type pair."""
+            current_calls.append("exact-pair")
+            if current_scenario == "missing":
+                return None
+            pair = pairs[build_pair_key(StoneType(first_type), StoneType(second_type))]
+            return pair.model_dump(mode="json")
+
+        @tool
+        async def list_compatibility_pairs(stone_type: str, verdict: str) -> list[dict[str, Any]]:
+            """Read authored partner lists only for the combined named overview."""
+            assert current_scenario == "overview_partial"
+            return [
+                pair.model_dump(mode="json")
+                for pair in pairs.values()
+                if stone_type in pair.stone_types and pair.verdict == verdict
+            ]
+
+        @tool
+        async def search_stones_hybrid(
+            lexical_query: str, semantic_query: str, filters: dict[str, Any]
+        ) -> dict[str, Any]:
+            """Return no candidate cards for the mixed-route regression."""
+            current_calls.append("candidate-search")
+            return {"candidates": [], "dropped": []}
+
+        search_stones_hybrid.metadata = {"retrieval_calls": 2}
+
+        class PairFixtureModel:
+            def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
+                def respond(messages: Any) -> dict[str, Any]:
+                    if schema is ParseQuestion:
+                        output: Any = current_parse
+                    elif schema is ToolPlan:
+                        output = ToolPlan(
+                            tools=current_allowed_tools, reason="Read the exact pair rule"
+                        )
+                    elif schema is SelectCandidates:
+                        output = SelectCandidates(stone_ids=[])
+                    elif schema is ReferenceEvidence:
+                        data = json.loads(messages[-1].content)
+                        current_evidence_inputs.append(data)
+                        selected = [
+                            source
+                            for source in data["sources"]
+                            if current_scenario in {"mixed", "overview_partial"}
+                            and source["scope"] == "encyclopedia"
+                            or current_scenario not in {"mixed", "overview_partial", "no_evidence"}
+                        ]
+                        output = ReferenceEvidence.model_validate(
+                            {
+                                "quotes": [
+                                    {
+                                        "source_id": source["source_id"],
+                                        "quote": (
+                                            "Verdict: CONDITIONAL"
+                                            if current_scenario == "verdict_only"
+                                            else source["text"]
+                                        ),
+                                    }
+                                    for source in selected
+                                ]
+                            }
+                        )
+                    elif schema is ReferenceAnswer:
+                        data = json.loads(messages[-1].content)
+                        current_answer_inputs.append(data)
+                        output = ReferenceAnswer(
+                            sections=[
+                                ReferenceSection(
+                                    scope=quote["scope"],
+                                    explanation=quote["quote"],
+                                    source_ids=[quote["source_id"]],
+                                )
+                                for quote in data["quotes"]
+                            ]
+                        )
+                    else:
+                        raise AssertionError(schema)
+                    return {
+                        "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                        "parsed": output,
+                    }
+
+                return RunnableLambda(respond)
+
+        model: Any = PairFixtureModel()
+        result: Any = await workflow.run_workflow(
+            question,
+            grounding_catalog=AsyncMock(),
+            selection_model=model,
+            selection_uses_json_schema=True,
+            parsing_model=model,
+            planning_model=model,
+            evaluation_model=model,
+            evaluation_uses_json_schema=True,
+            answer_model=model,
+            retrieval_tools=[search_stones_hybrid] if scenario_name == "mixed" else [],
+            details_tool=get_stone_details,
+            status_tool=get_stone_status_by_name,
+            timeline_tool=get_case_timeline,
+            compatibility_tool=get_compatibility_pair,
+            encyclopedia_tool=search_knowledge_lexical,
+            reference_tools=ReferenceTools(
+                stone_status=get_stone_status_by_name,
+                stone_details=get_stone_details,
+                timeline=get_case_timeline,
+                encyclopedia=search_knowledge_lexical,
+                exact_pair=get_compatibility_pair,
+                pair_list=list_compatibility_pairs,
+            ),
+        )
+
+        if scenario_name == "missing":
+            assert "GRANITE + GNEISS · `UNKNOWN`" in result["answer"]
+            assert not result["sources"] and not evidence_inputs
+            return
+
+        pair = pairs[scenario["pair_key"]]
+        assert pair.source_key in result["sources"]
+        assert any(
+            source["source_id"] == pair.source_key and source["text"] == pair.text
+            for source in evidence_inputs[0]["sources"]
+        )
+        assert pair.verdict.value in result["answer"]
+        assert "GRANITE + " in result["answer"]
+        if scenario_name == "mixed":
+            assert "candidate-search" in calls and "exact-pair" in calls
+            assert answer_inputs[0]["quotes"]
+            assert all(quote["scope"] == "encyclopedia" for quote in answer_inputs[0]["quotes"])
+            assert "Original pair rule:" in result["answer"]
+            assert pair.text in result["answer"]
+        elif scenario_name == "verdict_only":
+            assert answer_inputs[0]["quotes"][0]["quote"] == "Verdict: CONDITIONAL"
+            assert "Original pair rule:" in result["answer"]
+        elif scenario_name == "overview_partial":
+            assert all(q["scope"] == "encyclopedia" for q in answer_inputs[0]["quotes"])
+            assert "No validated summary for this scope" in result["answer"]
+        elif scenario_name == "no_evidence":
+            assert pair.text in result["answer"]
+            assert result["answer"].count(pair.text) == 1
+        else:
+            assert any(
+                quote["source_id"] == pair.source_key and quote["quote"] == pair.text
+                for quote in answer_inputs[0]["quotes"]
+            )
+        if scenario["pair_key"] == "GRANITE+GRANITE":
+            assert "Rotate small decisions" in result["answer"]
+            assert "friendly decision deadline" in result["answer"]
+            assert result["answer"].count(pair.text) == 1
+        if scenario_name == "named":
+            assert calls[:2] == ["identity", "exact-pair"]
+
+    for scenario_name, scenario in scenarios.items():
+        await run_scenario(scenario_name, scenario)
 
 
 def test_reference_evidence_rejects_invented_quotes_and_cross_scope_citations() -> None:

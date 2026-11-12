@@ -135,6 +135,8 @@ The [full-flow comparison](../tests/fixtures/agent-eval/quiet-home-with-granite/
 
 ### Mixed questions
 
+Exact compatibility-pair lookups pass the complete authored rule into compatibility-scoped evidence. The verdict stays deterministic. If a generated section or selected quote omits part of the rule, the answer includes the complete original rule once, with its source ID. This preserves explanations and household-agreement guidance even in mixed care/pair questions. A guide requirement is not evidence that the user has already agreed to it; reference answers do not approve adoption.
+
 Mixed recommendation/reference questions run both parts. Parsing separates recommendation_target from named_stone: asking about Madame Obsidian does not restrict a separate recommendation to her. Requested compatibility also declares a candidate, named_stone or types target; shape and original fragment references are checked before lookup. The graph executes reference goals first, retains their result, then searches/evaluates candidates and combines answers, sources and current PostgreSQL statuses. Missing care summaries fall back to each requested authored care source; unsupported care remains explicit. Empty candidate results or configured stops preserve completed reference work. This routing is verified with fixture models; live parser/answer quality remains unmeasured.
 
 ### Grounding catalog
