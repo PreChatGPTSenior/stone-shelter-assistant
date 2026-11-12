@@ -133,6 +133,10 @@ G-Eval uses `openai/gpt-6.1-terra` with medium reasoning, a 4096-token allowance
 
 The [full-flow comparison](../tests/fixtures/agent-eval/quiet-home-with-granite/runs/2026-11-11-questions-v4-deepeval.json) retains upstream failures and the settings used for subsequent attempts. Its completed requests selected an unmarked conditional pair. The separate [granite–granite case](../tests/fixtures/agent-eval/quiet-home-granite-pair/README.md) exercises both authored conditions through the graph.
 
+### Mixed questions
+
+Mixed recommendation/reference questions run both parts. Parsing separates recommendation_target from named_stone: asking about Madame Obsidian does not restrict a separate recommendation to her. Requested compatibility also declares a candidate, named_stone or types target; shape and original fragment references are checked before lookup. The graph executes reference goals first, retains their result, then searches/evaluates candidates and combines answers, sources and current PostgreSQL statuses. Missing care summaries fall back to each requested authored care source; unsupported care remains explicit. Empty candidate results or configured stops preserve completed reference work. This routing is verified with fixture models; live parser/answer quality remains unmeasured.
+
 ### Grounding catalog
 
 The application reads the Typesense grounding_catalog collection, not the seed file, during semantic verification. Default GROUNDING_LANGUAGE=en and GROUNDING_CATALOG_VERSION=en-v1 select the current English pack.

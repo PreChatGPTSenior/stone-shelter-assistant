@@ -2,6 +2,7 @@
 
 import re
 from collections.abc import Mapping
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 
@@ -40,6 +41,10 @@ class HouseholdFactReference(FragmentReference):
 class CompatibilityReference(FragmentReference):
     household_type: StoneType
     first_type: StoneType | None = None
+
+
+class RequestedCompatibilityReference(CompatibilityReference):
+    target: Literal["candidate", "named_stone", "types"]
 
 
 class NamedStoneReference(FragmentReference):
@@ -113,11 +118,12 @@ class ParseQuestion(BaseModel):
 
     recommendation_limit: int = Field(ge=0)
     requested_availability: list[FragmentReference] = Field(default_factory=list)
-    requested_compatibility: list[CompatibilityReference] = Field(default_factory=list)
+    requested_compatibility: list[RequestedCompatibilityReference] = Field(default_factory=list)
     household_facts: list[HouseholdFactReference] = Field(default_factory=list)
     requirements: CriteriaReferences = Field(default_factory=CriteriaReferences)
     preferences: CriteriaReferences = Field(default_factory=CriteriaReferences)
     named_stone: NamedStoneReference | None = None
+    recommendation_target: NamedStoneReference | None = None
     requested_care: list[CareReference] = Field(default_factory=list)
     unsupported_care: list[UnsupportedCareReference] = Field(default_factory=list)
     requested_stone_info: StoneInfoReference | None = None
@@ -194,9 +200,34 @@ class ParseQuestion(BaseModel):
                 or name.casefold() not in fragments[self.named_stone.fragment_id].casefold()
             ):
                 raise ValueError("Stone name must occur in its question fragment")
-        for item in [*self.requested_care, *self.requested_pair_lists, *self.unsupported_care]:
+        recommendation_name = None
+        if self.recommendation_target is not None:
+            if self.recommendation_target.fragment_id not in fragments:
+                raise KeyError(self.recommendation_target.fragment_id)
+            recommendation_name = self.recommendation_target.name.strip()
+            if (
+                not recommendation_name
+                or recommendation_name.casefold()
+                not in fragments[self.recommendation_target.fragment_id].casefold()
+            ):
+                raise ValueError("Recommendation name must occur in its question fragment")
+        for item in [
+            *self.requested_compatibility,
+            *self.requested_care,
+            *self.requested_pair_lists,
+            *self.unsupported_care,
+        ]:
             if item.fragment_id not in fragments:
                 raise KeyError(item.fragment_id)
+        for item in self.requested_compatibility:
+            if item.target == "candidate":
+                if item.first_type is not None or not self.recommendation_limit:
+                    raise ValueError("Candidate compatibility needs an active recommendation")
+            elif item.target == "named_stone":
+                if item.first_type is not None or self.named_stone is None:
+                    raise ValueError("Named-stone compatibility needs a named individual")
+            elif item.first_type is None:
+                raise ValueError("Type compatibility needs both explicit types")
         if self.requested_stone_info is not None:
             if self.requested_stone_info.fragment_id not in fragments:
                 raise KeyError(self.requested_stone_info.fragment_id)
@@ -209,13 +240,16 @@ class ParseQuestion(BaseModel):
                 raise ValueError("Known materials must use requested_care")
         return ReferenceRequest(
             stone_name=name,
+            recommendation_name=recommendation_name,
             stone_info=self.requested_stone_info.topic if self.requested_stone_info else None,
             unsupported_care=list(dict.fromkeys(item.material for item in self.unsupported_care)),
             care_types=list(dict.fromkeys(item.stone_type for item in self.requested_care)),
             pairs=[
                 RequestedPair(first_type=first, second_type=second)
                 for first, second in dict.fromkeys(
-                    (item.first_type, item.household_type) for item in self.requested_compatibility
+                    (item.first_type, item.household_type)
+                    for item in self.requested_compatibility
+                    if item.target in ("named_stone", "types")
                 )
             ],
             pair_lists=[
@@ -270,6 +304,7 @@ class ParseQuestion(BaseModel):
                     household_type=item.household_type,
                 )
                 for item in self.requested_compatibility
+                if item.target == "candidate"
             ],
             household_facts=[
                 HouseholdFact(

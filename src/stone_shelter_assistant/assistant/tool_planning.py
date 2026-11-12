@@ -33,6 +33,7 @@ class RequestedPairList(BaseModel):
 
 class ReferenceRequest(BaseModel):
     stone_name: str | None
+    recommendation_name: str | None = None
     care_types: list[StoneType]
     pairs: list[RequestedPair]
     pair_lists: list[RequestedPairList]
@@ -45,32 +46,37 @@ class ToolPlan(BaseModel):
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    tools: list[PlannedTool] = Field(max_length=6)
+    tools: list[PlannedTool] = Field(max_length=7)
     reason: str = Field(min_length=1)
 
 
 def permitted_tools(criteria: SearchCriteria, request: ReferenceRequest) -> list[PlannedTool]:
     """Derive the scope the plan must cover from the parsed request."""
-    if criteria.recommendation_limit:
-        return ["search_candidates"]
-
-    tools: list[PlannedTool] = []
+    tools: list[PlannedTool] = ["search_candidates"] if criteria.recommendation_limit else []
     needs_stone = (
         request.stone_info is not None
         or bool(criteria.requested_availability)
-        or any(pair.first_type is None for pair in request.pairs)
+        or (bool(request.stone_name) and any(pair.first_type is None for pair in request.pairs))
+        or (
+            not criteria.recommendation_limit
+            and any(pair.first_type is None for pair in request.pairs)
+        )
     )
     if needs_stone:
         if request.stone_name is None:
-            return []
-        tools.append("get_stone_status_by_name")
+            if request.stone_info is not None:
+                return []
+        else:
+            tools.append("get_stone_status_by_name")
     if request.stone_info is not None:
         tools.append("get_stone_details")
     if request.stone_info in ("overview", "history"):
         tools.append("get_case_timeline")
     if request.care_types or request.unsupported_care or request.stone_info in ("overview", "care"):
         tools.append("search_knowledge_lexical")
-    if request.pairs:
+    if request.pairs and any(
+        pair.first_type is not None or request.stone_name is not None for pair in request.pairs
+    ):
         tools.append("get_compatibility_pair")
     if request.pair_lists or request.stone_info == "overview":
         tools.append("list_compatibility_pairs")
@@ -97,7 +103,8 @@ def plan_error(plan: ToolPlan, allowed: list[PlannedTool], request: ReferenceReq
             ):
                 return "stone_card_must_be_read_before_type_knowledge"
     if (
-        any(pair.first_type is None for pair in request.pairs)
+        request.stone_name is not None
+        and any(pair.first_type is None for pair in request.pairs)
         and "get_compatibility_pair" in plan.tools
     ):
         if plan.tools.index("get_stone_status_by_name") > plan.tools.index(

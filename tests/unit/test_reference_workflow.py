@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, cast
 from unittest.mock import AsyncMock
 
 import pytest
@@ -11,6 +11,7 @@ from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
 from langchain_core.tools import tool
 from langgraph.graph import END, START, StateGraph
+from langgraph.runtime import Runtime
 
 from stone_shelter_assistant.assistant import workflow
 from stone_shelter_assistant.assistant.candidate_evaluation import CandidateEvidence
@@ -24,7 +25,7 @@ from stone_shelter_assistant.assistant.reference_evidence import (
     reference_citations_valid,
 )
 from stone_shelter_assistant.assistant.reference_lookup import ReferenceTools
-from stone_shelter_assistant.assistant.selection import ParseQuestion
+from stone_shelter_assistant.assistant.selection import ParseQuestion, SelectCandidates
 from stone_shelter_assistant.assistant.tool_planning import ToolPlan, permitted_tools, plan_error
 from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument
 from stone_shelter_assistant.search.knowledge.encyclopedia_document_builder import (
@@ -50,6 +51,7 @@ ROOT = Path(__file__).parents[2]
         "invalid_citation",
         "missing_scope",
         "history",
+        "mixed",
     ],
 )
 async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(case: str) -> None:
@@ -57,7 +59,7 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         (ROOT / "tests/fixtures/assistant/quiet-home-assessment.json").read_text()
     )
     card: dict[str, Any] = next(c for c in snapshot["cards"] if c["name"] == "Madame Obsidian")
-    if case in ("overview", "invalid_citation", "missing_scope", "history"):
+    if case in ("overview", "invalid_citation", "missing_scope", "history", "mixed"):
         fixture = json.loads(
             (ROOT / "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json").read_text()
         )
@@ -88,8 +90,12 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         "unsupported": "How should I care for onyx?",
         "missing": "Tell me about Missing Stone.",
         "history": "What is in Svetlana's history?",
+        "mixed": "Tell me about Svetlana, find a quiet companion, and explain how to care for obsidian.",
     }[case]
-    fields: dict[str, Any] = {"recommendation_limit": 0}
+    fields: dict[str, Any] = {"recommendation_limit": 1 if case == "mixed" else 0}
+    if case == "mixed":
+        fields["retrieval"] = {"lexical_query": "quiet", "semantic_query": "quiet companion"}
+        fields["requested_care"] = [{"fragment_id": 1, "stone_type": "OBSIDIAN"}]
     if case == "care":
         fields["requested_care"] = [{"fragment_id": 1, "stone_type": "OBSIDIAN"}]
     elif case == "unsupported":
@@ -156,8 +162,9 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
     @tool
     async def search_knowledge_lexical(filters: dict[str, Any], limit: int) -> list[dict[str, Any]]:
         """Read actual authored reference chapters and portraits."""
+        assert limit == 1
         calls.append(filters["document_kind"])
-        assert filters["stone_type"] == card["stone_type"] or case == "care"
+        assert filters["stone_type"] == card["stone_type"] or case in {"care", "mixed"}
         return [
             d.model_dump(mode="json")
             for d in [*chapters, *guide]
@@ -177,6 +184,16 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
             and d.verdict == verdict
         ]
 
+    @tool
+    async def search_stones_hybrid(
+        lexical_query: str, semantic_query: str, filters: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Return no available candidate hits for this mixed-route test."""
+        calls.append("candidate-search")
+        return {"candidates": [], "dropped": []}
+
+    search_stones_hybrid.metadata = {"retrieval_calls": 2}
+
     class FixtureModel:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
             def respond(messages: Any) -> dict[str, Any]:
@@ -185,6 +202,8 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                     output: Any = parsed
                 elif schema is ToolPlan:
                     output = ToolPlan(tools=allowed, reason="Cover the parsed reference request")
+                elif schema is SelectCandidates:
+                    output = SelectCandidates(stone_ids=[])
                 elif schema is ReferenceEvidence:
                     data = json.loads(messages[-1].content)
                     output = ReferenceEvidence.model_validate(
@@ -193,6 +212,7 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                                 {"source_id": s["source_id"], "quote": s["text"]}
                                 for s in data["sources"]
                                 if case != "missing_scope" or s["scope"] != "history"
+                                if case != "mixed" or s["scope"] != "encyclopedia"
                             ]
                         }
                     )
@@ -235,7 +255,7 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         evaluation_model=model,
         evaluation_uses_json_schema=True,
         answer_model=model,
-        retrieval_tools=[],
+        retrieval_tools=[search_stones_hybrid] if case == "mixed" else [],
         details_tool=get_stone_details,
         status_tool=get_stone_status_by_name,
         timeline_tool=get_case_timeline,
@@ -251,6 +271,15 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         ),
     )
     assert result["recommended_stone_ids"] == []
+    if case == "mixed":
+        assert calls[0:2] == ["identity", "card"]
+        assert "candidate-search" in calls
+        assert result["reference_answer_status"] == "generated"
+        assert "singing loudly" in result["answer"]
+        assert "General type information" in result["answer"]
+        assert "abrasive particles" in result["answer"]
+        assert result["question"] == question
+        assert "encyclopedia:en:obsidian" in result["sources"]
     if case == "unsupported":
         assert "No authored encyclopedia care information is available for onyx" in result["answer"]
         assert (
@@ -333,12 +362,227 @@ def test_named_overview_requires_identity_and_card_before_type_knowledge() -> No
     )
     mixed_criteria = criteria.model_copy(update={"recommendation_limit": 1})
     mixed_allowed = permitted_tools(mixed_criteria, request)
+    assert "search_candidates" in mixed_allowed
+    assert "get_stone_details" in mixed_allowed
     assert (
         plan_error(
-            ToolPlan(tools=mixed_allowed, reason="Incomplete mixed request"), mixed_allowed, request
+            ToolPlan(tools=mixed_allowed, reason="Cover both requested branches"),
+            mixed_allowed,
+            request,
         )
-        == "named_information_not_covered"
+        is None
     )
+
+
+@pytest.mark.asyncio
+async def test_reference_and_recommendation_targets_are_explicitly_independent() -> None:
+    question = "Tell me about Svetlana and find a quiet companion."
+    parsed = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "named_stone": {"fragment_id": 1, "name": "Svetlana"},
+            "requested_stone_info": {"fragment_id": 1, "topic": "overview"},
+            "retrieval": {"lexical_query": "quiet", "semantic_query": "quiet companion"},
+        }
+    )
+    request = parsed.resolve_references({1: question})
+    assert request.stone_name == "Svetlana"
+    assert request.recommendation_name is None
+
+    same_target = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "named_stone": {"fragment_id": 1, "name": "Svetlana"},
+            "recommendation_target": {"fragment_id": 1, "name": "Svetlana"},
+            "requested_stone_info": {"fragment_id": 1, "topic": "overview"},
+        }
+    )
+    same_request = same_target.resolve_references({1: question})
+    assert same_request.stone_name == same_request.recommendation_name == "Svetlana"
+    allowed = permitted_tools(parsed.resolve({1: question})[0], request)
+    assert len(allowed) == 6
+    mixed_state: Any = {
+        "question": question,
+        "tools_used": 0,
+        "criteria": parsed.resolve({1: question})[0],
+        "reference_request": request,
+        "permitted_tools": allowed,
+        "tool_plan": ToolPlan(tools=allowed, reason="Read both goals"),
+        "plan_status": "accepted",
+        "question_fragments": {1: question},
+        "result": {
+            "answer": "Named individual result",
+            "sources": {"individual:1": {}},
+            "verified_statuses": {},
+        },
+    }
+    assert workflow.after_planning(mixed_state) == "execute_reference_plan"
+    assert workflow.after_reference_answer(mixed_state) == "mixed"
+    saved: Any = await workflow.continue_mixed(
+        mixed_state, runtime=Runtime(context=cast(Any, None))
+    )
+    assert saved["reference_component"]["answer"] == "Named individual result"
+
+    parsed_without_name = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "requested_care": [{"fragment_id": 1, "stone_type": "OBSIDIAN"}],
+            "requested_compatibility": [
+                {
+                    "fragment_id": 1,
+                    "household_type": "GRANITE",
+                    "first_type": None,
+                    "target": "candidate",
+                }
+            ],
+        }
+    )
+    no_name_criteria, _ = parsed_without_name.resolve({1: "Find a companion; care for obsidian."})
+    no_name_request = parsed_without_name.resolve_references(
+        {1: "Find a companion; care for obsidian."}
+    )
+    no_name_plan = permitted_tools(no_name_criteria, no_name_request)
+    assert no_name_plan == ["search_candidates", "search_knowledge_lexical"]
+
+
+def test_candidate_compatibility_does_not_become_named_reference_pair() -> None:
+    fragments = {
+        1: "What does Svetlana like?",
+        2: "Recommend one quiet companion compatible with granite.",
+    }
+    parsed = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "named_stone": {"fragment_id": 1, "name": "Svetlana"},
+            "requested_stone_info": {"fragment_id": 1, "topic": "preferences"},
+            "requested_compatibility": [
+                {
+                    "fragment_id": 2,
+                    "first_type": None,
+                    "household_type": "GRANITE",
+                    "target": "candidate",
+                }
+            ],
+        }
+    )
+    criteria, _ = parsed.resolve(fragments)
+    request = parsed.resolve_references(fragments)
+    assert not request.pairs
+    assert criteria.requested_compatibility[0].household_type.value == "GRANITE"
+    parsed_reference_pair = ParseQuestion.model_validate(
+        {
+            **parsed.model_dump(),
+            "requested_compatibility": [
+                {
+                    "fragment_id": 1,
+                    "first_type": None,
+                    "household_type": "GRANITE",
+                    "target": "named_stone",
+                }
+            ],
+        }
+    )
+    assert (
+        parsed_reference_pair.resolve_references(fragments).pairs[0].second_type.value == "GRANITE"
+    )
+    invalid_cases: list[dict[str, Any]] = [
+        {
+            "recommendation_limit": 0,
+            "named_stone": {"fragment_id": 1, "name": "Svetlana"},
+            "requested_compatibility": [
+                {
+                    "fragment_id": 1,
+                    "first_type": "BASALT",
+                    "household_type": "GRANITE",
+                    "target": "named_stone",
+                }
+            ],
+        },
+        {
+            "recommendation_limit": 0,
+            "requested_compatibility": [
+                {
+                    "fragment_id": 1,
+                    "first_type": None,
+                    "household_type": "GRANITE",
+                    "target": "types",
+                }
+            ],
+        },
+        {
+            "recommendation_limit": 0,
+            "requested_compatibility": [
+                {
+                    "fragment_id": 999,
+                    "first_type": "BASALT",
+                    "household_type": "GRANITE",
+                    "target": "types",
+                }
+            ],
+        },
+        {
+            "recommendation_limit": 0,
+            "requested_compatibility": [
+                {
+                    "fragment_id": 1,
+                    "first_type": None,
+                    "household_type": "GRANITE",
+                    "target": "named_stone",
+                }
+            ],
+        },
+    ]
+    for fields in invalid_cases:
+        with pytest.raises((KeyError, ValueError)):
+            ParseQuestion.model_validate(fields).resolve_references(fragments)
+
+
+def test_mixed_result_keeps_both_answers_sources_and_statuses() -> None:
+    candidate: dict[str, object] = {
+        "answer": "Recommended companion.",
+        "sources": {"stone-card:one": {"data": {"id": "one"}}},
+        "verified_statuses": {"one": "AVAILABLE"},
+        "recommended_stone_ids": ["one"],
+        "candidate_decisions": [{"stone_id": "one", "outcome": "recommended"}],
+    }
+    reference: dict[str, object] = {
+        "answer": "Svetlana profile. Sources: stone-card:one",
+        "sources": {"stone-card:one": {"data": {"id": "different"}}, "encyclopedia:marble": {}},
+        "verified_statuses": {"svetlana": "AVAILABLE"},
+        "reference_answer_status": "generated",
+    }
+    result: Any = workflow.combine_mixed_result(candidate, reference, "generated")
+    assert "Svetlana profile" in result["answer"]
+    assert "Recommended companion" in result["answer"]
+    assert "reference:stone-card:one" in result["answer"]
+    assert "reference:stone-card:one" in result["sources"]
+    assert "encyclopedia:marble" in result["sources"]
+    assert result["verified_statuses"] == {"svetlana": "AVAILABLE", "one": "AVAILABLE"}
+    assert result["recommended_stone_ids"] == ["one"]
+
+
+def test_budget_stop_keeps_sources_already_read_for_reference_branch() -> None:
+    from stone_shelter_assistant.assistant.reference_lookup import ReferenceResult
+
+    reference = ReferenceResult(
+        lines=["No authored encyclopedia care information is available for onyx."],
+        sources={"stone-card:svetlana": {"data": {"name": "Svetlana"}}},
+        context_sources={
+            "stone-card:svetlana": ReferenceSource(
+                source_id="stone-card:svetlana", scope="individual", text="Enjoys singing."
+            )
+        },
+    )
+    stop_state: Any = {
+        "question": "Tell me about Svetlana and recommend a companion.",
+        "stop_reason": "budget_limit",
+        "reference_result": reference,
+    }
+    result: Any = workflow.stop(stop_state)["result"]
+    assert "No authored encyclopedia care information" in result["answer"]
+    assert "Enjoys singing" in result["answer"]
+    assert "stone-card:svetlana" in result["sources"]
+    assert result["candidate_branch_status"] == "budget_limit"
 
 
 @pytest.mark.asyncio

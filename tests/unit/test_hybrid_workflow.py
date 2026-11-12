@@ -27,6 +27,12 @@ from stone_shelter_assistant.assistant.question_grounding import (
     GroundingDecision,
     GroundingResponse,
 )
+from stone_shelter_assistant.assistant.reference_evidence import (
+    ReferenceAnswer,
+    ReferenceEvidence,
+    ReferenceQuote,
+    ReferenceSection,
+)
 from stone_shelter_assistant.assistant.reference_lookup import ReferenceTools
 from stone_shelter_assistant.assistant.selection import (
     ParseQuestion,
@@ -56,6 +62,9 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
     )
     details: dict[str, Any] = next(
         item for item in snapshot["cards"] if item["name"] == "Sir Pebble"
+    )
+    reference_details: dict[str, Any] = next(
+        item for item in snapshot["cards"] if item["name"] == "Madame Obsidian"
     )
     sid = details["id"]
     a = card(1).model_copy(
@@ -94,6 +103,25 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
         """Read the authoritative fixture card."""
         assert stone_id == sid
         return details
+
+    @tool
+    async def get_reference_status_by_name(name: str) -> list[dict[str, str]]:
+        """Read the named reference individual's current status."""
+        assert name == "Madame Obsidian"
+        return [
+            {
+                "stone_id": reference_details["id"],
+                "name": name,
+                "stone_type": "OBSIDIAN",
+                "adoption_status": "AVAILABLE",
+            }
+        ]
+
+    @tool
+    async def get_reference_details(stone_id: str) -> dict[str, Any]:
+        """Read the named reference individual's profile."""
+        assert stone_id == reference_details["id"]
+        return reference_details
 
     @tool
     async def get_current_stone_statuses(stone_ids: list[str]) -> list[dict[str, str]]:
@@ -137,8 +165,19 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                 "semantic_query": "quiet home",
                 "candidate_type": None,
             },
+            "named_stone": {"fragment_id": 1, "name": "Madame Obsidian"},
+            "requested_stone_info": {"fragment_id": 1, "topic": "preferences"},
         }
     )
+    from stone_shelter_assistant.assistant.tool_planning import permitted_tools
+
+    parsed_criteria, _ = parsed.resolve(
+        {1: "Tell me what Madame Obsidian likes and find one quiet stone."}
+    )
+    parsed_reference = parsed.resolve_references(
+        {1: "Tell me what Madame Obsidian likes and find one quiet stone."}
+    )
+    allowed_plan = permitted_tools(parsed_criteria, parsed_reference)
     outputs = {
         GroundingResponse: GroundingResponse(
             decisions=[
@@ -146,13 +185,15 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                     proposal_id="agreement:0",
                     finding="unknown",
                     fragment_id=1,
-                    quote="Find one stone for a quiet home.",
+                    quote="Tell me what Madame Obsidian likes and find one quiet stone.",
                     reason="No agreement was stated.",
                 )
             ]
         ),
         ParseQuestion: parsed,
-        ToolPlan: ToolPlan(tools=["search_candidates"], reason="General recommendation"),
+        ToolPlan: ToolPlan(
+            tools=allowed_plan, reason="Read the named profile and search candidates"
+        ),
         SelectCandidates: SelectCandidates(stone_ids=[sid]),
         CandidateEvidence: CandidateEvidence.model_validate(
             {
@@ -181,6 +222,40 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
 
     class FixtureModel:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
+            if schema is ReferenceEvidence:
+
+                async def evidence(messages: Any) -> dict[str, Any]:
+                    sources = json.loads(messages[-1].content)["sources"]
+                    return {
+                        "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                        "parsed": ReferenceEvidence(
+                            quotes=[
+                                ReferenceQuote(source_id=s["source_id"], quote=s["text"])
+                                for s in sources
+                            ]
+                        ),
+                    }
+
+                return RunnableLambda(evidence)
+            if schema is ReferenceAnswer:
+
+                def answer_reference(messages: Any) -> dict[str, Any]:
+                    quotes = json.loads(messages[-1].content)["quotes"]
+                    scope = quotes[0]["scope"]
+                    return {
+                        "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                        "parsed": ReferenceAnswer(
+                            sections=[
+                                ReferenceSection(
+                                    scope=scope,
+                                    explanation="Madame Obsidian enjoys a peaceful home.",
+                                    source_ids=[q["source_id"] for q in quotes],
+                                )
+                            ]
+                        ),
+                    }
+
+                return RunnableLambda(answer_reference)
             return RunnableLambda(
                 lambda _: {
                     "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
@@ -205,7 +280,7 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                 trace_context={"trace_id": root.trace_id, "parent_span_id": root.id},
             )
             result = await workflow.run_workflow(
-                "Find one stone for a quiet home.",
+                "Tell me what Madame Obsidian likes and find one quiet stone.",
                 grounding_catalog=AsyncMock(
                     load=AsyncMock(
                         return_value=build_grounding_snapshot(
@@ -237,8 +312,8 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
                 compatibility_tool=get_compatibility_pair,
                 encyclopedia_tool=search_knowledge_lexical,
                 reference_tools=ReferenceTools(
-                    stone_status=get_current_stone_statuses,
-                    stone_details=get_stone_details,
+                    stone_status=get_reference_status_by_name,
+                    stone_details=get_reference_details,
                     timeline=get_case_timeline,
                     encyclopedia=search_knowledge_lexical,
                     exact_pair=get_compatibility_pair,
@@ -259,6 +334,19 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
         assert decisions_output[0]["outcome"] == (
             "recommended" if current_status == "AVAILABLE" else "excluded"
         )
+        assert result["reference_answer_status"] == "generated"
+        answer_text = result["answer"]
+        assert isinstance(answer_text, str)
+        assert "Madame Obsidian enjoys a peaceful home." in answer_text
+        if current_status == "AVAILABLE":
+            assert "Enjoys quiet evenings." in answer_text
+        verified_statuses = result["verified_statuses"]
+        assert isinstance(verified_statuses, dict)
+        assert verified_statuses[reference_details["id"]] == "AVAILABLE"
+        assert verified_statuses[sid] == current_status
+        sources = result["sources"]
+        assert isinstance(sources, dict)
+        assert f"stone-card:{reference_details['id']}" in sources
         assert len({span.context.trace_id for span in spans}) == 1
         for name in ("typesense_search", "qdrant_search", "rrf_fusion"):
             assert name in by_name
@@ -322,7 +410,11 @@ async def test_retrieval_routes_and_two_call_allowance(
         "messages": [],
         "tools_used": used,
         "reference_request": ReferenceRequest(
-            stone_name="Sir Pebble" if named else None, care_types=[], pairs=[], pair_lists=[]
+            stone_name="Sir Pebble" if named else None,
+            recommendation_name="Sir Pebble" if named else None,
+            care_types=[],
+            pairs=[],
+            pair_lists=[],
         ),
         "retrieval": RetrievalRequest.model_validate(
             {"lexical_query": "quiet", "semantic_query": "quiet home", "filters": {}}

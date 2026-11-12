@@ -110,6 +110,7 @@ class SearchState(MessagesState):
     reference_assessment_status: NotRequired[str]
     reference_quote_diagnostics: NotRequired[list[dict[str, str]]]
     reference_answer_status: NotRequired[str]
+    reference_component: NotRequired[dict[str, object]]
     assessment_status: NotRequired[AssessmentStatus]
     assessment_output_method: NotRequired[str | None]
     candidate_evaluations: NotRequired[list[dict[str, object]]]
@@ -174,6 +175,7 @@ def build_graph() -> CompiledStateGraph[SearchState, RunContext, SearchState, Se
     builder.add_node("execute_reference_plan", execute_reference_plan)
     builder.add_node("collect_reference_evidence", with_model_budget(collect_reference_evidence))
     builder.add_node("answer_reference", answer_reference)
+    builder.add_node("continue_mixed", continue_mixed)
     builder.add_node("clarify_request", clarify_request)
     builder.add_node("read_candidate_cards", read_candidate_cards)
     builder.add_node("verify", verify)
@@ -187,7 +189,12 @@ def build_graph() -> CompiledStateGraph[SearchState, RunContext, SearchState, Se
     builder.add_conditional_edges("plan_tools", after_planning)
     builder.add_edge("execute_reference_plan", "collect_reference_evidence")
     builder.add_conditional_edges("collect_reference_evidence", after_reference_evidence)
-    builder.add_edge("answer_reference", END)
+    builder.add_conditional_edges(
+        "answer_reference",
+        after_reference_answer,
+        {"done": END, "mixed": "continue_mixed"},
+    )
+    builder.add_edge("continue_mixed", "search_candidates")
     builder.add_edge("clarify_request", END)
     builder.add_conditional_edges("search_candidates", after_retrieval_request)
     builder.add_edge("tools", "select_candidates")
@@ -301,9 +308,9 @@ async def search_candidates(
     state: SearchState, *, runtime: Runtime[RunContext]
 ) -> dict[str, object]:
     request = state["reference_request"]
-    if request.stone_name:
+    if request.recommendation_name:
         name = "search_stones_lexical"
-        args: dict[str, object] = {"query": request.stone_name}
+        args: dict[str, object] = {"query": request.recommendation_name}
     else:
         name = "search_stones_hybrid"
         args = state["retrieval"].model_dump(mode="json")
@@ -497,7 +504,7 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "supplied fragment IDs and keep the following categories separate. "
                     "'Is Madame Obsidian available?' goes in requested_availability, never in "
                     "character criteria or household facts. 'Is she compatible with granite?' goes "
-                    "in requested_compatibility for GRANITE; it says nothing about a stone living "
+                    "in requested_compatibility for GRANITE with target named_stone; it says nothing about a stone living "
                     "in the home. 'There is already granite at home' is a household fact with "
                     "existing_stone_type GRANITE and no accommodation fact_type or value. "
                     "Extract established household agreements as typed household facts: "
@@ -511,15 +518,24 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "For an agreement, leave existing_stone_type empty. Set applies_to_pair to "
                     "the two named types when the agreement is pair-specific, including repeated "
                     "types. Leave it empty only for a household-wide agreement. "
-                    "'Must live well with granite' is a compatibility "
-                    "requirement. 'Ideally likes company' is a character preference. A quiet home "
+                    "'Must live well with granite' is a candidate compatibility requirement in "
+                    "requirements.compatibility. 'Ideally likes company' is a character preference. "
+                    "A type-to-type compatibility question uses requested_compatibility with target "
+                    "types; a compatibility requirement for a recommended candidate uses target "
+                    "candidate. A quiet home "
                     "may be a household fact and a requested character fit. Do not invent "
                     "requirements, household stone types, or preferences. Use empty lists for "
                     "categories with no evidence. Empty list fields may be omitted; do not use null. "
                     "Copy an explicitly named individual stone into "
-                    "named_stone with its fragment ID and exact name. For a direct pair query "
-                    "between two types, put the first type in first_type and the other in household_type. "
-                    "For a named stone and a type, leave first_type empty. For 'How do I care for "
+                    "named_stone with its fragment ID and exact name. For a recommendation of a named "
+                    "candidate, also set recommendation_target with the exact name and fragment ID. "
+                    "For a request about one named individual AND a different companion, keep the "
+                    "individual only in named_stone and set recommendation_target only if the user "
+                    "explicitly names the recommendation candidate. Never treat an information target "
+                    "as a recommendation filter. For a direct pair query "
+                    "between two types, put the first type in first_type and the other in household_type "
+                    "with target types. For a named stone and a type, leave first_type empty and use "
+                    "target named_stone. For 'How do I care for "
                     "obsidian?' use requested_care with OBSIDIAN. For 'Which types get along well "
                     "with basalt?' use requested_pair_lists with BASALT and HARMONIOUS. "
                     "For 'Tell me about Svetlana', set named_stone and requested_stone_info "
@@ -527,14 +543,16 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "Obsidian like?', use topic preferences. For care of a named individual use "
                     "topic care; the application reads the actual type from PostgreSQL. For "
                     "'What is in Svetlana’s history?' use topic history. "
-                    "These information requests use recommendation_limit 0. For care of a "
+                    "Set recommendation_limit to zero only when no recommendation is requested; "
+                    "named information and care requests may coexist with recommendations. For care of a "
                     "material outside the StoneType enum, use unsupported_care with its exact "
                     "material name and fragment ID. Onyx is an example of an unsupported "
                     "material, not a named individual; never substitute a supported type. "
                     "If the home contains several types, preserve EVERY existing type as a "
                     "separate household fact and every requested compatibility target. "
                     "Use recommendation_limit 0 for factual status, care and compatibility "
-                    f"questions and the requested count (default {RANKING_POLICY.default_recommendation_limit}) "
+                    "questions only when there is no recommendation goal, and the requested count "
+                    f"(default {RANKING_POLICY.default_recommendation_limit}) "
                     "for recommendations. For general recommendations populate retrieval: English "
                     "lexical keywords and an English semantic description. Do not return filters: "
                     "the application supplies indexed language en and availability. Provide "
@@ -644,7 +662,7 @@ async def ground_question(state: SearchState, *, runtime: Runtime[RunContext]) -
         request = parsed.resolve_references(fragments)
     except (KeyError, ValueError):
         return {**result, "criteria_status": "invalid_criteria_fragments"}
-    if criteria.recommendation_limit and not request.stone_name and retrieval is None:
+    if criteria.recommendation_limit and not request.recommendation_name and retrieval is None:
         return {**result, "criteria_status": "missing_retrieval_request"}
     return {
         **result,
@@ -676,10 +694,13 @@ async def plan_tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dic
             SystemMessage(
                 content=(
                     "Choose the read-only tools needed for the parsed goals. Return each chosen "
-                    "tool once, in execution order, and briefly explain why the plan fits. "
-                    "For candidate recommendations (recommendation_limit > 0), plan only "
-                    "search_candidates, even when availability is requested. The graph verifies "
-                    "each candidate's current status in PostgreSQL after the search. "
+                    "tool once and briefly explain why the plan fits. Keep reference lookup "
+                    "dependencies in order. In a mixed request, the graph completes reference "
+                    "lookups before candidate search. "
+                    "For candidate recommendations, include search_candidates. The graph verifies "
+                    "each candidate's current status in PostgreSQL after the search. If the question "
+                    "also asks about a named individual, include every required reference tool too; "
+                    "the graph will execute both branches and combine their results. "
                     "For a direct status lookup by name, use get_stone_status_by_name. "
                     "For stone_info, first get_stone_status_by_name, then get_stone_details. "
                     "For a named history or overview, get_case_timeline must follow the card and "
@@ -875,6 +896,28 @@ async def answer_reference(
                     f"**{SCOPE_TITLES[source.scope]}** · {source.source_id}\n"
                     f"No validated summary for this scope. Original source:\n{source.text}"
                 )
+    care_types = set(state["reference_request"].care_types)
+    if state["reference_request"].stone_info == "care" and reference.card is not None:
+        care_types.add(reference.card.stone_type)
+    if care_types:
+        quoted_sources = {quote.source_id for quote in quotes}
+        for source in reference.context_sources.values():
+            if (
+                source.scope == "encyclopedia"
+                and source.source_id not in quoted_sources
+                and source.source_id in reference.sources
+            ):
+                payload = reference.sources[source.source_id].get("data", {})
+                document = (
+                    EncyclopediaSectionSearchDocument.model_validate(payload)
+                    if isinstance(payload, dict)
+                    else None
+                )
+                if document and any(kind in document.stone_types for kind in care_types):
+                    lines.append(
+                        f"**{SCOPE_TITLES[source.scope]}** · {source.source_id}\n"
+                        f"No validated care summary. Original source:\n{source.text}"
+                    )
     stone = reference.stone
     return {
         "reference_answer_status": answer_status,
@@ -889,6 +932,51 @@ async def answer_reference(
         },
         "model_call": model_details,
     }
+
+
+async def continue_mixed(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[str, object]:
+    """Retain the completed reference branch before candidate search overwrites result."""
+    return {"reference_component": state.get("result", {})}
+
+
+def combine_mixed_result(
+    candidate: dict[str, object], reference: dict[str, object], reference_status: str
+) -> dict[str, object]:
+    """Combine branch answers without rebinding colliding source citations."""
+    sources = candidate.get("sources", {})
+    sources = dict(sources) if isinstance(sources, dict) else {}
+    reference_sources = reference.get("sources", {})
+    reference_answer = reference.get("answer", "")
+    answer_text = reference_answer if isinstance(reference_answer, str) else ""
+    if isinstance(reference_sources, dict):
+        for source_id, source in reference_sources.items():
+            if source_id not in sources:
+                sources[source_id] = source
+            elif sources[source_id] != source:
+                alias = f"reference:{source_id}"
+                sources[alias] = source
+                answer_text = answer_text.replace(str(source_id), alias)
+    candidate["sources"] = sources
+    existing_answer = candidate.get("answer", "")
+    candidate["answer"] = (
+        f"{answer_text}\n\n{existing_answer}"
+        if answer_text and isinstance(existing_answer, str) and existing_answer
+        else answer_text or existing_answer
+    )
+    ref_statuses = reference.get("verified_statuses", {})
+    if isinstance(ref_statuses, dict):
+        candidate["reference_verified_statuses"] = ref_statuses
+        candidate_statuses = candidate.get("verified_statuses", {})
+        if not isinstance(candidate_statuses, dict):
+            candidate_statuses = {}
+        candidate["verified_statuses"] = {**ref_statuses, **candidate_statuses}
+    candidate["reference_answer_status"] = reference_status
+    return candidate
+
+
+def after_reference_answer(state: SearchState) -> Literal["done", "mixed"]:
+    criteria = state.get("criteria")
+    return "mixed" if criteria is not None and criteria.recommendation_limit else "done"
 
 
 def after_reference_evidence(state: SearchState) -> Literal["stop", "answer_reference"]:
@@ -1358,14 +1446,23 @@ async def answer(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[st
                     line += "\n" + "\n".join(f"  > {part}" for part in pair.text.splitlines())
         lines.append(line)
 
+    result: dict[str, object] = {
+        "answer": "\n\n".join(lines) if lines else "No checked candidates.",
+        "sources": sources,
+        "verified_statuses": statuses,
+        "recommended_stone_ids": recommendations,
+        "candidate_decisions": decisions,
+        "question": state["question"],
+        "question_fragments": state.get("question_fragments", {}),
+        "candidate_status": state.get("assessment_status", "unknown"),
+    }
+    reference = state.get("reference_component")
+    if reference is not None:
+        result = combine_mixed_result(
+            result, reference, state.get("reference_answer_status", "unknown")
+        )
     return {
-        "result": {
-            "answer": "\n\n".join(lines) if lines else "No checked candidates.",
-            "sources": sources,
-            "verified_statuses": statuses,
-            "recommended_stone_ids": recommendations,
-            "candidate_decisions": decisions,
-        },
+        "result": result,
         "model_call": model_details,
     }
 
@@ -1373,13 +1470,35 @@ async def answer(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[st
 # Builds the final payload when a budget reservation is refused.
 # Returns the reason from the graph state and an empty recommendation list.
 def stop(state: SearchState) -> dict[str, object]:
-    return {
-        "result": {
-            "answer": "The workflow stopped at a configured limit.",
-            "stop_reason": state["stop_reason"],
-            "recommended_stone_ids": [],
-            "candidate_decisions": [],
+    result: dict[str, object] = {
+        "answer": "The workflow stopped at a configured limit.",
+        "stop_reason": state["stop_reason"],
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+    }
+    if (reference := state.get("reference_component")) is not None:
+        result = combine_mixed_result(
+            result, reference, state.get("reference_answer_status", "unknown")
+        )
+        result["candidate_branch_status"] = state["stop_reason"]
+    elif (reference_result := state.get("reference_result")) is not None:
+        lines = list(reference_result.lines)
+        for source in reference_result.context_sources.values():
+            lines.append(f"**{SCOPE_TITLES[source.scope]}** · {source.source_id}\n{source.text}")
+        reference_payload: dict[str, object] = {
+            "answer": "\n\n".join(lines)
+            or "Reference sources were read, but no answer summary was produced.",
+            "sources": reference_result.sources,
+            "verified_statuses": (
+                {str(reference_result.stone.stone_id): reference_result.stone.adoption_status.value}
+                if reference_result.stone
+                else {}
+            ),
         }
+        result = combine_mixed_result(result, reference_payload, "summary_not_reached")
+        result["candidate_branch_status"] = state["stop_reason"]
+    return {
+        "result": result,
     }
 
 
@@ -1414,7 +1533,7 @@ def after_planning(
         return "stop"
     if state.get("plan_status") != "accepted":
         return "clarify_request"
-    if "search_candidates" in state["tool_plan"].tools:
+    if "search_candidates" in state["tool_plan"].tools and len(state["tool_plan"].tools) == 1:
         return "search_candidates"
     return "execute_reference_plan"
 
