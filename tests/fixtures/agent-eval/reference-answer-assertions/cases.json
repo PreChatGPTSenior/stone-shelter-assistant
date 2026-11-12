@@ -1,0 +1,408 @@
+{
+  "suite_id": "reference-answer-assertions-en-v1",
+  "status": "prepared_not_model_evaluated",
+  "cases": [
+    {
+      "id": "svetlana-observation",
+      "question": "Tell me about Svetlana, her early-morning singing, and the neighbors complaints.",
+      "sources": [
+        {
+          "source_id": "sv-bio",
+          "scope": "individual",
+          "file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+          "pointer": "/stone/biography"
+        },
+        {
+          "source_id": "sv-observations",
+          "scope": "history",
+          "file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+          "pointer": "/shelterCase/events"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "morning",
+          "kind": "requirement",
+          "statement": "Mention staff observation of loud singing every morning at 05:00.",
+          "source_ids": [
+            "sv-observations"
+          ]
+        },
+        {
+          "id": "complaints",
+          "kind": "requirement",
+          "statement": "Mention two recorded neighbor complaints about the early-morning noise.",
+          "source_ids": [
+            "sv-observations"
+          ]
+        },
+        {
+          "id": "subject",
+          "kind": "prohibition",
+          "statement": "Do not turn the neighbors dislike of loud sounds into Svetlana herself disliking loud sounds.",
+          "source_ids": [
+            "sv-bio",
+            "sv-observations"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "id": "faithful",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "Svetlana enjoys loud early-morning singing on a windowsill.",
+              "source_ids": [
+                "sv-bio"
+              ]
+            },
+            {
+              "scope": "history",
+              "explanation": "Staff observed daily loud singing at 05:00; two neighbor complaints were recorded about that noise.",
+              "source_ids": [
+                "sv-observations"
+              ]
+            }
+          ],
+          "expected": {
+            "morning": true,
+            "complaints": true,
+            "subject": true
+          }
+        },
+        {
+          "id": "observation-omitted",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "Svetlana enjoys loud early-morning singing on a windowsill.",
+              "source_ids": [
+                "sv-bio"
+              ]
+            },
+            {
+              "scope": "history",
+              "explanation": "There were two complaints from neighbors.",
+              "source_ids": [
+                "sv-observations"
+              ]
+            }
+          ],
+          "expected": {
+            "morning": false,
+            "complaints": true,
+            "subject": true
+          }
+        },
+        {
+          "id": "wrong-subject",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "Svetlana enjoys loud early-morning singing on a windowsill.",
+              "source_ids": [
+                "sv-bio"
+              ]
+            },
+            {
+              "scope": "history",
+              "explanation": "Staff observed loud singing every morning at 05:00 and recorded two neighbor complaints. Svetlana herself dislikes loud sounds.",
+              "source_ids": [
+                "sv-observations"
+              ]
+            }
+          ],
+          "expected": {
+            "morning": true,
+            "complaints": true,
+            "subject": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "madame-negation",
+      "question": "Is Madame Obsidian calm around vacuum cleaners, and does she enjoy human company?",
+      "sources": [
+        {
+          "source_id": "madame-profile",
+          "scope": "individual",
+          "file": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json",
+          "pointer": "/profile"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "vacuum",
+          "kind": "requirement",
+          "statement": "Explain that vacuum cleaners make Madame anxious, so calm tolerance is not confirmed.",
+          "source_ids": [
+            "madame-profile"
+          ]
+        },
+        {
+          "id": "company",
+          "kind": "requirement",
+          "statement": "Mention that Madame enjoys human company.",
+          "source_ids": [
+            "madame-profile"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "id": "faithful-paraphrase",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "She enjoys human company, but vacuum cleaners make her anxious.",
+              "source_ids": [
+                "madame-profile"
+              ]
+            }
+          ],
+          "expected": {
+            "vacuum": true,
+            "company": true
+          }
+        },
+        {
+          "id": "reversed",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "She enjoys human company and is calm around vacuum cleaners.",
+              "source_ids": [
+                "madame-profile"
+              ]
+            }
+          ],
+          "expected": {
+            "vacuum": false,
+            "company": true
+          }
+        },
+        {
+          "id": "trigger-omitted",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "She enjoys human company.",
+              "source_ids": [
+                "madame-profile"
+              ]
+            }
+          ],
+          "expected": {
+            "vacuum": false,
+            "company": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "type-versus-individual",
+      "question": "Does Professor Quartzless personally prefer a quiet home? Distinguish his individual record from general granite information.",
+      "sources": [
+        {
+          "source_id": "professor-record",
+          "scope": "individual",
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointer": "/stone"
+        },
+        {
+          "source_id": "professor-profile",
+          "scope": "individual",
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointer": "/profile",
+          "allow_absent": true
+        },
+        {
+          "source_id": "granite-chapter",
+          "scope": "encyclopedia",
+          "file": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+          "stone_type": "GRANITE"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "unknown-individual",
+          "kind": "requirement",
+          "statement": "State that the individual biography/profile does not establish a quiet-home preference; keep the preference unknown.",
+          "source_ids": [
+            "professor-record",
+            "professor-profile"
+          ]
+        },
+        {
+          "id": "scope",
+          "kind": "prohibition",
+          "statement": "Do not present a general granite characteristic or the stones name as proof of this individuals preferences.",
+          "source_ids": [
+            "professor-record",
+            "professor-profile",
+            "granite-chapter"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "id": "faithful",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "His individual record does not establish a quiet-home preference.",
+              "source_ids": [
+                "professor-record",
+                "professor-profile"
+              ]
+            },
+            {
+              "scope": "encyclopedia",
+              "explanation": "The encyclopedia describes granite generally; it is not evidence of his personal preferences.",
+              "source_ids": [
+                "granite-chapter"
+              ]
+            }
+          ],
+          "expected": {
+            "unknown-individual": true,
+            "scope": true
+          }
+        },
+        {
+          "id": "type-promoted",
+          "sections": [
+            {
+              "scope": "individual",
+              "explanation": "Professor Quartzless personally prefers a quiet home, as proved by the granite description.",
+              "source_ids": [
+                "professor-record"
+              ]
+            },
+            {
+              "scope": "encyclopedia",
+              "explanation": "The encyclopedia describes the granite type.",
+              "source_ids": [
+                "granite-chapter"
+              ]
+            }
+          ],
+          "expected": {
+            "unknown-individual": false,
+            "scope": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "granite-conditions",
+      "question": "Why is GRANITE plus GRANITE conditional, and what needs to be agreed?",
+      "sources": [
+        {
+          "source_id": "granite-pair",
+          "scope": "compatibility",
+          "file": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "pair_key": "GRANITE+GRANITE"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "rotation",
+          "kind": "requirement",
+          "statement": "Explain the requirement to rotate small decisions.",
+          "source_ids": [
+            "granite-pair"
+          ]
+        },
+        {
+          "id": "deadline",
+          "kind": "requirement",
+          "statement": "Explain the requirement to set a decision deadline for shared arrangements.",
+          "source_ids": [
+            "granite-pair"
+          ]
+        },
+        {
+          "id": "not-confirmed",
+          "kind": "prohibition",
+          "statement": "Do not claim the household has already fulfilled these agreements or that the guide approves adoption.",
+          "source_ids": [
+            "granite-pair"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "id": "faithful",
+          "sections": [
+            {
+              "scope": "compatibility",
+              "explanation": "They are dependable but can delay changes. The guide requires taking turns on small decisions and a deadline for shared decisions. It does not establish that this household has agreed.",
+              "source_ids": [
+                "granite-pair"
+              ]
+            }
+          ],
+          "expected": {
+            "rotation": true,
+            "deadline": true,
+            "not-confirmed": true
+          }
+        },
+        {
+          "id": "deadline-omitted",
+          "sections": [
+            {
+              "scope": "compatibility",
+              "explanation": "The pair is conditional and needs to rotate small decisions.",
+              "source_ids": [
+                "granite-pair"
+              ]
+            }
+          ],
+          "expected": {
+            "rotation": true,
+            "deadline": false,
+            "not-confirmed": true
+          }
+        },
+        {
+          "id": "label-only",
+          "sections": [
+            {
+              "scope": "compatibility",
+              "explanation": "CONDITIONAL.",
+              "source_ids": [
+                "granite-pair"
+              ]
+            }
+          ],
+          "expected": {
+            "rotation": false,
+            "deadline": false,
+            "not-confirmed": true
+          }
+        },
+        {
+          "id": "requirements-present-but-invented-agreement",
+          "sections": [
+            {
+              "scope": "compatibility",
+              "explanation": "To meet the guide, they need to rotate small decisions and set a deadline for shared decisions. This household has already fulfilled both agreements, so adoption is approved.",
+              "source_ids": [
+                "granite-pair"
+              ]
+            }
+          ],
+          "expected": {
+            "rotation": true,
+            "deadline": true,
+            "not-confirmed": false
+          }
+        }
+      ]
+    }
+  ]
+}

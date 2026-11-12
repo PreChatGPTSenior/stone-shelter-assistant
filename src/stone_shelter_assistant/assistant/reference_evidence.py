@@ -97,6 +97,7 @@ def check_reference_quotes(
 def reference_citations_valid(
     answer: ReferenceAnswer, quotes: list[GroundedReferenceQuote]
 ) -> bool:
+    """Check citation identity/scope coverage, not explanation entailment or completeness."""
     scopes = {quote.source_id: quote.scope for quote in quotes}
     return {section.scope for section in answer.sections} == set(scopes.values()) and all(
         scopes.get(source_id) == section.scope

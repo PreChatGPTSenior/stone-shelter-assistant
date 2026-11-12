@@ -53,6 +53,8 @@ Professor Quartzless has 99 observation events plus admission. Those event texts
 
 ## Future run records
 
+The separate [reference-answer assertion set](../reference-answer-assertions/README.md) calibrates a future semantic judge on observation coverage, negation, individual/type scope and mandatory conditions. It contains reviewed good/bad frozen answers whose citations can be structurally valid despite wrong meaning. It does not grade or mark these twenty scenarios as run. Keep structural binding, semantic assertions, retrieval coverage and final-answer completeness as separate results.
+
 Do not reuse the quiet-home-specific six-model runner as if it already grades all these cases: its rubric and condition assertions are scenario-specific. A future runner must consume per-case expectations and distinguish reference responses from candidate assessments.
 
 For each run, preserve suite and scenario IDs, question, fixture hashes, actual messages and DTO schema, all stage model selections, reasoning/token settings, response, per-stage checks, judge rubric/version, costs, failures and trace ID. Store runs separately; do not overwrite this specification or historical archives. Start with one approved model configuration over twenty cases before multiplying models. No paid call is triggered by reading or validating this manifest.

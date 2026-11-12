@@ -133,9 +133,13 @@ G-Eval uses `openai/gpt-6.1-terra` with medium reasoning, a 4096-token allowance
 
 The [full-flow comparison](../tests/fixtures/agent-eval/quiet-home-with-granite/runs/2026-11-11-questions-v4-deepeval.json) retains upstream failures and the settings used for subsequent attempts. Its completed requests selected an unmarked conditional pair. The separate [granite–granite case](../tests/fixtures/agent-eval/quiet-home-granite-pair/README.md) exercises both authored conditions through the graph.
 
-### Mixed questions
+### Answer assertions
+
+Answer meaning/completeness is evaluated separately from runtime citation structure. The focused suite at tests/fixtures/agent-eval/reference-answer-assertions has four cases with twelve good/bad frozen answers. Its optional tests/live/test_reference_answer_assertions.py runner requires RUN_ANSWER_ASSERTION_EVALUATION=1 plus an explicitly selected ANSWER_ASSERTIONS_JUDGE_MODEL. It calibrates a judge, records per-assertion verdicts and false passes, and does not add a model call to /questions. Local fixture-verdict tests do not establish judge quality. No semantic-judge run has been performed for this suite. See the suite README before connecting it to live answers and actual retrieved evidence.
 
 Exact compatibility-pair lookups pass the complete authored rule into compatibility-scoped evidence. The verdict stays deterministic. If a generated section or selected quote omits part of the rule, the answer includes the complete original rule once, with its source ID. This preserves explanations and household-agreement guidance even in mixed care/pair questions. A guide requirement is not evidence that the user has already agreed to it; reference answers do not approve adoption.
+
+### Mixed questions
 
 Mixed recommendation/reference questions run both parts. Parsing separates recommendation_target from named_stone: asking about Madame Obsidian does not restrict a separate recommendation to her. Requested compatibility also declares a candidate, named_stone or types target; shape and original fragment references are checked before lookup. The graph executes reference goals first, retains their result, then searches/evaluates candidates and combines answers, sources and current PostgreSQL statuses. Missing care summaries fall back to each requested authored care source; unsupported care remains explicit. Empty candidate results or configured stops preserve completed reference work. This routing is verified with fixture models; live parser/answer quality remains unmeasured.
 
