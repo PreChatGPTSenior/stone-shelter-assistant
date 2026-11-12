@@ -36,7 +36,7 @@ pytestmark = pytest.mark.skipif(
 )
 QUESTION = os.getenv(
     "OPENROUTER_EVALUATION_QUESTION",
-    "Подбери до двух камней для тихого дома, где уже есть гранит. Кто сейчас доступен и почему может подойти?",
+    "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
 )
 MODELS = (
     ("openai/gpt-6-luna", "medium"),
@@ -166,18 +166,7 @@ def restore_sources(value: Any, documents: dict[str, Any]) -> Any:
 def source_references_valid(assessment: dict[str, Any], model_input: dict[str, Any]) -> bool:
     """Check exact identifiers and quotations independently of the semantic judge."""
     sources = model_input["candidate_sources"]
-    if isinstance(sources, list):
-        source_map = {
-            (item["stone_id"], item["source_ref"]): item["text"]
-            for item in sources
-        }
-    else:
-        # Keep archived assessment manifests readable without rewriting history.
-        source_map = {
-            (stone_id, source_ref): text
-            for stone_id, entries in sources.items()
-            for source_ref, text in entries.items()
-        }
+    source_map = {(item["stone_id"], item["source_ref"]): item["text"] for item in sources}
     return all(
         (finding.get("stone_id"), finding.get("source_ref")) in source_map
         and bool(finding.get("quote"))
@@ -302,6 +291,7 @@ async def test_questions_with_six_evaluation_models(
         Path("fixtures/shelters.json"),
         *Path("fixtures/stones").glob("*.json"),
         *Path("fixtures/knowledge/type-compatibility").glob("*.json"),
+        *Path("fixtures/knowledge/grounding").glob("*.json"),
         *(
             p
             for p in Path("fixtures/knowledge/stone-encyclopedias").rglob("*.md")
@@ -330,6 +320,7 @@ async def test_questions_with_six_evaluation_models(
                 "/api/v1/testing/normalize-data",
                 "/api/v1/knowledge/encyclopedia/reindex",
                 "/api/v1/knowledge/compatibility/reindex",
+                "/api/v1/knowledge/grounding/reload",
             ):
                 response = await http.post(endpoint)
                 assert response.is_success, response.text

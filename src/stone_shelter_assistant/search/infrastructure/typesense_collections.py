@@ -12,6 +12,26 @@ from typesense.types.collection import (
 OPERATIONAL_COLLECTION: Final[str] = "stones"
 
 KNOWLEDGE_COLLECTION: Final[str] = "knowledge"
+GROUNDING_COLLECTION: Final[str] = "grounding_catalog"
+
+GROUNDING_COLLECTION_SCHEMA: Final[CollectionCreateSchema] = {
+    "name": GROUNDING_COLLECTION,
+    "fields": [
+        {"name": "language", "type": "string", "facet": True},
+        {"name": "catalog_version", "type": "string", "facet": True},
+        {"name": "concept_id", "type": "string", "facet": True},
+        {"name": "entry_kind", "type": "string", "facet": True},
+        {"name": "text", "type": "string"},
+        {"name": "expected", "type": "string", "optional": True},
+        {"name": "proposed_value", "type": "bool", "optional": True},
+        {"name": "proposed_type", "type": "string", "optional": True},
+    ],
+}
+
+
+async def ensure_grounding_collection(client: AsyncClient) -> None:
+    await _ensure_collection(client, GROUNDING_COLLECTION_SCHEMA)
+
 
 COMMON_DOCUMENT_FIELDS: Final[
     list[RegularCollectionFieldSchema | ReferenceCollectionFieldSchema]

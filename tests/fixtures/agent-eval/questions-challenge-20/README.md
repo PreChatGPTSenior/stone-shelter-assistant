@@ -1,37 +1,37 @@
 # Twenty future questions scenarios
 
-This versioned specification contains three existing baselines and seventeen new cases over all ten operational stone fixtures (nine distinct types: two records are GRANITE). It contains **no model-run results**. Historical assessment inputs and runs remain unchanged.
+This versioned specification contains three existing baselines and seventeen new cases over all eleven operational stone fixtures (nine distinct types: two records are GRANITE and two are MARBLE). Svetlana is a loud early-morning singer and a negative quiet-home example in Q02. It contains **no model-run results**. Historical assessment inputs and runs remain unchanged.
 
-[scenarios.json](scenarios.json) is the machine-readable manifest. Questions intentionally retain their Russian wording, except the existing English Madame Obsidian baseline. Expected behavior and evaluation instructions are in English.
+[scenarios.json](scenarios.json) is the machine-readable manifest. Active questions use English only during stabilization. The first three are English versions of prior baselines; historical records retain their original wording. Expected behavior and evaluation instructions are in English.
 
 ## Coverage and questions
 
 | ID | Focus | Question |
 | --- | --- | --- |
 | Q01 | status_and_compatibility | Is Madame Obsidian available and compatible with granite? |
-| Q02 | recommendation | Подбери до двух камней для тихого дома, где уже есть гранит. Кто сейчас доступен и почему может подойти? |
-| Q03 | recommendation | Подбери одного гранитного камня для тихого дома, где уже живёт другой гранит. Кто сейчас доступен и почему может подойти? |
-| Q04 | recommendation | Подбери одного гранитного камня для тихого дома, где уже живёт гранит. Мы уже договорились по очереди принимать мелкие решения и установили срок принятия совместных решений. |
-| Q05 | recommendation | Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы договорились принимать мелкие решения по очереди. Про срок совместных решений пока ничего не решили. |
-| Q06 | recommendation | Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы хотим когда-нибудь договориться о поочерёдных решениях и сроках, но пока этого не сделали. |
-| Q07 | recommendation | Подбери одного гранитного камня для тихого дома с нашим гранитом. Решения мы уже принимаем по очереди, но устанавливать срок совместных решений мы отказались. |
-| Q08 | recommendation | Подбери одного гранитного камня для тихого дома с нашим гранитом. Поочерёдные решения и сроки мы уже согласовали только для пары базальт–гнейс. На гранитные пары эти соглашения не распространяются. |
-| Q09 | recommendation | Подбери одного обсидианового камня. Он обязательно должен спокойно переносить пылесос: у нас он работает каждый день. Любовь к людям желательна, но это не обязательное условие. |
-| Q10 | recommendation | Подбери одного гнейса для семьи с детьми: хорошее отношение к детям обязательно. Любовь к прогулкам в саду лишь пожелание. |
-| Q11 | recommendation | Подбери одного сланцевого камня для дома с громкой музыкой. Спокойная реакция на музыку обязательна; опыт ухода у меня есть. |
-| Q12 | status_and_evidence | Captain Basalt встречался с семьёй, которая любит тихие настольные игры. Значит ли это, что он сам любит тишину, и можно ли забрать его сейчас? |
-| Q13 | status_and_evidence | Можно ли сейчас забрать Sunny Marble? В старой записи сказано, что он доступен. И доказывает ли имя Sunny, что у него солнечный характер? |
-| Q14 | status | Mossy Limestone был зарезервирован. Он всё ещё занят или его уже можно забрать? Нужен именно текущий статус. |
-| Q15 | status_and_location | Wandering Sandstone числится по делу 0008-2026-P1. Он сейчас в P1 или P2 и можно ли его забрать? |
-| Q16 | recommendation | Подбери одного камня типа пемза в дом, где уже живёт гранит. Достаточно ли того, что он любит компанию других камней, чтобы считать совместимость доказанной? |
-| Q17 | recommendation | Подбери одного гранитного камня, у которого в биографии или профиле явно подтверждена любовь к тихому дому. Название Professor Quartzless и большое количество наблюдений сами по себе доказательством не считаю. |
-| Q18 | multi_candidate_comparison | Сравни Sir Pebble и Professor Quartzless: оба ли доступны и у кого именно в биографии сказано, что он любит тихие вечера? Не переноси описание одного на другого. |
-| Q19 | history_and_status | Почему вернули Velvet Slate, что сделали после возвращения и доступен ли он сейчас? Восстанови порядок событий по датам. |
-| Q20 | care | Mossy Limestone — известняк. Можно ли очищать его уксусом и держать на постоянно мокрой полке? Что об этом говорит справочник, и есть ли у него личные особенности ухода? |
+| Q02 | recommendation | Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit? |
+| Q03 | recommendation | Find one granite stone for a quiet home where another granite stone already lives. Who is currently available and why might they fit? |
+| Q04 | recommendation | Find one granite stone for a quiet home where granite already lives. We have agreed to take turns on small decisions and established a deadline for shared decisions. |
+| Q05 | recommendation | Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet. |
+| Q06 | recommendation | Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet. |
+| Q07 | recommendation | Find one granite stone for a quiet home with our granite. We agreed to take turns on decisions, but refused to set a deadline for shared decisions. |
+| Q08 | recommendation | Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs. |
+| Q09 | recommendation | Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement. |
+| Q10 | recommendation | Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference. |
+| Q11 | recommendation | Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience. |
+| Q12 | status_and_evidence | Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now? |
+| Q13 | status_and_evidence | Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality? |
+| Q14 | status | Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status. |
+| Q15 | status_and_location | Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him? |
+| Q16 | recommendation | Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite? |
+| Q17 | recommendation | Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence. |
+| Q18 | multi_candidate_comparison | Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other. |
+| Q19 | history_and_status | Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order. |
+| Q20 | care | Mossy Limestone is limestone. Can I clean him with vinegar and keep him on a constantly wet shelf? What does the encyclopedia say, and are any individual care needs recorded? |
 
 ## Evaluation contract
 
-Run each question independently through POST /api/v1/questions after an explicitly authorized model run. Use all ten authored stone records and both knowledge sources in disposable storage. Preserve stable external IDs and resolve internal IDs afresh in each run. The focus_stone_ids list identifies relevant coverage and counterexamples, not a mandatory exact shortlist. The current shortlist cap remains three.
+Run each question independently through POST /api/v1/questions after an explicitly authorized model run. Use all eleven authored stone records and both knowledge sources in disposable storage. Preserve stable external IDs and resolve internal IDs afresh in each run. The focus_stone_ids list identifies relevant coverage and counterexamples, not a mandatory exact shortlist. The current shortlist cap remains three.
 
 Score stages separately:
 1. Retrieval: was necessary positive or conflicting evidence retrieved? Empty search results cannot pass a negative-character scenario merely by avoiding recommendations.

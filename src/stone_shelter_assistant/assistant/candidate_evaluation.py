@@ -4,8 +4,10 @@ import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Literal, Self
+from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, ValidationError, model_validator
+from pydantic_core import PydanticCustomError
 
 from stone_shelter_assistant.assistant.ranking_policy import (
     RANKING_POLICY,
@@ -14,6 +16,10 @@ from stone_shelter_assistant.assistant.ranking_policy import (
     Finding,
     PairResult,
     SourceKind,
+)
+from stone_shelter_assistant.assistant.reference_evidence import (
+    case_event_source_data,
+    case_event_source_id,
 )
 from stone_shelter_assistant.search.document_models import (
     CompatibilityPairSearchDocument,
@@ -34,14 +40,13 @@ type Outcome = Literal[
     "facts_only",
     "criteria_unavailable",
 ]
-type AssessmentStatus = Literal[
-    "not_needed", "parsed", "invalid_response", "invalid_source_ref"
-]
+type AssessmentStatus = Literal["not_needed", "parsed", "invalid_response", "invalid_source_ref"]
 type SourceRef = Literal[
     "biography",
     "profile.preferred_environment",
     "profile.trigger_notes",
     "profile.socialization_traits",
+    "observation",
     "encyclopedia",
 ]
 
@@ -139,6 +144,16 @@ class QuotedFinding(BaseModel):
     source_ref: SourceRef
     finding: Literal["confirmed", "contradicted"]
     quote: str = Field(min_length=1)
+    observation_external_id: UUID | None = None
+
+    @model_validator(mode="after")
+    def require_observation_id(self) -> Self:
+        if self.source_ref == "observation" and self.observation_external_id is None:
+            raise PydanticCustomError(
+                "observation_source_id_required",
+                "Observation evidence requires its event external ID",
+            )
+        return self
 
 
 class CharacterFinding(QuotedFinding):
@@ -150,50 +165,41 @@ class IndividualCompatibilityFinding(QuotedFinding):
     scope: Literal["preference", "cohabitation"]
 
 
-# Legacy model output retained for archived replays, without decision authority.
-class LegacyCharacterFinding(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    stone_id: str
-    source_ref: str
-    finding: Literal["confirmed", "contradicted"]
-    quote: str = Field(min_length=1)
-    fragment_id: int
-
-
-class LegacyIndividualCompatibilityFinding(LegacyCharacterFinding):
-    pair_key: str
-    scope: Literal["preference", "cohabitation"]
-
-
-class ConfirmedAccommodation(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    pair_key: str
-    household_fragment_id: int
-    pair_quote: str = Field(min_length=1)
-
-
-class AssessedEvidence(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    character: list[LegacyCharacterFinding] = Field(default_factory=list)
-    individual_compatibility: list[LegacyIndividualCompatibilityFinding] = Field(default_factory=list)
-    accommodations: list[ConfirmedAccommodation] = Field(default_factory=list)
-
-
 class CandidateEvidence(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     character: list[CharacterFinding]
     individual_compatibility: list[IndividualCompatibilityFinding]
 
+
+def assessment_failure_status(error: BaseException | None) -> AssessmentStatus:
+    """Classify structured-output errors without interpreting source text as JSON."""
+    while error is not None:
+        if isinstance(error, ValidationError) and any(
+            (item["type"] == "literal_error" and item["loc"][-1:] == ("source_ref",))
+            or (
+                item["type"] in {"value_error", "uuid_parsing"}
+                and item["loc"][-1:] in {("source_ref",), ("observation_external_id",)}
+            )
+            or item["type"] == "observation_source_id_required"
+            for item in error.errors()
+        ):
+            return "invalid_source_ref"
+        error = error.__cause__ or error.__context__
+    return "invalid_response"
+
+
 @dataclass(frozen=True)
 class SourceText:
-    kind: Literal["profile", "biography", "encyclopedia"]
+    kind: Literal["profile", "observation", "biography", "encyclopedia"]
     source_id: str
     field: str
     text: str
+    event_external_id: str | None = None
+    event_type: str | None = None
+    occurred_at: str | None = None
+    stone_id: str | None = None
+    case_external_id: str | None = None
 
 
 class Evidence(BaseModel):
@@ -273,9 +279,9 @@ class Reason(BaseModel):
     evidence: list[Evidence] = Field(default_factory=list)
     chosen_evidence: Evidence | None = None
     conflict: bool = False
-    unknown_reason: Literal[
-        "missing_evidence", "invalid_source_ref", "assessment_invalid"
-    ] | None = None
+    unknown_reason: (
+        Literal["missing_evidence", "invalid_source_ref", "assessment_invalid"] | None
+    ) = None
     policy_rule: str | None = None
     base_score: float | None = None
     action: Action = "rank"
@@ -318,7 +324,9 @@ class CandidateEvaluation(BaseModel):
 
 
 def candidate_sources(
-    card: StoneDetails, encyclopedia: EncyclopediaSectionSearchDocument | None
+    card: StoneDetails,
+    encyclopedia: EncyclopediaSectionSearchDocument | None,
+    observations: Sequence[Mapping[str, str]] = (),
 ) -> dict[str, SourceText]:
     """Label each source before the model sees the text."""
     card_id = f"stone-card:{card.id}"
@@ -336,6 +344,24 @@ def candidate_sources(
     if encyclopedia is not None:
         sources["encyclopedia"] = SourceText(
             "encyclopedia", encyclopedia.source_key, "text", encyclopedia.text
+        )
+    for event in observations:
+        event_id = event["event_external_id"]
+        data = case_event_source_data(
+            event,
+            stone_id=str(card.id),
+            case_external_id=str(card.shelter_case.external_id),
+        )
+        sources[f"observation:{event_id}"] = SourceText(
+            "observation",
+            case_event_source_id(event_id),
+            "event_notes",
+            data["event_notes"],
+            event_external_id=data["event_external_id"],
+            event_type=data["event_type"],
+            occurred_at=data["occurred_at"],
+            stone_id=data["stone_id"],
+            case_external_id=data["case_external_id"],
         )
     return sources
 
@@ -363,12 +389,14 @@ def assessment_source_text(source: SourceText) -> str:
 
 
 def validate_evidence(
-    findings: Sequence[QuotedFinding], sources: Mapping[str, SourceText], criterion: Criterion
+    findings: Sequence[QuotedFinding],
+    sources: Mapping[str, SourceText],
+    criterion: Criterion,
 ) -> list[Evidence]:
     """Keep exact quotes from the referenced field and rank them by source."""
     evidence = []
     for finding in findings:
-        source = sources.get(finding.source_ref)
+        source = source_for_finding(finding, sources)
         if source is not None and finding.quote.strip() and finding.quote in source.text:
             rule = RANKING_POLICY.sources[criterion].get(source.kind)
             if rule is None:
@@ -393,6 +421,14 @@ def validate_evidence(
     return sorted(evidence, key=evidence_order)
 
 
+def source_for_finding(
+    finding: QuotedFinding, sources: Mapping[str, SourceText]
+) -> SourceText | None:
+    if finding.source_ref == "observation":
+        return sources.get(f"observation:{finding.observation_external_id}")
+    return sources.get(finding.source_ref)
+
+
 def evidence_order(item: Evidence) -> tuple[int, int, tuple[str, ...]]:
     return (
         item.priority,
@@ -412,12 +448,13 @@ def character_reasons(
     reasons = []
     for group, required in ((criteria.requirements, True), (criteria.preferences, False)):
         for criterion in group.character:
+            findings = [
+                item
+                for item in assessment.character
+                if item.stone_id == stone_id and item.fragment_id == criterion.fragment_id
+            ]
             evidence = validate_evidence(
-                [
-                    item
-                    for item in assessment.character
-                    if item.stone_id == stone_id and item.fragment_id == criterion.fragment_id
-                ],
+                findings,
                 sources,
                 "character",
             )
@@ -426,15 +463,16 @@ def character_reasons(
                 (item for item in evidence if not required or item.supports_requirement),
                 None,
             )
-            unknown_reason: Literal[
-                "missing_evidence", "invalid_source_ref", "assessment_invalid"
-            ] | None = None
+            unknown_reason: (
+                Literal["missing_evidence", "invalid_source_ref", "assessment_invalid"] | None
+            ) = None
             if chosen is None:
                 unknown_reason = (
                     "assessment_invalid"
                     if assessment_status == "invalid_response"
                     else "invalid_source_ref"
                     if assessment_status == "invalid_source_ref"
+                    or any(source_for_finding(item, sources) is None for item in findings)
                     else "missing_evidence"
                 )
             reasons.append(

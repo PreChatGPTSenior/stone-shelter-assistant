@@ -17,9 +17,17 @@ from langfuse import (
 )
 from langfuse.langchain import CallbackHandler
 from langfuse.types import TraceContext
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 
 TRACE_FIELDS = (
+    "grounding_status",
+    "grounding_error_type",
+    "grounding_catalog",
+    "grounding_decisions",
+    "retrieval",
+    "parser_diagnostics",
+    "retrieval_provenance",
+    "selection_decisions",
     "selected_stone_ids",
     "verified_statuses",
     "criteria",
@@ -33,13 +41,23 @@ TRACE_FIELDS = (
     "selection_output_method",
     "assessment_status",
     "assessment_output_method",
+    "reference_assessment_status",
+    "reference_quote_diagnostics",
+    "reference_answer_status",
     "evaluation_policy",
     "tools_used",
-    "search_model_calls",
     "search_end_reason",
     "stop_reason",
     "duplicate_criteria_removed",
 )
+
+
+def retrieval_trace_value(value: Any) -> Any:
+    if isinstance(value, BaseModel):
+        return value.model_dump(mode="json")
+    if isinstance(value, list):
+        return [retrieval_trace_value(item) for item in value]
+    return value
 
 
 def trace_result(result: dict[str, Any], *, include_answer: bool = False) -> dict[str, Any]:
@@ -51,6 +69,7 @@ def trace_result(result: dict[str, Any], *, include_answer: bool = False) -> dic
             "recommended_stone_ids",
             "candidate_decisions",
             "plan_status",
+            "grounding_status",
             "stop_reason",
         )
         if key in result
@@ -77,6 +96,10 @@ def trace_state(value: Any, *, output: bool = False) -> dict[str, Any]:
     if output and "reference_result" in value:
         reference = value["reference_result"]
         summary["source_refs"] = list(reference.sources)
+    if "reference_quotes" in value:
+        summary["reference_quotes"] = [
+            quote.model_dump(mode="json") for quote in value["reference_quotes"]
+        ]
     return summary
 
 
@@ -91,6 +114,7 @@ class WorkflowTraceHandler(CallbackHandler):
         self._validation_errors: dict[UUID, list[dict[str, Any]]] = {}
         self._source_observations: dict[tuple[str, str], str] = {}
         self._source_text_refs: dict[str, dict[str, str]] = {}
+        self._retrieval_runs: set[UUID] = set()
 
     def on_chain_start(
         self,
@@ -103,6 +127,8 @@ class WorkflowTraceHandler(CallbackHandler):
         **kwargs: Any,
     ) -> None:
         name = self.get_langchain_run_name(serialized, **kwargs)
+        if name in {"typesense_search", "qdrant_search", "rrf_fusion"}:
+            self._retrieval_runs.add(run_id)
         if parent_run_id is not None and (
             name.startswith(("Runnable", "after_"))
             or name in {"PydanticToolsParser", "PydanticOutputParser"}
@@ -116,7 +142,9 @@ class WorkflowTraceHandler(CallbackHandler):
 
         super().on_chain_start(
             serialized,
-            trace_state(inputs),
+            retrieval_trace_value(inputs)
+            if run_id in self._retrieval_runs
+            else trace_state(inputs),
             run_id=run_id,
             parent_run_id=parent_run_id,
             metadata=metadata,
@@ -134,6 +162,14 @@ class WorkflowTraceHandler(CallbackHandler):
                 error := outputs.get("parsing_error"), BaseException
             ):
                 self._record_validation_error(owner, error)
+            return
+
+        if run_id in self._retrieval_runs:
+            observation = self._runs.get(run_id)
+            summary = retrieval_trace_value(outputs)
+            if observation is not None:
+                summary = self._reference_sources(summary, observation.id)
+            super().on_chain_end(summary, run_id=run_id, parent_run_id=parent_run_id, **kwargs)
             return
 
         summary = (

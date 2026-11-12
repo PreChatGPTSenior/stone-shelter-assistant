@@ -2,7 +2,7 @@
 
 Date: 2026-11-09
 
-Status: The pilot HTTP route runs LangGraph with OpenRouter and Langfuse. Budget enforcement and cross-model evaluation are pending.
+Status: The pilot HTTP route runs LangGraph with OpenRouter and Langfuse. Budget enforcement and cross-model evaluation are pending. The [Hybrid Search ADR](hybrid-search-adr.md) is implemented with locally verified end-to-end provenance; paid-model quality comparisons remain pending.
 
 This document consolidates the discussion of the first agent-driven search workflow, mandatory LLM budget reservations, and end-to-end observability. It supplements [Architecture Decisions](adr.md). Implementation progress remains in [Task Log](task-log.md); this document does not mark planned behavior as complete.
 
@@ -39,43 +39,30 @@ Expected retrieval path:
 4. A mandatory graph step calls `get_current_stone_statuses` immediately before answer generation.
 5. The answer explains suitability, relevant care constraints, compatibility, and checked availability with sources.
 
-The model chooses retrieval calls within an allowlist. The expected path is a test scenario, not a hard-coded sequence of model decisions. The first scenario uses lexical search; semantic retrieval can use the existing tools when a later scenario needs description-based matching. Fusion is deferred.
+The current implementation uses the [Hybrid Search ADR](hybrid-search-adr.md). Named recommendations use lexical name search; general recommendations run one prepared hybrid operation. Named status, care and exact pair questions use their direct reference routes.
 
-Velvet Slate remains useful for existing lookup and history tests. Its supplied status is `RETURNED`; neither its history nor its quiet-home profile establishes availability.
+Velvet Slate's supplied status is RETURNED; neither its history nor its quiet-home profile establishes availability.
 
-## 3. Minimal graph
+## 3. Current graph and retrieval
 
-```mermaid
-flowchart LR
-    S([Question]) --> A[agent]
-    A -->|Tool requested and call limit permits| T[tools: ToolNode]
-    T -->|Calls remain| A
-    T -->|Tool-call limit reached| V[verify: PostgreSQL]
-    A -->|Enough evidence| V
-    V --> F[answer and validate]
-    F --> E([End])
-    A -->|Budget unavailable or cost unknown| B[Deterministic stop]
-    F -->|Budget unavailable or cost unknown| B
-    B --> E
-```
+See the [current workflow diagram](phase-2-search-workflow-diagram.md).
 
-### Agent and tools
+The parser proposes criteria, English lexical/semantic queries and an optional candidate type referenced to an original fragment. Code grounds the candidate type and constructs AVAILABLE/en filters; the model cannot supply arbitrary exact filters. The ground_question evaluation-model stage verifies sensitive proposals against a complete versioned English concept/example catalog in Typesense; Python checks original quote bindings, never promotes unverified agreements, and blocks uncertain candidate-type filters. Lexical phrase rules are removed. The planner validates the route. The graph prepares one tool call without another search-model invocation: search_stones_hybrid for general matching, search_stones_lexical for named candidates. Hybrid search executes Typesense and Qdrant concurrently and counts as two backend calls against the four-call allowance.
 
-Use a typed LangGraph state and the ready-made `ToolNode` to execute existing LangChain tools and return tool results to message history. Search allows up to four model calls and four retrieval tool calls. When a turn requests multiple tools, execute valid calls within the remaining allowance. Mandatory status verification is separate from retrieval.
+RRF combines deduplicated engine ranks into a pool of at most ten. The selection model receives parsed criteria, the reference request, original source wording and retrieval provenance, then chooses up to three retrieved IDs. Missing parsed retrieval data stops general matching rather than reinterpreting the question. PostgreSQL card reads and current status verification follow selection. Candidate evaluation and response assembly retain their existing policy.
 
-The first model call parses the original question and its numbered fragments. A second model proposes an ordered tool plan and a reason. The graph checks scope and dependencies before execution. Named status uses a direct PostgreSQL lookup, care uses the encyclopedia, and compatibility uses exact pairs or pairs filtered by one type and verdict. Candidate recommendations enter the bounded search loop. When search finishes or reaches either limit, a structured call selects up to three retrieved IDs after filtering and deduplication. The graph reads the PostgreSQL cards before the separate status check. Each model stage outside search makes at most one model call.
-
-The agent can use `search_stones_lexical`, `search_stones_semantic`, and `get_compatibility_pair`. The graph owns card and status lookups:
-
-| Purpose | Existing tools |
+| Purpose | Tools |
 | --- | --- |
-| Stone retrieval | `search_stones_lexical`, `search_stones_semantic` |
-| Stone details | `get_stone_details` |
-| Current availability | `get_current_stone_statuses` |
-| Event-note retrieval | `search_case_events_lexical`, `search_case_events_semantic` |
-| Complete case history | `get_case_timeline` |
-| Reference retrieval | `search_knowledge_lexical`, `search_knowledge_semantic` |
-| Exact type compatibility | `get_compatibility_pair` |
+| General candidate retrieval | search_stones_hybrid |
+| Named candidate retrieval | search_stones_lexical |
+| Stone details | get_stone_details |
+| Current availability | get_current_stone_statuses / get_stone_status_by_name |
+| Event-note retrieval | search_case_events_lexical / search_case_events_semantic |
+| Complete case history | get_case_timeline |
+| Reference retrieval | search_knowledge_lexical / search_knowledge_semantic |
+| Exact type compatibility | get_compatibility_pair |
+
+History tools exist but are not yet included in the reference planner. The twenty-case suite marks this capability boundary.
 
 ### Mandatory verification
 
@@ -205,7 +192,7 @@ Send the Madame Obsidian question to `POST /api/v1/testing/manual-test` for a de
 
 ### Conditional pair decisions
 
-Conditional pair eligibility is computed from author-defined mandatory conditions and typed household facts. A model-supplied rule quotation and household fragment ID cannot confirm accommodations. The current model assessment DTO contains character and individual-compatibility evidence only. Historical `ConfirmedAccommodation` outputs remain readable for frozen replays and have no decision authority.
+Conditional pair eligibility is computed from author-defined mandatory conditions and typed household facts. A model-supplied rule quotation and household fragment ID cannot confirm accommodations. The current model assessment DTO contains character and individual-compatibility evidence only. The application and active replay accept only the current DTO; obsolete accommodation fields are rejected. Past experiment files are reference records, not supported input formats.
 
 Each authored condition has an ID, fact type, expected boolean, and verbatim rule quotation. The initial granite–granite annotation requires both `decision_rotation_agreed` and `decision_deadline_agreed`. `parse_question` extracts established agreements or explicit denials as typed facts, and the graph restores their original question quotes from fragment IDs. A missing pair scope means a household-wide agreement. An explicit `applies_to_pair` restricts a fact to that unordered pair, preserving repeated types.
 
@@ -215,7 +202,7 @@ All mandatory conditions must be marked and confirmed. Missing facts, denials, c
 
 Archive model-evaluation inputs and results under `tests/fixtures/agent-eval/<case>/`. Each case stores the exact input messages, DTO schema, parsed criteria, recorded cards and statuses, source evidence, fixture version, source trace/observation IDs, and input SHA-256. Versioned run records store requested model and reasoning settings, output allowance, returned DTOs, validation and scenario checks, reported token usage, elapsed time, cost, and Langfuse links. Retain unsuccessful attempts and record retries explicitly.
 
-Schema validity and semantic correctness are separate checks. Preserve expected facts and source-grounding requirements independently of model outputs. A frozen replay compares the same assessment input across models and does not re-run search or question parsing. Keep input snapshots and historical run files immutable. A changed prompt, DTO schema, evidence selection, or criterion interpretation requires a separately versioned snapshot.
+Schema validity and semantic correctness are separate checks. Preserve expected facts and source-grounding requirements independently of model outputs. A frozen replay compares the same assessment input across models and does not re-run search or question parsing. Keep recorded past runs identifiable as past experiments. During stabilization, update active fixtures and tests directly to the current prompt and DTO. Do not implement old-format adapters or preserve obsolete schema tests.
 
 The first [quiet-home assessment archive](../tests/fixtures/agent-eval/quiet-home-with-granite/README.md) records five paid models and Dots at an 8192-token output allowance. All six completed DTOs after one Dots provider-error retry. Terra and Gemini passed the scenario checks. The archive documents the remaining source-grounding and accommodation errors. The current test continues to read its original fixture path until a separately authorized Python change relocates that reference.
 

@@ -22,8 +22,13 @@ from stone_shelter_assistant.assistant.tools import (
 )
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler, trace_result
 from stone_shelter_assistant.assistant.workflow import run_workflow
-from stone_shelter_assistant.core.settings import LangfuseSettings, OpenRouterSettings
+from stone_shelter_assistant.core.settings import (
+    GroundingSettings,
+    LangfuseSettings,
+    OpenRouterSettings,
+)
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
+from stone_shelter_assistant.search.knowledge.grounding_catalog import GroundingCatalog
 from stone_shelter_assistant.search.knowledge.knowledge_indexer import KnowledgeIndexer
 from stone_shelter_assistant.search.knowledge.knowledge_search_service import KnowledgeSearchService
 from stone_shelter_assistant.search.stones.case_event_search_service import CaseEventSearchService
@@ -131,20 +136,27 @@ def get_search_tools(
     }
 
 
+def get_grounding_catalog(request: Request) -> GroundingCatalog:
+    settings = GroundingSettings()
+    return GroundingCatalog(
+        request.app.state.typesense_client,
+        language=settings.language,
+        version=settings.catalog_version,
+    )
+
+
 def get_question_workflow(
     tools: Annotated[dict[str, BaseTool], Depends(get_search_tools)],
+    grounding: Annotated[GroundingCatalog, Depends(get_grounding_catalog)],
 ) -> QuestionWorkflow:
     async def ask(payload: QuestionRequest) -> dict[str, object]:
         openrouter = OpenRouterSettings()
         default_model_id = payload.model_id or openrouter.model
-        agent_model_id = (
-            payload.agent_model_id or payload.model_id or openrouter.agent_model or openrouter.model
-        )
         selection_model_id = (
             payload.selection_model_id
             or payload.model_id
             or openrouter.selection_model
-            or agent_model_id
+            or openrouter.model
         )
         parsing_model_id = (
             payload.parsing_model_id
@@ -153,7 +165,6 @@ def get_question_workflow(
             or selection_model_id
         )
         model_ids = {
-            "agent": agent_model_id,
             "select_candidates": selection_model_id,
             "parse_question": parsing_model_id,
             "plan_tools": payload.planning_model_id
@@ -168,6 +179,8 @@ def get_question_workflow(
             or openrouter.answer_model
             or openrouter.model,
         }
+        model_ids["collect_reference_evidence"] = model_ids["evaluate_candidates"]
+        model_ids["ground_question"] = model_ids["evaluate_candidates"]
         models = {
             model_id: ChatOpenRouter(
                 model_name=model_id,
@@ -198,7 +211,6 @@ def get_question_workflow(
             include={"eval_case_id", "fixture_version"}, exclude_none=True
         )
         eval_metadata.update(
-            agent_model_id=model_ids["agent"],
             selection_model_id=model_ids["select_candidates"],
             parsing_model_id=model_ids["parse_question"],
             planning_model_id=model_ids["plan_tools"],
@@ -228,8 +240,8 @@ def get_question_workflow(
                 trace_context={"trace_id": root.trace_id, "parent_span_id": root.id},
             )
             result = await run_workflow(
+                grounding_catalog=grounding,
                 question=payload.question,
-                agent_model=models[model_ids["agent"]],
                 selection_model=models[model_ids["select_candidates"]],
                 selection_uses_json_schema=selection_model_id
                 in openrouter.selection_json_schema_models,
@@ -240,17 +252,21 @@ def get_question_workflow(
                 evaluation_uses_json_schema=model_ids["evaluate_candidates"]
                 in openrouter.evaluation_json_schema_models,
                 answer_model=models[model_ids["answer"]],
-                agent_tools=[
+                retrieval_tools=[
                     tools["search_stones_lexical"],
                     tools["search_stones_semantic"],
+                    tools["search_stones_hybrid"],
                     tools["get_compatibility_pair"],
                 ],
                 details_tool=tools["get_stone_details"],
                 status_tool=tools["get_current_stone_statuses"],
+                timeline_tool=tools["get_case_timeline"],
                 compatibility_tool=tools["get_compatibility_pair"],
                 encyclopedia_tool=tools["search_knowledge_lexical"],
                 reference_tools=ReferenceTools(
                     stone_status=tools["get_stone_status_by_name"],
+                    stone_details=tools["get_stone_details"],
+                    timeline=tools["get_case_timeline"],
                     encyclopedia=tools["search_knowledge_lexical"],
                     exact_pair=tools["get_compatibility_pair"],
                     pair_list=tools["list_compatibility_pairs"],

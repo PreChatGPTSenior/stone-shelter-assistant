@@ -2,7 +2,7 @@
   "suite_id": "questions-challenge-20-v1",
   "status": "prepared_not_model_evaluated",
   "endpoint": "/api/v1/questions",
-  "description": "Twenty future end-to-end scenarios over all ten authored stone records. Russian questions are intentional multilingual model inputs; expectations are English.",
+  "description": "Twenty English-only future end-to-end scenarios over all eleven authored stone records. Current contracts only; historical references are not active inputs.",
   "stones": [
     {
       "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
@@ -73,6 +73,13 @@
       "stone_type": "BASALT",
       "status": "RESERVED",
       "fixture": "fixtures/stones/dfa0ae9a-f070-495f-a489-cf3ecbc1912b.json"
+    },
+    {
+      "external_id": "b19266ec-28a2-4fd3-851b-7fad50b6e175",
+      "name": "Svetlana",
+      "stone_type": "MARBLE",
+      "status": "AVAILABLE",
+      "fixture": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json"
     }
   ],
   "global_checks": [
@@ -123,12 +130,12 @@
       },
       "execution_status": "not_run",
       "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "baseline_reference": "docs/setup.md"
+      "historical_reference": "docs/setup.md"
     },
     {
       "id": "Q02",
       "slug": "quiet-home-baseline",
-      "question": "Подбери до двух камней для тихого дома, где уже есть гранит. Кто сейчас доступен и почему может подойти?",
+      "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
       "origin": "existing_baseline",
       "intent": "recommendation",
       "challenge": "Existing broad search baseline: recall, shortlist, evidence and conditional options.",
@@ -136,7 +143,8 @@
         "49cf225d-800f-4dce-8eb5-af192d2449d5",
         "67269139-e8b8-4c7d-aa58-33b88162ec70",
         "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
-        "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        "abcbd2b8-234c-4653-a9cf-d3c022073750",
+        "b19266ec-28a2-4fd3-851b-7fad50b6e175"
       ],
       "evidence": [
         {
@@ -170,6 +178,14 @@
             "/profile",
             "/shelterCase"
           ]
+        },
+        {
+          "file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+          "pointers": [
+            "/stone/biography",
+            "/profile/preferredEnvironment",
+            "/shelterCase/events"
+          ]
         }
       ],
       "expected": {
@@ -177,21 +193,23 @@
           "Return at most two recommendations, all verified AVAILABLE.",
           "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
           "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
-          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it."
+          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+          "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
         ],
         "forbidden": [
           "Do not require one fixed shortlist or order before inspecting retrieval.",
-          "Do not count conditional options as unconditional recommendations."
+          "Do not count conditional options as unconditional recommendations.",
+          "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
         ]
       },
       "execution_status": "not_run",
       "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "baseline_reference": "tests/fixtures/agent-eval/quiet-home-with-granite"
+      "historical_reference": "tests/fixtures/agent-eval/quiet-home-with-granite"
     },
     {
       "id": "Q03",
       "slug": "granite-unknown-baseline",
-      "question": "Подбери одного гранитного камня для тихого дома, где уже живёт другой гранит. Кто сейчас доступен и почему может подойти?",
+      "question": "Find one granite stone for a quiet home where another granite stone already lives. Who is currently available and why might they fit?",
       "origin": "existing_baseline",
       "intent": "recommendation",
       "challenge": "Archived Luna regression: correct quote must bind to biography, not a UUID.",
@@ -238,12 +256,12 @@
       },
       "execution_status": "not_run",
       "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "baseline_reference": "tests/fixtures/agent-eval/quiet-home-granite-pair"
+      "historical_reference": "tests/fixtures/agent-eval/quiet-home-granite-pair"
     },
     {
       "id": "Q04",
       "slug": "granite-agreed",
-      "question": "Подбери одного гранитного камня для тихого дома, где уже живёт гранит. Мы уже договорились по очереди принимать мелкие решения и установили срок принятия совместных решений.",
+      "question": "Find one granite stone for a quiet home where granite already lives. We have agreed to take turns on small decisions and established a deadline for shared decisions.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Positive control for two explicit established agreements.",
@@ -294,7 +312,7 @@
     {
       "id": "Q05",
       "slug": "granite-one-agreement",
-      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы договорились принимать мелкие решения по очереди. Про срок совместных решений пока ничего не решили.",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Partial completion must not satisfy all mandatory conditions.",
@@ -344,7 +362,7 @@
     {
       "id": "Q06",
       "slug": "granite-intention",
-      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Мы хотим когда-нибудь договориться о поочерёдных решениях и сроках, но пока этого не сделали.",
+      "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Future intention versus established household fact.",
@@ -389,7 +407,7 @@
     {
       "id": "Q07",
       "slug": "granite-denial",
-      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Решения мы уже принимаем по очереди, но устанавливать срок совместных решений мы отказались.",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on decisions, but refused to set a deadline for shared decisions.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Negation must survive parsing and deterministic checking.",
@@ -439,7 +457,7 @@
     {
       "id": "Q08",
       "slug": "granite-wrong-scope",
-      "question": "Подбери одного гранитного камня для тихого дома с нашим гранитом. Поочерёдные решения и сроки мы уже согласовали только для пары базальт–гнейс. На гранитные пары эти соглашения не распространяются.",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Agreement facts scoped to another unordered pair.",
@@ -489,7 +507,7 @@
     {
       "id": "Q09",
       "slug": "obsidian-vacuum",
-      "question": "Подбери одного обсидианового камня. Он обязательно должен спокойно переносить пылесос: у нас он работает каждый день. Любовь к людям желательна, но это не обязательное условие.",
+      "question": "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Separate a hard requirement from a positive preference and retain negative evidence.",
@@ -522,7 +540,7 @@
     {
       "id": "Q10",
       "slug": "gneiss-children",
-      "question": "Подбери одного гнейса для семьи с детьми: хорошее отношение к детям обязательно. Любовь к прогулкам в саду лишь пожелание.",
+      "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Typed profile evidence versus optional event-only evidence.",
@@ -556,7 +574,7 @@
     {
       "id": "Q11",
       "slug": "slate-loud-home",
-      "question": "Подбери одного сланцевого камня для дома с громкой музыкой. Спокойная реакция на музыку обязательна; опыт ухода у меня есть.",
+      "question": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Both operational ineligibility and conflicting individual evidence.",
@@ -588,7 +606,7 @@
     {
       "id": "Q12",
       "slug": "basalt-reserved",
-      "question": "Captain Basalt встречался с семьёй, которая любит тихие настольные игры. Значит ли это, что он сам любит тишину, и можно ли забрать его сейчас?",
+      "question": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
       "origin": "new",
       "intent": "status_and_evidence",
       "challenge": "Do not transfer another person's preference to the stone.",
@@ -622,7 +640,7 @@
     {
       "id": "Q13",
       "slug": "marble-adopted",
-      "question": "Можно ли сейчас забрать Sunny Marble? В старой записи сказано, что он доступен. И доказывает ли имя Sunny, что у него солнечный характер?",
+      "question": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
       "origin": "new",
       "intent": "status_and_evidence",
       "challenge": "Stale historical availability and a suggestive name.",
@@ -654,7 +672,7 @@
     {
       "id": "Q14",
       "slug": "limestone-reservation-ended",
-      "question": "Mossy Limestone был зарезервирован. Он всё ещё занят или его уже можно забрать? Нужен именно текущий статус.",
+      "question": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
       "origin": "new",
       "intent": "status",
       "challenge": "A stale reservation must not veto an available stone.",
@@ -686,7 +704,7 @@
     {
       "id": "Q15",
       "slug": "sandstone-transfer",
-      "question": "Wandering Sandstone числится по делу 0008-2026-P1. Он сейчас в P1 или P2 и можно ли его забрать?",
+      "question": "Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him?",
       "origin": "new",
       "intent": "status_and_location",
       "challenge": "Stable case number is not current shelter identity.",
@@ -719,7 +737,7 @@
     {
       "id": "Q16",
       "slug": "pumice-general-company",
-      "question": "Подбери одного камня типа пемза в дом, где уже живёт гранит. Достаточно ли того, что он любит компанию других камней, чтобы считать совместимость доказанной?",
+      "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "General sociability is not target-specific cohabitation evidence.",
@@ -756,7 +774,7 @@
     {
       "id": "Q17",
       "slug": "professor-name-and-noise",
-      "question": "Подбери одного гранитного камня, у которого в биографии или профиле явно подтверждена любовь к тихому дому. Название Professor Quartzless и большое количество наблюдений сами по себе доказательством не считаю.",
+      "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
       "origin": "new",
       "intent": "recommendation",
       "challenge": "Two granites; generic biography and 99 repeated observations must not dominate evidence.",
@@ -799,7 +817,7 @@
     {
       "id": "Q18",
       "slug": "granite-comparison",
-      "question": "Сравни Sir Pebble и Professor Quartzless: оба ли доступны и у кого именно в биографии сказано, что он любит тихие вечера? Не переноси описание одного на другого.",
+      "question": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
       "origin": "new",
       "intent": "multi_candidate_comparison",
       "challenge": "Multiple named entities and exact candidate/source/quote binding.",
@@ -841,7 +859,7 @@
     {
       "id": "Q19",
       "slug": "slate-history",
-      "question": "Почему вернули Velvet Slate, что сделали после возвращения и доступен ли он сейчас? Восстанови порядок событий по датам.",
+      "question": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
       "origin": "new",
       "intent": "history_and_status",
       "challenge": "Reverse-ordered fixture events, retrieval and authoritative current status.",
@@ -874,7 +892,7 @@
     {
       "id": "Q20",
       "slug": "limestone-care",
-      "question": "Mossy Limestone — известняк. Можно ли очищать его уксусом и держать на постоянно мокрой полке? Что об этом говорит справочник, и есть ли у него личные особенности ухода?",
+      "question": "Mossy Limestone is limestone. Can I clean him with vinegar and keep him on a constantly wet shelf? What does the encyclopedia say, and are any individual care needs recorded?",
       "origin": "new",
       "intent": "care",
       "challenge": "General material care versus missing individual profile.",

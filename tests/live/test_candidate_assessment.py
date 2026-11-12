@@ -16,7 +16,7 @@ from langchain_openrouter import ChatOpenRouter
 from langfuse import Evaluation, Langfuse, propagate_attributes
 
 from stone_shelter_assistant.assistant.candidate_evaluation import (
-    AssessedEvidence,
+    CandidateEvidence,
     SearchCriteria,
     candidate_sources,
     evaluate_candidate,
@@ -45,7 +45,7 @@ MODELS = (
 CHECKS = ("dto_valid", "evidence_grounded", "character_coverage", "no_invented_compatibility")
 
 
-def check_assessment(assessment: AssessedEvidence, snapshot: dict[str, Any]) -> dict[str, Any]:
+def check_assessment(assessment: CandidateEvidence, snapshot: dict[str, Any]) -> dict[str, Any]:
     """Check source grounding and the explicit facts of this frozen scenario."""
     criteria = SearchCriteria.model_validate(snapshot["criteria"])
     cards = [StoneDetails.model_validate(value) for value in snapshot["cards"]]
@@ -60,15 +60,15 @@ def check_assessment(assessment: AssessedEvidence, snapshot: dict[str, Any]) -> 
         for value in snapshot["documents"].values()
         if value.get("document_kind") == "compatibility_pair"
     }
-    supplied = json.loads(snapshot["messages"][1]["content"])["candidate_sources"]
+    sources = json.loads(snapshot["messages"][1]["content"])["candidate_sources"]
+    supplied = {(item["stone_id"], item["source_ref"]): item["text"] for item in sources}
     allowed_fragments = {
         criterion.fragment_id
         for criterion in (*criteria.requirements.character, *criteria.preferences.character)
     }
     grounded = all(
-        finding.stone_id in supplied
-        and finding.source_ref in supplied[finding.stone_id]
-        and finding.quote in supplied[finding.stone_id][finding.source_ref]
+        (finding.stone_id, finding.source_ref) in supplied
+        and finding.quote in supplied[(finding.stone_id, finding.source_ref)]
         for finding in (*assessment.character, *assessment.individual_compatibility)
     ) and all(finding.fragment_id in allowed_fragments for finding in assessment.character)
     covered = {
@@ -94,8 +94,7 @@ def check_assessment(assessment: AssessedEvidence, snapshot: dict[str, Any]) -> 
         "dto_valid": True,
         "evidence_grounded": grounded,
         "character_coverage": covered == {str(card.id) for card in cards},
-        "no_invented_compatibility": not assessment.individual_compatibility
-        and not assessment.accommodations,
+        "no_invented_compatibility": not assessment.individual_compatibility,
         "candidate_evaluations": evaluations,
         "assessment": assessment.model_dump(mode="json"),
     }
@@ -108,7 +107,7 @@ def score_checks(*, output: Any, **kwargs: Any) -> list[Evaluation]:
 @pytest.mark.asyncio
 async def test_frozen_assessment_across_models() -> None:
     snapshot = json.loads(SNAPSHOT.read_text())
-    assert snapshot["schema"] == AssessedEvidence.model_json_schema()
+    assert snapshot["schema"] == CandidateEvidence.model_json_schema()
     version = sha256(SNAPSHOT.read_bytes()).hexdigest()
     settings = LangfuseSettings()
     client = Langfuse(
@@ -125,10 +124,7 @@ async def test_frozen_assessment_across_models() -> None:
         expected_output={
             "confirmed_character_names": [card["name"] for card in snapshot["cards"]],
             "individual_compatibility": [],
-            "accommodations": [],
         },
-        source_trace_id=snapshot["source_trace_id"],
-        source_observation_id=snapshot["source_observation_id"],
         metadata={"snapshot_sha256": version, "fixture_version": snapshot["fixture_version"]},
     )
     api_key = OpenRouterSettings().api_key
@@ -164,7 +160,7 @@ async def test_frozen_assessment_across_models() -> None:
                     )
                     _, runnable = structured_model(
                         model,
-                        AssessedEvidence,
+                        CandidateEvidence,
                         use_json_schema=True,
                         reasoning={"effort": effort},
                     )
@@ -181,7 +177,7 @@ async def test_frozen_assessment_across_models() -> None:
                         if isinstance(raw, AIMessage):
                             summary["model_call"] = model_call_details(raw)
                         parsed = response.get("parsed")
-                        if isinstance(parsed, AssessedEvidence):
+                        if isinstance(parsed, CandidateEvidence):
                             summary.update(check_assessment(parsed, item.input))
                         elif response.get("parsing_error"):
                             summary["error"] = str(response["parsing_error"]).split("\n")[0][:300]

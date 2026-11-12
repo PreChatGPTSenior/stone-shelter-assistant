@@ -7,7 +7,9 @@ from stone_shelter_assistant.stones.enums import AdoptionStatus
 
 type Criterion = Literal["compatibility", "character"]
 type Finding = Literal["confirmed", "conditional", "unknown", "contradicted"]
-type SourceKind = Literal["profile", "biography", "encyclopedia", "compatibility_pair"]
+type SourceKind = Literal[
+    "profile", "observation", "biography", "encyclopedia", "compatibility_pair"
+]
 type PairResult = Literal[
     "harmonious",
     "conditions_confirmed",
@@ -69,7 +71,7 @@ class RankingPolicy:
 
 
 RANKING_POLICY = RankingPolicy(
-    version="candidate-evaluation-v4",
+    version="candidate-evaluation-v5",
     shortlist_limit=3,
     default_recommendation_limit=3,
     criteria={
@@ -79,13 +81,15 @@ RANKING_POLICY = RankingPolicy(
     sources={
         "character": {
             "profile": SourceRule(priority=1, weight=1.00, supports_requirement=True),
-            "biography": SourceRule(priority=2, weight=0.85, supports_requirement=True),
-            "encyclopedia": SourceRule(priority=3, weight=0.50, supports_requirement=False),
+            "observation": SourceRule(priority=2, weight=0.95, supports_requirement=True),
+            "biography": SourceRule(priority=3, weight=0.85, supports_requirement=True),
+            "encyclopedia": SourceRule(priority=4, weight=0.50, supports_requirement=False),
         },
         "compatibility": {
             "compatibility_pair": SourceRule(priority=1, weight=1.00, supports_requirement=True),
             "profile": SourceRule(priority=2, weight=1.00, supports_requirement=True),
-            "biography": SourceRule(priority=3, weight=0.85, supports_requirement=True),
+            "observation": SourceRule(priority=3, weight=0.95, supports_requirement=True),
+            "biography": SourceRule(priority=4, weight=0.85, supports_requirement=True),
         },
     },
     character_scores={

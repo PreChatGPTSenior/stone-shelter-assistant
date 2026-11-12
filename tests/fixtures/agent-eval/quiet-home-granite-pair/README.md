@@ -1,5 +1,7 @@
 # Granite–granite condition check with Luna
 
+Reference record from a past experiment only. Its input schema is not a supported current replay contract. Current tests construct inputs using the current DTO and maintained assessment fixture.
+
 This PY-037 case targets the annotated pair through `POST /api/v1/questions`. The question is “Подбери одного гранитного камня для тихого дома, где уже живёт другой гранит. Кто сейчас доступен и почему может подойти?”
 
 The evaluation model is `openai/gpt-6-luna`, with medium reasoning and an 8192-token allowance. Terra handles parsing, search, selection, and answer. Luna handles planning. The request uses authored fixtures in disposable Testcontainers and selects Sir Pebble, a granite stone recorded as `AVAILABLE`.

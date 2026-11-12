@@ -1,0 +1,92 @@
+[
+  {
+    "id": "rot-established",
+    "question": "Our household has agreed to take turns on decisions.",
+    "concept_id": "decision_rotation_agreed",
+    "proposed_value": true,
+    "proposed_type": null,
+    "expected": "supported",
+    "historical_regex_accepted": true
+  },
+  {
+    "id": "rot-plan",
+    "question": "We hope we can rotate decisions in the future.",
+    "concept_id": "decision_rotation_agreed",
+    "proposed_value": true,
+    "proposed_type": null,
+    "expected": "unknown",
+    "historical_regex_accepted": false
+  },
+  {
+    "id": "rot-foreign",
+    "question": "Yesterday we discussed how our neighbors agreed to rotate decisions.",
+    "concept_id": "decision_rotation_agreed",
+    "proposed_value": true,
+    "proposed_type": null,
+    "expected": "unknown",
+    "historical_regex_accepted": true
+  },
+  {
+    "id": "deadline-refusal",
+    "question": "We refused to set a deadline for shared decisions.",
+    "concept_id": "decision_deadline_agreed",
+    "proposed_value": false,
+    "proposed_type": null,
+    "expected": "supported",
+    "historical_regex_accepted": true
+  },
+  {
+    "id": "deadline-missing",
+    "question": "We enjoy a quiet household.",
+    "concept_id": "decision_deadline_agreed",
+    "proposed_value": false,
+    "proposed_type": null,
+    "expected": "unknown",
+    "historical_regex_accepted": false
+  },
+  {
+    "id": "deadline-other",
+    "question": "We set a deadline for tax returns.",
+    "concept_id": "decision_deadline_agreed",
+    "proposed_value": true,
+    "proposed_type": null,
+    "expected": "unknown",
+    "historical_regex_accepted": false
+  },
+  {
+    "id": "type-required",
+    "question": "I need a marble stone as my companion.",
+    "concept_id": "candidate_type",
+    "proposed_value": null,
+    "proposed_type": "MARBLE",
+    "expected": "supported",
+    "historical_regex_accepted": true
+  },
+  {
+    "id": "type-resident",
+    "question": "Find a friend for my marble stone.",
+    "concept_id": "candidate_type",
+    "proposed_value": null,
+    "proposed_type": "MARBLE",
+    "expected": "contradicted",
+    "historical_regex_accepted": true
+  },
+  {
+    "id": "type-optional",
+    "question": "I would prefer marble if possible.",
+    "concept_id": "candidate_type",
+    "proposed_value": null,
+    "proposed_type": "MARBLE",
+    "expected": "unknown",
+    "historical_regex_accepted": false
+  },
+  {
+    "id": "type-negated",
+    "question": "Find a companion without marble.",
+    "concept_id": "candidate_type",
+    "proposed_value": null,
+    "proposed_type": "MARBLE",
+    "expected": "contradicted",
+    "historical_regex_accepted": false
+  }
+]

@@ -80,18 +80,22 @@ curl --fail-with-body \
 The second endpoint reads the prepared data and returns the three tool results.
 Send the same question JSON to `POST /api/v1/questions` to run LangGraph with OpenRouter and get a Langfuse `trace_id`. Set `OPENROUTER_API_KEY`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY` in `.env`. Set `LANGFUSE_BASE_URL` if your Langfuse project uses a host other than `https://cloud.langfuse.com`.
 
-For the agent, evaluation, and answer stages, model selection uses the first configured value in this order:
+For the evaluation and answer stages, model selection uses the first configured value in this order:
 
-1. The stage request field `agent_model_id`, `evaluation_model_id`, or `answer_model_id`.
+1. The stage request field `evaluation_model_id` or `answer_model_id`.
 2. The shared request field `model_id`.
-3. The stage default `OPENROUTER_AGENT_MODEL`, `OPENROUTER_EVALUATION_MODEL`, or `OPENROUTER_ANSWER_MODEL`.
-4. The default `dots-studio/dots-3-note-preview:free` for evaluation. The agent and answer stages fall back to `OPENROUTER_MODEL`, which defaults to `openrouter/free`.
+3. The stage default `OPENROUTER_EVALUATION_MODEL` or `OPENROUTER_ANSWER_MODEL`.
+4. The default `dots-studio/dots-3-note-preview:free` for evaluation. The answer stage falls back to `OPENROUTER_MODEL`, which defaults to `openrouter/free`.
 
 The response and Langfuse trace input include the effective stage selections in `model_ids`. The response field `model_id` still reports the shared fallback. The evaluation model runs when character or compatibility evidence needs interpretation.
 
-The shortlist stage uses `selection_model_id`, then the shared request `model_id`, then `OPENROUTER_SELECTION_MODEL`, then the resolved agent model. The question parser uses `parsing_model_id`, then the shared request `model_id`, then `OPENROUTER_PARSING_MODEL`, then the resolved shortlist model. The planner uses `planning_model_id`, then the shared request `model_id`, then `OPENROUTER_PLANNING_MODEL`, then the resolved parser model.
+The shortlist stage uses `selection_model_id`, then the shared request `model_id`, then `OPENROUTER_SELECTION_MODEL`, then `OPENROUTER_MODEL`. The question parser uses `parsing_model_id`, then the shared request `model_id`, then `OPENROUTER_PARSING_MODEL`, then the resolved shortlist model. The planner uses `planning_model_id`, then the shared request `model_id`, then `OPENROUTER_PLANNING_MODEL`, then the resolved parser model.
 
-Parsing and planning run first. Status, care, and compatibility use the validated reference plan. Recommendations enter search, with separate limits of four model calls and four tool calls. Each model stage outside search makes at most one call. The plan and its reason are recorded in Langfuse.
+Parsing, semantic grounding and planning run first. Status, care, and compatibility use the validated reference plan. The parser proposes English lexical/semantic queries and a candidate type referenced to the question. The separate grounding model verifies sensitive proposals against the selected catalog, then code builds AVAILABLE/en filters; traits remain assessment criteria. Langfuse records parser_diagnostics for discarded proposals. General recommendations execute one hybrid Typesense/Qdrant operation (two backend calls); named recommendations use lexical lookup (one call). There is no search-agent LLM stage or agent_model_id field. Each model stage makes at most one call. Langfuse records per-engine inputs, fusion contributions, selection decisions and verified outcomes under one trace_id. The plan and its reason are recorded in Langfuse.
+
+During stabilization, active questions, fixture content/names, prompts and tests use English only. Historical experiment records retain their original language. Absent parser collections/groups default to empty collections; null lists and malformed nonempty references remain invalid. Svetlana's current fixture and indexed name are English.
+
+Named information uses requested_stone_info with overview, preferences or care. The plan resolves the exact PostgreSQL name, reads get_stone_details, and uses that card's type for knowledge. An overview reads the authoritative case timeline, encyclopedia, compatibility portrait and all verdict groups; preferences use individual facts only. collect_reference_evidence uses the configured evaluation model (Luna in the current experiment configuration), checks exact source/quote binding and assigns scope in code. The answer model composes separate individual/history/encyclopedia/compatibility sections with validated source IDs. Failed composition exposes checked quotations or explicitly labeled original sources. Citation validity does not establish semantic entailment. Unsupported material-care requests preserve their quoted material name and report missing authored knowledge instead of substituting another type. For shortlisted candidates the graph also reads PostgreSQL observation events when character or compatibility is assessed. Evidence keeps a literal observation source label plus an event UUID and preserves the parent stone/case, date, type and exact notes. Profile/preferences outrank observations, which outrank biography and general encyclopedia; conflicts remain visible. Used observation sources survive in excluded-candidate answers. Event dates do not prove when a behavior began, and event-only candidate discovery before the shortlist is not implemented. Recommendation answers render every checked household pair, including harmonious ones, with general guide text and condition status. No same-household multi-type interaction beyond pairwise rules is inferred.
 
 To try strict shortlist output, set `selection_model_id` to `nvidia/nemotron-3.5-super-vl:free` or `dots-studio/dots-3-note-preview:free`. The shortlist stage uses strict JSON Schema for the model IDs in `OPENROUTER_SELECTION_JSON_SCHEMA_MODELS` (a JSON array) and function calling for the rest. Langfuse records the chosen output method and how many duplicate criteria were removed. The response includes `candidate_decisions` with the checked adoption status and graph disposition for each card.
 
@@ -101,9 +105,9 @@ For an evaluation run, send `eval_case_id` and `fixture_version` in the request.
 
 ### Frozen candidate-assessment replay
 
-The [agent-evaluation fixture archive](../tests/fixtures/agent-eval/quiet-home-with-granite/README.md) stores the fixed input, reviewed expectations, and six-model comparison results together. It also documents token accounting and the Dots provider-error retry. The current replay test reads the original fixture path described below.
+The [agent-evaluation fixture archive](../tests/fixtures/agent-eval/quiet-home-with-granite/README.md) stores the fixed input, reviewed expectations, and six-model comparison results together. It also documents token accounting and the Dots provider-error retry. The active replay fixture is maintained against the current application contract; archived inputs are reference records only.
 
-The opt-in test in `tests/live/test_candidate_assessment.py` replays the failed Dots observation saved in `tests/fixtures/assistant/quiet-home-assessment.json`. It uses the application's structured-output wrapper and candidate scoring with recorded cards, statuses, criteria, and evidence. The snapshot contains the original prompt and schema and requires no database or search services.
+The opt-in test in `tests/live/test_candidate_assessment.py` evaluates the current-contract fixture in `tests/fixtures/assistant/quiet-home-assessment.json`. It uses the application's structured-output wrapper and candidate scoring with recorded cards, statuses, criteria, and evidence. The fixture contains the current prompt, explicit source records and CandidateEvidence schema and requires no database or search services. It is not a reproduction of a historical model request.
 
 Run the six-model experiment explicitly. It makes paid OpenRouter calls and records comparable runs in the Langfuse dataset `PY-037/quiet-home-candidate-assessment`.
 
@@ -128,3 +132,15 @@ The questions request supports `evaluation_max_tokens` and `evaluation_reasoning
 G-Eval uses `openai/gpt-6.1-terra` with medium reasoning, a 4096-token allowance, a versioned rubric, and threshold 0.8. Judge calls and their reported cost are recorded separately. Exact source IDs and quotations are checked independently of the judge. Langfuse scores attach to the HTTP request trace. The `PY-037/quiet-home-questions-v4` dataset compares recorded results and links them to the original HTTP traces. Publishing comparison records does not call the models again.
 
 The [full-flow comparison](../tests/fixtures/agent-eval/quiet-home-with-granite/runs/2026-11-11-questions-v4-deepeval.json) retains upstream failures and the settings used for subsequent attempts. Its completed requests selected an unmarked conditional pair. The separate [granite–granite case](../tests/fixtures/agent-eval/quiet-home-granite-pair/README.md) exercises both authored conditions through the graph.
+
+### Grounding catalog
+
+The application reads the Typesense grounding_catalog collection, not the seed file, during semantic verification. Default GROUNDING_LANGUAGE=en and GROUNDING_CATALOG_VERSION=en-v1 select the current English pack.
+
+- POST /api/v1/knowledge/grounding/reload replaces that language/version from fixtures/knowledge/grounding/grounding_en-v1.json (13 entries). Use explicitly for initialization or an intentional reset; it overwrites edits to that version.
+- GET /api/v1/knowledge/grounding/search?q=agree searches definitions/examples for inspection.
+- PUT /api/v1/knowledge/grounding/entries/{entry_id} accepts the full entry returned by search, with its text/label edited and identity/language/version preserved. Changes require no Python modification. The response returns the new snapshot hash.
+
+Runtime loads all entries for the selected version. This is not top-k semantic proof. ground_question reuses evaluation_model_id; it makes at most one additional model call when typed agreement or candidate-type proposals exist. No such proposals means no catalog/model call. Bad IDs/quotes, incomplete decisions and technical failures prevent dependent planning; unverified agreements never become facts, and uncertain candidate-type filters never silently become a broader search. Langfuse records grounding_status, the catalog hash/entry IDs and decisions.
+
+The held-out quality runner is tests/integration/test_grounding_model_evaluation.py. It requires explicit RUN_GROUNDING_EVALUATION=1 authorization and by default uses Luna with 8192 tokens/medium reasoning on ten questions in disposable Typesense. It saves prompts/observations, costs, outcomes and metrics under tests/fixtures/agent-eval/grounding-en/runs. Preparing or locally testing the runner does not call models. Source data provides a historical binary regex baseline; no legacy implementation runs. Current local tests verify contracts and source binding, not model semantic accuracy.

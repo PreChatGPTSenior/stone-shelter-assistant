@@ -21,6 +21,12 @@ DEFAULT_JSON_SCHEMA_MODELS = frozenset(
 )
 
 
+class GroundingSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_prefix="GROUNDING_", env_file=".env", extra="ignore")
+    language: str = Field(default="en", pattern=r"^[A-Za-z0-9-]+$")
+    catalog_version: str = Field(default="en-v1", pattern=r"^[A-Za-z0-9._-]+$")
+
+
 class DatabaseSettings(BaseSettings):
     """PostgreSQL connection settings."""
 
@@ -92,7 +98,6 @@ class OpenRouterSettings(BaseSettings):
     )
 
     model: str = Field(default="openrouter/free", min_length=1)
-    agent_model: str | None = Field(default=None, min_length=1)
     selection_model: str | None = Field(default=None, min_length=1)
     selection_json_schema_models: frozenset[str] = DEFAULT_JSON_SCHEMA_MODELS
     parsing_model: str | None = Field(default=None, min_length=1)

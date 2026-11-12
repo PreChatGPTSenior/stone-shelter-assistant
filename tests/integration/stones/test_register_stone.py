@@ -3,7 +3,7 @@
 import json
 from collections.abc import AsyncIterator
 from pathlib import Path
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import httpx
 import pytest
@@ -302,12 +302,15 @@ async def test_stone_search_tools_return_registered_card(
 ) -> None:
     fixture = PROJECT_ROOT / "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json"
     request = StoneRegistrationRequest.model_validate_json(fixture.read_text(encoding="utf-8"))
+    request = request.model_copy(
+        update={"stone": request.stone.model_copy(update={"external_id": uuid4()})}
+    )
     async with httpx.AsyncClient(
         transport=httpx.ASGITransport(app=app), base_url="http://test"
     ) as client:
         response = await client.post(
             "/api/v1/stones",
-            content=fixture.read_bytes(),
+            content=request.model_dump_json(by_alias=True),
             headers={"Content-Type": "application/json"},
         )
     assert response.status_code == 201, response.text
@@ -331,6 +334,22 @@ async def test_stone_search_tools_return_registered_card(
             assert any(
                 card["id"] == stone_id and card["document_kind"] == "stone" for card in cards
             )
+
+        hybrid = await tools["search_stones_hybrid"].ainvoke(
+            {
+                "lexical_query": request.stone.name,
+                "semantic_query": "a stone that prefers a quiet home",
+                "filters": {
+                    "case_number": request.shelter_case.case_number,
+                    "stone_external_id": str(request.stone.external_id),
+                },
+            }
+        )
+        hit = next(item for item in hybrid["candidates"] if item["card"]["id"] == stone_id)
+        assert hit["card"]["document_kind"] == "stone"
+        assert hit["lexical_rank"] == hit["semantic_rank"] == 1
+        assert hit["rrf_score"] == pytest.approx(2 / 61)
+        assert hybrid["lexical_ids"] == hybrid["semantic_ids"] == [stone_id]
 
         states = await tools["get_current_stone_statuses"].ainvoke({"stone_ids": [stone_id]})
         assert states == [

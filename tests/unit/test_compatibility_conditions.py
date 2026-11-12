@@ -1,11 +1,9 @@
-import json
 from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
 
 from stone_shelter_assistant.assistant.candidate_evaluation import (
-    AssessedEvidence,
     CandidateEvidence,
     CompatibilityTarget,
     HouseholdFact,
@@ -22,14 +20,11 @@ from stone_shelter_assistant.stones.enums import StoneType
 
 ROOT = Path(__file__).parents[2]
 SOURCE = Path("fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json")
-ARCHIVE = ROOT / "tests/fixtures/agent-eval/quiet-home-with-granite"
 
 
 @pytest.fixture
 def granite_pair() -> CompatibilityPairSearchDocument:
-    documents = build_stone_compatibility_documents(
-        (ROOT / SOURCE).read_text(), SOURCE.as_posix()
-    )
+    documents = build_stone_compatibility_documents((ROOT / SOURCE).read_text(), SOURCE.as_posix())
     return next(
         pair
         for pair in documents
@@ -46,15 +41,13 @@ def agreement(kind: AccommodationFactType, value: bool = True) -> HouseholdFact:
     )
 
 
-def test_archived_claude_quote_and_fragment_no_longer_confirm_conditions(
+def test_existing_granite_does_not_confirm_household_agreements(
     granite_pair: CompatibilityPairSearchDocument,
 ) -> None:
-    run = json.loads((ARCHIVE / "runs/2026-11-11-8192.json").read_text())
-    output = next(row for row in run["attempts"] if row["model_id"] == "anthropic/claude-sonnet-5")
-    legacy = AssessedEvidence.model_validate(output["assessment"])
-    assert legacy.accommodations
     fact = HouseholdFact(
-        fragment_id=2, question_quote="где уже есть гранит.", existing_stone_type=StoneType.GRANITE
+        fragment_id=2,
+        question_quote="where granite already lives.",
+        existing_stone_type=StoneType.GRANITE,
     )
     reason = compatibility_reason(
         stone_id="granite-stone",
@@ -63,7 +56,7 @@ def test_archived_claude_quote_and_fragment_no_longer_confirm_conditions(
         pair=granite_pair,
         facts=[fact],
         sources={},
-        assessment=legacy,
+        assessment=CandidateEvidence(character=[], individual_compatibility=[]),
     )
     assert reason.verdict == CompatibilityVerdict.CONDITIONAL
     assert reason.policy_rule == "conditions_unconfirmed"
@@ -93,7 +86,7 @@ def test_parser_restores_typed_fact_quotes_and_all_conditions_are_required(
             "preferences": {"character": [], "compatibility": []},
         }
     )
-    criteria, _ = parsed.resolve(fragments)
+    criteria, _ = parsed.resolve(fragments, frozenset({"agreement:1", "agreement:2"}))
     assert [fact.question_quote for fact in criteria.household_facts] == list(fragments.values())
     assert set(criteria.compatibility_targets()) == {StoneType.GRANITE}
     assert [
@@ -169,7 +162,9 @@ def test_typed_fact_requires_its_own_boolean_value() -> None:
         )
 
 
-def test_archived_schema_is_preserved_but_current_model_dto_has_no_accommodations() -> None:
-    snapshot = json.loads((ARCHIVE / "input.json").read_text())
-    assert snapshot["schema"] == AssessedEvidence.model_json_schema()
+def test_current_model_dto_rejects_accommodation_verdicts() -> None:
+    with pytest.raises(ValidationError):
+        CandidateEvidence.model_validate(
+            {"character": [], "individual_compatibility": [], "accommodations": []}
+        )
     assert "accommodations" not in CandidateEvidence.model_json_schema()["properties"]

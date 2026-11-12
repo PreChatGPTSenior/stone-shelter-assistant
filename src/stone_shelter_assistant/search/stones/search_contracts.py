@@ -1,10 +1,11 @@
-"""Input models for stone search."""
+"""Typed filters, settings and results for stone search."""
 
-from typing import Annotated, Self
+from typing import Annotated, Literal, Self
 from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
+from stone_shelter_assistant.search.document_models import StoneSearchDocument
 from stone_shelter_assistant.stones.enums import (
     AdoptionStatus,
     CareLevel,
@@ -15,6 +16,37 @@ from stone_shelter_assistant.stones.enums import (
 )
 
 type FilterText = Annotated[str, Field(min_length=1, pattern=r"^[^`]+$")]
+
+
+class HybridSearchSettings(BaseModel):
+    """Explicit initial experiment settings; engine weights are equal."""
+
+    version: Literal["stone-rrf-v1"] = "stone-rrf-v1"
+    per_engine_limit: int = Field(default=5, ge=1)
+    pool_limit: int = Field(default=10, ge=1)
+    rrf_k: int = Field(default=60, ge=1)
+
+
+class HybridStoneHit(BaseModel):
+    card: StoneSearchDocument
+    lexical_rank: int | None
+    semantic_rank: int | None
+    lexical_contribution: float
+    semantic_contribution: float
+    rrf_score: float
+    retrieval_rank: int
+    payload_mismatch: bool
+    in_pool: bool
+
+
+class HybridSearchResult(BaseModel):
+    """Full fusion provenance, including hits removed by the pool cutoff."""
+
+    settings: HybridSearchSettings
+    lexical_ids: list[UUID]
+    semantic_ids: list[UUID]
+    candidates: list[HybridStoneHit]
+    dropped: list[HybridStoneHit]
 
 
 class StoneSearchFilters(BaseModel):

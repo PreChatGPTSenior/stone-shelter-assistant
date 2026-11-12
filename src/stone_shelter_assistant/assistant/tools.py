@@ -16,6 +16,7 @@ from stone_shelter_assistant.search.knowledge.knowledge_search_service import Kn
 from stone_shelter_assistant.search.stones.case_event_search_service import CaseEventSearchService
 from stone_shelter_assistant.search.stones.search_contracts import (
     CaseEventSearchFilters,
+    HybridSearchSettings,
     StoneSearchFilters,
 )
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
@@ -48,6 +49,25 @@ def stone_lookup_tools(stones: StoneReadService) -> list[BaseTool]:
 
 
 def stone_search_tools(search: StoneSearchService, stones: StoneReadService) -> list[BaseTool]:
+    @tool
+    async def search_stones_hybrid(
+        lexical_query: Annotated[str, Field(min_length=1)],
+        semantic_query: Annotated[str, Field(min_length=1)],
+        filters: StoneSearchFilters | None = None,
+    ) -> dict[str, object]:
+        """Search stone cards in Typesense and Qdrant and combine ranks with RRF.
+
+        Provide lexical keywords and a semantic description with shared exact
+        filters. Returns candidates, dropped hits, engine ranks and contributions.
+        Uses two backend retrieval calls; availability still needs PostgreSQL verification.
+        """
+        result = await search.search_hybrid(
+            lexical_query, semantic_query, filters, HybridSearchSettings()
+        )
+        return result.model_dump(mode="json")
+
+    search_stones_hybrid.metadata = {"retrieval_calls": 2}
+
     @tool
     async def search_stones_lexical(
         query: str = "",
@@ -86,7 +106,12 @@ def stone_search_tools(search: StoneSearchService, stones: StoneReadService) -> 
             for state in await stones.get_current_states(stone_ids)
         ]
 
-    return [search_stones_lexical, search_stones_semantic, get_current_stone_statuses]
+    return [
+        search_stones_lexical,
+        search_stones_semantic,
+        search_stones_hybrid,
+        get_current_stone_statuses,
+    ]
 
 
 def case_event_search_tools(

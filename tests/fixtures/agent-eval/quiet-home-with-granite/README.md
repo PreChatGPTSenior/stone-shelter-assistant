@@ -1,5 +1,7 @@
 # Quiet-home candidate assessment
 
+Reference records from past experiments only. Their DTOs and input formats are not supported by current code. Use the maintained current-contract fixture at `tests/fixtures/assistant/quiet-home-assessment.json` for new assessment runs; the archived runs below do not describe results for that updated fixture.
+
 This PY-037 case preserves the evidence-assessment input that Dots failed to complete at 3072 output tokens and the six-model comparison at 8192 output tokens on November 11, 2026.
 
 ## Stored data

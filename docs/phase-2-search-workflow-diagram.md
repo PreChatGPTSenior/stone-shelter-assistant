@@ -1,52 +1,41 @@
+# Current question workflow
+
 ```mermaid
 flowchart TD
-    request([POST /api/v1/questions]) --> parse
-
-    subgraph run[One question · one budget · one trace]
-        agent[Agent: choose search tools]
-        tools[ToolNode: run a bounded batch]
-        select[Select candidate IDs]
-        parse[Parse question fragments]
-        plan[Plan tools from parsed goals]
-        facts[Execute reference tools]
-        facts_answer[Render facts or explain encyclopedia evidence]
-        clarify[Return clarification or planning error]
-        cards[Read selected stone cards from PostgreSQL]
-        verify[Verify: read current status from PostgreSQL]
-        evaluate[Evaluate: apply criteria and record reasons]
-        answer[Answer: assemble and validate result]
-        stop[Stop: return budget reason]
-        budget[Budget interface: admit each model call]
-
-        agent -->|Valid tool requests| tools
-        agent -->|Search finished| select
-        tools -->|Search limits allow another turn| agent
-        tools -->|Search limit reached| select
-        parse --> plan
-        plan -->|Candidate search| agent
-        plan -->|Status, care, or compatibility| facts
-        plan -->|Unresolved or invalid plan| clarify
-        facts --> facts_answer
-        select --> cards
-        cards --> verify
-        verify --> evaluate
-        evaluate --> answer
-        agent -->|Budget rejected or cost unknown| stop
-        select -->|Budget rejected| stop
-        parse -->|Budget rejected| stop
-        plan -->|Budget rejected| stop
-        evaluate -->|Budget rejected| stop
-        answer -->|Budget rejected or cost unknown| stop
-        agent -.-> budget
-        select -.-> budget
-        parse -.-> budget
-        plan -.-> budget
-        evaluate -.-> budget
-        answer -.-> budget
-    end
-
-    answer --> response([HTTP result])
-    facts_answer --> response
-    clarify --> response
-    stop --> response
+    request([POST /api/v1/questions]) --> parse[Parse criteria and prepare queries/filters]
+    parse --> grounding[Verify sensitive proposals against English catalog]
+    grounding --> plan[Validate tool plan]
+    plan -->|General recommendation| prepared[Prepare one hybrid call]
+    plan -->|Named recommendation| named[Prepare exact-name lexical call]
+    plan -->|Named info / history / status / care / compatibility| facts[Execute reference plan]
+    plan -->|Invalid or unresolved| clarify[Clarify request]
+    prepared --> hybrid[Hybrid tool: two retrieval calls]
+    hybrid --> ts[Typesense]
+    hybrid --> q[Qdrant + query embedding]
+    ts --> rrf[RRF: deduplicate, score, retain provenance]
+    q --> rrf
+    named --> lexical[Lexical tool: one retrieval call]
+    rrf --> select[LLM selects up to 3 using parsed criteria]
+    lexical --> select
+    select --> cards[Read PostgreSQL cards]
+    cards --> verify[Verify current PostgreSQL status]
+    verify --> evaluate[Load observations; validate quoted evidence and apply policy]
+    evaluate --> answer[Render decisions and grounded explanation]
+    facts --> referenceEvidence[Extract and validate scoped reference quotes]
+    referenceEvidence --> reference[Compose cited sections / render verified facts]
+    answer --> result([HTTP result + trace_id])
+    reference --> result
+    clarify --> result
+    prepared -->|Retrieval allowance exceeded| stop[Stop]
+    parse -.-> budget[Budget admission for model stages]
+    grounding -.-> budget
+    plan -.-> budget
+    select -.-> budget
+    evaluate -.-> budget
+    referenceEvidence -.-> budget
+    answer -.-> budget
 ```
+
+General recommendations make one hybrid call, not a model-controlled search loop. Hybrid retrieval consumes two of the four allowed backend calls; named candidate search consumes one. Named status, exact pairs and encyclopedia care keep their reference routes. Search rank never overrides current status or source validation.
+
+Langfuse retains one trace_id: engine inputs and durations, RRF ranks/contributions and dropped hits, per-candidate provenance, selected/unselected IDs, verified statuses and final evaluations. Engine/fusion observations reference source texts already recorded in the trace. Budget admission remains the pilot stub.

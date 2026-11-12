@@ -11,7 +11,7 @@ def test_scenarios_cover_every_authored_stone_without_stale_operational_facts() 
     suite = json.loads(SUITE.read_text())
     fixtures = [json.loads(path.read_text()) for path in (ROOT / "fixtures/stones").glob("*.json")]
     cards = {item["stone"]["externalId"]: item for item in fixtures}
-    assert len(cards) == len(suite["stones"]) == 10
+    assert len(cards) == len(suite["stones"])
     assert {stone["external_id"] for stone in suite["stones"]} == set(cards)
     for stone in suite["stones"]:
         card = cards[stone["external_id"]]
@@ -41,15 +41,15 @@ def test_scenario_pair_expectations_match_authored_rules() -> None:
             assert pair["verdict"] == pairs[pair["key"]]["verdict"]
         if checks := expected.get("condition_checks"):
             rule = pairs[checks["pair_key"]]
-            assert set(checks) - {"pair_key"} == {condition["id"] for condition in rule["conditions"]}
+            assert set(checks) - {"pair_key"} == {
+                condition["id"] for condition in rule["conditions"]
+            }
 
 
-def test_existing_questions_are_preserved_in_the_new_suite() -> None:
+def test_active_questions_and_stone_names_are_english_only() -> None:
     suite = json.loads(SUITE.read_text())
     scenarios = {scenario["id"]: scenario for scenario in suite["scenarios"]}
     assert sum(s["origin"] == "existing_baseline" for s in scenarios.values()) == 3
-    for scenario_id in ("Q02", "Q03"):
-        scenario = scenarios[scenario_id]
-        archived = json.loads((ROOT / scenario["baseline_reference"] / "input.json").read_text())
-        assert scenario["question"] == archived["question"]
+    assert all(scenario["question"].isascii() for scenario in scenarios.values())
+    assert all(stone["name"].isascii() for stone in suite["stones"])
     assert scenarios["Q01"]["question"] in (ROOT / "docs/setup.md").read_text()

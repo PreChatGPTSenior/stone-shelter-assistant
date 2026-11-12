@@ -1,6 +1,9 @@
 # Agent instructions
 
 - This is a learning project. Read `docs/project-manifesto.md`, `docs/task-log.md`, and `docs/adr.md` before planning work. Keep the first working search pilot ahead of production concerns.
+- During stabilization, support only current contracts. All data is educational and disposable. Do not add backward compatibility, legacy DTOs, adapters, migrations for old fixture formats, or tests that preserve obsolete schemas. Update active fixtures, callers, tests, and documentation together when a contract changes; remove obsolete tests. Past experiment records may remain as reference data, but must not require compatibility code or be presented as current runnable inputs.
+- Stabilize the agents with English-only active questions, authored fixture content and names, test inputs, and prompts. Do not add multilingual behavior or translation layers now. Keep past experiment records in their original language as reference data, not active test inputs. Continue discussing the work with the owner in Russian.
+- English is the canonical knowledge/catalog language. The future multilingual path translates working queries with a model while retaining original questions/spans and translation provenance for grounding; do not replace original evidence with translated quotes. Continue stabilizing English scenarios before adding multilingual tests.
 - The owner writes Python application code to learn. Explain and review it; edit application code or tests only when explicitly asked. Treat the owner as an experienced Java developer learning Python and AI frameworks.
 - Check the installed stack and relevant code before recommending changes. Prefer idiomatic, typed Python and small components with a concrete role.
 - Read and follow [Repository organization](docs/repository-organization.md) before adding, moving, or reorganizing code or fixtures.

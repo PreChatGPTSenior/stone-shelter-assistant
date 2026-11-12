@@ -1,0 +1,45 @@
+{
+  "stone": {
+    "externalId": "b19266ec-28a2-4fd3-851b-7fad50b6e175",
+    "name": "Svetlana",
+    "stoneType": "MARBLE",
+    "stoneSize": "SMALL",
+    "biography": "Svetlana is a pale marble stone who loves singing loudly on a windowsill, especially early in the morning."
+  },
+  "shelterCase": {
+    "externalId": "b1f81086-b6a3-4e30-9762-6fca6bf07610",
+    "caseNumber": "0011-2026-P1",
+    "currentShelterId": "b222288c-1da8-4932-a7eb-75a55be41b87",
+    "admissionDate": "2026-11-01T09:00:00+04:00",
+    "adoptionStatus": "AVAILABLE",
+    "events": [
+      {
+        "externalId": "4d88e51c-0c59-4fb0-bf25-0ae80485619e",
+        "eventType": "ADMITTED",
+        "occurredAt": "2026-11-01T09:00:00+04:00",
+        "eventNotes": "Svetlana was admitted to Pebble Haven and made available for adoption."
+      },
+      {
+        "externalId": "94156b7f-cc92-4d65-861e-bd87e8662fb5",
+        "eventType": "OBSERVATION",
+        "occurredAt": "2026-11-02T05:00:00+04:00",
+        "eventNotes": "Shelter staff observed that Svetlana sings loudly on the windowsill every morning at 05:00 local time (Asia/Tbilisi). She enjoys singing there, especially early in the morning."
+      },
+      {
+        "externalId": "d02fbdf5-4e3b-4b6d-a697-61cdb6ce6a07",
+        "eventType": "OBSERVATION",
+        "occurredAt": "2026-11-03T05:15:00+04:00",
+        "eventNotes": "First neighbor complaint: Svetlana's loud singing on the windowsill at 05:00 disturbed the neighbors. The neighbors generally dislike loud sounds."
+      },
+      {
+        "externalId": "d009d233-4029-40b4-830e-69d01159a5e3",
+        "eventType": "OBSERVATION",
+        "occurredAt": "2026-11-07T05:20:00+04:00",
+        "eventNotes": "Second neighbor complaint: Svetlana again sang loudly on the windowsill at 05:00. The neighbors objected to the early-morning noise. This was the second recorded incident involving her singing and the neighbors."
+      }
+    ]
+  },
+  "profile": {
+    "preferredEnvironment": "A windowsill for singing, especially early in the morning."
+  }
+}

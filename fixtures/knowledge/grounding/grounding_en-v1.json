@@ -1,0 +1,126 @@
+[
+  {
+    "id": "en-v1-definition-candidate_type",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "definition",
+    "text": "A required material type of the candidate being requested. A type already in the household, an optional preference, or a negated type is not a required candidate type. Identify which entity the type modifies using the entire original question."
+  },
+  {
+    "id": "en-v1-definition-decision_rotation_agreed",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "definition",
+    "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false."
+  },
+  {
+    "id": "en-v1-definition-decision_deadline_agreed",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "definition",
+    "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope."
+  },
+  {
+    "id": "en-v1-example-rotation-asserted",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We agreed to rotate decisions.",
+    "expected": "supported",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-rotation-intended",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We want to agree to rotate decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-rotation-denied",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We have not agreed to rotate decisions.",
+    "expected": "supported",
+    "proposed_value": false
+  },
+  {
+    "id": "en-v1-example-rotation-other-household",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We discussed how they agreed to rotate decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-deadline-asserted",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We established a deadline for shared decisions.",
+    "expected": "supported",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-deadline-wished",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We hope to agree on a deadline for decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-candidate-required",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Find a granite companion.",
+    "expected": "supported",
+    "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-household",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Find a companion for my granite.",
+    "expected": "contradicted",
+    "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-preference",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Ideally granite.",
+    "expected": "unknown",
+    "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-denial",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Find a stone, but not granite.",
+    "expected": "contradicted",
+    "proposed_type": "GRANITE"
+  }
+]

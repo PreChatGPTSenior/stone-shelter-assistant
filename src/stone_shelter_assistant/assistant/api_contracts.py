@@ -10,7 +10,6 @@ from stone_shelter_assistant.core.api_base_models import ApiRequest
 class QuestionRequest(ApiRequest):
     question: str = Field(min_length=1)
     model_id: str | None = Field(default=None, min_length=1)
-    agent_model_id: str | None = Field(default=None, min_length=1)
     selection_model_id: str | None = Field(default=None, min_length=1)
     parsing_model_id: str | None = Field(default=None, min_length=1)
     planning_model_id: str | None = Field(default=None, min_length=1)
