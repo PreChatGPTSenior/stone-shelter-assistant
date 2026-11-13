@@ -1,0 +1,135 @@
+{
+  "runtime_commit": "f304747",
+  "baseline": "20261113T091304479841Z-challenge20.json",
+  "current": "20261113T095826034289Z-challenge20.json",
+  "comparability": {
+    "same_four_questions": true,
+    "same_fifteen_fixture_hashes": true,
+    "same_models_and_settings": true,
+    "runtime_sources_unchanged": true,
+    "offline_evaluation_reproduces": true
+  },
+  "attempts": 4,
+  "http_status_counts": {
+    "200": 4
+  },
+  "execution_integrity": {
+    "fail": 3,
+    "pass": 1
+  },
+  "semantic_judge": "disabled",
+  "telemetry": {
+    "traces_with_observations": 4,
+    "generations": 10,
+    "reported_cost_usd": 0.004122335,
+    "generations_missing_cost": 1,
+    "export_error_cases": [],
+    "cost_incomplete": true
+  },
+  "cases": [
+    {
+      "case_id": "Q02",
+      "previous_plan": "question_coverage_incomplete",
+      "current_plan": "unresolved_question",
+      "previous_audit": "incomplete",
+      "current_audit": "not_run",
+      "grounding_status": "grounding_model_error",
+      "required_compatibility": [],
+      "audit": null,
+      "decisions": [],
+      "manual_observation": "Parser correctly leaves required compatibility and requested_availability empty. Grounding model returns BadRequestResponseError (Provider returned error); audit not_run. Availability refusal fix cannot be evaluated. No candidate evaluation."
+    },
+    {
+      "case_id": "Q04",
+      "previous_plan": "question_coverage_incomplete",
+      "current_plan": "question_coverage_incomplete",
+      "previous_audit": "incomplete",
+      "current_audit": "incomplete",
+      "grounding_status": "verified",
+      "required_compatibility": [
+        {
+          "fragment_id": 1,
+          "household_type": "GRANITE",
+          "first_type": null,
+          "question_quote": "Find one granite stone for a quiet home where granite already lives."
+        }
+      ],
+      "audit": {
+        "status": "incomplete",
+        "summary": "The recommendation count, quiet-home requirement, household granite context, and both agreements are represented. The explicit granite type required for the candidate is missing, and the parse misclassifies the request as a compatibility criterion.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "Find one granite stone",
+            "reason": "This explicitly requires the recommended candidate to be granite. The schema can represent this in retrieval.candidate_type, but that field is null in the parse."
+          },
+          {
+            "kind": "misclassified",
+            "atom_id": "requirement.compatibility.1",
+            "fragment_id": 1,
+            "quote": "Find one granite stone for a quiet home where granite already lives.",
+            "reason": "The text identifies granite as the candidate type and mentions granite already living in the household, but does not independently require or prefer compatibility with that household stone. The parsed compatibility criterion is therefore unsupported."
+          }
+        ]
+      },
+      "decisions": [],
+      "manual_observation": "Required compatibility is still invented from the complete first sentence; candidate_type is also missing. Audit catches both issues and blocks. Both compound agreement facts remain correct."
+    },
+    {
+      "case_id": "Q07",
+      "previous_plan": "accepted",
+      "current_plan": "unresolved_question",
+      "previous_audit": "complete",
+      "current_audit": "not_run",
+      "grounding_status": "grounding_model_error",
+      "required_compatibility": [
+        {
+          "fragment_id": 1,
+          "household_type": "GRANITE",
+          "first_type": null,
+          "question_quote": "Find one granite stone"
+        }
+      ],
+      "audit": null,
+      "decisions": [],
+      "manual_observation": "Parser still creates required compatibility from the candidate-type quote and omits candidate_type. Grounding model returns BadRequestResponseError; no valid audit or candidate evaluation."
+    },
+    {
+      "case_id": "Q08",
+      "previous_plan": "accepted",
+      "current_plan": "accepted",
+      "previous_audit": "complete",
+      "current_audit": "complete",
+      "grounding_status": "verified",
+      "required_compatibility": [
+        {
+          "fragment_id": 1,
+          "household_type": "GRANITE",
+          "first_type": null,
+          "question_quote": "with our granite"
+        }
+      ],
+      "audit": {
+        "status": "complete",
+        "summary": "The parsed recommendation count, quiet-home criterion, compatibility requirement with the household granite, household stone context, and pair-scoped agreements cover the independent decision-bearing requests and constraints. The candidate type is also represented in retrieval under the schema's candidate-type field.",
+        "issues": []
+      },
+      "decisions": [
+        {
+          "stone_id": "7839e683-62d5-4464-9923-eb4efbb3cde6",
+          "name": "Sir Pebble",
+          "adoption_status": "AVAILABLE",
+          "outcome": "excluded",
+          "rank": null,
+          "exclusion_rules": [
+            "requirement_not_met"
+          ]
+        }
+      ],
+      "manual_observation": "Parser still creates required compatibility from household context. Audit incorrectly accepts it. Non-applicable granite scope again becomes two false agreement facts and is accepted by grounding. Sir Pebble excluded via requirement_not_met; expected condition/disposition checks fail."
+    }
+  ],
+  "conclusion": "No demonstrated fix: Q02 audit unmeasured due provider error; household-context promotion persists; audit misses Q08."
+}

@@ -185,7 +185,7 @@ async def test_schema_aware_audit_accepts_current_parse_for_contextual_questions
 
     class Model:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
-            assert schema is GroundingResponse
+            assert schema["title"] == GroundingResponse.__name__
 
             def respond(messages: Any) -> dict[str, Any]:
                 payload = json.loads(messages[-1].content)
@@ -224,6 +224,7 @@ async def test_schema_aware_audit_accepts_current_parse_for_contextual_questions
             "question": question,
             "question_fragments": fragments,
             "parsed_question": parsed,
+            "grounding_catalog_snapshot": snapshot().model_dump(mode="json"),
             "messages": [],
             "tools_used": 0,
         },
@@ -247,7 +248,8 @@ async def test_schema_aware_audit_accepts_current_parse_for_contextual_questions
     compatibility_description = schema["$defs"]["CompatibilityCriterionReference"]["properties"][
         "question_quote"
     ]["description"]
-    assert "naming a type that already lives in the household does not establish one" in compatibility_description
+    assert "Household presence or 'for/with my type' context alone" in compatibility_description
+    assert "retrieval.candidate_type" in compatibility_description
     if case_id in {"Q02", "Q16"}:
         expected_limit = 2 if case_id == "Q02" else 1
         assert parsed.recommendation_limit == expected_limit
@@ -351,6 +353,7 @@ async def test_schema_audit_blocks_missing_or_unrepresented_constraints(
             "question": question,
             "question_fragments": fragments,
             "parsed_question": parsed,
+            "grounding_catalog_snapshot": snapshot().model_dump(mode="json"),
             "messages": [],
             "tools_used": 0,
         },
@@ -412,7 +415,7 @@ async def test_only_bound_supported_decisions_become_facts_or_filters(case: dict
 
     class Model:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
-            assert schema is GroundingResponse
+            assert schema["title"] == GroundingResponse.__name__
 
             def respond(messages: Any) -> dict[str, Any]:
                 seen.append(json.loads(messages[-1].content))
@@ -451,6 +454,7 @@ async def test_only_bound_supported_decisions_become_facts_or_filters(case: dict
             "question": case["question"],
             "question_fragments": {1: case["question"]},
             "parsed_question": parsed,
+            "grounding_catalog_snapshot": snapshot().model_dump(mode="json"),
         }
     )
     assert seen[0]["original_question"] == case["question"]
@@ -482,14 +486,17 @@ async def test_unavailable_catalog_is_not_semantic_unknown_or_silent_filter_remo
             "question": case["question"],
             "question_fragments": {1: case["question"]},
             "parsed_question": proposal_for(case),
+            "grounding_catalog_error_type": "TimeoutError",
             "messages": [],
             "tools_used": 0,
         },
         runtime=Runtime(context=ctx),
     )
     assert result["grounding_status"] == "grounding_unavailable"
+    assert result["grounding_error_type"] == "TimeoutError"
     assert "criteria" not in result
     ctx.evaluation_model.with_structured_output.assert_not_called()
+    ctx.grounding_catalog.load.assert_not_awaited()
 
 
 @pytest.mark.asyncio
@@ -554,6 +561,7 @@ async def test_zero_proposal_recommendation_runs_coverage_audit_and_blocks_searc
             "tools_used": 0,
             "question_fragments": {1: question},
             "parsed_question": parsed,
+            "grounding_catalog_snapshot": snapshot().model_dump(mode="json"),
         },
         runtime=Runtime(context=context),
     )

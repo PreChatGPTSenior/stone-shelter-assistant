@@ -151,9 +151,9 @@ Mixed recommendation/reference questions run both parts. Parsing separates recom
 
 ### Grounding catalog
 
-The application reads the Typesense grounding_catalog collection, not the seed file, during semantic verification. Default GROUNDING_LANGUAGE=en and GROUNDING_CATALOG_VERSION=en-v1 select the current English pack.
+The application reads one complete Typesense grounding_catalog snapshot per request before parsing and reuses it for semantic verification; it does not read the seed file at request time. Default GROUNDING_LANGUAGE=en and GROUNDING_CATALOG_VERSION=en-v1 select the current English pack.
 
-- POST /api/v1/knowledge/grounding/reload replaces that language/version from fixtures/knowledge/grounding/grounding_en-v1.json (13 entries). Use explicitly for initialization or an intentional reset; it overwrites edits to that version.
+- POST /api/v1/knowledge/grounding/reload replaces that language/version from fixtures/knowledge/grounding/grounding_en-v1.json (the current English concepts and contrasting examples). Use explicitly for initialization or an intentional reset; it overwrites edits to that version.
 - GET /api/v1/knowledge/grounding/search?q=agree searches definitions/examples for inspection.
 - PUT /api/v1/knowledge/grounding/entries/{entry_id} accepts the full entry returned by search, with its text/label edited and identity/language/version preserved. Changes require no Python modification. The response returns the new snapshot hash.
 

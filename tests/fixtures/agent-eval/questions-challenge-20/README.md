@@ -68,3 +68,11 @@ For each run, preserve suite and scenario IDs, question, fixture hashes, actual 
 The [2026-11-13 repeat and before/after comparison](runs/20261112T222923314720Z-comparison.md) uses runtime commit `b80356d` and the same questions, corpus hashes, requested models and limits. Q04 compound extraction improves, but new audit false refusals and two HTTP timeouts prevent a general quality-improvement claim. Both raw runs and the original baseline evaluation remain unchanged.
 
 The [schema-aware audit repeat after Docker recovery](runs/20261113T091304479841Z-comparison.md) preserves the same twenty questions and models. Execution integrity is 12/6/2 versus 9/9/2; Q09/Q10 false refusals are removed, but remaining audit/parser errors and two HTTP failures prevent an overall semantic-quality claim. The report includes preserved-data checks, source patch and telemetry limitations.
+
+The [focused Q02/Q04/Q07/Q08 repeat](runs/20261113T095826034289Z-comparison.md) uses master commit `f304747`. Provider failures leave Q02 audit unmeasured; household-context promotion persists and Q08 audit accepts it. Four HTTP 200 responses do not establish semantic success.
+
+The [Luna/Terra focused experiment](runs/20261113T100756354734Z-comparison.md) keeps application code unchanged and archives a separate model-routing harness. Q02 availability audit is accepted once; both Terra evidence calls fail at the provider, leaving evidence-quality improvement unmeasured. Context/mandate errors persist.
+
+The [strict-schema repair verification](runs/20261113T105604580937Z-comparison.md) uses one of five authorized paid rounds: all four HTTP 200 and eleven model calls successful, with Q02 completing Terra evidence and an answer. Q04/Q07/Q08 remain semantic coverage failures. Local verification: 223 passed/five opt-in skipped; source snapshot and budget ledger preserved.
+
+The [semantic-role follow-up](runs/20261113T152106553750Z-comparison.md) passes all four targeted execution/condition/disposition checks in shared attempt2/5. Parser/auditor share a 26-entry catalog; new candidate, household context and hard target roles stay separate, and unrelated agreement scope remains unknown. The questions/expected outcomes/stone corpus remain unchanged; the catalog revision intentionally changed. Three remaining attempts were not used.

@@ -1,0 +1,1383 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "complete",
+  "semantic_judge": "unmeasured",
+  "archive_integrity": {
+    "duplicate_case_record_ids": [],
+    "selected_cases_missing_target_config": [],
+    "unexpected_record_case_ids": []
+  },
+  "scenario_reports": [
+    {
+      "case_id": "Q02",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "partial",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "partial",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "partial",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "partial",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "partial",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "67269139-e8b8-4c7d-aa58-33b88162ec70": {
+          "lexical_rank": 1,
+          "semantic_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "retrieval_rank": 1,
+          "in_pool": true
+        },
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+          "lexical_rank": null,
+          "semantic_rank": 1,
+          "rrf_score": 0.01639344262295082,
+          "retrieval_rank": 2,
+          "in_pool": true
+        },
+        "abcbd2b8-234c-4653-a9cf-d3c022073750": {
+          "lexical_rank": null,
+          "semantic_rank": 3,
+          "rrf_score": 0.015873015873015872,
+          "retrieval_rank": 3,
+          "in_pool": true
+        },
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf": {
+          "lexical_rank": null,
+          "semantic_rank": 4,
+          "rrf_score": 0.015625,
+          "retrieval_rank": 4,
+          "in_pool": true
+        },
+        "3b41b31d-5a1f-43ef-af77-c107bb7ae382": {
+          "lexical_rank": null,
+          "semantic_rank": 5,
+          "rrf_score": 0.015384615384615385,
+          "retrieval_rank": 5,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {
+        "67269139-e8b8-4c7d-aa58-33b88162ec70": [
+          {
+            "source_id": "stone-card:52f30705-870a-4c24-8357-f57578a05c76",
+            "criterion": "character",
+            "quote": "A quiet home with a predictable routine.",
+            "source_present": true,
+            "binding": "reason_evidence"
+          },
+          {
+            "source_id": "stone-card:52f30705-870a-4c24-8357-f57578a05c76",
+            "criterion": "character",
+            "quote": "prefers a peaceful home",
+            "source_present": true,
+            "binding": "reason_evidence"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_source_id"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_evidence"
+          }
+        ],
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": [
+          {
+            "source_id": "stone-card:43e35141-12ef-4b1c-9518-b77935a2c081",
+            "criterion": "character",
+            "quote": "enjoys quiet evenings",
+            "source_present": true,
+            "binding": "reason_evidence"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_source_id"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_evidence"
+          }
+        ]
+      },
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [
+          "67269139-e8b8-4c7d-aa58-33b88162ec70"
+        ],
+        "candidate_outcomes": {
+          "67269139-e8b8-4c7d-aa58-33b88162ec70": "recommended",
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian suits a quiet home: she prefers peace and a predictable routine, and is described as affectionate. The Granite–Obsidian pairing is rated harmonious; its guidance suggests direct reassurance and private conversations. She is cautious with strangers and needs a slow introduction, and her old crack needs occasional polishing. This supports a potential fit, not a guarantee of how two individual stones will get along.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "actual_supplied_sources": {
+          "stone-card:52f30705-870a-4c24-8357-f57578a05c76": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "52f30705-870a-4c24-8357-f57578a05c76",
+              "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+              "name": "Madame Obsidian",
+              "stone_type": "OBSIDIAN",
+              "stone_size": "MEDIUM",
+              "biography": "An affectionate stone who prefers a peaceful home.",
+              "profile": {
+                "socialization_traits": [
+                  "CAUTIOUS_WITH_STRANGERS",
+                  "ENJOYS_HUMAN_COMPANY",
+                  "NEEDS_SLOW_INTRODUCTION"
+                ],
+                "care_level": "ADDITIONAL",
+                "health_notes": "An old crack requires occasional polishing.",
+                "trigger_notes": "Becomes anxious around vacuum cleaners.",
+                "preferred_environment": "A quiet home with a predictable routine."
+              },
+              "shelter_case": {
+                "id": "9033a966-deee-4100-a4a5-2cc90ca6ad5e",
+                "external_id": "65bd7147-e394-44d5-bf97-24e15b1b428e",
+                "case_number": "0002-2026-P2",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "10ad5165-1b0c-4255-bfb8-ef6979d10e2b",
+                "admission_date": "2026-10-30T09:30:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+              "title": "Granite + Obsidian — A steady audience for complicated feelings",
+              "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "OBSIDIAN"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "conditions": []
+            }
+          },
+          "stone-card:43e35141-12ef-4b1c-9518-b77935a2c081": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "43e35141-12ef-4b1c-9518-b77935a2c081",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "7e18e9b4-3397-4f95-b57d-2640ed0a5ffc",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+              "title": "Granite + Granite — The permanently adjourned furniture meeting",
+              "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "GRANITE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "conditions": [
+                {
+                  "id": "rotate_decisions",
+                  "fact_type": "decision_rotation_agreed",
+                  "expected_value": true,
+                  "source_quote": "Rotate small decisions"
+                },
+                {
+                  "id": "decision_deadline",
+                  "fact_type": "decision_deadline_agreed",
+                  "expected_value": true,
+                  "source_quote": "set a friendly decision deadline for shared arrangements."
+                }
+              ]
+            }
+          }
+        },
+        "required_assertions": [
+          "Return at most two recommendations, all verified AVAILABLE.",
+          "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+          "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+          "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
+        ],
+        "forbidden_assertions": [
+          "Do not require one fixed shortlist or order before inspecting retrieval.",
+          "Do not count conditional options as unconditional recommendations.",
+          "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian suits a quiet home: she prefers peace and a predictable routine, and is described as affectionate. The Granite–Obsidian pairing is rated harmonious; its guidance suggests direct reassurance and private conversations. She is cautious with strangers and needs a slow introduction, and her old crack needs occasional polishing. This supports a potential fit, not a guarantee of how two individual stones will get along.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "sources": {
+          "stone-card:52f30705-870a-4c24-8357-f57578a05c76": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "52f30705-870a-4c24-8357-f57578a05c76",
+              "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+              "name": "Madame Obsidian",
+              "stone_type": "OBSIDIAN",
+              "stone_size": "MEDIUM",
+              "biography": "An affectionate stone who prefers a peaceful home.",
+              "profile": {
+                "socialization_traits": [
+                  "CAUTIOUS_WITH_STRANGERS",
+                  "ENJOYS_HUMAN_COMPANY",
+                  "NEEDS_SLOW_INTRODUCTION"
+                ],
+                "care_level": "ADDITIONAL",
+                "health_notes": "An old crack requires occasional polishing.",
+                "trigger_notes": "Becomes anxious around vacuum cleaners.",
+                "preferred_environment": "A quiet home with a predictable routine."
+              },
+              "shelter_case": {
+                "id": "9033a966-deee-4100-a4a5-2cc90ca6ad5e",
+                "external_id": "65bd7147-e394-44d5-bf97-24e15b1b428e",
+                "case_number": "0002-2026-P2",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "10ad5165-1b0c-4255-bfb8-ef6979d10e2b",
+                "admission_date": "2026-10-30T09:30:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+              "title": "Granite + Obsidian — A steady audience for complicated feelings",
+              "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "OBSIDIAN"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+OBSIDIAN",
+              "verdict": "HARMONIOUS",
+              "conditions": []
+            }
+          },
+          "stone-card:43e35141-12ef-4b1c-9518-b77935a2c081": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "43e35141-12ef-4b1c-9518-b77935a2c081",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "7e18e9b4-3397-4f95-b57d-2640ed0a5ffc",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+              "title": "Granite + Granite — The permanently adjourned furniture meeting",
+              "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "GRANITE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "conditions": [
+                {
+                  "id": "rotate_decisions",
+                  "fact_type": "decision_rotation_agreed",
+                  "expected_value": true,
+                  "source_quote": "Rotate small decisions"
+                },
+                {
+                  "id": "decision_deadline",
+                  "fact_type": "decision_deadline_agreed",
+                  "expected_value": true,
+                  "source_quote": "set a friendly decision deadline for shared arrangements."
+                }
+              ]
+            }
+          }
+        },
+        "verified_statuses": {
+          "43e35141-12ef-4b1c-9518-b77935a2c081": "AVAILABLE",
+          "52f30705-870a-4c24-8357-f57578a05c76": "AVAILABLE"
+        },
+        "recommended_stone_ids": [
+          "52f30705-870a-4c24-8357-f57578a05c76"
+        ],
+        "candidate_decisions": [
+          {
+            "stone_id": "52f30705-870a-4c24-8357-f57578a05c76",
+            "name": "Madame Obsidian",
+            "adoption_status": "AVAILABLE",
+            "outcome": "recommended",
+            "rank": 1,
+            "exclusion_rules": []
+          },
+          {
+            "stone_id": "43e35141-12ef-4b1c-9518-b77935a2c081",
+            "name": "Sir Pebble",
+            "adoption_status": "AVAILABLE",
+            "outcome": "conditional_option",
+            "rank": null,
+            "exclusion_rules": []
+          }
+        ],
+        "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+        "question_fragments": {
+          "1": "Find up to two stones for a quiet home where a granite stone already lives.",
+          "2": "Who is currently available and why might they fit?"
+        },
+        "candidate_status": "parsed",
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "e8eaac24b6bd66b88a937fcc86de817a"
+      }
+    },
+    {
+      "case_id": "Q04",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "question_coverage_incomplete",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "incomplete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "confirmed",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "confirmed",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "fail",
+          "coverage_status": "incomplete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Both granite conditions are confirmed.",
+          "Sir Pebble can be recommended if retrieved and verified AVAILABLE.",
+          "The authored verdict stays CONDITIONAL; its conditions_status becomes confirmed."
+        ],
+        "forbidden_assertions": [
+          "Do not rewrite the source verdict to HARMONIOUS."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "plan_status": "question_coverage_incomplete",
+        "grounding_status": "verified",
+        "question_coverage_status": "incomplete",
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The recommendation count, candidate type, household context, and stated agreements are represented. However, the parsed character and compatibility criteria attribute requirements to the question that it does not establish.",
+          "issues": [
+            {
+              "kind": "misclassified",
+              "atom_id": "requirement.character.1",
+              "fragment_id": 1,
+              "quote": "quiet home",
+              "reason": "This describes the home as quiet; it does not establish that the recommended stone must have a quiet character."
+            },
+            {
+              "kind": "misclassified",
+              "atom_id": "requirement.compatibility.1",
+              "fragment_id": 1,
+              "quote": "for a quiet home where granite already lives",
+              "reason": "The phrase gives household context but does not independently state a compatibility requirement for granite. The schema says that naming a type already in the household does not by itself establish such a criterion."
+            }
+          ]
+        },
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "4851aafa821f1f1be7da43e5e534201b"
+      }
+    },
+    {
+      "case_id": "Q07",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "question_coverage_incomplete",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "incomplete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "confirmed",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "contradicted",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "disposition_check": {
+          "status": "unknown",
+          "checks": {
+            "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+              "expected": "conditional_option",
+              "actual": null,
+              "status": "unknown"
+            }
+          }
+        },
+        "coverage_gate": {
+          "status": "fail",
+          "coverage_status": "incomplete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Rotation is confirmed; deadline is contradicted.",
+          "The pair remains unconfirmed under the current policy."
+        ],
+        "forbidden_assertions": [
+          "Do not silently drop the denial or describe both conditions as fulfilled."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "plan_status": "question_coverage_incomplete",
+        "grounding_status": "verified",
+        "question_coverage_status": "incomplete",
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The recommendation count, quiet-home criterion, household granite context, and decision agreements are represented. The explicit required type for the recommended candidate is misclassified as a compatibility criterion and is not represented as a candidate type.",
+          "issues": [
+            {
+              "kind": "misclassified",
+              "atom_id": "requirement.compatibility.1",
+              "fragment_id": 1,
+              "quote": "one granite stone",
+              "reason": "This specifies the required type of the requested candidate, not an independent compatibility target. The parsed compatibility entry misclassifies it, and retrieval.candidate_type is null."
+            }
+          ]
+        },
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "cf8c18f1a11341c49cc9418a73ae0166"
+      }
+    },
+    {
+      "case_id": "Q08",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "question_coverage_incomplete",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "incomplete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "unknown",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "unknown",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "disposition_check": {
+          "status": "unknown",
+          "checks": {
+            "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+              "expected": "conditional_option",
+              "actual": null,
+              "status": "unknown"
+            }
+          }
+        },
+        "coverage_gate": {
+          "status": "fail",
+          "coverage_status": "incomplete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Both granite condition checks have no applicable positive facts and remain unknown.",
+          "Typed agreements, if extracted, retain BASALT+GNEISS scope."
+        ],
+        "forbidden_assertions": [
+          "Do not widen scoped facts to household-wide facts."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "plan_status": "question_coverage_incomplete",
+        "grounding_status": "verified",
+        "question_coverage_status": "incomplete",
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The request for one stone, the quiet-home criterion, the granite candidate type, the existing household granite, and both agreements scoped to the basalt-gneiss pair are represented. The two entries treating non-applicability to granite pairs as explicit false agreements misclassify the source.",
+          "issues": [
+            {
+              "kind": "misclassified",
+              "atom_id": "household_fact.4",
+              "fragment_id": 3,
+              "quote": "These agreements do not apply to granite pairs",
+              "reason": "Non-applicability to granite pairs does not establish that the household explicitly denied or failed to reach a rotation agreement for that pair. The text scopes the stated agreement to the basalt-gneiss pair."
+            },
+            {
+              "kind": "misclassified",
+              "atom_id": "household_fact.5",
+              "fragment_id": 3,
+              "quote": "These agreements do not apply to granite pairs",
+              "reason": "Non-applicability to granite pairs does not establish that the household explicitly denied or failed to reach a deadline agreement for that pair. The text scopes the stated agreement to the basalt-gneiss pair."
+            }
+          ]
+        },
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "a0878636738750492dfd555eb3d17168"
+      }
+    }
+  ],
+  "source_archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/20261113T105604580937Z-challenge20.json",
+  "source_archive_sha256": "dc6bc3947789837a51d996ca004a53cbeae915ce512786e377f1460b5f824764",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/tests/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "b5336563fb7e242f24210dc245131d14d7b7f91ebd13795f93702a50083e1249"
+}

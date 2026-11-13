@@ -1,19 +1,27 @@
 [
   {
+    "id": "en-v1-definition-candidate_compatibility",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_compatibility",
+    "entry_kind": "definition",
+    "text": "A hard candidate-to-type compatibility criterion is stated independently when the user requires the new stone to live well with another type. Merely mentioning an existing stone, asking for a companion, or asking for environmental fit can trigger contextual pair assessment without imposing mandatory compatibility. A direct must/refusal about cohabitation remains binding."
+  },
+  {
+    "id": "en-v1-definition-candidate_environment_fit",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_environment_fit",
+    "entry_kind": "definition",
+    "text": "A recommendation requested for a stated home may express suitability to that environment. Represent the exact source wording as environmental fit; it does not claim the recommended stone intrinsically has the home’s quality. A home detail used only as background is not a fit criterion."
+  },
+  {
     "id": "en-v1-definition-candidate_type",
     "language": "en",
     "catalog_version": "en-v1",
     "concept_id": "candidate_type",
     "entry_kind": "definition",
-    "text": "A required material type of the candidate being requested. A type already in the household, an optional preference, or a negated type is not a required candidate type. Identify which entity the type modifies using the entire original question."
-  },
-  {
-    "id": "en-v1-definition-decision_rotation_agreed",
-    "language": "en",
-    "catalog_version": "en-v1",
-    "concept_id": "decision_rotation_agreed",
-    "entry_kind": "definition",
-    "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false."
+    "text": "The explicitly required material type of the new recommended stone. A positive type directly modifying the requested stone noun (for example, find a granite stone) is required without modal words such as must. A type stated as optional/preferred or negated is not required and must not become a retrieval filter. Identify which entity a type modifies: a type modifying an existing household stone is household context."
   },
   {
     "id": "en-v1-definition-decision_deadline_agreed",
@@ -21,77 +29,52 @@
     "catalog_version": "en-v1",
     "concept_id": "decision_deadline_agreed",
     "entry_kind": "definition",
-    "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope."
+    "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope."
   },
   {
-    "id": "en-v1-example-rotation-asserted",
+    "id": "en-v1-definition-decision_rotation_agreed",
     "language": "en",
     "catalog_version": "en-v1",
     "concept_id": "decision_rotation_agreed",
-    "entry_kind": "example",
-    "text": "We agreed to rotate decisions.",
-    "expected": "supported",
-    "proposed_value": true
+    "entry_kind": "definition",
+    "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope."
   },
   {
-    "id": "en-v1-example-rotation-intended",
+    "id": "en-v1-example-candidate-compatibility-context",
     "language": "en",
     "catalog_version": "en-v1",
-    "concept_id": "decision_rotation_agreed",
+    "concept_id": "candidate_compatibility",
     "entry_kind": "example",
-    "text": "We want to agree to rotate decisions.",
-    "expected": "unknown",
-    "proposed_value": true
+    "text": "Find a companion for the marble stone already at home.",
+    "expected": "unknown"
   },
   {
-    "id": "en-v1-example-rotation-denied",
-    "language": "en",
-    "catalog_version": "en-v1",
-    "concept_id": "decision_rotation_agreed",
-    "entry_kind": "example",
-    "text": "We have not agreed to rotate decisions.",
-    "expected": "supported",
-    "proposed_value": false
-  },
-  {
-    "id": "en-v1-example-rotation-other-household",
-    "language": "en",
-    "catalog_version": "en-v1",
-    "concept_id": "decision_rotation_agreed",
-    "entry_kind": "example",
-    "text": "We discussed how they agreed to rotate decisions.",
-    "expected": "unknown",
-    "proposed_value": true
-  },
-  {
-    "id": "en-v1-example-deadline-asserted",
-    "language": "en",
-    "catalog_version": "en-v1",
-    "concept_id": "decision_deadline_agreed",
-    "entry_kind": "example",
-    "text": "We established a deadline for shared decisions.",
-    "expected": "supported",
-    "proposed_value": true
-  },
-  {
-    "id": "en-v1-example-deadline-wished",
-    "language": "en",
-    "catalog_version": "en-v1",
-    "concept_id": "decision_deadline_agreed",
-    "entry_kind": "example",
-    "text": "We hope to agree on a deadline for decisions.",
-    "expected": "unknown",
-    "proposed_value": true
-  },
-  {
-    "id": "en-v1-example-candidate-required",
+    "id": "en-v1-example-candidate-denial",
     "language": "en",
     "catalog_version": "en-v1",
     "concept_id": "candidate_type",
     "entry_kind": "example",
-    "text": "Find a granite companion.",
-    "expected": "supported",
+    "text": "Find a stone, but not granite.",
+    "expected": "contradicted",
     "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-environment-fit",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_environment_fit",
+    "entry_kind": "example",
+    "text": "Find a stone suited to a quiet home.",
+    "expected": "supported"
+  },
+  {
+    "id": "en-v1-example-candidate-hard-compatibility",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_compatibility",
+    "entry_kind": "example",
+    "text": "Find a slate stone that must live well with the existing marble stone.",
+    "expected": "supported"
   },
   {
     "id": "en-v1-example-candidate-household",
@@ -114,13 +97,168 @@
     "proposed_type": "GRANITE"
   },
   {
-    "id": "en-v1-example-candidate-denial",
+    "id": "en-v1-example-candidate-required",
     "language": "en",
     "catalog_version": "en-v1",
     "concept_id": "candidate_type",
     "entry_kind": "example",
-    "text": "Find a stone, but not granite.",
-    "expected": "contradicted",
+    "text": "Find a granite companion.",
+    "expected": "supported",
     "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-type-no-modal",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Find one granite stone for a small home.",
+    "expected": "supported",
+    "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-type-optional",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Ideally, find a granite stone.",
+    "expected": "unknown",
+    "proposed_type": "GRANITE"
+  },
+  {
+    "id": "en-v1-example-candidate-type-with-other-household-type",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_type",
+    "entry_kind": "example",
+    "text": "Find a basalt stone for a home where granite already lives.",
+    "expected": "supported",
+    "proposed_type": "BASALT"
+  },
+  {
+    "id": "en-v1-example-deadline-asserted",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We established a deadline for shared decisions.",
+    "expected": "supported",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-deadline-explicit-pair-refusal",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We explicitly refused to set a deadline for pumice-pair decisions.",
+    "expected": "supported",
+    "proposed_value": false,
+    "applies_to_pair": [
+      "PUMICE",
+      "PUMICE"
+    ]
+  },
+  {
+    "id": "en-v1-example-deadline-other-pair-not-denial",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We set a deadline for marble-slate decisions; it applies only to that pair.",
+    "expected": "unknown",
+    "proposed_value": false,
+    "applies_to_pair": [
+      "PUMICE",
+      "PUMICE"
+    ]
+  },
+  {
+    "id": "en-v1-example-deadline-wished",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_deadline_agreed",
+    "entry_kind": "example",
+    "text": "We hope to agree on a deadline for decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-environment-background",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "candidate_environment_fit",
+    "entry_kind": "example",
+    "text": "My home is quiet. Tell me whether the named stone is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "en-v1-example-rotation-asserted",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We agreed to rotate decisions.",
+    "expected": "supported",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-rotation-denied",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We have not agreed to rotate decisions.",
+    "expected": "supported",
+    "proposed_value": false
+  },
+  {
+    "id": "en-v1-example-rotation-explicit-pair-refusal",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We explicitly refused to rotate decisions for the pumice pair.",
+    "expected": "supported",
+    "proposed_value": false,
+    "applies_to_pair": [
+      "PUMICE",
+      "PUMICE"
+    ]
+  },
+  {
+    "id": "en-v1-example-rotation-intended",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We want to agree to rotate decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-rotation-other-household",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We discussed how they agreed to rotate decisions.",
+    "expected": "unknown",
+    "proposed_value": true
+  },
+  {
+    "id": "en-v1-example-rotation-other-pair-not-denial",
+    "language": "en",
+    "catalog_version": "en-v1",
+    "concept_id": "decision_rotation_agreed",
+    "entry_kind": "example",
+    "text": "We agreed to rotate decisions for marble-slate. The agreement is scoped to that pair, not pumice pairs.",
+    "expected": "unknown",
+    "proposed_value": false,
+    "applies_to_pair": [
+      "PUMICE",
+      "PUMICE"
+    ]
   }
 ]

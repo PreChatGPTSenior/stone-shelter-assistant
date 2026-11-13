@@ -91,6 +91,26 @@ def _persist(path: Path, result: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _capture_http_response(record: dict[str, Any], response: Any) -> bool:
+    """Archive an HTTP result without letting a non-JSON failure mask its status."""
+    record["http_status"] = response.status_code
+    if not response.is_success:
+        record["technical_error"] = f"HTTP {response.status_code}"
+        try:
+            record["response"] = response.json()
+        except ValueError:
+            record["response_body"] = response.text[:4000]
+        return False
+    try:
+        record["response"] = response.json()
+    except ValueError as error:
+        record["technical_error"] = type(error).__name__
+        record["error_message"] = str(error)[:500]
+        record["response_body"] = response.text[:4000]
+        return False
+    return True
+
+
 @pytest.mark.asyncio
 @pytest.mark.skipif(
     os.getenv("RUN_QUESTIONS_CHALLENGE_20") != "1",
@@ -247,14 +267,11 @@ async def test_questions_challenge_20_live(
                             "fixture_version": manifest["suite_id"],
                         },
                     )
-                    record["http_status"] = response.status_code
-                    record["response"] = response.json()
                     record["graph_state"] = captured_states[-1] if captured_states else None
                     record["graph_capture_status"] = (
                         "captured" if captured_states else "missing_after_error"
                     )
-                    if not response.is_success:
-                        record["technical_error"] = f"HTTP {response.status_code}"
+                    if not _capture_http_response(record, response):
                         failures.append(case_id)
                 except Exception as error:
                     record["technical_error"] = type(error).__name__

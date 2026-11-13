@@ -1,0 +1,912 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "complete_with_failures",
+  "semantic_judge": "unmeasured",
+  "archive_integrity": {
+    "duplicate_case_record_ids": [],
+    "selected_cases_missing_target_config": [],
+    "unexpected_record_case_ids": []
+  },
+  "scenario_reports": [
+    {
+      "case_id": "Q02",
+      "stage_applicability": "recommendation",
+      "technical_error": "JSONDecodeError",
+      "workflow_integrity": {
+        "status": "unknown",
+        "plan_status": null,
+        "criteria_status": null,
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": null,
+        "answer_present": false,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unknown",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "not_applicable",
+          "coverage_status": null
+        }
+      },
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": null,
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Return at most two recommendations, all verified AVAILABLE.",
+          "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+          "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+          "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
+        ],
+        "forbidden_assertions": [
+          "Do not require one fixed shortlist or order before inspecting retrieval.",
+          "Do not count conditional options as unconditional recommendations.",
+          "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": null
+    },
+    {
+      "case_id": "Q04",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "question_coverage_incomplete",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "incomplete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "confirmed",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "confirmed",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "fail",
+          "coverage_status": "incomplete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Both granite conditions are confirmed.",
+          "Sir Pebble can be recommended if retrieved and verified AVAILABLE.",
+          "The authored verdict stays CONDITIONAL; its conditions_status becomes confirmed."
+        ],
+        "forbidden_assertions": [
+          "Do not rewrite the source verdict to HARMONIOUS."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "plan_status": "question_coverage_incomplete",
+        "grounding_status": "verified",
+        "question_coverage_status": "incomplete",
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The recommendation count, quiet-home criterion, household granite context, and both household agreements are represented. The required type for the candidate is missing, and the parse incorrectly treats the household granite context as a compatibility criterion.",
+          "issues": [
+            {
+              "kind": "omitted",
+              "atom_id": null,
+              "fragment_id": 1,
+              "quote": "granite stone",
+              "reason": "This explicitly specifies the required type of the stone being requested. The candidate_type field in retrieval is null, so the candidate-type constraint is not represented."
+            },
+            {
+              "kind": "misclassified",
+              "atom_id": "requirement.compatibility.1",
+              "fragment_id": 1,
+              "quote": "granite stone for a quiet home where granite already lives",
+              "reason": "This is parsed as a compatibility requirement, but the question only says granite already lives in the household; it does not independently state a compatibility mandate or preference. The candidate's granite type is a separate requirement."
+            }
+          ]
+        },
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "19a057ac0cf640b3ffdf0ae592337ce3"
+      }
+    },
+    {
+      "case_id": "Q07",
+      "stage_applicability": "recommendation",
+      "technical_error": "JSONDecodeError",
+      "workflow_integrity": {
+        "status": "unknown",
+        "plan_status": null,
+        "criteria_status": null,
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": null,
+        "answer_present": false,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "JSONDecodeError",
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "disposition_check": {
+          "status": "unknown",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "not_applicable",
+          "coverage_status": null
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": null,
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Rotation is confirmed; deadline is contradicted.",
+          "The pair remains unconfirmed under the current policy."
+        ],
+        "forbidden_assertions": [
+          "Do not silently drop the denial or describe both conditions as fulfilled."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": null
+    },
+    {
+      "case_id": "Q08",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "unresolved_question",
+        "criteria_status": "pending_grounding",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "not_run",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unknown",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "unknown",
+            "actual": null,
+            "status": "unknown"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "unknown",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "disposition_check": {
+          "status": "unknown",
+          "checks": {
+            "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+              "expected": "conditional_option",
+              "actual": null,
+              "status": "unknown"
+            }
+          }
+        },
+        "coverage_gate": {
+          "status": "unknown",
+          "coverage_status": "not_run"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Both granite condition checks have no applicable positive facts and remain unknown.",
+          "Typed agreements, if extracted, retain BASALT+GNEISS scope."
+        ],
+        "forbidden_assertions": [
+          "Do not widen scoped facts to household-wide facts."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "plan_status": "unresolved_question",
+        "grounding_status": "grounding_model_error",
+        "question_coverage_status": "not_run",
+        "question_coverage_audit": null,
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6-luna",
+          "evaluate_candidates": "openai/gpt-6-luna",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6-luna",
+          "ground_question": "openai/gpt-6-luna"
+        },
+        "trace_id": "61e6e9d6ca1859c81f122e1832c7de7c"
+      }
+    }
+  ],
+  "source_archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/20261113T100756354734Z-challenge20.json",
+  "source_archive_sha256": "3299b7d9a0684249a53fb814768d74d0ac80295a33c057139f829b2483e7f0ed",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/tests/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "b5336563fb7e242f24210dc245131d14d7b7f91ebd13795f93702a50083e1249"
+}

@@ -27,6 +27,7 @@ class GroundingEntry(BaseModel):
     expected: Literal["supported", "contradicted", "unknown"] | None = None
     proposed_value: StrictBool | None = None
     proposed_type: StoneType | None = None
+    applies_to_pair: tuple[StoneType, StoneType] | None = None
 
 
 class GroundingSnapshot(BaseModel):
@@ -43,7 +44,12 @@ def build_grounding_snapshot(
         raise ValueError("Grounding catalog must contain unique entries")
     if any(e.language != language or e.catalog_version != version for e in entries):
         raise ValueError("Catalog language/version mismatch")
-    concepts = {"candidate_type", *(kind.value for kind in AccommodationFactType)}
+    concepts = {
+        "candidate_type",
+        "candidate_compatibility",
+        "candidate_environment_fit",
+        *(kind.value for kind in AccommodationFactType),
+    }
     definitions = [e.concept_id for e in entries if e.entry_kind == "definition"]
     if set(definitions) != concepts or len(definitions) != len(concepts):
         raise ValueError("Catalog must define each supported concept exactly once")

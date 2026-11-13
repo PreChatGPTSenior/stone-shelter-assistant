@@ -53,6 +53,23 @@ from stone_shelter_assistant.stones.enums import StoneType
 ROOT = Path(__file__).parents[2]
 
 
+def _schema_class(schema: Any) -> type[Any]:
+    if isinstance(schema, type):
+        return schema
+    models = {
+        model.__name__: model
+        for model in (
+            CandidateEvidence,
+            GroundingResponse,
+            ReferenceAnswer,
+            ReferenceEvidence,
+            ParseQuestion,
+            SelectCandidates,
+        )
+    }
+    return models[schema["title"]]
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "case",
@@ -228,19 +245,20 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
     class FixtureModel:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
             def respond(messages: Any) -> dict[str, Any]:
-                model_calls.append(schema)
-                if schema is ParseQuestion:
+                schema_model = _schema_class(schema)
+                model_calls.append(schema_model)
+                if schema_model is ParseQuestion:
                     output: Any = parsed
-                elif schema is GroundingResponse:
+                elif schema_model is GroundingResponse:
                     output = GroundingResponse(
                         decisions=[],
                         question_coverage=QuestionCoverageAudit(
                             status="complete", summary="Every parsed request is covered."
                         ),
                     )
-                elif schema is SelectCandidates:
+                elif schema_model is SelectCandidates:
                     output = SelectCandidates(stone_ids=[])
-                elif schema is ReferenceEvidence:
+                elif schema_model is ReferenceEvidence:
                     data = json.loads(messages[-1].content)
                     output = ReferenceEvidence.model_validate(
                         {
@@ -254,7 +272,7 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                             ]
                         }
                     )
-                elif schema is ReferenceAnswer:
+                elif schema_model is ReferenceAnswer:
                     data = json.loads(messages[-1].content)
                     if not data["quotes"]:
                         source = data["sources"][0]
@@ -291,7 +309,7 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
                     if case == "invalid_citation":
                         output.sections[0].source_ids = ["invented-source"]
                 else:
-                    raise AssertionError(schema)
+                    raise AssertionError(schema_model)
                 return {
                     "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
                     "parsed": output,
@@ -660,18 +678,19 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
         class PairFixtureModel:
             def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
                 def respond(messages: Any) -> dict[str, Any]:
-                    if schema is ParseQuestion:
+                    schema_model = _schema_class(schema)
+                    if schema_model is ParseQuestion:
                         output: Any = current_parse
-                    elif schema is GroundingResponse:
+                    elif schema_model is GroundingResponse:
                         output = GroundingResponse(
                             decisions=[],
                             question_coverage=QuestionCoverageAudit(
                                 status="complete", summary="All parsed request atoms are covered."
                             ),
                         )
-                    elif schema is SelectCandidates:
+                    elif schema_model is SelectCandidates:
                         output = SelectCandidates(stone_ids=[])
-                    elif schema is ReferenceEvidence:
+                    elif schema_model is ReferenceEvidence:
                         data = json.loads(messages[-1].content)
                         current_evidence_inputs.append(data)
                         selected = [
@@ -696,7 +715,7 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
                                 ]
                             }
                         )
-                    elif schema is ReferenceAnswer:
+                    elif schema_model is ReferenceAnswer:
                         data = json.loads(messages[-1].content)
                         current_answer_inputs.append(data)
                         output = ReferenceAnswer(
@@ -710,7 +729,7 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
                             ]
                         )
                     else:
-                        raise AssertionError(schema)
+                        raise AssertionError(schema_model)
                     return {
                         "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
                         "parsed": output,
@@ -1143,7 +1162,7 @@ async def test_eight_household_pairs_are_all_checked_and_rendered() -> None:
 
     class EmptyEvidenceModel:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
-            assert schema is CandidateEvidence
+            assert schema["title"] == CandidateEvidence.__name__
             return RunnableLambda(
                 lambda _: {
                     "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),

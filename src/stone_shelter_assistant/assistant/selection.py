@@ -59,17 +59,29 @@ class HouseholdFactReference(FragmentReference):
     )
     value: StrictBool | None = Field(
         default=None,
-        description="Whether the named supported household agreement was explicitly established.",
+        description=(
+            "Whether the supported agreement was explicitly established for the stated scope. Use "
+            "false only for an explicit refusal or denial about that same household or pair. A "
+            "positive agreement scoped to another pair, or a statement that it does not apply here, "
+            "does not establish false for this pair; leave that pair unrepresented and unknown."
+        ),
     )
     applies_to_pair: tuple[StoneType, StoneType] | None = Field(
         default=None,
-        description="Explicit type-pair scope for a supported typed agreement, if one is stated.",
+        description=(
+            "The exact type pair to which this explicitly stated agreement or denial applies. "
+            "Keep a positive agreement attached to its stated pair; do not create false facts for "
+            "pairs it does not cover."
+        ),
     )
 
 
 class CompatibilityReference(FragmentReference):
     household_type: StoneType = Field(
-        description="A type participating in the requested compatibility question or criterion."
+        description=(
+            "The explicitly referenced existing or comparison type. This is never the type of a "
+            "new recommended stone; put that type in retrieval.candidate_type."
+        )
     )
     first_type: StoneType | None = Field(
         default=None,
@@ -81,19 +93,32 @@ class CriterionReference(FragmentReference):
     question_quote: str = Field(
         min_length=1,
         description=(
-            "Exact source subquote for one decision-bearing character criterion. Include source "
+            "Exact source subquote for one decision-bearing character or environmental-fit criterion. "
+            "A request for a stone for a stated home describes suitability to that environment; it "
+            "does not assert that the stone intrinsically has the home's quality. Include source "
             "context when it explains the criterion; independent criteria get separate entries."
         ),
     )
 
 
-class CompatibilityCriterionReference(CompatibilityReference):
+class CompatibilityCriterionReference(FragmentReference):
+    target_type: StoneType = Field(
+        description=(
+            "Other material type that the new candidate is explicitly required or preferred to live "
+            "with. It may be an existing, named, or hypothetical comparison type; this field does "
+            "not assert household presence. The same material may also be the candidate type when "
+            "the question explicitly requests that same-type pair."
+        )
+    )
     question_quote: str = Field(
         min_length=1,
         description=(
-            "Exact source subquote for one independent compatibility requirement or preference. "
-            "A cohabitation mandate or preference must be stated independently; naming a type "
-            "that already lives in the household does not establish one."
+            "Exact source subquote for one independent compatibility requirement or preference. The "
+            "new candidate must be explicitly required or preferred to be compatible with target_type. "
+            "Household presence or 'for/with my type' context alone can trigger a pair assessment but "
+            "does not create a mandatory compatibility criterion. The type of the new candidate is "
+            "a separate role in retrieval.candidate_type; both roles may use the same type only when "
+            "both are explicitly requested."
         ),
     )
 
@@ -137,8 +162,10 @@ class CriteriaReferences(BaseModel):
     character: list[CriterionReference] = Field(
         default_factory=list,
         description=(
-            "Independent required or preferred traits of a recommended stone. Source context that "
-            "explains a trait may stay in its quote rather than become a second household fact."
+            "Independent required or preferred traits or environmental fit of a recommended stone. "
+            "A phrase such as 'for a quiet home' requests suitability to that home without asserting "
+            "an intrinsic quiet trait. Source context that explains a criterion may stay in its quote "
+            "rather than become a second household fact."
         ),
     )
     compatibility: list[CompatibilityCriterionReference] = Field(
@@ -167,7 +194,7 @@ class CriteriaReferences(BaseModel):
                     criterion_id=f"{group_id}.compatibility.{index}",
                     fragment_id=item.fragment_id,
                     question_quote=item.question_quote,
-                    household_type=item.household_type,
+                    household_type=item.target_type,
                 )
                 for index, item in enumerate(self.compatibility, start=1)
             ],
@@ -184,7 +211,13 @@ class RetrievalRequest(BaseModel):
 
 class CandidateTypeReference(FragmentReference):
     stone_type: StoneType = Field(
-        description="Explicit type requirement for the candidate; this is not a household-context type."
+        description=(
+            "Explicit required material type of the new recommended candidate. A positive type "
+            "directly modifying the requested stone noun (for example, 'find a granite stone') is "
+            "required without a modal word such as 'must'. An optional or preferred type, or a "
+            "negated type, is not a required candidate type. A type modifying an existing household "
+            "stone is not a candidate type."
+        )
     )
 
 
@@ -203,7 +236,11 @@ class RetrievalProposal(BaseModel):
     )
     candidate_type: CandidateTypeReference | None = Field(
         default=None,
-        description="Only an explicit required stone type for the new candidate; household types are not candidate filters.",
+        description=(
+            "Only the explicitly required material of the new recommended stone. Extract a positive "
+            "type modifying its noun even without 'must'; do not filter on an optional/preferred or "
+            "negated type, or on a household stone's type from 'with/for my granite'."
+        ),
     )
 
 
@@ -247,9 +284,11 @@ class ParseQuestion(BaseModel):
     requirements: CriteriaReferences = Field(
         default_factory=CriteriaReferences,
         description=(
-            "Required traits and compatibility criteria. Context may explain a criterion without "
-            "being a second criterion. If the exact same source atom is also listed as a preference, "
-            "the resolver retains the requirement; distinct source atoms stay separate."
+            "Explicit required traits, environmental fit, and compatibility criteria for a recommended "
+            "stone. For compatibility, a cohabitation constraint must be independently stated; a "
+            "household type alone is context. Context may explain a criterion without being a second "
+            "criterion. If the exact same source atom is also listed as a preference, the resolver "
+            "retains the requirement; distinct source atoms stay separate."
         ),
     )
     preferences: CriteriaReferences = Field(

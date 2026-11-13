@@ -92,7 +92,7 @@ def test_explicit_hard_compatibility_requirement_remains_mandatory() -> None:
                 "compatibility": [
                     {
                         "fragment_id": 1,
-                        "household_type": "GRANITE",
+                        "target_type": "GRANITE",
                         "question_quote": "must live well with the granite already at home",
                     }
                 ],

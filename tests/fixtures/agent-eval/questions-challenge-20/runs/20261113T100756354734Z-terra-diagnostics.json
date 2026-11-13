@@ -1,0 +1,177 @@
+{
+  "cases": [
+    {
+      "case_id": "Q02",
+      "historical_observation_id": "dc429b97ce1895fd",
+      "historical_trace_id": "637f4e44acdc653de778fd1479a0f45b",
+      "historical_error": "Provider returned error",
+      "request_archive": "20261113T100756354734Z-Q02-terra-request-offline.json",
+      "request_bytes": 6450,
+      "message_count": 2,
+      "human_payload_keys": [
+        "character_criteria",
+        "candidate_sources",
+        "compatibility_targets"
+      ],
+      "candidate_count": 2,
+      "source_record_count": 7,
+      "source_refs": [
+        "biography",
+        "encyclopedia",
+        "profile.preferred_environment",
+        "profile.socialization_traits",
+        "profile.trigger_notes"
+      ],
+      "character_criteria": [
+        {
+          "criterion_id": "requirement.character.1",
+          "fragment_id": 1,
+          "question_quote": "quiet home"
+        }
+      ],
+      "strict_schema_findings": [
+        {
+          "path": "$.properties.character.items",
+          "issue": "properties_missing_from_required",
+          "fields": [
+            "observation_external_id"
+          ]
+        },
+        {
+          "path": "$.properties.individual_compatibility.items",
+          "issue": "properties_missing_from_required",
+          "fields": [
+            "observation_external_id"
+          ]
+        }
+      ],
+      "messages_match_expanded_observation": true,
+      "deduplicated_source_references_restored": [
+        {
+          "source_ref": "stone:49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "observation_id": "2e7121c27159eb5d"
+        }
+      ],
+      "wire_reconstruction": "Archived messages with original source texts expanded from referenced tool observations, plus unchanged SDK/model/harness parameters; HTTP transport mocked. This is not an original captured historical HTTP body.",
+      "new_model_calls": 0
+    },
+    {
+      "case_id": "Q07",
+      "historical_observation_id": "a7dd7d8a9580e8d6",
+      "historical_trace_id": "03693f8057681db085db95857f966a96",
+      "historical_error": "Provider returned error",
+      "request_archive": "20261113T100756354734Z-Q07-terra-request-offline.json",
+      "request_bytes": 4639,
+      "message_count": 2,
+      "human_payload_keys": [
+        "character_criteria",
+        "candidate_sources",
+        "compatibility_targets"
+      ],
+      "candidate_count": 1,
+      "source_record_count": 2,
+      "source_refs": [
+        "biography",
+        "encyclopedia"
+      ],
+      "character_criteria": [
+        {
+          "criterion_id": "requirement.character.1",
+          "fragment_id": 1,
+          "question_quote": "quiet home"
+        }
+      ],
+      "strict_schema_findings": [
+        {
+          "path": "$.properties.character.items",
+          "issue": "properties_missing_from_required",
+          "fields": [
+            "observation_external_id"
+          ]
+        },
+        {
+          "path": "$.properties.individual_compatibility.items",
+          "issue": "properties_missing_from_required",
+          "fields": [
+            "observation_external_id"
+          ]
+        }
+      ],
+      "messages_match_expanded_observation": true,
+      "deduplicated_source_references_restored": [
+        {
+          "source_ref": "stone:49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "observation_id": "c8532ec0ce668b8f"
+        }
+      ],
+      "wire_reconstruction": "Archived messages with original source texts expanded from referenced tool observations, plus unchanged SDK/model/harness parameters; HTTP transport mocked. This is not an original captured historical HTTP body.",
+      "new_model_calls": 0
+    }
+  ],
+  "network": "MockTransport for all model invocations; no network/model calls",
+  "schema_audit_scope": "required and additionalProperties contract checks; not full provider schema validation",
+  "versions": {
+    "langchain-openrouter": "0.2.9",
+    "langchain-core": "1.7.6",
+    "openrouter": "0.10.8",
+    "pydantic": "2.14.1"
+  },
+  "sdk_adapter": {
+    "file": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/.venv/lib/python3.13/site-packages/langchain_openrouter/chat_models.py",
+    "sha256": "5026abde213b10520090a05f7df35be0216cde0f47746b7dac80bb2b2acbc085",
+    "finding": "json_schema path calls convert_to_json_schema(schema) without forwarding strict; then sets strict on response_format wrapper."
+  },
+  "normalization_checks": {
+    "CandidateEvidence": {
+      "current_missing_required": [
+        {
+          "path": "$.properties.character.items",
+          "fields": [
+            "observation_external_id"
+          ]
+        },
+        {
+          "path": "$.properties.individual_compatibility.items",
+          "fields": [
+            "observation_external_id"
+          ]
+        }
+      ],
+      "strict_core_conversion_missing_required": []
+    },
+    "GroundingResponse": {
+      "current_missing_required": [
+        {
+          "path": "$.properties.question_coverage",
+          "fields": [
+            "issues"
+          ]
+        },
+        {
+          "path": "$.properties.question_coverage.properties.issues.items",
+          "fields": [
+            "atom_id",
+            "fragment_id",
+            "quote"
+          ]
+        }
+      ],
+      "strict_core_conversion_missing_required": []
+    }
+  },
+  "historical_error_evidence": {
+    "class": "BadRequestResponseError",
+    "message": "Provider returned error",
+    "raw_provider_response_body": "not archived",
+    "provider_name": "not archived",
+    "error_metadata_raw": "not archived",
+    "causal_conclusion": "Concrete strict-schema incompatibility confirmed offline; most likely request-side explanation for Terra refusal, but original raw provider body is unavailable so historical cause not proven."
+  },
+  "sources": [
+    "https://openrouter.ai/docs/guides/features/structured-outputs",
+    "https://openrouter.ai/blog/tutorials/structured-output-llm/",
+    "https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=chat",
+    "https://openrouter.ai/docs/api_reference/errors-and-debugging"
+  ],
+  "application_sources_unchanged": true
+}

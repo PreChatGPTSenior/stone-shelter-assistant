@@ -25,6 +25,7 @@ GROUNDING_COLLECTION_SCHEMA: Final[CollectionCreateSchema] = {
         {"name": "expected", "type": "string", "optional": True},
         {"name": "proposed_value", "type": "bool", "optional": True},
         {"name": "proposed_type", "type": "string", "optional": True},
+        {"name": "applies_to_pair", "type": "string[]", "optional": True},
     ],
 }
 

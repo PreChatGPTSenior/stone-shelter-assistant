@@ -1,6 +1,7 @@
 """Keep Langfuse observations aligned with the workflow stages."""
 
 import json
+import re
 from hashlib import sha256
 from typing import Any
 from uuid import UUID
@@ -53,6 +54,69 @@ TRACE_FIELDS = (
     "stop_reason",
     "duplicate_criteria_removed",
 )
+
+_SENSITIVE_ERROR_KEY = re.compile(r"auth|credential|header|secret|token|api.?key", re.IGNORECASE)
+_SECRET_VALUE = re.compile(
+    r"(?i)(bearer\s+)[A-Za-z0-9._~+/=-]+|\bsk-[A-Za-z0-9_-]{8,}",
+)
+
+
+def _safe_error_text(value: Any, limit: int) -> str:
+    return _SECRET_VALUE.sub("[REDACTED]", str(value))[:limit]
+
+
+def _safe_raw_value(value: Any, depth: int = 0) -> Any:
+    if depth >= 3:
+        return _safe_error_text(value, 120) if isinstance(value, (str, int, float, bool)) else "[TRUNCATED]"
+    if isinstance(value, dict):
+        return {
+            _safe_error_text(key, 80): _safe_raw_value(item, depth + 1)
+            for key, item in list(value.items())[:12]
+            if not _SENSITIVE_ERROR_KEY.search(str(key))
+        }
+    if isinstance(value, list):
+        return [_safe_raw_value(item, depth + 1) for item in value[:12]]
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return _safe_error_text(value, 200)
+    return "[OMITTED]"
+
+
+def provider_error_details(error: BaseException) -> dict[str, Any] | None:
+    """Project bounded OpenRouter error fields without copying request headers."""
+    status_code = getattr(error, "status_code", None)
+    body = getattr(error, "body", None)
+    if isinstance(body, str):
+        try:
+            body = json.loads(body)
+        except json.JSONDecodeError:
+            body = None
+    if not isinstance(status_code, int) and not isinstance(body, dict):
+        return None
+    details: dict[str, Any] = {}
+    if isinstance(status_code, int):
+        details["status_code"] = status_code
+    error_body = body.get("error") if isinstance(body, dict) else None
+    if isinstance(error_body, dict):
+        for field in ("code", "message"):
+            value = error_body.get(field)
+            if isinstance(value, (str, int)):
+                details[field] = _safe_error_text(value, 300)
+        metadata = error_body.get("metadata")
+        if isinstance(metadata, dict):
+            provider_name = metadata.get("provider_name")
+            if isinstance(provider_name, str):
+                details["provider_name"] = _safe_error_text(provider_name, 120)
+            raw = metadata.get("raw")
+            if isinstance(raw, str):
+                try:
+                    raw = json.loads(raw)
+                except json.JSONDecodeError:
+                    pass
+            if isinstance(raw, (str, int, float, bool, dict, list)):
+                details["raw"] = _safe_raw_value(raw)
+                if len(json.dumps(details["raw"], ensure_ascii=True)) > 1000:
+                    details["raw"] = json.dumps(details["raw"], ensure_ascii=True)[:1000]
+    return details or None
 
 
 def retrieval_trace_value(value: Any) -> Any:
@@ -200,7 +264,12 @@ class WorkflowTraceHandler(CallbackHandler):
                 for entry in error.errors(include_input=False, include_url=False)
             ]
         else:
-            detail["message"] = str(error).split("\n", 1)[0][:300]
+            provider_details = provider_error_details(error)
+            if provider_details is not None:
+                detail["provider_error"] = provider_details
+                detail["message"] = f"{type(error).__name__}: provider request failed"
+            else:
+                detail["message"] = str(error).split("\n", 1)[0][:300]
         errors = self._validation_errors.setdefault(owner, [])
         if detail not in errors:
             errors.append(detail)
@@ -222,7 +291,34 @@ class WorkflowTraceHandler(CallbackHandler):
         observation = self._runs.get(run_id)
         if observation is not None and run_id in self._validation_errors:
             observation.update(metadata={"validation_errors": self._validation_errors.pop(run_id)})
-        super().on_chain_error(error, run_id=run_id, parent_run_id=parent_run_id, **kwargs)
+        safe_error = (
+            RuntimeError(f"{type(error).__name__}: provider request failed")
+            if provider_error_details(error) is not None
+            else error
+        )
+        super().on_chain_error(safe_error, run_id=run_id, parent_run_id=parent_run_id, **kwargs)
+
+    def on_llm_error(
+        self,
+        error: BaseException,
+        *,
+        run_id: UUID,
+        parent_run_id: UUID | None = None,
+        **kwargs: Any,
+    ) -> None:
+        owner = self._hidden_parents.get(run_id)
+        self._record_validation_error(run_id, error)
+        if owner is not None:
+            self._record_validation_error(owner, error)
+        observation = self._runs.get(run_id)
+        if observation is not None:
+            observation.update(metadata={"validation_errors": self._validation_errors.pop(run_id)})
+        safe_error = (
+            RuntimeError(f"{type(error).__name__}: provider request failed")
+            if provider_error_details(error) is not None
+            else error
+        )
+        super().on_llm_error(safe_error, run_id=run_id, parent_run_id=parent_run_id, **kwargs)
 
     def _reference_sources(self, value: Any, observation_id: str) -> Any:
         """Store each retrieved source revision once per request and reference later copies."""

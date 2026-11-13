@@ -118,6 +118,7 @@ async def test_measure_grounding_on_held_out_questions(
                         "question": case["question"],
                         "question_fragments": {1: case["question"]},
                         "parsed_question": parsed,
+                        "grounding_catalog_snapshot": snapshot.model_dump(mode="json"),
                     },
                     config={
                         "callbacks": [

@@ -16,6 +16,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.runtime import Runtime
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanExporter
+from pydantic import BaseModel
 from tests.unit.search.test_rrf import card
 
 from stone_shelter_assistant.assistant import workflow
@@ -57,6 +58,23 @@ from stone_shelter_assistant.search.knowledge.stone_compatibility_document_build
 from stone_shelter_assistant.search.stones.stone_search_service import StoneSearchService
 from stone_shelter_assistant.stones.enums import AdoptionStatus, StoneType
 from stone_shelter_assistant.stones.stone_contracts import NamedStoneStatus, StoneDetails
+
+
+def _schema_class(schema: Any) -> type[Any]:
+    if isinstance(schema, type):
+        return schema
+    models = {
+        model.__name__: model
+        for model in (
+            CandidateEvidence,
+            GroundingResponse,
+            ReferenceAnswer,
+            ReferenceEvidence,
+            ParseQuestion,
+            SelectCandidates,
+        )
+    }
+    return models[schema["title"]]
 
 
 def payload(span: Any, field: str) -> Any:
@@ -235,7 +253,8 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(
 
     class FixtureModel:
         def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
-            if schema is ReferenceEvidence:
+            schema_model = _schema_class(schema)
+            if schema_model is ReferenceEvidence:
 
                 async def evidence(messages: Any) -> dict[str, Any]:
                     sources = json.loads(messages[-1].content)["sources"]
@@ -250,7 +269,7 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(
                     }
 
                 return RunnableLambda(evidence)
-            if schema is ReferenceAnswer:
+            if schema_model is ReferenceAnswer:
 
                 def answer_reference(messages: Any) -> dict[str, Any]:
                     quotes = json.loads(messages[-1].content)["quotes"]
@@ -269,13 +288,15 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(
                     }
 
                 return RunnableLambda(answer_reference)
-            return RunnableLambda(
-                lambda _: {
+            parsed_output = outputs[cast(type[BaseModel], schema_model)]
+
+            def fixture_response(_: Any) -> dict[str, Any]:
+                return {
                     "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
-                    "parsed": outputs[schema],
-                },
-                name="fixture_model",
-            )
+                    "parsed": parsed_output,
+                }
+
+            return RunnableLambda(fixture_response, name="fixture_model")
 
     model: Any = FixtureModel()
     exporter = InMemorySpanExporter()

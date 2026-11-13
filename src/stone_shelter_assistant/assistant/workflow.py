@@ -6,15 +6,16 @@ from typing import Any, Literal, NotRequired, Protocol, cast
 
 from langchain_core.language_models import LanguageModelInput
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
-from langchain_core.runnables import Runnable, RunnableConfig
+from langchain_core.runnables import Runnable, RunnableConfig, RunnableLambda
 from langchain_core.tools import BaseTool
+from langchain_core.utils.function_calling import convert_to_json_schema
 from langchain_openrouter import ChatOpenRouter
 from langgraph.config import get_config
 from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import ToolNode
 from langgraph.runtime import Runtime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from stone_shelter_assistant.assistant.budget import RunBudget
 from stone_shelter_assistant.assistant.candidate_evaluation import (
@@ -69,7 +70,10 @@ from stone_shelter_assistant.search.document_models import (
     EncyclopediaSectionSearchDocument,
 )
 from stone_shelter_assistant.search.enums import DocumentKind
-from stone_shelter_assistant.search.knowledge.grounding_catalog import GroundingCatalog
+from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+    GroundingCatalog,
+    GroundingSnapshot,
+)
 from stone_shelter_assistant.search.knowledge.stone_compatibility_document_builder import (
     build_pair_key,
 )
@@ -89,6 +93,8 @@ class SearchState(MessagesState):
     question_coverage_status: NotRequired[str]
     question_coverage_audit: NotRequired[dict[str, object]]
     grounding_catalog: NotRequired[dict[str, object]]
+    grounding_catalog_snapshot: NotRequired[dict[str, object]]
+    grounding_catalog_error_type: NotRequired[str]
     grounding_decisions: NotRequired[list[dict[str, object]]]
     tools_used: int
     search_end_reason: NotRequired[str]
@@ -325,6 +331,15 @@ def model_call_details(reply: AIMessage) -> dict[str, object]:
     return details
 
 
+def grounding_catalog_summary(snapshot: GroundingSnapshot) -> dict[str, object]:
+    return {
+        "language": snapshot.language,
+        "version": snapshot.catalog_version,
+        "content_hash": snapshot.content_hash,
+        "entry_ids": [entry.id for entry in snapshot.entries],
+    }
+
+
 # Nodes
 
 
@@ -414,13 +429,34 @@ def structured_model(
 ) -> tuple[str, Runnable[LanguageModelInput, dict[str, Any] | BaseModel]]:
     reasoning = {"enabled": False} if reasoning is None else reasoning
     if use_json_schema:
-        return "json_schema", model.with_structured_output(
-            schema,
+        # langchain-openrouter 0.2.9 sets strict on the outer response format,
+        # but does not pass it to convert_to_json_schema. Normalize the wire
+        # schema here, then validate the decoded object with the original DTO.
+        wire_schema = convert_to_json_schema(schema, strict=True)
+        structured = model.with_structured_output(
+            wire_schema,
             method="json_schema",
             strict=True,
             include_raw=True,
             provider={"require_parameters": True},
             reasoning=reasoning,
+        )
+        def validate_typed_response(response: Any) -> Any:
+            if (
+                not isinstance(response, dict)
+                or "parsed" not in response
+                or response.get("parsing_error") is not None
+            ):
+                return response
+            try:
+                parsed = schema.model_validate(response["parsed"])
+            except ValidationError as error:
+                return {**response, "parsed": None, "parsing_error": error}
+            return {**response, "parsed": parsed}
+
+        return "json_schema", cast(
+            Runnable[LanguageModelInput, dict[str, Any] | BaseModel],
+            structured.pipe(RunnableLambda(validate_typed_response)),
         )
     return "function_calling", model.with_structured_output(
         schema, method="function_calling", include_raw=True, reasoning=reasoning
@@ -546,6 +582,15 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
         "question_fragments": fragments,
         "criteria_status": "invalid_criteria",
     }
+    catalog_snapshot: GroundingSnapshot | None = None
+    try:
+        loaded_snapshot = await runtime.context.grounding_catalog.load()
+        catalog_snapshot = GroundingSnapshot.model_validate(loaded_snapshot)
+    except Exception as error:
+        result["grounding_catalog_error_type"] = type(error).__name__
+    if catalog_snapshot is not None:
+        result["grounding_catalog"] = grounding_catalog_summary(catalog_snapshot)
+        result["grounding_catalog_snapshot"] = catalog_snapshot.model_dump(mode="json")
     model = runtime.context.parsing_model.with_structured_output(
         ParseQuestion, method="function_calling", include_raw=True, reasoning={"enabled": False}
     )
@@ -556,7 +601,9 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "The stabilization pilot uses English questions and evidence only. "
                     "Use the structured output schema and its field descriptions as the canonical "
                     "contract for what this parse can represent. Do not invent fields or promote a "
-                    "search query into a criterion. "
+                    "search query into a criterion. Use the supplied semantic concept definitions "
+                    "and labeled contrasts to distinguish roles and scope; they explain categories "
+                    "and are not facts about the current household. "
                     "Classify only what the question explicitly asks or states. Reference the "
                     "supplied fragment IDs and keep the following categories separate. "
                     "'Is Madame Obsidian available?' goes in requested_availability, never in "
@@ -580,7 +627,9 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "A type-to-type compatibility question uses requested_compatibility with target "
                     "types; a compatibility requirement for a recommended candidate uses target "
                     "candidate. A quiet home "
-                    "may be a household fact and a requested character fit. Do not invent "
+                    "may be a household fact and a requested character fit. When a user asks for a "
+                    "candidate 'for a quiet home', preserve that exact quote as environmental fit, "
+                    "not as a claim that the stone intrinsically is quiet. Do not invent "
                     "requirements, household stone types, or preferences. Use empty lists for "
                     "categories with no evidence. Empty list fields may be omitted; do not use null. "
                     "Each requirement, preference, household fact, and agreement is an atomic "
@@ -589,7 +638,15 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                     "agreements or criteria, return a separate entry for each source subquote; do "
                     "not combine, split by conjunction words, or omit them. A household type alone "
                     "is not a compatibility criterion. Do not infer a compatibility mandate from "
-                    "phrases such as 'our granite' or other household descriptions. "
+                    "phrases such as 'our granite' or other household descriptions. A positive "
+                    "required material directly modifying the new candidate noun (for example, "
+                    "'find a granite stone') belongs in retrieval.candidate_type even without 'must'; "
+                    "an optional, preferred, or negated type does not. Do not put the new candidate's "
+                    "type under requirements.compatibility. A type of an existing stone belongs in "
+                    "household_facts. A positive household agreement scoped to one pair is only a "
+                    "fact for that pair. If the user says it does not apply to another pair, do not "
+                    "create false facts for the other pair; false means an explicit refusal or denial "
+                    "about that same scope. "
                     "Copy an explicitly named individual stone into "
                     "named_stone with its fragment ID and exact name. For a recommendation of a named "
                     "candidate, also set recommendation_target with the exact name and fragment ID. "
@@ -635,6 +692,19 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
                             {"fragment_id": fragment_id, "text": text}
                             for fragment_id, text in fragments.items()
                         ],
+                        "semantic_concepts": (
+                            {
+                                "language": catalog_snapshot.language,
+                                "version": catalog_snapshot.catalog_version,
+                                "content_hash": catalog_snapshot.content_hash,
+                                "entries": [
+                                    entry.model_dump(mode="json", exclude_none=True)
+                                    for entry in catalog_snapshot.entries
+                                ],
+                            }
+                            if catalog_snapshot is not None
+                            else None
+                        ),
                     },
                     ensure_ascii=False,
                 )
@@ -676,20 +746,29 @@ async def ground_question(state: SearchState, *, runtime: Runtime[RunContext]) -
     supported: frozenset[str] = frozenset()
     audit_required = bool(proposals) or parsed.recommendation_limit > 0
     if audit_required:
-        try:
-            catalog = await runtime.context.grounding_catalog.load()
-        except Exception as error:
+        catalog_error = state.get("grounding_catalog_error_type")
+        if catalog_error is not None:
             return {
                 **result,
                 "grounding_status": "grounding_unavailable",
-                "grounding_error_type": type(error).__name__,
+                "grounding_error_type": catalog_error,
             }
-        result["grounding_catalog"] = {
-            "language": catalog.language,
-            "version": catalog.catalog_version,
-            "content_hash": catalog.content_hash,
-            "entry_ids": [entry.id for entry in catalog.entries],
-        }
+        catalog_snapshot = state.get("grounding_catalog_snapshot")
+        if catalog_snapshot is None:
+            return {
+                **result,
+                "grounding_status": "grounding_unavailable",
+                "grounding_error_type": "GroundingSnapshotMissing",
+            }
+        try:
+            catalog = GroundingSnapshot.model_validate(catalog_snapshot)
+        except ValidationError:
+            return {
+                **result,
+                "grounding_status": "grounding_unavailable",
+                "grounding_error_type": "GroundingSnapshotInvalid",
+            }
+        result["grounding_catalog"] = grounding_catalog_summary(catalog)
         _, model = structured_model(
             runtime.context.evaluation_model,
             GroundingResponse,
