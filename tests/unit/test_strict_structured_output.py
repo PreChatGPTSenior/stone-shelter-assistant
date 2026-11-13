@@ -7,7 +7,7 @@ from langchain_openrouter import ChatOpenRouter
 from openrouter import OpenRouter
 from pydantic import BaseModel, SecretStr, ValidationError
 
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_evidence import (
     CandidateEvidence,
     assessment_failure_status,
 )
@@ -106,8 +106,16 @@ async def test_strict_wire_schema_is_sent_and_parsed_as_original_dto(
         coverage = wire_schema["properties"]["question_coverage"]["properties"]
         assert "issues" in wire_schema["properties"]["question_coverage"]["required"]
         issue = coverage["issues"]["items"]
-        assert set(issue["required"]) == set(issue["properties"])
-        assert {"type": "null"} in issue["properties"]["atom_id"]["anyOf"]
+        assert issue["discriminator"]["propertyName"] == "kind"
+        variants = {
+            variant["properties"]["kind"]["const"]: variant for variant in issue["oneOf"]
+        }
+        assert set(variants) == {"omitted", "misclassified", "uncertain"}
+        for variant in variants.values():
+            assert set(variant["required"]) == set(variant["properties"])
+        assert variants["omitted"]["properties"]["atom_id"]["type"] == "null"
+        assert variants["misclassified"]["properties"]["atom_id"]["type"] == "string"
+        assert {"type": "null"} in variants["uncertain"]["properties"]["atom_id"]["anyOf"]
 
 
 @pytest.mark.asyncio

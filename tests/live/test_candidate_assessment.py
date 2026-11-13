@@ -15,11 +15,11 @@ from langchain_core.messages import AIMessage, convert_to_messages
 from langchain_openrouter import ChatOpenRouter
 from langfuse import Evaluation, Langfuse, propagate_attributes
 
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_assessment import evaluate_candidate
+from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
+from stone_shelter_assistant.assistant.candidate_evidence import (
     CandidateEvidence,
-    SearchCriteria,
     candidate_sources,
-    evaluate_candidate,
 )
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
 from stone_shelter_assistant.assistant.workflow import model_call_details, structured_model

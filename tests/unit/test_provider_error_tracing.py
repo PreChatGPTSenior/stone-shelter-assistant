@@ -14,7 +14,7 @@ from opentelemetry.sdk.trace import ReadableSpan, TracerProvider
 from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanExporter
 from pydantic import SecretStr
 
-from stone_shelter_assistant.assistant.candidate_evaluation import CandidateEvidence
+from stone_shelter_assistant.assistant.candidate_evidence import CandidateEvidence
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
 from stone_shelter_assistant.assistant.workflow import structured_model
 

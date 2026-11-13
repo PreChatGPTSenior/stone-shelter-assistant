@@ -70,7 +70,7 @@ def build_grounding_snapshot(
     )
 
 
-class GroundingCatalog:
+class GroundingConceptStoreService:
     def __init__(self, client: AsyncClient, *, language: str, version: str) -> None:
         self.client = client
         self.language = language

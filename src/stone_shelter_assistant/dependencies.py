@@ -1,10 +1,9 @@
 """Wire request-scoped services and indexers to database sessions."""
 
 from collections.abc import AsyncIterator, Awaitable, Callable
-from datetime import datetime
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Annotated
-from zoneinfo import ZoneInfo
 
 from fastapi import Depends, Request
 from langchain_core.tools import BaseTool
@@ -21,14 +20,20 @@ from stone_shelter_assistant.assistant.tools import (
     stone_search_tools,
 )
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler, trace_result
-from stone_shelter_assistant.assistant.workflow import run_workflow
+from stone_shelter_assistant.assistant.workflow import (
+    WorkflowModels,
+    WorkflowTools,
+    run_workflow,
+)
 from stone_shelter_assistant.core.settings import (
     GroundingSettings,
     LangfuseSettings,
     OpenRouterSettings,
 )
 from stone_shelter_assistant.core.unit_of_work import SqlAlchemyUnitOfWork
-from stone_shelter_assistant.search.knowledge.grounding_catalog import GroundingCatalog
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
+    GroundingConceptStoreService,
+)
 from stone_shelter_assistant.search.knowledge.knowledge_indexer import KnowledgeIndexer
 from stone_shelter_assistant.search.knowledge.knowledge_search_service import KnowledgeSearchService
 from stone_shelter_assistant.search.stones.case_event_search_service import CaseEventSearchService
@@ -44,7 +49,63 @@ from stone_shelter_assistant.stones.repository import (
 )
 from stone_shelter_assistant.stones.service import RegisterStoneService, StoneIngestionService
 
-type QuestionWorkflow = Callable[[QuestionRequest], Awaitable[dict[str, object]]]
+type QuestionWorkflow = Callable[[QuestionRequest, str, str], Awaitable[dict[str, object]]]
+
+
+@dataclass(frozen=True, slots=True)
+class QuestionModelPlan:
+    request_default: str
+    selection: str
+    parsing: str
+    evaluation: str
+    answer: str
+
+    def stage_model_ids(self) -> dict[str, str]:
+        return {
+            "select_candidates": self.selection,
+            "parse_question": self.parsing,
+            "evaluate_candidates": self.evaluation,
+            "answer": self.answer,
+            "collect_reference_evidence": self.evaluation,
+            "ground_question": self.evaluation,
+        }
+
+
+def _resolve_question_model_plan(
+    payload: QuestionRequest,
+    settings: OpenRouterSettings,
+) -> QuestionModelPlan:
+    request_default = payload.model_id or settings.model
+    selection = (
+        payload.selection_model_id
+        or payload.model_id
+        or settings.selection_model
+        or settings.model
+    )
+    parsing = (
+        payload.parsing_model_id
+        or payload.model_id
+        or settings.parsing_model
+        or selection
+    )
+    evaluation = (
+        payload.evaluation_model_id
+        or payload.model_id
+        or settings.evaluation_model
+    )
+    answer = (
+        payload.answer_model_id
+        or payload.model_id
+        or settings.answer_model
+        or settings.model
+    )
+    return QuestionModelPlan(
+        request_default=request_default,
+        selection=selection,
+        parsing=parsing,
+        evaluation=evaluation,
+        answer=answer,
+    )
 
 
 async def get_register_stone_service(
@@ -136,9 +197,9 @@ def get_search_tools(
     }
 
 
-def get_grounding_catalog(request: Request) -> GroundingCatalog:
+def get_grounding_catalog(request: Request) -> GroundingConceptStoreService:
     settings = GroundingSettings()
-    return GroundingCatalog(
+    return GroundingConceptStoreService(
         request.app.state.typesense_client,
         language=settings.language,
         version=settings.catalog_version,
@@ -147,43 +208,19 @@ def get_grounding_catalog(request: Request) -> GroundingCatalog:
 
 def get_question_workflow(
     tools: Annotated[dict[str, BaseTool], Depends(get_search_tools)],
-    grounding: Annotated[GroundingCatalog, Depends(get_grounding_catalog)],
+    grounding: Annotated[GroundingConceptStoreService, Depends(get_grounding_catalog)],
 ) -> QuestionWorkflow:
-    async def ask(payload: QuestionRequest) -> dict[str, object]:
+    async def ask(payload: QuestionRequest, user_id: str, session_id: str) -> dict[str, object]:
         openrouter = OpenRouterSettings()
-        default_model_id = payload.model_id or openrouter.model
-        selection_model_id = (
-            payload.selection_model_id
-            or payload.model_id
-            or openrouter.selection_model
-            or openrouter.model
-        )
-        parsing_model_id = (
-            payload.parsing_model_id
-            or payload.model_id
-            or openrouter.parsing_model
-            or selection_model_id
-        )
-        model_ids = {
-            "select_candidates": selection_model_id,
-            "parse_question": parsing_model_id,
-            "evaluate_candidates": payload.evaluation_model_id
-            or payload.model_id
-            or openrouter.evaluation_model,
-            "answer": payload.answer_model_id
-            or payload.model_id
-            or openrouter.answer_model
-            or openrouter.model,
-        }
-        model_ids["collect_reference_evidence"] = model_ids["evaluate_candidates"]
-        model_ids["ground_question"] = model_ids["evaluate_candidates"]
+        model_plan = _resolve_question_model_plan(payload, openrouter)
+        model_ids = model_plan.stage_model_ids()
         models = {
             model_id: ChatOpenRouter(
                 model_name=model_id,
                 openrouter_api_key=openrouter.api_key,
-                max_tokens=3072,
-                max_retries=0,
-                request_timeout=45_000,
+                max_tokens=openrouter.max_tokens,
+                max_retries=openrouter.max_retries,
+                request_timeout=openrouter.request_timeout,
             )
             for model_id in dict.fromkeys(model_ids.values())
         }
@@ -191,10 +228,10 @@ def get_question_workflow(
         evaluation_effort = (
             payload.evaluation_reasoning_effort or openrouter.evaluation_reasoning_effort
         )
-        evaluation_model = models[model_ids["evaluate_candidates"]].model_copy(
+        evaluation_model = models[model_plan.evaluation].model_copy(
             update={
                 "max_tokens": evaluation_max_tokens,
-                "request_timeout": 180_000,
+                "request_timeout": openrouter.evaluation_request_timeout,
             }
         )
         tracing = LangfuseSettings()
@@ -220,13 +257,13 @@ def get_question_workflow(
                 as_type="span",
                 input={
                     "question": payload.question,
-                    "model_id": default_model_id,
+                    "model_id": model_plan.request_default,
                     "model_ids": model_ids,
                 },
             ) as root,
             propagate_attributes(
-                user_id="local-test-user",
-                session_id=f"{datetime.now(ZoneInfo('Asia/Tbilisi')):%Y-%m-%d}-PY-037",
+                user_id=user_id,
+                session_id=session_id,
                 metadata=eval_metadata,
             ),
         ):
@@ -234,43 +271,52 @@ def get_question_workflow(
                 public_key=tracing.public_key,
                 trace_context={"trace_id": root.trace_id, "parent_span_id": root.id},
             )
-            result = await run_workflow(
-                grounding_catalog=grounding,
-                question=payload.question,
-                selection_model=models[model_ids["select_candidates"]],
-                selection_uses_json_schema=selection_model_id
-                in openrouter.selection_json_schema_models,
-                parsing_model=models[model_ids["parse_question"]],
+            workflow_models = WorkflowModels(
+                selection_model=models[model_plan.selection],
+                selection_uses_json_schema=(
+                    model_plan.selection in openrouter.selection_json_schema_models
+                ),
+                parsing_model=models[model_plan.parsing],
                 evaluation_model=evaluation_model,
+                evaluation_uses_json_schema=(
+                    model_plan.evaluation in openrouter.evaluation_json_schema_models
+                ),
+                answer_model=models[model_plan.answer],
                 evaluation_reasoning={"effort": evaluation_effort},
-                evaluation_uses_json_schema=model_ids["evaluate_candidates"]
-                in openrouter.evaluation_json_schema_models,
-                answer_model=models[model_ids["answer"]],
-                retrieval_tools=[
+            )
+            reference_tools = ReferenceTools(
+                stone_status=tools["get_stone_status_by_name"],
+                stone_details=tools["get_stone_details"],
+                timeline=tools["get_case_timeline"],
+                encyclopedia=tools["search_knowledge_lexical"],
+                exact_pair=tools["get_compatibility_pair"],
+                pair_list=tools["list_compatibility_pairs"],
+            )
+            workflow_tools = WorkflowTools(
+                retrieval=(
                     tools["search_stones_lexical"],
                     tools["search_stones_semantic"],
                     tools["search_stones_hybrid"],
                     tools["get_compatibility_pair"],
-                ],
+                ),
                 details_tool=tools["get_stone_details"],
                 status_tool=tools["get_current_stone_statuses"],
                 timeline_tool=tools["get_case_timeline"],
                 compatibility_tool=tools["get_compatibility_pair"],
                 encyclopedia_tool=tools["search_knowledge_lexical"],
-                reference_tools=ReferenceTools(
-                    stone_status=tools["get_stone_status_by_name"],
-                    stone_details=tools["get_stone_details"],
-                    timeline=tools["get_case_timeline"],
-                    encyclopedia=tools["search_knowledge_lexical"],
-                    exact_pair=tools["get_compatibility_pair"],
-                    pair_list=tools["list_compatibility_pairs"],
-                ),
+                reference_tools=reference_tools,
+            )
+            result = await run_workflow(
+                question=payload.question,
+                models=workflow_models,
+                tools=workflow_tools,
+                grounding_catalog=grounding,
                 config={"callbacks": [callback], "run_name": "search-workflow"},
             )
             root.update(output=trace_result(result, include_answer=True))
             return {
                 **result,
-                "model_id": default_model_id,
+                "model_id": model_plan.request_default,
                 "model_ids": model_ids,
                 "trace_id": root.trace_id,
             }

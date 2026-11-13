@@ -16,7 +16,6 @@ from stone_shelter_assistant.core.settings import (
     QdrantSettings,
     TypesenseSettings,
 )
-from stone_shelter_assistant.manual_testing.router import router as manual_testing_router
 from stone_shelter_assistant.search.infrastructure.client_factories import (
     create_embeddings,
     create_qdrant_client,
@@ -72,6 +71,5 @@ def create_app() -> FastAPI:
     app.include_router(stones_router)
     app.include_router(knowledge_router)
     app.include_router(assistant_router)
-    app.include_router(manual_testing_router)
 
     return app

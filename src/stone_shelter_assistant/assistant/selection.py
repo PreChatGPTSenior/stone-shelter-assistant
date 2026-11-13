@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_criteria import (
     CompatibilityCriterion,
     CriteriaGroup,
     HouseholdFact,
@@ -468,53 +468,73 @@ class ParseQuestion(BaseModel):
             if p.proposal_id not in supported
         ]
 
-    def resolve_references(self, fragments: Mapping[int, str]) -> ReferenceRequest:
-        name = None
-        if self.named_stone is not None:
-            name = self.named_stone.name.strip()
-            if (
-                not name
-                or name.casefold() not in fragments[self.named_stone.fragment_id].casefold()
-            ):
-                raise ValueError("Stone name must occur in its question fragment")
-        recommendation_name = None
-        if self.recommendation_target is not None:
-            if self.recommendation_target.fragment_id not in fragments:
-                raise KeyError(self.recommendation_target.fragment_id)
-            recommendation_name = self.recommendation_target.name.strip()
-            if (
-                not recommendation_name
-                or recommendation_name.casefold()
-                not in fragments[self.recommendation_target.fragment_id].casefold()
-            ):
-                raise ValueError("Recommendation name must occur in its question fragment")
-        for item in [
+    @staticmethod
+    def _resolve_bound_name(
+        reference: NamedStoneReference | None,
+        fragments: Mapping[int, str],
+        error_message: str,
+    ) -> str | None:
+        if reference is None:
+            return None
+        fragment = fragments[reference.fragment_id]
+        name = reference.name.strip()
+        if not name or name.casefold() not in fragment.casefold():
+            raise ValueError(error_message)
+        return name
+
+    def _validate_reference_fragments(self, fragments: Mapping[int, str]) -> None:
+        items = [
             *self.requested_compatibility,
             *self.requested_care,
             *self.requested_pair_lists,
             *self.unsupported_care,
-        ]:
-            if item.fragment_id not in fragments:
-                raise KeyError(item.fragment_id)
+        ]
+        missing = next((item.fragment_id for item in items if item.fragment_id not in fragments), None)
+        if missing is not None:
+            raise KeyError(missing)
+        if (
+            self.requested_stone_info is not None
+            and self.requested_stone_info.fragment_id not in fragments
+        ):
+            raise KeyError(self.requested_stone_info.fragment_id)
+
+    def _validate_requested_compatibility(self) -> None:
         for item in self.requested_compatibility:
-            if item.target == "candidate":
-                if item.first_type is not None or not self.recommendation_limit:
-                    raise ValueError("Candidate compatibility needs an active recommendation")
-            elif item.target == "named_stone":
-                if item.first_type is not None or self.named_stone is None:
-                    raise ValueError("Named-stone compatibility needs a named individual")
-            elif item.first_type is None:
+            if item.target == "candidate" and (
+                item.first_type is not None or not self.recommendation_limit
+            ):
+                raise ValueError("Candidate compatibility needs an active recommendation")
+            if item.target == "named_stone" and (
+                item.first_type is not None or self.named_stone is None
+            ):
+                raise ValueError("Named-stone compatibility needs a named individual")
+            if item.target == "types" and item.first_type is None:
                 raise ValueError("Type compatibility needs both explicit types")
-        if self.requested_stone_info is not None:
-            if self.requested_stone_info.fragment_id not in fragments:
-                raise KeyError(self.requested_stone_info.fragment_id)
-            if name is None:
-                raise ValueError("A named stone is required for individual information")
-        for unknown in self.unsupported_care:
-            if unknown.material.casefold() not in fragments[unknown.fragment_id].casefold():
+
+    def _validate_requested_stone_info(self, name: str | None) -> None:
+        if self.requested_stone_info is not None and name is None:
+            raise ValueError("A named stone is required for individual information")
+
+    def _validate_unsupported_care(self, fragments: Mapping[int, str]) -> None:
+        for item in self.unsupported_care:
+            if item.material.casefold() not in fragments[item.fragment_id].casefold():
                 raise ValueError("Unsupported material must occur in its question fragment")
-            if unknown.material.upper() in StoneType.__members__:
+            if item.material.upper() in StoneType.__members__:
                 raise ValueError("Known materials must use requested_care")
+
+    def resolve_references(self, fragments: Mapping[int, str]) -> ReferenceRequest:
+        name = self._resolve_bound_name(
+            self.named_stone, fragments, "Stone name must occur in its question fragment"
+        )
+        recommendation_name = self._resolve_bound_name(
+            self.recommendation_target,
+            fragments,
+            "Recommendation name must occur in its question fragment",
+        )
+        self._validate_reference_fragments(fragments)
+        self._validate_requested_compatibility()
+        self._validate_requested_stone_info(name)
+        self._validate_unsupported_care(fragments)
         return ReferenceRequest(
             stone_name=name,
             recommendation_name=recommendation_name,

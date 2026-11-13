@@ -5,21 +5,6 @@ from typing import Literal
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-DEFAULT_JSON_SCHEMA_MODELS = frozenset(
-    {
-        "dots-studio/dots-3-note-preview:free",
-        "liquid/lfm-2.5-2.6b:free",
-        "liquid/lfm-3-1.7b:free",
-        "nvidia/nemotron-3.5-super-vl:free",
-        "xingchen-agi/xing4.0-29b-a4b:free",
-        "openai/gpt-6-luna",
-        "deepseek/deepseek-v4.1-flash",
-        "anthropic/claude-sonnet-5",
-        "google/gemini-3.8-flash",
-        "openai/gpt-6.1-terra",
-    }
-)
-
 
 class GroundingSettings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="GROUNDING_", env_file=".env", extra="ignore")
@@ -99,12 +84,16 @@ class OpenRouterSettings(BaseSettings):
 
     model: str = Field(default="openrouter/free", min_length=1)
     selection_model: str | None = Field(default=None, min_length=1)
-    selection_json_schema_models: frozenset[str] = DEFAULT_JSON_SCHEMA_MODELS
+    selection_json_schema_models: frozenset[str]
     parsing_model: str | None = Field(default=None, min_length=1)
-    evaluation_model: str = Field(default="dots-studio/dots-3-note-preview:free", min_length=1)
+    evaluation_model: str = Field(min_length=1)
     evaluation_max_tokens: int = Field(default=8192, ge=1)
+    evaluation_request_timeout: int = Field(default=180_000, gt=0)
     evaluation_reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"] = "medium"
-    evaluation_json_schema_models: frozenset[str] = DEFAULT_JSON_SCHEMA_MODELS
+    max_tokens: int = Field(default=3072, ge=1)
+    max_retries: int = Field(default=0, ge=0)
+    request_timeout: int = Field(default=45_000, gt=0)
+    evaluation_json_schema_models: frozenset[str]
     answer_model: str | None = Field(default=None, min_length=1)
     api_key: SecretStr = Field(min_length=1)
 
@@ -120,4 +109,4 @@ class LangfuseSettings(BaseSettings):
 
     public_key: str = Field(min_length=1)
     secret_key: SecretStr = Field(min_length=1)
-    base_url: str = "https://cloud.langfuse.com"
+    base_url: str = Field(min_length=1)

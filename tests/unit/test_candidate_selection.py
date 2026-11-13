@@ -10,7 +10,7 @@ from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.runtime import Runtime
 
 from stone_shelter_assistant.assistant import workflow
-from stone_shelter_assistant.assistant.candidate_evaluation import SearchCriteria
+from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
 from stone_shelter_assistant.assistant.selection import SelectCandidates
 from stone_shelter_assistant.assistant.tool_planning import ReferenceRequest
 
@@ -71,8 +71,10 @@ async def test_selection_uses_parsed_requirements_preferences_and_household(
         context=cast(
             workflow.RunContext,
             SimpleNamespace(
-                selection_model=None,
-                selection_uses_json_schema=True,
+                models=SimpleNamespace(
+                    selection_model=None,
+                    selection_uses_json_schema=True,
+                ),
             ),
         )
     )

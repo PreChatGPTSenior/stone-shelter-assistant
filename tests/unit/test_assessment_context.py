@@ -1,4 +1,4 @@
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_evidence import (
     SourceText,
     assessment_source_text,
 )

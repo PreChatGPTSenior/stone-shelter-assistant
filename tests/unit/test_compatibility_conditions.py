@@ -3,14 +3,16 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from stone_shelter_assistant.assistant.candidate_evaluation import (
-    CandidateEvidence,
+from stone_shelter_assistant.assistant.candidate_assessment import compatibility_reason
+from stone_shelter_assistant.assistant.candidate_criteria import (
     CompatibilityTarget,
     CriteriaGroup,
     HouseholdFact,
     SearchCriteria,
+)
+from stone_shelter_assistant.assistant.candidate_evidence import (
+    CandidateEvidence,
     check_pair_conditions,
-    compatibility_reason,
 )
 from stone_shelter_assistant.assistant.selection import ParseQuestion
 from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument

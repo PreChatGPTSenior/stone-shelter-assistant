@@ -20,12 +20,14 @@ from pydantic import BaseModel
 from tests.unit.search.test_rrf import card
 
 from stone_shelter_assistant.assistant import workflow
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_assessment import (
     CandidateEvaluation,
+    Reason,
+)
+from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
+from stone_shelter_assistant.assistant.candidate_evidence import (
     CandidateEvidence,
     Evidence,
-    Reason,
-    SearchCriteria,
 )
 from stone_shelter_assistant.assistant.question_grounding import (
     GroundingDecision,
@@ -48,7 +50,7 @@ from stone_shelter_assistant.assistant.tool_planning import ReferenceRequest
 from stone_shelter_assistant.assistant.tools import stone_search_tools
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
 from stone_shelter_assistant.search.document_models import CompatibilityPairSearchDocument
-from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
     GroundingEntry,
     build_grounding_snapshot,
 )
@@ -315,6 +317,30 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(
             )
             result = await workflow.run_workflow(
                 "Tell me what Madame Obsidian likes and find one quiet stone.",
+                models=workflow.WorkflowModels(
+                    selection_model=model,
+                    selection_uses_json_schema=True,
+                    parsing_model=model,
+                    evaluation_model=model,
+                    evaluation_uses_json_schema=True,
+                    answer_model=model,
+                ),
+                tools=workflow.WorkflowTools(
+                    retrieval=tuple(search_tools),
+                    details_tool=get_stone_details,
+                    status_tool=get_current_stone_statuses,
+                    timeline_tool=get_case_timeline,
+                    compatibility_tool=get_compatibility_pair,
+                    encyclopedia_tool=search_knowledge_lexical,
+                    reference_tools=ReferenceTools(
+                        stone_status=get_reference_status_by_name,
+                        stone_details=get_reference_details,
+                        timeline=get_case_timeline,
+                        encyclopedia=search_knowledge_lexical,
+                        exact_pair=get_compatibility_pair,
+                        pair_list=get_compatibility_pair,
+                    ),
+                ),
                 grounding_catalog=AsyncMock(
                     load=AsyncMock(
                         return_value=build_grounding_snapshot(
@@ -331,26 +357,6 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(
                             "en-v1",
                         )
                     )
-                ),
-                selection_model=model,
-                selection_uses_json_schema=True,
-                parsing_model=model,
-                evaluation_model=model,
-                evaluation_uses_json_schema=True,
-                answer_model=model,
-                retrieval_tools=search_tools,
-                details_tool=get_stone_details,
-                status_tool=get_current_stone_statuses,
-                timeline_tool=get_case_timeline,
-                compatibility_tool=get_compatibility_pair,
-                encyclopedia_tool=search_knowledge_lexical,
-                reference_tools=ReferenceTools(
-                    stone_status=get_reference_status_by_name,
-                    stone_details=get_reference_details,
-                    timeline=get_case_timeline,
-                    encyclopedia=search_knowledge_lexical,
-                    exact_pair=get_compatibility_pair,
-                    pair_list=get_compatibility_pair,
                 ),
                 config={"callbacks": [callback], "run_name": "search-workflow"},
             )
@@ -699,9 +705,11 @@ async def test_answer_accepts_only_per_candidate_bound_explanations(
             context=cast(
                 Any,
                 SimpleNamespace(
-                    details_tool=SimpleNamespace(name="get_stone_details"),
-                    compatibility_tool=SimpleNamespace(name="get_compatibility_pair"),
-                    answer_model=FixtureAnswerModel(),
+                    tools=SimpleNamespace(
+                        details_tool=SimpleNamespace(name="get_stone_details"),
+                        compatibility_tool=SimpleNamespace(name="get_compatibility_pair"),
+                    ),
+                    models=SimpleNamespace(answer_model=FixtureAnswerModel()),
                 ),
             )
         ),
@@ -770,8 +778,10 @@ async def test_named_recommendation_rejects_a_different_retrieved_stone_id() -> 
         ],
     }
     context = SimpleNamespace(
-        selection_model=UnexpectedModel(),
-        selection_uses_json_schema=True,
+        models=SimpleNamespace(
+            selection_model=UnexpectedModel(),
+            selection_uses_json_schema=True,
+        ),
     )
     result = await workflow.select_candidates(state, runtime=Runtime(context=cast(Any, context)))
     assert result["selected_stone_ids"] == []
@@ -841,8 +851,10 @@ async def test_named_recommendation_filters_model_selection_to_the_resolved_id(
             context=cast(
                 Any,
                 SimpleNamespace(
-                    selection_model=FixtureModel(),
-                    selection_uses_json_schema=True,
+                    models=SimpleNamespace(
+                        selection_model=FixtureModel(),
+                        selection_uses_json_schema=True,
+                    ),
                 ),
             )
         ),
@@ -880,8 +892,10 @@ async def test_named_recommendation_does_not_select_when_name_is_not_unique(
             context=cast(
                 Any,
                 SimpleNamespace(
-                    selection_model=SimpleNamespace(),
-                    selection_uses_json_schema=True,
+                    models=SimpleNamespace(
+                        selection_model=SimpleNamespace(),
+                        selection_uses_json_schema=True,
+                    ),
                 ),
             )
         ),
@@ -1025,12 +1039,16 @@ async def test_candidate_assessment_loads_svetlana_observations_with_event_prove
         context=cast(
             workflow.RunContext,
             SimpleNamespace(
-                compatibility_tool=None,
-                encyclopedia_tool=None,
-                timeline_tool=timeline,
-                evaluation_model=None,
-                evaluation_uses_json_schema=True,
-                evaluation_reasoning=None,
+                tools=SimpleNamespace(
+                    compatibility_tool=None,
+                    encyclopedia_tool=None,
+                    timeline_tool=timeline,
+                ),
+                models=SimpleNamespace(
+                    evaluation_model=None,
+                    evaluation_uses_json_schema=True,
+                    evaluation_reasoning=None,
+                ),
             ),
         )
     )
@@ -1094,10 +1112,11 @@ async def test_candidate_assessment_loads_svetlana_observations_with_event_prove
         context=cast(
             workflow.RunContext,
             SimpleNamespace(
-                details_tool=SimpleNamespace(name="get_stone_details"),
-                compatibility_tool=SimpleNamespace(name="get_compatibility_pair"),
-                answer_model=None,
-                evaluation_reasoning=None,
+                tools=SimpleNamespace(
+                    details_tool=SimpleNamespace(name="get_stone_details"),
+                    compatibility_tool=SimpleNamespace(name="get_compatibility_pair"),
+                ),
+                models=SimpleNamespace(answer_model=None, evaluation_reasoning=None),
             ),
         )
     )

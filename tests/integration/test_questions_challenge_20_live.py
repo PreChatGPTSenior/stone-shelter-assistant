@@ -185,9 +185,11 @@ async def test_questions_challenge_20_live(
     source_hash, source_hashes = _code_hash()
     now = datetime.now(UTC)
     run_path = SUITE / "runs" / (now.strftime("%Y%m%dT%H%M%S%fZ") + "-challenge20.json")
+    session_id = f"STPY-{run_path.stem}"
     run_path.parent.mkdir(exist_ok=True)
     result: dict[str, Any] = {
         "mode": "questions-challenge-20-live",
+        "session_id": session_id,
         "suite_id": manifest["suite_id"],
         "started_at": now.isoformat(),
         "status": "running",
@@ -227,7 +229,7 @@ async def test_questions_challenge_20_live(
             base_url="http://test",
         ) as http:
             for endpoint in (
-                "/api/v1/testing/normalize-data",
+                "/api/v1/stones/reload",
                 "/api/v1/knowledge/encyclopedia/reindex",
                 "/api/v1/knowledge/compatibility/reindex",
                 "/api/v1/knowledge/grounding/reload",
@@ -254,6 +256,7 @@ async def test_questions_challenge_20_live(
                 try:
                     response = await http.post(
                         "/api/v1/questions",
+                        headers={"X-Session-ID": session_id},
                         json={
                             "question": case["question"],
                             "model_id": free_model,

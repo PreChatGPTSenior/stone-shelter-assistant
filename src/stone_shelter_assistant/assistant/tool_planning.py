@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from stone_shelter_assistant.assistant.candidate_evaluation import SearchCriteria
+from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
 from stone_shelter_assistant.search.enums import CompatibilityVerdict
 from stone_shelter_assistant.stones.enums import StoneType
 

@@ -7,8 +7,8 @@ import httpx
 import pytest
 from fastapi import FastAPI
 
-from stone_shelter_assistant.search.knowledge.grounding_catalog import (
-    GroundingCatalog,
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
+    GroundingConceptStoreService,
 )
 
 
@@ -38,7 +38,7 @@ async def test_catalog_reload_search_edit_and_complete_version_read(app: FastAPI
             "/api/v1/knowledge/grounding/search", params={"q": "Catalogeditmarker"}
         )
         assert [e["id"] for e in found.json()] == [entry["id"]]
-    catalog = GroundingCatalog(app.state.typesense_client, language="en", version="en-v1")
+    catalog = GroundingConceptStoreService(app.state.typesense_client, language="en", version="en-v1")
     snapshot = await catalog.load()
     assert {entry.id for entry in snapshot.entries} == expected_ids
     scoped_entry = next(

@@ -22,10 +22,10 @@ API documentation: `http://127.0.0.1:8000/docs`.
 
 ## Load the learning fixtures
 
-`normalize-data` replaces local operational fixture records and their search collections. Use it only when intentionally resetting the learning dataset; starting the API does not seed it automatically.
+`POST /api/v1/stones/reload` replaces local operational fixture records and their search collections. Use it only when intentionally resetting the learning dataset; starting the API does not seed it automatically.
 
 ```sh
-curl --fail-with-body -X POST http://127.0.0.1:8000/api/v1/testing/normalize-data
+curl --fail-with-body -X POST http://127.0.0.1:8000/api/v1/stones/reload
 curl --fail-with-body -X POST http://127.0.0.1:8000/api/v1/knowledge/encyclopedia/reindex
 curl --fail-with-body -X POST http://127.0.0.1:8000/api/v1/knowledge/compatibility/reindex
 curl --fail-with-body -X POST http://127.0.0.1:8000/api/v1/knowledge/grounding/reload
@@ -38,7 +38,9 @@ Each reference reload replaces its own indexed source; catalog reload replaces t
 This endpoint calls the configured models and records a Langfuse trace:
 
 ```sh
-curl --fail-with-body --json '{"question":"Is Madame Obsidian available and compatible with granite?"}' \
+# Reuse one session ID to group questions from the same run in Langfuse.
+curl --fail-with-body -H 'X-Session-ID: STPY-manual-questions-001' \
+  --json '{"question":"Is Madame Obsidian available and compatible with granite?"}' \
   http://127.0.0.1:8000/api/v1/questions
 ```
 

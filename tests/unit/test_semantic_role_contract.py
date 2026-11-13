@@ -13,14 +13,14 @@ from stone_shelter_assistant.assistant import workflow
 from stone_shelter_assistant.assistant.question_grounding import (
     GroundingDecision,
     GroundingResponse,
+    MisclassifiedCoverageIssue,
     QuestionCoverageAudit,
-    QuestionCoverageIssue,
 )
 from stone_shelter_assistant.assistant.selection import (
     ParseQuestion,
     question_fragments,
 )
-from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
     GroundingEntry,
     GroundingSnapshot,
     build_grounding_snapshot,
@@ -157,10 +157,12 @@ async def test_parser_and_auditor_share_one_authored_catalog_revision(
     catalog = SimpleNamespace(load=AsyncMock(return_value=snapshot))
     context = SimpleNamespace(
         grounding_catalog=catalog,
-        parsing_model=parser,
-        evaluation_model=evaluator,
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            parsing_model=parser,
+            evaluation_model=evaluator,
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
 
     parsed_state: Any = await workflow.parse_question(
@@ -227,10 +229,12 @@ async def test_catalog_load_failure_does_not_retry_during_audit(
     evaluator = AsyncMock()
     context = SimpleNamespace(
         grounding_catalog=catalog,
-        parsing_model=parser,
-        evaluation_model=evaluator,
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            parsing_model=parser,
+            evaluation_model=evaluator,
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     parsed_state: Any = await workflow.parse_question(
         {"question": question, "messages": [], "tools_used": 0},
@@ -296,9 +300,11 @@ async def test_optional_or_negated_candidate_type_never_becomes_filter(
     )
     context = SimpleNamespace(
         grounding_catalog=AsyncMock(),
-        evaluation_model=evaluator,
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=evaluator,
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     grounded: Any = await workflow.ground_question(
         {
@@ -439,7 +445,7 @@ async def test_invalid_candidate_type_role_is_blocked_without_parse_repair(
                 status="incomplete",
                 summary="The type of the new candidate is in the wrong field.",
                 issues=[
-                    QuestionCoverageIssue(
+                    MisclassifiedCoverageIssue(
                         kind="misclassified",
                         atom_id="requirement.compatibility.1",
                         fragment_id=1,
@@ -452,9 +458,11 @@ async def test_invalid_candidate_type_role_is_blocked_without_parse_repair(
     )
     context = SimpleNamespace(
         grounding_catalog=AsyncMock(),
-        evaluation_model=evaluator,
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=evaluator,
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     invalid_state: Any = {
         "question": question,

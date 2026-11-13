@@ -240,7 +240,10 @@ def record_experiments(
                 ),
             ]
 
-        with propagate_attributes(user_id="local-test-user", session_id=f"{now:%Y-%m-%d}-PY-037"):
+        with propagate_attributes(
+            user_id="STPY-local-test-user",
+            session_id=results[0]["session_id"],
+        ):
             experiment = client.run_experiment(
                 name=dataset_name,
                 run_name=f"{now:%Y%m%dT%H%M%S}-{result['model_id'].replace('/', '-')}",
@@ -312,12 +315,13 @@ async def test_questions_with_six_evaluation_models(
     app = create_app()
     results = []
     now = datetime.now(ZoneInfo("Asia/Tbilisi"))
+    session_id = f"STPY-{now:%Y%m%dT%H%M%S%f}-six-model"
     async with app.router.lifespan_context(app):
         async with AsyncClient(
             transport=ASGITransport(app=app, raise_app_exceptions=False), base_url="http://test"
         ) as http:
             for endpoint in (
-                "/api/v1/testing/normalize-data",
+                "/api/v1/stones/reload",
                 "/api/v1/knowledge/encyclopedia/reindex",
                 "/api/v1/knowledge/compatibility/reindex",
                 "/api/v1/knowledge/grounding/reload",
@@ -330,6 +334,7 @@ async def test_questions_with_six_evaluation_models(
                 started = monotonic()
                 response = await http.post(
                     "/api/v1/questions",
+                    headers={"X-Session-ID": session_id},
                     json={
                         "question": QUESTION,
                         "eval_case_id": os.getenv(
@@ -343,6 +348,7 @@ async def test_questions_with_six_evaluation_models(
                 )
                 result: dict[str, Any] = {
                     "model_id": model_id,
+                    "session_id": session_id,
                     "reasoning": effort,
                     "http_status": response.status_code,
                     "fixture_version": version,
@@ -451,7 +457,8 @@ async def test_questions_with_six_evaluation_models(
                         try:
                             with (
                                 propagate_attributes(
-                                    user_id="local-test-user", session_id=f"{now:%Y-%m-%d}-PY-037"
+                                    user_id="STPY-local-test-user",
+                                    session_id=session_id,
                                 ),
                                 client.start_as_current_observation(
                                     name="deepeval_character_entailment",

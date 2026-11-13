@@ -18,8 +18,11 @@ from stone_shelter_assistant.assistant import workflow
 from stone_shelter_assistant.assistant.question_grounding import (
     GroundingDecision,
     GroundingResponse,
+    MisclassifiedCoverageIssue,
+    OmittedCoverageIssue,
     QuestionCoverageAudit,
     QuestionCoverageIssue,
+    UncertainCoverageIssue,
     validate_grounding_response,
     validate_question_coverage,
 )
@@ -30,7 +33,7 @@ from stone_shelter_assistant.assistant.selection import (
     question_fragments,
     validate_parsed_atoms,
 )
-from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
     GroundingEntry,
     build_grounding_snapshot,
 )
@@ -215,9 +218,11 @@ async def test_schema_aware_audit_accepts_current_parse_for_contextual_questions
     monkeypatch.setattr(workflow, "get_config", lambda: {})
     context: Any = SimpleNamespace(
         grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
-        evaluation_model=Model(),
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=Model(),
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     grounded: Any = await workflow.ground_question(
         {
@@ -327,7 +332,7 @@ async def test_schema_audit_blocks_missing_or_unrepresented_constraints(
                             status="incomplete",
                             summary="An independent decision constraint is missing from the parse.",
                             issues=[
-                                QuestionCoverageIssue(
+                                OmittedCoverageIssue(
                                     kind="omitted",
                                     fragment_id=1,
                                     quote=omitted_quote,
@@ -343,9 +348,11 @@ async def test_schema_audit_blocks_missing_or_unrepresented_constraints(
     monkeypatch.setattr(workflow, "get_config", lambda: {})
     context: Any = SimpleNamespace(
         grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
-        evaluation_model=Model(),
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=Model(),
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     fragments = {1: question}
     grounded: Any = await workflow.ground_question(
@@ -441,9 +448,11 @@ async def test_only_bound_supported_decisions_become_facts_or_filters(case: dict
 
     ctx: Any = SimpleNamespace(
         grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
-        evaluation_model=Model(),
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=Model(),
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
 
     async def run(state: Any) -> dict[str, object]:
@@ -479,7 +488,7 @@ async def test_unavailable_catalog_is_not_semantic_unknown_or_silent_filter_remo
     case = HOLDOUT[0]
     ctx: Any = SimpleNamespace(
         grounding_catalog=AsyncMock(load=AsyncMock(side_effect=TimeoutError())),
-        evaluation_model=AsyncMock(),
+        models=SimpleNamespace(evaluation_model=AsyncMock()),
     )
     result = await workflow.ground_question(
         {
@@ -495,7 +504,7 @@ async def test_unavailable_catalog_is_not_semantic_unknown_or_silent_filter_remo
     assert result["grounding_status"] == "grounding_unavailable"
     assert result["grounding_error_type"] == "TimeoutError"
     assert "criteria" not in result
-    ctx.evaluation_model.with_structured_output.assert_not_called()
+    ctx.models.evaluation_model.with_structured_output.assert_not_called()
     ctx.grounding_catalog.load.assert_not_awaited()
 
 
@@ -529,14 +538,14 @@ async def test_zero_proposal_recommendation_runs_coverage_audit_and_blocks_searc
                             status=coverage_status,
                             summary="One independent criterion was not captured.",
                             issues=[
-                                QuestionCoverageIssue(
+                                OmittedCoverageIssue(
                                     kind="omitted",
                                     fragment_id=1,
                                     quote="likes children",
                                     reason="This preference has no parsed atom.",
                                 )
                                 if coverage_status == "incomplete"
-                                else QuestionCoverageIssue(
+                                else UncertainCoverageIssue(
                                     kind="uncertain",
                                     reason="The request needs clarification before it can be checked.",
                                 )
@@ -549,9 +558,11 @@ async def test_zero_proposal_recommendation_runs_coverage_audit_and_blocks_searc
 
     context: Any = SimpleNamespace(
         grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
-        evaluation_model=Model(),
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
+        models=SimpleNamespace(
+            evaluation_model=Model(),
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     monkeypatch.setattr(workflow, "get_config", lambda: {})
     grounded = await workflow.ground_question(
@@ -743,7 +754,7 @@ def test_coverage_audit_requires_bound_explicit_issues() -> None:
             status="incomplete",
             summary="A criterion was omitted.",
             issues=[
-                QuestionCoverageIssue(
+                OmittedCoverageIssue(
                     kind="omitted",
                     fragment_id=1,
                     quote="likes children",
@@ -754,8 +765,8 @@ def test_coverage_audit_requires_bound_explicit_issues() -> None:
         atoms,
         {1: question},
     )
-    bad_issues = [
-        QuestionCoverageIssue(
+    bad_issues: list[QuestionCoverageIssue] = [
+        MisclassifiedCoverageIssue(
             kind="misclassified",
             atom_id="requirement.character.1",
             fragment_id=1,
@@ -783,7 +794,7 @@ def test_coverage_audit_detects_household_type_misclassified_as_a_mandate() -> N
             "quote": "Our granite lives here",
         }
     ]
-    issue = QuestionCoverageIssue(
+    issue = MisclassifiedCoverageIssue(
         kind="misclassified",
         atom_id="requirement.compatibility.1",
         fragment_id=1,

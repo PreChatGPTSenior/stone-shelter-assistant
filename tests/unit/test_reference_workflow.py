@@ -14,7 +14,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.runtime import Runtime
 
 from stone_shelter_assistant.assistant import workflow
-from stone_shelter_assistant.assistant.candidate_evaluation import CandidateEvidence
+from stone_shelter_assistant.assistant.candidate_evidence import CandidateEvidence
 from stone_shelter_assistant.assistant.question_grounding import (
     GroundingResponse,
     QuestionCoverageAudit,
@@ -40,7 +40,7 @@ from stone_shelter_assistant.search.document_models import CompatibilityPairSear
 from stone_shelter_assistant.search.knowledge.encyclopedia_document_builder import (
     build_encyclopedia_documents,
 )
-from stone_shelter_assistant.search.knowledge.grounding_catalog import (
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
     GroundingEntry,
     build_grounding_snapshot,
 )
@@ -332,27 +332,31 @@ async def test_reference_graph_collects_scoped_sources_and_handles_missing_data(
         )
     result: Any = await workflow.run_workflow(
         question,
-        grounding_catalog=grounding_catalog,
-        selection_model=model,
-        selection_uses_json_schema=True,
-        parsing_model=model,
-        evaluation_model=model,
-        evaluation_uses_json_schema=True,
-        answer_model=model,
-        retrieval_tools=[search_stones_hybrid] if case == "mixed" else [],
-        details_tool=get_stone_details,
-        status_tool=get_stone_status_by_name,
-        timeline_tool=get_case_timeline,
-        compatibility_tool=list_compatibility_pairs,
-        encyclopedia_tool=search_knowledge_lexical,
-        reference_tools=ReferenceTools(
-            stone_status=get_stone_status_by_name,
-            stone_details=get_stone_details,
-            timeline=get_case_timeline,
-            encyclopedia=search_knowledge_lexical,
-            exact_pair=list_compatibility_pairs,
-            pair_list=list_compatibility_pairs,
+        models=workflow.WorkflowModels(
+            selection_model=model,
+            selection_uses_json_schema=True,
+            parsing_model=model,
+            evaluation_model=model,
+            evaluation_uses_json_schema=True,
+            answer_model=model,
         ),
+        tools=workflow.WorkflowTools(
+            retrieval=(search_stones_hybrid,) if case == "mixed" else (),
+            details_tool=get_stone_details,
+            status_tool=get_stone_status_by_name,
+            timeline_tool=get_case_timeline,
+            compatibility_tool=list_compatibility_pairs,
+            encyclopedia_tool=search_knowledge_lexical,
+            reference_tools=ReferenceTools(
+                stone_status=get_stone_status_by_name,
+                stone_details=get_stone_details,
+                timeline=get_case_timeline,
+                encyclopedia=search_knowledge_lexical,
+                exact_pair=list_compatibility_pairs,
+                pair_list=list_compatibility_pairs,
+            ),
+        ),
+        grounding_catalog=grounding_catalog,
     )
     assert result["recommended_stone_ids"] == []
     if case == "mixed":
@@ -750,27 +754,31 @@ async def test_exact_compatibility_pairs_reach_reference_evidence_and_answer() -
             )
         result: Any = await workflow.run_workflow(
             question,
-            grounding_catalog=grounding_catalog,
-            selection_model=model,
-            selection_uses_json_schema=True,
-            parsing_model=model,
+            models=workflow.WorkflowModels(
+                selection_model=model,
+                selection_uses_json_schema=True,
+                parsing_model=model,
                 evaluation_model=model,
-            evaluation_uses_json_schema=True,
-            answer_model=model,
-            retrieval_tools=[search_stones_hybrid] if scenario_name == "mixed" else [],
-            details_tool=get_stone_details,
-            status_tool=get_stone_status_by_name,
-            timeline_tool=get_case_timeline,
-            compatibility_tool=get_compatibility_pair,
-            encyclopedia_tool=search_knowledge_lexical,
-            reference_tools=ReferenceTools(
-                stone_status=get_stone_status_by_name,
-                stone_details=get_stone_details,
-                timeline=get_case_timeline,
-                encyclopedia=search_knowledge_lexical,
-                exact_pair=get_compatibility_pair,
-                pair_list=list_compatibility_pairs,
+                evaluation_uses_json_schema=True,
+                answer_model=model,
             ),
+            tools=workflow.WorkflowTools(
+                retrieval=(search_stones_hybrid,) if scenario_name == "mixed" else (),
+                details_tool=get_stone_details,
+                status_tool=get_stone_status_by_name,
+                timeline_tool=get_case_timeline,
+                compatibility_tool=get_compatibility_pair,
+                encyclopedia_tool=search_knowledge_lexical,
+                reference_tools=ReferenceTools(
+                    stone_status=get_stone_status_by_name,
+                    stone_details=get_stone_details,
+                    timeline=get_case_timeline,
+                    encyclopedia=search_knowledge_lexical,
+                    exact_pair=get_compatibility_pair,
+                    pair_list=list_compatibility_pairs,
+                ),
+            ),
+            grounding_catalog=grounding_catalog,
         )
 
         if scenario_name == "missing":
@@ -1171,13 +1179,17 @@ async def test_eight_household_pairs_are_all_checked_and_rendered() -> None:
             )
 
     context: Any = SimpleNamespace(
-        compatibility_tool=get_compatibility_pair,
-        encyclopedia_tool=get_stone_details,
-        timeline_tool=get_case_timeline,
-        evaluation_model=EmptyEvidenceModel(),
-        evaluation_uses_json_schema=True,
-        evaluation_reasoning=None,
-        details_tool=get_stone_details,
+        tools=SimpleNamespace(
+            compatibility_tool=get_compatibility_pair,
+            encyclopedia_tool=get_stone_details,
+            timeline_tool=get_case_timeline,
+            details_tool=get_stone_details,
+        ),
+        models=SimpleNamespace(
+            evaluation_model=EmptyEvidenceModel(),
+            evaluation_uses_json_schema=True,
+            evaluation_reasoning=None,
+        ),
     )
     builder = StateGraph(workflow.SearchState, context_schema=workflow.RunContext)
     builder.add_node("evaluate_candidates", workflow.evaluate_candidates)

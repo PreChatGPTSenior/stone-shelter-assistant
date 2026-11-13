@@ -26,7 +26,9 @@ from stone_shelter_assistant.core.settings import (
     TypesenseSettings,
 )
 from stone_shelter_assistant.search.infrastructure.client_factories import create_typesense_client
-from stone_shelter_assistant.search.knowledge.grounding_catalog import GroundingCatalog
+from stone_shelter_assistant.search.knowledge.grounding_concept_store_service import (
+    GroundingConceptStoreService,
+)
 
 ROOT = Path(__file__).parents[2]
 CASE_DIR = ROOT / "tests/fixtures/agent-eval/grounding-en"
@@ -88,7 +90,7 @@ async def test_measure_grounding_on_held_out_questions(
     cases = json.loads((CASE_DIR / "holdout.json").read_text())
     rows = []
     try:
-        catalog = GroundingCatalog(search, language="en", version="en-v1")
+        catalog = GroundingConceptStoreService(search, language="en", version="en-v1")
         snapshot = await catalog.reload(ROOT / "fixtures/knowledge/grounding/grounding_en-v1.json")
         context: Any = SimpleNamespace(
             grounding_catalog=catalog,

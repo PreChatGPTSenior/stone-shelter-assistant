@@ -7,12 +7,12 @@ import pytest
 from pydantic import ValidationError
 from tests.live.test_candidate_assessment import check_assessment
 
-from stone_shelter_assistant.assistant.candidate_evaluation import (
+from stone_shelter_assistant.assistant.candidate_assessment import character_reasons
+from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
+from stone_shelter_assistant.assistant.candidate_evidence import (
     CandidateEvidence,
-    SearchCriteria,
     SourceText,
     assessment_failure_status,
-    character_reasons,
 )
 
 FIXTURE = Path(__file__).parents[1] / "fixtures/assistant/quiet-home-assessment.json"
