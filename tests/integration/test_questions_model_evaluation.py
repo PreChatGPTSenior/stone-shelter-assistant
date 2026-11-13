@@ -4,11 +4,10 @@ import asyncio
 import hashlib
 import json
 import os
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from time import monotonic
 from typing import Any
-from zoneinfo import ZoneInfo
 
 import pytest
 from httpx import ASGITransport, AsyncClient
@@ -22,6 +21,11 @@ pytest.importorskip("deepeval", reason="Install the eval dependency group for De
 from deepeval.metrics import GEval
 from deepeval.models import DeepEvalBaseLLM
 from deepeval.test_case import LLMTestCase, SingleTurnParams
+from tests.evaluation.run_identity import (
+    EvaluationRunIdentity,
+    comparison_id_from_environment,
+    first_run_number_from_environment,
+)
 
 from stone_shelter_assistant.app import create_app
 from stone_shelter_assistant.assistant.tracing import WorkflowTraceHandler
@@ -193,15 +197,21 @@ def record_experiments(
         input={"question": QUESTION, "fixture_version": fixture_version},
         expected_output={"no_invented_agreements": True, "conditions_unconfirmed": True},
     )
-    now = datetime.now(ZoneInfo("Asia/Tbilisi"))
     for result in results:
         if not result.get("deepeval"):
             continue
 
         def task(*, item: Any, result: dict[str, Any] = result, **kwargs: Any) -> dict[str, Any]:
             return {
+                "comparison_id": result["comparison_id"],
+                "run_number": result["run_number"],
+                "run_id": result["run_id"],
+                "configuration_id": result["configuration_id"],
                 "source_trace_id": result["trace_id"],
                 "model_id": result["model_id"],
+                "judge_model": result["deepeval"]["judge_model"],
+                "judge_metric": "character_evidence_entailment",
+                "judge_threshold": "0.8",
                 "criteria": result["criteria"],
                 "candidate_decisions": result["candidate_decisions"],
                 "condition_checks": result["condition_checks"],
@@ -242,19 +252,42 @@ def record_experiments(
 
         with propagate_attributes(
             user_id="STPY-local-test-user",
-            session_id=results[0]["session_id"],
+            session_id=result["session_id"],
+            metadata={
+                **{key: result[key] for key in (
+                    "comparison_id",
+                    "run_number",
+                    "run_id",
+                    "configuration_id",
+                    "model_id",
+                    "reasoning",
+                    "fixture_version",
+                )},
+                "judge_model": result["deepeval"]["judge_model"],
+                "judge_metric": "character_evidence_entailment",
+                "judge_threshold": "0.8",
+            },
         ):
             experiment = client.run_experiment(
                 name=dataset_name,
-                run_name=f"{now:%Y%m%dT%H%M%S}-{result['model_id'].replace('/', '-')}",
+                run_name=f"{result['run_id']}-{result['model_id'].replace('/', '-')}",
                 data=[item],
                 task=task,
                 evaluators=[scores],
                 max_concurrency=1,
                 metadata={
                     "mode": "recorded-http-results",
+                    "comparison_id": result["comparison_id"],
+                    "run_number": result["run_number"],
+                    "run_id": result["run_id"],
+                    "configuration_id": result["configuration_id"],
                     "source_trace_id": result["trace_id"],
                     "evaluation_model": result["model_id"],
+                    "reasoning": result["reasoning"],
+                    "fixture_version": fixture_version,
+                    "judge_model": result["deepeval"]["judge_model"],
+                    "judge_metric": "character_evidence_entailment",
+                    "judge_threshold": "0.8",
                 },
             )
         result["experiment_url"] = experiment.experiment_url
@@ -314,8 +347,9 @@ async def test_questions_with_six_evaluation_models(
     )
     app = create_app()
     results = []
-    now = datetime.now(ZoneInfo("Asia/Tbilisi"))
-    session_id = f"STPY-{now:%Y%m%dT%H%M%S%f}-six-model"
+    now = datetime.now(UTC)
+    comparison_id = comparison_id_from_environment(now)
+    first_run_number = first_run_number_from_environment()
     async with app.router.lifespan_context(app):
         async with AsyncClient(
             transport=ASGITransport(app=app, raise_app_exceptions=False), base_url="http://test"
@@ -330,11 +364,12 @@ async def test_questions_with_six_evaluation_models(
                 assert response.is_success, response.text
             print("READY compatibility reindexed in disposable storage", flush=True)
 
-            async def run_model(model_id: str, effort: str) -> None:
+            async def run_model(model_id: str, effort: str, run_number: int) -> None:
+                identity = EvaluationRunIdentity.create(comparison_id, run_number)
                 started = monotonic()
                 response = await http.post(
                     "/api/v1/questions",
-                    headers={"X-Session-ID": session_id},
+                    headers={"X-Session-ID": identity.session_id},
                     json={
                         "question": QUESTION,
                         "eval_case_id": os.getenv(
@@ -344,11 +379,14 @@ async def test_questions_with_six_evaluation_models(
                         "evaluation_model_id": model_id,
                         "evaluation_max_tokens": 8192,
                         "evaluation_reasoning_effort": effort,
+                        "comparison_id": comparison_id,
+                        "run_number": run_number,
                     },
                 )
                 result: dict[str, Any] = {
+                    **identity.as_metadata(),
+                    "session_id": identity.session_id,
                     "model_id": model_id,
-                    "session_id": session_id,
                     "reasoning": effort,
                     "http_status": response.status_code,
                     "fixture_version": version,
@@ -360,8 +398,10 @@ async def test_questions_with_six_evaluation_models(
                     return
                 payload = response.json()
                 trace_id = payload["trace_id"]
+                evaluation_run = payload.get("evaluation_run", {})
                 result.update(
                     trace_id=trace_id,
+                    configuration_id=evaluation_run.get("configuration_id"),
                     model_ids=payload["model_ids"],
                     answer=payload["answer"],
                     candidate_decisions=payload["candidate_decisions"],
@@ -458,7 +498,15 @@ async def test_questions_with_six_evaluation_models(
                             with (
                                 propagate_attributes(
                                     user_id="STPY-local-test-user",
-                                    session_id=session_id,
+                                    session_id=identity.session_id,
+                                    metadata={
+                                        "comparison_id": comparison_id,
+                                        "run_number": run_number,
+                                        "run_id": identity.run_id,
+                                        "configuration_id": result["configuration_id"],
+                                        "judge_model": JUDGE_MODEL,
+                                        "judge_metric": "character_evidence_entailment",
+                                    },
                                 ),
                                 client.start_as_current_observation(
                                     name="deepeval_character_entailment",
@@ -502,6 +550,10 @@ async def test_questions_with_six_evaluation_models(
                                 judge_span.update(
                                     input={
                                         "source_trace_id": trace_id,
+                                        "comparison_id": comparison_id,
+                                        "run_number": run_number,
+                                        "run_id": identity.run_id,
+                                        "configuration_id": result["configuration_id"],
                                         "evaluated_model": model_id,
                                     },
                                     output=result["deepeval"],
@@ -523,14 +575,21 @@ async def test_questions_with_six_evaluation_models(
 
             semaphore = asyncio.Semaphore(2)
 
-            async def run_bounded(model_id: str, effort: str) -> None:
+            async def run_numbered(
+                run_number: int, model_id: str, effort: str
+            ) -> None:
                 async with semaphore:
-                    await run_model(model_id, effort)
+                    await run_model(model_id, effort, run_number)
 
             selected_models = set(os.getenv("OPENROUTER_EVALUATION_MODEL", "").split(",")) - {""}
             cases = [case for case in MODELS if not selected_models or case[0] in selected_models]
             assert cases, f"Unknown evaluation models: {selected_models}"
-            await asyncio.gather(*(run_bounded(model, effort) for model, effort in cases))
+            await asyncio.gather(
+                *(
+                    run_numbered(first_run_number + offset, model, effort)
+                    for offset, (model, effort) in enumerate(cases)
+                )
+            )
     await asyncio.to_thread(record_experiments, client, results, version)
     await asyncio.to_thread(client.flush)
     assert all(

@@ -462,6 +462,19 @@ async def tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[str
     return result
 
 
+def _normalize_strict_schema(value: Any) -> None:
+    """Apply strict object rules inside union variants omitted by LangChain conversion."""
+    if isinstance(value, dict):
+        if value.get("type") == "object":
+            value["required"] = list(value.get("properties", {}))
+            value["additionalProperties"] = False
+        for nested in value.values():
+            _normalize_strict_schema(nested)
+    elif isinstance(value, list):
+        for nested in value:
+            _normalize_strict_schema(nested)
+
+
 # Uses strict schema only for models whose provider advertises support.
 def structured_model(
     model: ChatOpenRouter,
@@ -476,6 +489,7 @@ def structured_model(
         # but does not pass it to convert_to_json_schema. Normalize the wire
         # schema here, then validate the decoded object with the original DTO.
         wire_schema = convert_to_json_schema(schema, strict=True)
+        _normalize_strict_schema(wire_schema)
         structured = model.with_structured_output(
             wire_schema,
             method="json_schema",

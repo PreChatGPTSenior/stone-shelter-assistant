@@ -1,5 +1,7 @@
 """Wire request-scoped services and indexers to database sessions."""
 
+import hashlib
+import json
 from collections.abc import AsyncIterator, Awaitable, Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -106,6 +108,11 @@ def _resolve_question_model_plan(
         evaluation=evaluation,
         answer=answer,
     )
+
+
+def _configuration_id(configuration: dict[str, object]) -> str:
+    serialized = json.dumps(configuration, sort_keys=True, separators=(",", ":"))
+    return "cfg-" + hashlib.sha256(serialized.encode()).hexdigest()[:16]
 
 
 async def get_register_stone_service(
@@ -228,6 +235,21 @@ def get_question_workflow(
         evaluation_effort = (
             payload.evaluation_reasoning_effort or openrouter.evaluation_reasoning_effort
         )
+        configuration_id = _configuration_id(
+            {
+                "model_ids": model_ids,
+                "max_tokens": openrouter.max_tokens,
+                "max_retries": openrouter.max_retries,
+                "request_timeout": openrouter.request_timeout,
+                "evaluation_max_tokens": evaluation_max_tokens,
+                "evaluation_request_timeout": openrouter.evaluation_request_timeout,
+                "evaluation_reasoning_effort": evaluation_effort,
+                "selection_json_schema": model_plan.selection
+                in openrouter.selection_json_schema_models,
+                "evaluation_json_schema": model_plan.evaluation
+                in openrouter.evaluation_json_schema_models,
+            }
+        )
         evaluation_model = models[model_plan.evaluation].model_copy(
             update={
                 "max_tokens": evaluation_max_tokens,
@@ -241,9 +263,18 @@ def get_question_workflow(
             base_url=tracing.base_url,
         )
         eval_metadata = payload.model_dump(
-            include={"eval_case_id", "fixture_version"}, exclude_none=True
+            include={
+                "comparison_id",
+                "run_number",
+                "eval_case_id",
+                "fixture_version",
+                "source_hash",
+            },
+            exclude_none=True,
         )
         eval_metadata.update(
+            run_id=session_id,
+            configuration_id=configuration_id,
             selection_model_id=model_ids["select_candidates"],
             parsing_model_id=model_ids["parse_question"],
             evaluation_model_id=model_ids["evaluate_candidates"],
@@ -259,6 +290,10 @@ def get_question_workflow(
                     "question": payload.question,
                     "model_id": model_plan.request_default,
                     "model_ids": model_ids,
+                    "comparison_id": payload.comparison_id,
+                    "run_number": payload.run_number,
+                    "run_id": session_id,
+                    "configuration_id": configuration_id,
                 },
             ) as root,
             propagate_attributes(
@@ -318,6 +353,16 @@ def get_question_workflow(
                 **result,
                 "model_id": model_plan.request_default,
                 "model_ids": model_ids,
+                "evaluation_run": {
+                    "comparison_id": payload.comparison_id,
+                    "run_number": payload.run_number,
+                    "run_id": session_id,
+                    "session_id": session_id,
+                    "configuration_id": configuration_id,
+                    "eval_case_id": payload.eval_case_id,
+                    "fixture_version": payload.fixture_version,
+                    "source_hash": payload.source_hash,
+                },
                 "trace_id": root.trace_id,
             }
 

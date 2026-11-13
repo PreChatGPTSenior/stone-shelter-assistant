@@ -12,6 +12,11 @@ from typing import Any, cast
 
 import pytest
 from httpx import ASGITransport, AsyncClient
+from tests.evaluation.run_identity import (
+    EvaluationRunIdentity,
+    comparison_id_from_environment,
+    first_run_number_from_environment,
+)
 
 import stone_shelter_assistant.assistant.workflow as workflow_module
 import stone_shelter_assistant.dependencies as dependencies
@@ -102,12 +107,18 @@ def _capture_http_response(record: dict[str, Any], response: Any) -> bool:
             record["response_body"] = response.text[:4000]
         return False
     try:
-        record["response"] = response.json()
+        payload = response.json()
+        record["response"] = payload
     except ValueError as error:
         record["technical_error"] = type(error).__name__
         record["error_message"] = str(error)[:500]
         record["response_body"] = response.text[:4000]
         return False
+    if isinstance(payload, dict):
+        record["trace_id"] = payload.get("trace_id")
+        evaluation_run = payload.get("evaluation_run")
+        if isinstance(evaluation_run, dict):
+            record["configuration_id"] = evaluation_run.get("configuration_id")
     return True
 
 
@@ -184,12 +195,26 @@ async def test_questions_challenge_20_live(
     }
     source_hash, source_hashes = _code_hash()
     now = datetime.now(UTC)
-    run_path = SUITE / "runs" / (now.strftime("%Y%m%dT%H%M%S%fZ") + "-challenge20.json")
-    session_id = f"STPY-{run_path.stem}"
+    comparison_id = comparison_id_from_environment(now)
+    run_number = first_run_number_from_environment()
+    identity = EvaluationRunIdentity.create(comparison_id, run_number)
+    runs_dir = SUITE / "runs"
+    existing_runs = list(
+        runs_dir.glob(f"{comparison_id}-r{run_number:02d}-*-challenge20.json")
+    )
+    if existing_runs:
+        raise ValueError(
+            f"Run {run_number} already exists in comparison {comparison_id}; choose a new run number"
+        )
+    run_path = runs_dir / (
+        f"{comparison_id}-r{run_number:02d}-{now:%Y%m%dT%H%M%S%fZ}-challenge20.json"
+    )
     run_path.parent.mkdir(exist_ok=True)
     result: dict[str, Any] = {
         "mode": "questions-challenge-20-live",
-        "session_id": session_id,
+        **identity.as_metadata(),
+        "session_id": identity.session_id,
+        "configuration_id": None,
         "suite_id": manifest["suite_id"],
         "started_at": now.isoformat(),
         "status": "running",
@@ -248,6 +273,8 @@ async def test_questions_challenge_20_live(
                 captured_states.clear()
                 record: dict[str, Any] = {
                     "case_id": case_id,
+                    **identity.as_metadata(),
+                    "session_id": identity.session_id,
                     "question": case["question"],
                     "expected": case.get("expected", {}),
                     "request_models": result["models"],
@@ -256,7 +283,7 @@ async def test_questions_challenge_20_live(
                 try:
                     response = await http.post(
                         "/api/v1/questions",
-                        headers={"X-Session-ID": session_id},
+                        headers={"X-Session-ID": identity.session_id},
                         json={
                             "question": case["question"],
                             "model_id": free_model,
@@ -268,6 +295,9 @@ async def test_questions_challenge_20_live(
                             "evaluation_reasoning_effort": "medium",
                             "eval_case_id": case_id,
                             "fixture_version": manifest["suite_id"],
+                            "comparison_id": comparison_id,
+                            "run_number": run_number,
+                            "source_hash": source_hash,
                         },
                     )
                     record["graph_state"] = captured_states[-1] if captured_states else None
@@ -276,6 +306,8 @@ async def test_questions_challenge_20_live(
                     )
                     if not _capture_http_response(record, response):
                         failures.append(case_id)
+                    elif result["configuration_id"] is None:
+                        result["configuration_id"] = record.get("configuration_id")
                 except Exception as error:
                     record["technical_error"] = type(error).__name__
                     record["error_message"] = str(error)
