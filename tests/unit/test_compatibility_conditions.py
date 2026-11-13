@@ -6,7 +6,9 @@ from pydantic import ValidationError
 from stone_shelter_assistant.assistant.candidate_evaluation import (
     CandidateEvidence,
     CompatibilityTarget,
+    CriteriaGroup,
     HouseholdFact,
+    SearchCriteria,
     check_pair_conditions,
     compatibility_reason,
 )
@@ -63,7 +65,44 @@ def test_existing_granite_does_not_confirm_household_agreements(
     assert reason.verdict == CompatibilityVerdict.CONDITIONAL
     assert reason.policy_rule == "conditions_unconfirmed"
     assert reason.conditions_status == "unconfirmed"
+    criteria = SearchCriteria(
+        recommendation_limit=1,
+        household_facts=[fact],
+        requirements=CriteriaGroup(character=[], compatibility=[]),
+        preferences=CriteriaGroup(character=[], compatibility=[]),
+    )
+    assert criteria.compatibility_targets()[StoneType.GRANITE].required is False
     assert all(check.status == "unknown" for check in reason.condition_checks)
+
+
+def test_explicit_hard_compatibility_requirement_remains_mandatory() -> None:
+    question = "Find a candidate who must live well with the granite already at home."
+    parsed = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "household_facts": [
+                {
+                    "fragment_id": 1,
+                    "question_quote": "the granite already at home",
+                    "existing_stone_type": "GRANITE",
+                }
+            ],
+            "requirements": {
+                "character": [],
+                "compatibility": [
+                    {
+                        "fragment_id": 1,
+                        "household_type": "GRANITE",
+                        "question_quote": "must live well with the granite already at home",
+                    }
+                ],
+            },
+            "preferences": {"character": [], "compatibility": []},
+        }
+    )
+    criteria, _ = parsed.resolve({1: question})
+
+    assert criteria.compatibility_targets()[StoneType.GRANITE].required is True
 
 
 def test_parser_restores_typed_fact_quotes_and_all_conditions_are_required(

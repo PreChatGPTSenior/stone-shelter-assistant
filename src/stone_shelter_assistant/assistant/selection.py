@@ -28,58 +28,123 @@ from stone_shelter_assistant.stones.enums import AdoptionStatus, StoneType
 
 
 class FragmentReference(BaseModel):
-    fragment_id: int = Field(ge=1)
+    fragment_id: int = Field(
+        ge=1,
+        description="One-based ID of the verbatim original question fragment containing this reference.",
+    )
 
 
 class HouseholdFactReference(FragmentReference):
-    question_quote: str = Field(min_length=1)
-    existing_stone_type: StoneType | None = None
-    fact_type: AccommodationFactType | None = None
-    value: StrictBool | None = None
-    applies_to_pair: tuple[StoneType, StoneType] | None = None
+    question_quote: str = Field(
+        min_length=1,
+        description=(
+            "Exact source subquote for the household reference. It may describe context that "
+            "explains a criterion; a context quote does not assert an additional typed fact."
+        ),
+    )
+    existing_stone_type: StoneType | None = Field(
+        default=None,
+        description=(
+            "A stone type explicitly said to already live in the household. This is household "
+            "context that can trigger pair assessment; its presence alone is not a compatibility "
+            "requirement or preference."
+        ),
+    )
+    fact_type: AccommodationFactType | None = Field(
+        default=None,
+        description=(
+            "One currently supported typed household agreement. Other contextual facts have no "
+            "fact_type in this contract."
+        ),
+    )
+    value: StrictBool | None = Field(
+        default=None,
+        description="Whether the named supported household agreement was explicitly established.",
+    )
+    applies_to_pair: tuple[StoneType, StoneType] | None = Field(
+        default=None,
+        description="Explicit type-pair scope for a supported typed agreement, if one is stated.",
+    )
 
 
 class CompatibilityReference(FragmentReference):
-    household_type: StoneType
-    first_type: StoneType | None = None
+    household_type: StoneType = Field(
+        description="A type participating in the requested compatibility question or criterion."
+    )
+    first_type: StoneType | None = Field(
+        default=None,
+        description="The other explicit type for a type-to-type compatibility question, if present.",
+    )
 
 
 class CriterionReference(FragmentReference):
-    question_quote: str = Field(min_length=1)
+    question_quote: str = Field(
+        min_length=1,
+        description=(
+            "Exact source subquote for one decision-bearing character criterion. Include source "
+            "context when it explains the criterion; independent criteria get separate entries."
+        ),
+    )
 
 
 class CompatibilityCriterionReference(CompatibilityReference):
-    question_quote: str = Field(min_length=1)
+    question_quote: str = Field(
+        min_length=1,
+        description=(
+            "Exact source subquote for one independent compatibility requirement or preference. "
+            "A cohabitation mandate or preference must be stated independently; naming a type "
+            "that already lives in the household does not establish one."
+        ),
+    )
 
 
 class RequestedCompatibilityReference(CompatibilityReference):
-    target: Literal["candidate", "named_stone", "types"]
+    target: Literal["candidate", "named_stone", "types"] = Field(
+        description=(
+            "Whether the original compatibility question concerns a recommended candidate, a "
+            "named individual, or two explicit types. Its original fragment carries the full "
+            "question, including explanatory or sufficiency wording."
+        )
+    )
 
 
 class NamedStoneReference(FragmentReference):
-    name: str = Field(min_length=1)
+    name: str = Field(min_length=1, description="Exact individual name explicitly referenced in the question.")
 
 
 class CareReference(FragmentReference):
-    stone_type: StoneType
+    stone_type: StoneType = Field(description="Stone type for which the user explicitly requests care advice.")
 
 
 class UnsupportedCareReference(FragmentReference):
-    material: str = Field(min_length=1, max_length=120)
+    material: str = Field(
+        min_length=1,
+        max_length=120,
+        description="Exact unsupported material named in an explicit care-advice request.",
+    )
 
 
 class StoneInfoReference(FragmentReference):
-    topic: StoneInfoTopic
+    topic: StoneInfoTopic = Field(description="Requested topic about the named individual.")
 
 
 class PairListReference(FragmentReference):
-    stone_type: StoneType
-    verdict: CompatibilityVerdict
+    stone_type: StoneType = Field(description="Type whose compatibility partners are requested.")
+    verdict: CompatibilityVerdict = Field(description="Requested authored compatibility verdict.")
 
 
 class CriteriaReferences(BaseModel):
-    character: list[CriterionReference] = Field(default_factory=list)
-    compatibility: list[CompatibilityCriterionReference] = Field(default_factory=list)
+    character: list[CriterionReference] = Field(
+        default_factory=list,
+        description=(
+            "Independent required or preferred traits of a recommended stone. Source context that "
+            "explains a trait may stay in its quote rather than become a second household fact."
+        ),
+    )
+    compatibility: list[CompatibilityCriterionReference] = Field(
+        default_factory=list,
+        description="Independent required or preferred compatibility targets for a recommended stone.",
+    )
 
     def resolve(self, fragments: Mapping[int, str], *, group_id: str) -> CriteriaGroup:
         for character_ref in self.character:
@@ -118,35 +183,113 @@ class RetrievalRequest(BaseModel):
 
 
 class CandidateTypeReference(FragmentReference):
-    stone_type: StoneType
+    stone_type: StoneType = Field(
+        description="Explicit type requirement for the candidate; this is not a household-context type."
+    )
 
 
 class RetrievalProposal(BaseModel):
-    """The model proposes queries and a referenced type, never operational filters."""
+    """Queries guide retrieval; they do not add decision criteria or assert evidence."""
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    lexical_query: str = Field(min_length=1)
-    semantic_query: str = Field(min_length=1)
-    candidate_type: CandidateTypeReference | None = None
+    lexical_query: str = Field(
+        min_length=1,
+        description="English lexical search terms; query wording is not a substitute for parsed criteria.",
+    )
+    semantic_query: str = Field(
+        min_length=1,
+        description="English semantic retrieval description; it does not create a requirement or preference.",
+    )
+    candidate_type: CandidateTypeReference | None = Field(
+        default=None,
+        description="Only an explicit required stone type for the new candidate; household types are not candidate filters.",
+    )
 
 
 class ParseQuestion(BaseModel):
-    """Classify references to the original question without candidate data."""
+    """Classify original-question requests and criteria without candidate data."""
 
-    recommendation_limit: int = Field(ge=0)
-    requested_availability: list[FragmentReference] = Field(default_factory=list)
-    requested_compatibility: list[RequestedCompatibilityReference] = Field(default_factory=list)
-    household_facts: list[HouseholdFactReference] = Field(default_factory=list)
-    requirements: CriteriaReferences = Field(default_factory=CriteriaReferences)
-    preferences: CriteriaReferences = Field(default_factory=CriteriaReferences)
-    named_stone: NamedStoneReference | None = None
-    recommendation_target: NamedStoneReference | None = None
-    requested_care: list[CareReference] = Field(default_factory=list)
-    unsupported_care: list[UnsupportedCareReference] = Field(default_factory=list)
-    requested_stone_info: StoneInfoReference | None = None
-    requested_pair_lists: list[PairListReference] = Field(default_factory=list)
-    retrieval: RetrievalProposal | None = None
+    recommendation_limit: int = Field(
+        ge=0,
+        description=(
+            "Generic recommendation action and requested quantity: positive means recommend that "
+            "many stones; zero means no recommendation. A request to explain why a recommended stone "
+            "fits is answered from its criteria and evidence; it is not a separate coverage atom. "
+            "recommendation_target is only needed when the user explicitly names the candidate."
+        ),
+    )
+    requested_availability: list[FragmentReference] = Field(
+        default_factory=list,
+        description=(
+            "A direct current-status lookup for a referenced individual or explicitly named "
+            "candidate when status is an independent goal. Recommendations already use AVAILABLE "
+            "retrieval and PostgreSQL status verification, so do not duplicate that built-in "
+            "availability behavior here."
+        ),
+    )
+    requested_compatibility: list[RequestedCompatibilityReference] = Field(
+        default_factory=list,
+        description=(
+            "Explicit compatibility questions. The referenced original fragment includes the full "
+            "request, including explanation, grounds, or whether a behavior is sufficient; do not "
+            "require a separate atom for those words."
+        ),
+    )
+    household_facts: list[HouseholdFactReference] = Field(
+        default_factory=list,
+        description=(
+            "Existing household stone types and currently supported typed agreements. A source-bound "
+            "entry with null typed values may carry relevant context for a criterion; do not demand "
+            "a new fact enum for context or background."
+        ),
+    )
+    requirements: CriteriaReferences = Field(
+        default_factory=CriteriaReferences,
+        description=(
+            "Required traits and compatibility criteria. Context may explain a criterion without "
+            "being a second criterion. If the exact same source atom is also listed as a preference, "
+            "the resolver retains the requirement; distinct source atoms stay separate."
+        ),
+    )
+    preferences: CriteriaReferences = Field(
+        default_factory=CriteriaReferences,
+        description=(
+            "Preferred traits and compatibility targets. Exact same-source overlap with a requirement "
+            "uses requirement precedence; do not merge different criteria merely because they share a fragment."
+        ),
+    )
+    named_stone: NamedStoneReference | None = Field(
+        default=None,
+        description="An individual named for information or reference lookup; not a candidate filter.",
+    )
+    recommendation_target: NamedStoneReference | None = Field(
+        default=None,
+        description=(
+            "Optional named candidate, only when the user explicitly names which individual to recommend. "
+            "A generic recommendation is already represented by recommendation_limit."
+        ),
+    )
+    requested_care: list[CareReference] = Field(
+        default_factory=list,
+        description="Explicit care-advice requests for supported stone types.",
+    )
+    unsupported_care: list[UnsupportedCareReference] = Field(
+        default_factory=list,
+        description="Explicit care-advice requests for materials outside the supported type catalog.",
+    )
+    requested_stone_info: StoneInfoReference | None = Field(
+        default=None,
+        description="Requested topic about the individual named in named_stone.",
+    )
+    requested_pair_lists: list[PairListReference] = Field(
+        default_factory=list,
+        description="Explicit request for authored compatibility partners of a stone type.",
+    )
+    retrieval: RetrievalProposal | None = Field(
+        default=None,
+        description="Search-query preparation for a recommendation; not an independent decision criterion.",
+    )
 
     def resolve_retrieval(
         self, fragments: Mapping[int, str], supported: frozenset[str] = frozenset()

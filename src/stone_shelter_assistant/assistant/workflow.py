@@ -554,6 +554,9 @@ async def parse_question(state: SearchState, *, runtime: Runtime[RunContext]) ->
             SystemMessage(
                 content=(
                     "The stabilization pilot uses English questions and evidence only. "
+                    "Use the structured output schema and its field descriptions as the canonical "
+                    "contract for what this parse can represent. Do not invent fields or promote a "
+                    "search query into a criterion. "
                     "Classify only what the question explicitly asks or states. Reference the "
                     "supplied fragment IDs and keep the following categories separate. "
                     "'Is Madame Obsidian available?' goes in requested_availability, never in "
@@ -702,6 +705,7 @@ async def ground_question(state: SearchState, *, runtime: Runtime[RunContext]) -
                     proposals,
                     atoms,
                     parsed.model_dump(mode="json"),
+                    ParseQuestion.model_json_schema(),
                 ),
                 config=get_config(),
             )

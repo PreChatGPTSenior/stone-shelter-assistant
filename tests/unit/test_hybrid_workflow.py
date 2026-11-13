@@ -64,8 +64,10 @@ def payload(span: Any, field: str) -> Any:
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("current_status", ["AVAILABLE", "RESERVED"])
-async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_status: str) -> None:
+@pytest.mark.parametrize("current_status", ["AVAILABLE", "RESERVED", None])
+async def test_full_hybrid_graph_preserves_provenance_and_decisions(
+    current_status: str | None,
+) -> None:
     snapshot = json.loads(
         (Path(__file__).parents[1] / "fixtures/assistant/quiet-home-assessment.json").read_text()
     )
@@ -135,6 +137,8 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
     @tool
     async def get_current_stone_statuses(stone_ids: list[str]) -> list[dict[str, str]]:
         """Read the fixture's current availability."""
+        if current_status is None:
+            return []
         return [
             {
                 "stone_id": item,
@@ -351,7 +355,10 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
         verified_statuses = result["verified_statuses"]
         assert isinstance(verified_statuses, dict)
         assert verified_statuses[reference_details["id"]] == "AVAILABLE"
-        assert verified_statuses[sid] == current_status
+        if current_status is None:
+            assert sid not in verified_statuses
+        else:
+            assert verified_statuses[sid] == current_status
         sources = result["sources"]
         assert isinstance(sources, dict)
         assert f"stone-card:{reference_details['id']}" in sources
@@ -377,7 +384,11 @@ async def test_full_hybrid_graph_preserves_provenance_and_decisions(current_stat
             sid: True,
             str(b.id): False,
         }
-        assert payload(by_name["verify"], "output")["verified_statuses"][sid] == current_status
+        verified = payload(by_name["verify"], "output")["verified_statuses"]
+        if current_status is None:
+            assert sid not in verified
+        else:
+            assert verified[sid] == current_status
         evaluation = payload(by_name["evaluate_candidates"], "output")["candidate_evaluations"][0]
         assert evaluation["stone_id"] == sid
         assert evaluation["eligible"] == (current_status == "AVAILABLE")

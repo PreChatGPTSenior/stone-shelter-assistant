@@ -9,17 +9,18 @@ from stone_shelter_assistant.assistant.selection import ParseQuestion
 def parsed_grounding_case(case: Mapping[str, Any]) -> ParseQuestion:
     """Convert a reviewed holdout row into a source-bound current ParseQuestion."""
     question = case["question"]
+    is_candidate_type = case["concept_id"] == "candidate_type"
     fields: dict[str, Any] = {
-        "recommendation_limit": 1,
-        "retrieval": {
+        "recommendation_limit": 1 if is_candidate_type else 0,
+    }
+    if is_candidate_type:
+        fields["retrieval"] = {
             "lexical_query": "companion",
             "semantic_query": "a suitable companion",
-        },
-    }
-    if case["concept_id"] == "candidate_type":
-        fields["retrieval"]["candidate_type"] = {
-            "fragment_id": 1,
-            "stone_type": case["proposed_type"],
+            "candidate_type": {
+                "fragment_id": 1,
+                "stone_type": case["proposed_type"],
+            },
         }
     else:
         fields["household_facts"] = [

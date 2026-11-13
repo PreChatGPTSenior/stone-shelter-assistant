@@ -1,0 +1,269 @@
+{
+  "baseline": "20261112T222923314720Z-challenge20.json",
+  "current": "20261113T091304479841Z-challenge20.json",
+  "base_git_revision": "b80356d",
+  "runtime": "uncommitted PY-051 schema-aware audit; source diff archived",
+  "comparability": {
+    "questions_identical": true,
+    "fifteen_fixture_hashes_identical": true,
+    "requested_models_and_settings_identical": true,
+    "runtime_source_hashes_still_match": true,
+    "same_evaluator_reproduces_both": true
+  },
+  "before": {
+    "attempts": 20,
+    "http": {
+      "200": 18,
+      "500": 2
+    },
+    "execution_integrity": {
+      "pass": 9,
+      "fail": 9,
+      "unknown": 2
+    },
+    "coverage_statuses": {
+      "not_run": 5,
+      "incomplete": 9,
+      "complete": 3,
+      "no_final_state": 3
+    }
+  },
+  "after": {
+    "attempts": 20,
+    "http": {
+      "200": 18,
+      "500": 2
+    },
+    "execution_integrity": {
+      "pass": 12,
+      "fail": 6,
+      "unknown": 2
+    },
+    "coverage_statuses": {
+      "not_run": 6,
+      "incomplete": 4,
+      "complete": 6,
+      "invalid_audit": 2,
+      "no_final_state": 2
+    }
+  },
+  "telemetry": {
+    "requests": 20,
+    "traces_with_observations": 19,
+    "generations": 55,
+    "reported_total_cost_usd": 0.02037909999,
+    "generations_missing_cost": 13,
+    "telemetry_error_cases": [
+      "Q16"
+    ],
+    "cost_incomplete": true
+  },
+  "cases": [
+    {
+      "case_id": "Q01",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "not_run",
+      "after_audit": "not_run",
+      "manual_observation": "Accepted; exact pair structural checks pass. Semantic answer quality unmeasured."
+    },
+    {
+      "case_id": "Q02",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "question_coverage_incomplete",
+      "before_audit": "incomplete",
+      "after_audit": "incomplete",
+      "manual_observation": "Old redundant target/count objections removed. New refusal asks for requested_availability; runtime already enforces AVAILABLE, so an implicit-availability audit/runtime mismatch remains."
+    },
+    {
+      "case_id": "Q03",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "unresolved_question",
+      "after_plan": "accepted",
+      "before_audit": "incomplete",
+      "after_audit": "complete",
+      "manual_observation": "Previously unresolved; now accepted, evidence parsed and condition/disposition checks pass."
+    },
+    {
+      "case_id": "Q04",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "question_coverage_incomplete",
+      "before_audit": "complete",
+      "after_audit": "incomplete",
+      "manual_observation": "Both agreement subquotes retained, but audit blocks a spurious mandatory compatibility constraint inferred from resident granite. Compound conditions not assessed."
+    },
+    {
+      "case_id": "Q05",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "unresolved_question",
+      "after_plan": "question_coverage_incomplete",
+      "before_audit": null,
+      "after_audit": "incomplete",
+      "manual_observation": "DTO now valid; audit catches missing candidate type and an unsupported false deadline value inferred from undecided wording."
+    },
+    {
+      "case_id": "Q06",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "unresolved_question",
+      "before_audit": "incomplete",
+      "after_audit": "invalid_audit",
+      "manual_observation": "Invalid audit binding/protocol; not a measured semantic refusal."
+    },
+    {
+      "case_id": "Q07",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "complete",
+      "after_audit": "complete",
+      "manual_observation": "Agreement values correct, but resident granite again becomes required compatibility: Sir Pebble excluded, expected conditional disposition fails."
+    },
+    {
+      "case_id": "Q08",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "complete",
+      "after_audit": "complete",
+      "manual_observation": "Non-applicable scope still becomes negative granite agreements; conditions and disposition fail. Mandatory compatibility again excludes Sir Pebble."
+    },
+    {
+      "case_id": "Q09",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "accepted",
+      "before_audit": "incomplete",
+      "after_audit": "complete",
+      "manual_observation": "Old redundant-context false refusal removed; audit complete. Selection empty, evidence not needed: no end-to-end positive coverage claim."
+    },
+    {
+      "case_id": "Q10",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "accepted",
+      "before_audit": "incomplete",
+      "after_audit": "complete",
+      "manual_observation": "Old redundant-context false refusal removed; audit complete; Brave Gneiss recommended."
+    },
+    {
+      "case_id": "Q11",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "question_coverage_incomplete",
+      "before_audit": "incomplete",
+      "after_audit": "incomplete",
+      "manual_observation": "Old unsupported typed-fact demands removed. New genuine parser role error: loud-music home context classified as preferred character."
+    },
+    {
+      "case_id": "Q12",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "not_run",
+      "after_audit": "not_run",
+      "manual_observation": "Accepted reference route; semantic completeness unmeasured."
+    },
+    {
+      "case_id": "Q13",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "unresolved_question",
+      "before_audit": "incomplete",
+      "after_audit": "invalid_audit",
+      "manual_observation": "Invalid audit binding/protocol; not a measured semantic refusal."
+    },
+    {
+      "case_id": "Q14",
+      "before_http": 200,
+      "after_http": 500,
+      "before_plan": "accepted",
+      "after_plan": null,
+      "before_audit": "not_run",
+      "after_audit": null,
+      "manual_observation": "HTTP 500: provider error during collect_reference_evidence, recovered from Langfuse; no final state."
+    },
+    {
+      "case_id": "Q15",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "not_run",
+      "after_audit": "not_run",
+      "manual_observation": "Accepted reference route; semantic completeness unmeasured."
+    },
+    {
+      "case_id": "Q16",
+      "before_http": 200,
+      "after_http": 500,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": null,
+      "before_audit": "incomplete",
+      "after_audit": null,
+      "manual_observation": "HTTP 500; no root/generation binding found in exported telemetry. Audit outcome and cause unknown."
+    },
+    {
+      "case_id": "Q17",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "question_coverage_incomplete",
+      "after_plan": "accepted",
+      "before_audit": "incomplete",
+      "after_audit": "complete",
+      "manual_observation": "Audit complete; biography evidence recommends Sir Pebble. Source restriction semantics not independently evaluated."
+    },
+    {
+      "case_id": "Q18",
+      "before_http": 500,
+      "after_http": 200,
+      "before_plan": null,
+      "after_plan": "accepted",
+      "before_audit": null,
+      "after_audit": "not_run",
+      "manual_observation": "HTTP now 200; two-name comparison capability remains unsupported, not a complete comparison success."
+    },
+    {
+      "case_id": "Q19",
+      "before_http": 500,
+      "after_http": 200,
+      "before_plan": null,
+      "after_plan": "accepted",
+      "before_audit": null,
+      "after_audit": "not_run",
+      "manual_observation": "HTTP now 200; named history response returned, semantic completeness unmeasured."
+    },
+    {
+      "case_id": "Q20",
+      "before_http": 200,
+      "after_http": 200,
+      "before_plan": "accepted",
+      "after_plan": "accepted",
+      "before_audit": "not_run",
+      "after_audit": "not_run",
+      "manual_observation": "Accepted reference route; semantic completeness unmeasured."
+    }
+  ],
+  "limitations": [
+    "One stochastic attempt per question; no causal statistical estimate.",
+    "Execution integrity is not semantic answer correctness/completeness.",
+    "No paid semantic judge; Q16 telemetry missing and reported cost incomplete."
+  ],
+  "source_patch_sha256": "03b992c3ad3657e77d60611ea3b6bdac26e9a2f8437345b8d2ab3d8f5abdee6a"
+}

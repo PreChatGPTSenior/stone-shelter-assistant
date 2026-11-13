@@ -858,6 +858,22 @@ def test_named_overview_requires_identity_and_card_before_type_knowledge() -> No
     )
 
 
+def test_explicit_named_availability_question_keeps_status_lookup_route() -> None:
+    question = "Is Madame Obsidian available?"
+    parsed = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 0,
+            "requested_availability": [{"fragment_id": 1}],
+            "named_stone": {"fragment_id": 1, "name": "Madame Obsidian"},
+        }
+    )
+
+    criteria, _ = parsed.resolve({1: question})
+    request = parsed.resolve_references({1: question})
+
+    assert permitted_tools(criteria, request) == ["get_stone_status_by_name"]
+
+
 @pytest.mark.asyncio
 async def test_reference_and_recommendation_targets_are_explicitly_independent() -> None:
     question = "Tell me about Svetlana and find a quiet companion."

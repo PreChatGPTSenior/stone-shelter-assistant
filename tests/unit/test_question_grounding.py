@@ -27,6 +27,7 @@ from stone_shelter_assistant.assistant.reference_lookup import ReferenceResult
 from stone_shelter_assistant.assistant.selection import (
     ParseQuestion,
     RetrievalProposal,
+    question_fragments,
     validate_parsed_atoms,
 )
 from stone_shelter_assistant.search.knowledge.grounding_catalog import (
@@ -36,6 +37,342 @@ from stone_shelter_assistant.search.knowledge.grounding_catalog import (
 
 ROOT = Path(__file__).parents[2]
 HOLDOUT = json.loads((ROOT / "tests/fixtures/agent-eval/grounding-en/holdout.json").read_text())
+
+
+def false_refusal_inputs() -> list[tuple[str, str, dict[str, Any]]]:
+    """Current-contract interpretations of five PY-050 false-refusal questions."""
+    cases = [
+        (
+            "Q02",
+            "Find up to two stones for a quiet home where a granite stone already lives. "
+            "Who is currently available and why might they fit?",
+            {
+                "recommendation_limit": 2,
+                "household_facts": [
+                    {
+                        "fragment_id": 1,
+                        "question_quote": "a granite stone already lives",
+                        "existing_stone_type": "GRANITE",
+                    }
+                ],
+                "requirements": {
+                    "character": [{"fragment_id": 1, "question_quote": "for a quiet home"}]
+                },
+                # Exact same-source overlap follows the resolver's required precedence.
+                "preferences": {
+                    "character": [{"fragment_id": 1, "question_quote": "for a quiet home"}]
+                },
+                "retrieval": {
+                    "lexical_query": "quiet home stones",
+                    "semantic_query": "Stones suited to a quiet home with granite already living there.",
+                },
+            },
+        ),
+        (
+            "Q09",
+            "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. "
+            "Enjoying human company is a preference, not a requirement.",
+            {
+                "recommendation_limit": 1,
+                "requirements": {
+                    "character": [
+                        {
+                            "fragment_id": 2,
+                            "question_quote": "tolerate a vacuum cleaner calmly",
+                        }
+                    ]
+                },
+                "preferences": {
+                    "character": [
+                        {"fragment_id": 3, "question_quote": "Enjoying human company"}
+                    ]
+                },
+                "retrieval": {
+                    "lexical_query": "obsidian vacuum calm human company",
+                    "semantic_query": "An obsidian stone calm around a frequently used vacuum cleaner, preferably sociable.",
+                    "candidate_type": {"fragment_id": 1, "stone_type": "OBSIDIAN"},
+                },
+            },
+        ),
+        (
+            "Q10",
+            "Find one gneiss stone for a family with children. Being good with children is required. "
+            "Enjoying garden visits is only a preference.",
+            {
+                "recommendation_limit": 1,
+                "requirements": {
+                    "character": [
+                        {"fragment_id": 2, "question_quote": "Being good with children"}
+                    ]
+                },
+                "preferences": {
+                    "character": [
+                        {"fragment_id": 3, "question_quote": "Enjoying garden visits"}
+                    ]
+                },
+                "retrieval": {
+                    "lexical_query": "gneiss children garden",
+                    "semantic_query": "A gneiss stone suited to a family with children, preferably enjoying garden visits.",
+                    "candidate_type": {"fragment_id": 1, "stone_type": "GNEISS"},
+                },
+            },
+        ),
+        (
+            "Q11",
+            "Find one slate stone for a home with loud music. Calm behavior around music is required. "
+            "I have caregiving experience.",
+            {
+                "recommendation_limit": 1,
+                "household_facts": [
+                    {"fragment_id": 1, "question_quote": "a home with loud music"}
+                ],
+                "requirements": {
+                    "character": [
+                        {"fragment_id": 2, "question_quote": "Calm behavior around music"}
+                    ]
+                },
+                "retrieval": {
+                    "lexical_query": "slate calm loud music",
+                    "semantic_query": "A slate stone that stays calm around loud music.",
+                    "candidate_type": {"fragment_id": 1, "stone_type": "SLATE"},
+                },
+            },
+        ),
+        (
+            "Q16",
+            "Find one pumice stone for a home where granite already lives. Is enjoying the company of "
+            "other stones enough to prove compatibility with granite?",
+            {
+                "recommendation_limit": 1,
+                "household_facts": [
+                    {"fragment_id": 1, "question_quote": "granite already lives", "existing_stone_type": "GRANITE"}
+                ],
+                "requested_compatibility": [
+                    {
+                        "fragment_id": 2,
+                        "household_type": "GRANITE",
+                        "target": "candidate",
+                    }
+                ],
+                "retrieval": {
+                    "lexical_query": "pumice stone granite",
+                    "semantic_query": "A pumice stone for a home with granite; the question asks whether general sociability proves compatibility.",
+                    "candidate_type": {"fragment_id": 1, "stone_type": "PUMICE"},
+                },
+            },
+        ),
+    ]
+    return cases
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("case_id", "question", "fields"),
+    false_refusal_inputs(),
+    ids=[case[0] for case in false_refusal_inputs()],
+)
+async def test_schema_aware_audit_accepts_current_parse_for_contextual_questions(
+    monkeypatch: pytest.MonkeyPatch,
+    case_id: str,
+    question: str,
+    fields: dict[str, Any],
+) -> None:
+    """Contract test for five PY-050 false refusals; it does not assess model quality."""
+    parsed = ParseQuestion.model_validate(fields)
+    fragments = question_fragments(question)
+    proposals = parsed.grounding_proposals(fragments)
+    payloads: list[dict[str, Any]] = []
+
+    class Model:
+        def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
+            assert schema is GroundingResponse
+
+            def respond(messages: Any) -> dict[str, Any]:
+                payload = json.loads(messages[-1].content)
+                payloads.append(payload)
+                return {
+                    "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                    "parsed": GroundingResponse(
+                        decisions=[
+                            GroundingDecision(
+                                proposal_id=proposal.proposal_id,
+                                finding="supported",
+                                fragment_id=proposal.fragment_id,
+                                quote=proposal.question_quote,
+                                reason="The exact proposal is supported in its source text.",
+                            )
+                            for proposal in proposals
+                        ],
+                        question_coverage=QuestionCoverageAudit(
+                            status="complete",
+                            summary="Independent requests and criteria are represented by the typed parse.",
+                        ),
+                    ),
+                }
+
+            return RunnableLambda(respond)
+
+    monkeypatch.setattr(workflow, "get_config", lambda: {})
+    context: Any = SimpleNamespace(
+        grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
+        evaluation_model=Model(),
+        evaluation_uses_json_schema=True,
+        evaluation_reasoning=None,
+    )
+    grounded: Any = await workflow.ground_question(
+        {
+            "question": question,
+            "question_fragments": fragments,
+            "parsed_question": parsed,
+            "messages": [],
+            "tools_used": 0,
+        },
+        runtime=Runtime(context=context),
+    )
+
+    assert grounded["question_coverage_status"] == "complete", case_id
+    assert grounded["criteria_status"] == "parsed", case_id
+    assert len(payloads) == 1
+    schema = payloads[0]["parse_schema"]
+    assert schema == ParseQuestion.model_json_schema()
+    limit_description = schema["properties"]["recommendation_limit"]["description"]
+    assert "recommendation action and requested quantity" in limit_description
+    assert "explain why a recommended stone fits" in limit_description
+    availability_description = schema["properties"]["requested_availability"]["description"]
+    assert "Recommendations already use AVAILABLE retrieval" in availability_description
+    household_description = schema["$defs"]["HouseholdFactReference"]["properties"][
+        "existing_stone_type"
+    ]["description"]
+    assert "presence alone is not a compatibility requirement or preference" in household_description
+    compatibility_description = schema["$defs"]["CompatibilityCriterionReference"]["properties"][
+        "question_quote"
+    ]["description"]
+    assert "naming a type that already lives in the household does not establish one" in compatibility_description
+    if case_id in {"Q02", "Q16"}:
+        expected_limit = 2 if case_id == "Q02" else 1
+        assert parsed.recommendation_limit == expected_limit
+    if case_id == "Q16":
+        assert schema["properties"]["requested_compatibility"]["description"]
+    if case_id in {"Q09", "Q10"}:
+        assert parsed.household_facts == []
+    if case_id == "Q11":
+        assert len(parsed.household_facts) == 1
+        assert all(
+            fact.fact_type is None
+            and fact.value is None
+            and fact.existing_stone_type is None
+            for fact in parsed.household_facts
+        )
+    state: Any = {
+        "question": question,
+        "tools_used": 0,
+        "question_fragments": fragments,
+        "parsed_question": parsed,
+        **grounded,
+    }
+    planned: Any = await workflow.plan_tools(state, runtime=Runtime(context=context))
+    assert "search_candidates" in planned["permitted_tools"], case_id
+    assert "search_candidates" not in planned["blocked_tools"], case_id
+    if case_id == "Q02":
+        assert parsed.requested_availability == []
+        assert planned["permitted_tools"] == ["search_candidates"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("question", "parsed_quote", "omitted_quote"),
+    [
+        (
+            "Find one stone who stays quiet in the early morning.",
+            "stays quiet",
+            "in the early morning",
+        ),
+        (
+            "Find one stone, but only if it comes from the northern shelter.",
+            "Find one stone",
+            "only if it comes from the northern shelter",
+        ),
+    ],
+    ids=["missing-operative-qualifier", "unrepresented-hard-constraint"],
+)
+async def test_schema_audit_blocks_missing_or_unrepresented_constraints(
+    monkeypatch: pytest.MonkeyPatch,
+    question: str,
+    parsed_quote: str,
+    omitted_quote: str,
+) -> None:
+    parsed = ParseQuestion.model_validate(
+        {
+            "recommendation_limit": 1,
+            "requirements": {
+                "character": [{"fragment_id": 1, "question_quote": parsed_quote}]
+            },
+            "retrieval": {
+                "lexical_query": "quiet stone",
+                "semantic_query": "stone suited to the request",
+            },
+        }
+    )
+
+    class Model:
+        def with_structured_output(self, schema: Any, **kwargs: Any) -> Any:
+            def respond(messages: Any) -> dict[str, Any]:
+                return {
+                    "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"}),
+                    "parsed": GroundingResponse(
+                        decisions=[],
+                        question_coverage=QuestionCoverageAudit(
+                            status="incomplete",
+                            summary="An independent decision constraint is missing from the parse.",
+                            issues=[
+                                QuestionCoverageIssue(
+                                    kind="omitted",
+                                    fragment_id=1,
+                                    quote=omitted_quote,
+                                    reason="This source-bound constraint is not represented by a parsed criterion.",
+                                )
+                            ],
+                        ),
+                    ),
+                }
+
+            return RunnableLambda(respond)
+
+    monkeypatch.setattr(workflow, "get_config", lambda: {})
+    context: Any = SimpleNamespace(
+        grounding_catalog=AsyncMock(load=AsyncMock(return_value=snapshot())),
+        evaluation_model=Model(),
+        evaluation_uses_json_schema=True,
+        evaluation_reasoning=None,
+    )
+    fragments = {1: question}
+    grounded: Any = await workflow.ground_question(
+        {
+            "question": question,
+            "question_fragments": fragments,
+            "parsed_question": parsed,
+            "messages": [],
+            "tools_used": 0,
+        },
+        runtime=Runtime(context=context),
+    )
+    assert grounded["question_coverage_status"] == "incomplete"
+    issue = grounded["question_coverage_audit"]["issues"][0]
+    assert issue["quote"] == omitted_quote
+    state: Any = {
+        "question": question,
+        "question_fragments": fragments,
+        "parsed_question": parsed,
+        "criteria": grounded["criteria"],
+        "reference_request": grounded["reference_request"],
+        "messages": [],
+        "tools_used": 0,
+        **grounded,
+    }
+    planned: Any = await workflow.plan_tools(state, runtime=Runtime(context=context))
+    assert planned["plan_status"] == "question_coverage_incomplete"
+    assert planned["blocked_tools"] == ["search_candidates"]
+    assert "search_candidates" not in planned["permitted_tools"]
 
 
 def snapshot() -> Any:
