@@ -61,3 +61,12 @@ The current opt-in runner is [test_candidate_assessment.py](../tests/live/test_c
 ### Full questions flow with DeepEval
 
 The opt-in runner is [test_questions_model_evaluation.py](../tests/integration/test_questions_model_evaluation.py), also gated by `RUN_OPENROUTER_EVALUATION=1`. The [twenty-case suite](../tests/fixtures/agent-eval/questions-challenge-20/README.md) documents its separate gate and frozen records. Historical runs retain their original settings and contracts.
+
+For repeated comparisons, reuse `EVALUATION_COMPARISON_ID` and assign a new `EVALUATION_RUN_NUMBER` to each configuration execution. The six-model runner numbers selected configurations consecutively from that number. Without an explicit comparison ID, each invocation starts a new comparison; the default run number is 1.
+
+```sh
+export EVALUATION_COMPARISON_ID=challenge20-model-study
+export EVALUATION_RUN_NUMBER=1
+```
+
+These variables only label a run; model calls still require explicit authorization and the runner's opt-in flag. Each run uses session `STPY-<comparison_id>-r<run_number>` with at least two digits for the number. API comparison requests must send that session in `X-Session-ID` and both `comparison_id` and `run_number` in the JSON body. Find the run in Langfuse by session or comparison metadata; use each archived case's `trace_id` to inspect a single question. The API returns a `configuration_id` derived from the effective application model settings; judge settings are recorded separately by the evaluation runner.

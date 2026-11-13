@@ -33,4 +33,6 @@ The model extracts source-bound quotations. Python verifies source binding, curr
 
 The existing scenarios, frozen successful/failed runs and traces are the starting point for learning evaluation frameworks and comparing retrieval and selection strategies.
 
+The current learning phase focuses on evaluation of the existing workflow: reviewed baselines, Langfuse trace inspection, DeepEval judge calibration, routing checks and Ragas retrieval/context metrics. Comparison and run identifiers connect model configurations, local archives and Langfuse traces; this instrumentation does not establish answer quality. Remaining work is tracked in the [open evaluation issues](https://github.com/PreChatGPTSenior/stone-shelter-assistant/issues?q=is%3Aissue+is%3Aopen). CRUD expansion, production recovery, alternative backend implementations and Java reproduction are deferred.
+
 See [setup](setup.md) for local commands.
