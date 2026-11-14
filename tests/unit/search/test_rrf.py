@@ -31,6 +31,7 @@ def card(number: int) -> StoneSearchDocument:
     )
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_overlap_adds_both_contributions_and_sorts_ties_by_external_id() -> None:
     a, b, c = card(1), card(2), card(3)
     result = fuse_stone_results([b, a, c], [a, b])
@@ -48,6 +49,7 @@ def test_overlap_adds_both_contributions_and_sorts_ties_by_external_id() -> None
     assert all(hit.in_pool and not hit.payload_mismatch for hit in result.candidates)
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_disjoint_lists_keep_both_engines_and_break_ties_independently_of_arrival() -> None:
     a, b = card(1), card(2)
     for lexical, semantic in (([b], [a]), ([a], [b])):
@@ -56,6 +58,7 @@ def test_disjoint_lists_keep_both_engines_and_break_ties_independently_of_arriva
         assert all(hit.rrf_score == pytest.approx(1 / 61) for hit in result.candidates)
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_duplicate_does_not_add_votes_or_leave_rank_gaps() -> None:
     a, b = card(1), card(2)
     duplicate = a.model_copy(update={"text": "A later duplicate must not replace the first."})
@@ -71,6 +74,7 @@ def test_duplicate_does_not_add_votes_or_leave_rank_gaps() -> None:
 
 
 @pytest.mark.parametrize("engine", ["lexical", "semantic"])
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_one_empty_engine_preserves_other_order_and_custom_k(engine: str) -> None:
     a, b = card(1), card(2)
     cards = [b, a]
@@ -83,11 +87,13 @@ def test_one_empty_engine_preserves_other_order_and_custom_k(engine: str) -> Non
     assert [hit.rrf_score for hit in result.candidates] == pytest.approx([1 / 11, 1 / 12])
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_both_empty_engines_return_empty_result() -> None:
     result = fuse_stone_results([], [])
     assert result.candidates == result.dropped == result.lexical_ids == result.semantic_ids == []
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_pool_cutoff_preserves_dropped_hits_and_engine_provenance() -> None:
     a, b, c = card(1), card(2), card(3)
     result = fuse_stone_results([a, b], [a, c], HybridSearchSettings(pool_limit=1))
@@ -101,6 +107,7 @@ def test_pool_cutoff_preserves_dropped_hits_and_engine_provenance() -> None:
     assert result.model_dump(mode="json")["dropped"][0]["card"]["id"] == str(b.id)
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_payload_conflict_keeps_typesense_card_without_changing_inputs() -> None:
     a = card(1)
     semantic_card = a.model_copy(update={"text": "Stale vector payload."})
@@ -112,6 +119,7 @@ def test_payload_conflict_keeps_typesense_card_without_changing_inputs() -> None
     assert lexical == [a]
 
 
+@pytest.mark.acceptance("AC-RETRIEVAL-01")
 def test_sort_does_not_round_away_small_score_differences() -> None:
     a, b = card(1), card(2)
     result = fuse_stone_results([b, a], [], HybridSearchSettings(rrf_k=1_000_000))

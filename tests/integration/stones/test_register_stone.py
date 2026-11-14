@@ -45,7 +45,7 @@ from stone_shelter_assistant.stones.repository import (
 from stone_shelter_assistant.stones.service import RegisterStoneService
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-TEST_DATA = PROJECT_ROOT / "tests/fixtures/stone-registration"
+TEST_DATA = PROJECT_ROOT / "fixtures/stone-registration"
 VALID_REQUESTS = sorted((PROJECT_ROOT / "fixtures/stones").glob("*.json"))
 INVALID_REQUESTS = sorted((TEST_DATA / "invalid-persistence").glob("*.json"))
 INVALID_VALIDATION_REQUESTS = sorted((TEST_DATA / "invalid-validation").glob("*.json"))
@@ -296,6 +296,8 @@ async def test_registration_indexes_stone_profile_and_events_in_both_engines(
 
 
 @pytest.mark.asyncio
+@pytest.mark.acceptance("AC-FLOW-02")
+@pytest.mark.acceptance("AC-AVAILABILITY-01")
 async def test_stone_search_tools_return_registered_card(
     app: FastAPI,
     registration_sessions: async_sessionmaker[AsyncSession],
@@ -363,6 +365,7 @@ async def test_stone_search_tools_return_registered_card(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("with_profile", [True, False], ids=["with-profile", "without-profile"])
+@pytest.mark.acceptance("AC-IDENTITY-01")
 async def test_stone_details_tool_reads_fixture_by_both_ids(
     registration_sessions: async_sessionmaker[AsyncSession],
     with_profile: bool,

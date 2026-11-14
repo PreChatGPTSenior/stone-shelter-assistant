@@ -25,6 +25,7 @@ def clients() -> tuple[Any, Any, Any, Any]:
 
 
 @pytest.mark.asyncio
+@pytest.mark.acceptance("AC-FLOW-02")
 async def test_hybrid_starts_both_engines_and_shares_filters_and_limits() -> None:
     typesense, qdrant, embeddings, documents = clients()
     lexical_started, semantic_started = asyncio.Event(), asyncio.Event()
@@ -72,6 +73,7 @@ async def test_hybrid_starts_both_engines_and_shares_filters_and_limits() -> Non
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("failed_engine", ["lexical", "semantic"])
+@pytest.mark.acceptance("AC-FLOW-02")
 async def test_backend_failure_propagates_and_cancels_sibling(failed_engine: str) -> None:
     typesense, qdrant, embeddings, documents = clients()
     sibling_started, sibling_cancelled = asyncio.Event(), asyncio.Event()
@@ -99,6 +101,7 @@ async def test_backend_failure_propagates_and_cancels_sibling(failed_engine: str
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("queries", [(" ", "quiet"), ("granite", " ")])
+@pytest.mark.acceptance("AC-FLOW-02")
 async def test_empty_query_fails_before_any_backend_or_embedding_call(
     queries: tuple[str, str],
 ) -> None:
@@ -111,6 +114,7 @@ async def test_empty_query_fails_before_any_backend_or_embedding_call(
 
 
 @pytest.mark.asyncio
+@pytest.mark.acceptance("AC-FLOW-02")
 async def test_hybrid_tool_serializes_result_and_declares_two_backend_calls() -> None:
     typesense, qdrant, embeddings, _ = clients()
     tools = stone_search_tools(StoneSearchService(typesense, qdrant, embeddings), AsyncMock())

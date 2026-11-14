@@ -98,6 +98,8 @@ async def test_knowledge_endpoints_replace_only_the_requested_source(app: FastAP
 
 
 @pytest.mark.asyncio
+@pytest.mark.acceptance("AC-FLOW-01")
+@pytest.mark.acceptance("AC-COMPATIBILITY-01")
 async def test_knowledge_search_tools_find_reference_fixtures(app: FastAPI) -> None:
     async with httpx.AsyncClient(
         transport=httpx.ASGITransport(app=app), base_url="http://test"

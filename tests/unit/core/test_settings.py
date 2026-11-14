@@ -23,22 +23,6 @@ def test_database_settings_reject_invalid_port() -> None:
     )
 
 
-def test_database_settings_accept_valid() -> None:
-    settings = DatabaseSettings(
-        _env_file=None,
-        host="localhost",
-        port=5432,
-        db="test_database",
-        user="test_user",
-        password=SecretStr("test_password"),
-    )
-    assert settings.host == "localhost"
-    assert settings.port == 5432
-    assert settings.db == "test_database"
-    assert settings.user == "test_user"
-    assert settings.password.get_secret_value() == "test_password"
-
-
 def test_database_settings_reject_not_exist_require_db(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

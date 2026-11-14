@@ -83,6 +83,9 @@ warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "acceptance(ac_id): associate a check with a search acceptance criterion",
+]
 addopts = [
     "--import-mode=importlib",
     "--strict-config",

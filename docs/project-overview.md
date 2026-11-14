@@ -31,8 +31,10 @@ The model extracts source-bound quotations. Python verifies source binding, curr
 - **Partial validation.** Selected scenarios and local tests pass, but search and free-form answers have not been exhaustively checked across edge cases, paraphrases or long contexts. Valid source IDs and quotations do not guarantee semantic correctness or completeness.
 - **Bounded scope.** Active questions, fixtures and prompts are English-only. Production hardening and multilingual behavior are deferred.
 
-The authored scenarios, reviewed expectations and judge rubrics are the starting point for new evaluation runs and comparisons of retrieval and selection strategies.
+Data and evaluation inputs live in root `fixtures/`; run outputs live in root `test-evaluation-results/`. Application regressions live in module-specific `tests/unit` folders. `tests/evaluation` measures the application and its saved outputs; `tests/synthetic_evaluation` calibrates judges and checks evaluation infrastructure. The authored scenarios, reviewed expectations and judge rubrics are the starting point for new evaluation runs and comparisons of retrieval and selection strategies.
 
 The current learning phase focuses on evaluation of the existing workflow: reviewed baselines, Langfuse trace inspection, DeepEval judge calibration, routing checks and Ragas retrieval/context metrics. Comparison and run identifiers connect model configurations, local archives and Langfuse traces; this instrumentation does not establish answer quality. Remaining work is tracked in the [open evaluation issues](https://github.com/PreChatGPTSenior/stone-shelter-assistant/issues?q=is%3Aissue+is%3Aopen). CRUD expansion, production recovery, alternative backend implementations and Java reproduction are deferred.
+
+Future learning task: compare Jev classification with a manually calibrated judge on the same source-bound cases; Jev execution is currently deferred.
 
 See [setup](setup.md) for local commands.
