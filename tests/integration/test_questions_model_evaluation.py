@@ -186,14 +186,14 @@ def record_experiments(
     client: Langfuse, results: list[dict[str, Any]], fixture_version: str
 ) -> None:
     """Publish completed HTTP results for comparison without repeating model calls."""
-    dataset_name = "PY-037/quiet-home-questions-v4"
+    dataset_name = "STPY-quiet-home-questions-v4"
     client.create_dataset(
         name=dataset_name,
         description="Recorded /questions results with typed condition checks and DeepEval",
     )
     item = client.create_dataset_item(
         dataset_name=dataset_name,
-        id=f"py-037-http-{hashlib.sha256(QUESTION.encode()).hexdigest()[:12]}-{fixture_version[-12:]}",
+        id=f"STPY-quiet-home-questions-v4-question-{hashlib.sha256(QUESTION.encode()).hexdigest()[:12]}-{fixture_version[-12:]}",
         input={"question": QUESTION, "fixture_version": fixture_version},
         expected_output={"no_invented_agreements": True, "conditions_unconfirmed": True},
     )
@@ -254,15 +254,18 @@ def record_experiments(
             user_id="STPY-local-test-user",
             session_id=result["session_id"],
             metadata={
-                **{key: result[key] for key in (
-                    "comparison_id",
-                    "run_number",
-                    "run_id",
-                    "configuration_id",
-                    "model_id",
-                    "reasoning",
-                    "fixture_version",
-                )},
+                **{
+                    key: result[key]
+                    for key in (
+                        "comparison_id",
+                        "run_number",
+                        "run_id",
+                        "configuration_id",
+                        "model_id",
+                        "reasoning",
+                        "fixture_version",
+                    )
+                },
                 "judge_model": result["deepeval"]["judge_model"],
                 "judge_metric": "character_evidence_entailment",
                 "judge_threshold": "0.8",
@@ -575,9 +578,7 @@ async def test_questions_with_six_evaluation_models(
 
             semaphore = asyncio.Semaphore(2)
 
-            async def run_numbered(
-                run_number: int, model_id: str, effort: str
-            ) -> None:
+            async def run_numbered(run_number: int, model_id: str, effort: str) -> None:
                 async with semaphore:
                     await run_model(model_id, effort, run_number)
 

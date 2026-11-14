@@ -1,0 +1,6 @@
+{
+  "case_id": "svetlana-quiet-morning",
+  "question": "Find a stone for a quiet home. The stone must stay quiet in the early morning because the neighbors cannot tolerate loud sounds.",
+  "stone_file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+  "expected_supported": false
+}

@@ -129,8 +129,7 @@
         }
       },
       "execution_status": "not_run",
-      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "historical_reference": "docs/setup.md"
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
     },
     {
       "id": "Q02",
@@ -203,8 +202,7 @@
         ]
       },
       "execution_status": "not_run",
-      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "historical_reference": "tests/fixtures/agent-eval/quiet-home-with-granite"
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
     },
     {
       "id": "Q03",
@@ -255,8 +253,7 @@
         }
       },
       "execution_status": "not_run",
-      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass.",
-      "historical_reference": "tests/fixtures/agent-eval/quiet-home-granite-pair"
+      "capability_note": "Evaluate through /api/v1/questions; desired behavior is not an observed pass."
     },
     {
       "id": "Q04",

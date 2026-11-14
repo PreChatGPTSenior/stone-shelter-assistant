@@ -178,12 +178,7 @@ async def test_measure_grounding_on_held_out_questions(
             "rows": rows,
             "holdout_hash": hashlib.sha256((CASE_DIR / "holdout.json").read_bytes()).hexdigest(),
             "metrics": grounding_metrics(expected, [row["actual"] for row in rows]),
-            "historical_regex_acceptance_accuracy": sum(
-                case["historical_regex_accepted"] == (case["expected"] == "supported")
-                for case in cases
-            )
-            / len(cases),
-            "note": "Historical binary outcomes are frozen data, not a retained legacy implementation. Expected labels are never sent to the model; training examples use different wording. No quality success assertion.",
+            "note": "Expected labels are never sent to the model; catalog examples use different wording. No quality success assertion.",
         }
         folder = CASE_DIR / "runs"
         folder.mkdir(exist_ok=True)

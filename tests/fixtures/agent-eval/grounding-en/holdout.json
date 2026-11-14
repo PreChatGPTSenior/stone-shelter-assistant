@@ -5,8 +5,7 @@
     "concept_id": "decision_rotation_agreed",
     "proposed_value": true,
     "proposed_type": null,
-    "expected": "supported",
-    "historical_regex_accepted": true
+    "expected": "supported"
   },
   {
     "id": "rot-plan",
@@ -14,8 +13,7 @@
     "concept_id": "decision_rotation_agreed",
     "proposed_value": true,
     "proposed_type": null,
-    "expected": "unknown",
-    "historical_regex_accepted": false
+    "expected": "unknown"
   },
   {
     "id": "rot-foreign",
@@ -23,8 +21,7 @@
     "concept_id": "decision_rotation_agreed",
     "proposed_value": true,
     "proposed_type": null,
-    "expected": "unknown",
-    "historical_regex_accepted": true
+    "expected": "unknown"
   },
   {
     "id": "deadline-refusal",
@@ -32,8 +29,7 @@
     "concept_id": "decision_deadline_agreed",
     "proposed_value": false,
     "proposed_type": null,
-    "expected": "supported",
-    "historical_regex_accepted": true
+    "expected": "supported"
   },
   {
     "id": "deadline-missing",
@@ -41,8 +37,7 @@
     "concept_id": "decision_deadline_agreed",
     "proposed_value": false,
     "proposed_type": null,
-    "expected": "unknown",
-    "historical_regex_accepted": false
+    "expected": "unknown"
   },
   {
     "id": "deadline-other",
@@ -50,8 +45,7 @@
     "concept_id": "decision_deadline_agreed",
     "proposed_value": true,
     "proposed_type": null,
-    "expected": "unknown",
-    "historical_regex_accepted": false
+    "expected": "unknown"
   },
   {
     "id": "type-required",
@@ -59,8 +53,7 @@
     "concept_id": "candidate_type",
     "proposed_value": null,
     "proposed_type": "MARBLE",
-    "expected": "supported",
-    "historical_regex_accepted": true
+    "expected": "supported"
   },
   {
     "id": "type-resident",
@@ -68,8 +61,7 @@
     "concept_id": "candidate_type",
     "proposed_value": null,
     "proposed_type": "MARBLE",
-    "expected": "contradicted",
-    "historical_regex_accepted": true
+    "expected": "contradicted"
   },
   {
     "id": "type-optional",
@@ -77,8 +69,7 @@
     "concept_id": "candidate_type",
     "proposed_value": null,
     "proposed_type": "MARBLE",
-    "expected": "unknown",
-    "historical_regex_accepted": false
+    "expected": "unknown"
   },
   {
     "id": "type-negated",
@@ -86,7 +77,6 @@
     "concept_id": "candidate_type",
     "proposed_value": null,
     "proposed_type": "MARBLE",
-    "expected": "contradicted",
-    "historical_regex_accepted": false
+    "expected": "contradicted"
   }
 ]

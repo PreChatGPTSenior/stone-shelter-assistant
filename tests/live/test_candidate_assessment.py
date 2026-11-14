@@ -14,6 +14,11 @@ import pytest
 from langchain_core.messages import AIMessage, convert_to_messages
 from langchain_openrouter import ChatOpenRouter
 from langfuse import Evaluation, Langfuse, propagate_attributes
+from tests.evaluation.run_identity import (
+    EvaluationRunIdentity,
+    comparison_id_from_environment,
+    first_run_number_from_environment,
+)
 
 from stone_shelter_assistant.assistant.candidate_assessment import evaluate_candidate
 from stone_shelter_assistant.assistant.candidate_criteria import SearchCriteria
@@ -83,9 +88,7 @@ def check_assessment(assessment: CandidateEvidence, snapshot: dict[str, Any]) ->
         and finding.fragment_id == criterion_fragments[finding.criterion_id]
     }
     expected_coverage = {
-        (str(card.id), criterion_id)
-        for card in cards
-        for criterion_id in criterion_fragments
+        (str(card.id), criterion_id) for card in cards for criterion_id in criterion_fragments
     }
     evaluations = [
         evaluate_candidate(
@@ -126,11 +129,14 @@ async def test_frozen_assessment_across_models() -> None:
         secret_key=settings.secret_key.get_secret_value(),
         base_url=settings.base_url,
     )
-    dataset_name = "PY-037/quiet-home-candidate-assessment"
-    client.create_dataset(name=dataset_name, description="Frozen evidence from a failed Dots call")
+    dataset_name = "STPY-quiet-home-candidate-assessment"
+    client.create_dataset(
+        name=dataset_name,
+        description="Fixed quiet-home candidate evidence and reviewed expectations",
+    )
     dataset_item = client.create_dataset_item(
         dataset_name=dataset_name,
-        id=f"py-037-{version[:24]}",
+        id=f"{dataset_name}-quiet-home-{version[:24]}",
         input=snapshot,
         expected_output={
             "confirmed_character_names": [card["name"] for card in snapshot["cards"]],
@@ -140,10 +146,13 @@ async def test_frozen_assessment_across_models() -> None:
     )
     api_key = OpenRouterSettings().api_key
     now = datetime.now(ZoneInfo("Asia/Tbilisi"))
-    batch = now.strftime("%Y%m%dT%H%M%S")
+    comparison_id = comparison_id_from_environment(now)
+    first_run_number = first_run_number_from_environment()
     semaphore = asyncio.Semaphore(2)
 
-    async def run_model(model_id: str, effort: str) -> dict[str, Any]:
+    async def run_model(model_id: str, effort: str, run_number: int) -> dict[str, Any]:
+        identity = EvaluationRunIdentity.create(comparison_id, run_number)
+
         async def task(*, item: Any, **kwargs: Any) -> dict[str, Any]:
             client.update_current_span(
                 input={"dataset_item_id": item.id, "snapshot_sha256": version}
@@ -156,7 +165,7 @@ async def test_frozen_assessment_across_models() -> None:
             }
             with (
                 propagate_attributes(
-                    user_id="local-test-user", session_id=f"{now:%Y-%m-%d}-PY-037"
+                    user_id="STPY-local-test-user", session_id=identity.session_id
                 ),
                 client.start_as_current_observation(name="evaluate_candidates") as stage,
             ):
@@ -203,17 +212,18 @@ async def test_frozen_assessment_across_models() -> None:
 
         async with semaphore:
             with propagate_attributes(
-                user_id="local-test-user", session_id=f"{now:%Y-%m-%d}-PY-037"
+                user_id="STPY-local-test-user", session_id=identity.session_id
             ):
                 experiment = await asyncio.to_thread(
                     client.run_experiment,
                     name=dataset_name,
-                    run_name=f"{batch}-{model_id.replace('/', '-')}",
+                    run_name=identity.run_id,
                     data=[dataset_item],
                     task=task,
                     evaluators=[score_checks],
                     max_concurrency=1,
                     metadata={
+                        **{key: str(value) for key, value in identity.as_metadata().items()},
                         "model_id": model_id,
                         "reasoning": effort,
                         "max_tokens": "8192",
@@ -229,7 +239,9 @@ async def test_frozen_assessment_across_models() -> None:
     selected_model = os.getenv("OPENROUTER_EVALUATION_MODEL")
     cases = [case for case in MODELS if selected_model is None or case[0] == selected_model]
     assert cases, f"Unknown evaluation model: {selected_model}"
-    results = await asyncio.gather(*(run_model(model, effort) for model, effort in cases))
+    results = await asyncio.gather(
+        *(run_model(model, effort, first_run_number + i) for i, (model, effort) in enumerate(cases))
+    )
     await asyncio.to_thread(client.flush)
     assert all(result["passed"] for result in results), [
         {
