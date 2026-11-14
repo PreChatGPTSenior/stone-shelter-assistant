@@ -1,0 +1,1006 @@
+{
+  "comparison_id": "learn-q02-20261113225315Z",
+  "scope": "One Q02 application request per setup; no new judge calls for runs 3/4. Prior judge cost is kept separate.",
+  "runs": [
+    {
+      "run_number": 1,
+      "label": "strict_before_fix",
+      "trace_id": "a772bedeb8061e4bdeb4dfa1cdb37869",
+      "trace_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/traces/a772bedeb8061e4bdeb4dfa1cdb37869",
+      "archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r01-20261113T225335964245Z-challenge20.json",
+      "configuration_id": "cfg-abcb857a35140901",
+      "source_hash": "990834e2a7f550f7fba594ad35f64c7e52beb2604ff5d02f53a18c1b88d0bc82",
+      "models": {
+        "parsing": "openai/gpt-6.1-terra",
+        "grounding_and_candidate_evidence": "openai/gpt-6.1-terra",
+        "selection": "openai/gpt-6-luna",
+        "answer": "openai/gpt-6-luna",
+        "embedding": "qwen3-embedding:0.6b"
+      },
+      "http_status": 200,
+      "application_seconds": 7.125,
+      "application_reported_cost_usd": 0.00852825,
+      "cost_details_complete": true,
+      "last_generation_reported_cost_usd": 0.00852825,
+      "application_generation_calls": 2,
+      "application_reasoning_tokens": 0,
+      "stage_seconds": {
+        "ground_question": 3.082,
+        "parse_question": 3.733,
+        "questions": 6.873
+      },
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "unresolved_question",
+        "criteria_status": "pending_grounding",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "not_run",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "coverage": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        }
+      ],
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "outcomes": [],
+      "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+      "provider_errors": [
+        [
+          {
+            "type": "BadRequestResponseError",
+            "provider_error": {
+              "status_code": 400,
+              "code": "400",
+              "message": "Provider returned error",
+              "provider_name": "Azure",
+              "raw": {
+                "error": {
+                  "message": "Invalid schema for response_format 'GroundingResponse': In context=('properties', 'question_coverage', 'properties', 'issues', 'items'), 'oneOf' is not permitted.",
+                  "type": "invalid_request_error",
+                  "param": "text.format.schema",
+                  "code": "invalid_json_schema"
+                }
+              }
+            },
+            "message": "BadRequestResponseError: provider request failed"
+          }
+        ]
+      ]
+    },
+    {
+      "run_number": 2,
+      "label": "function_calling",
+      "trace_id": "72ecd8b17ef32ff44cda50c1002d9e05",
+      "trace_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/traces/72ecd8b17ef32ff44cda50c1002d9e05",
+      "archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r02-20261113T225722694712Z-challenge20.json",
+      "configuration_id": "cfg-0eea7912e70b115d",
+      "source_hash": "990834e2a7f550f7fba594ad35f64c7e52beb2604ff5d02f53a18c1b88d0bc82",
+      "models": {
+        "parsing": "openai/gpt-6.1-terra",
+        "grounding_and_candidate_evidence": "openai/gpt-6.1-terra",
+        "selection": "openai/gpt-6-luna",
+        "answer": "openai/gpt-6-luna",
+        "embedding": "qwen3-embedding:0.6b"
+      },
+      "http_status": 200,
+      "application_seconds": 16.746,
+      "application_reported_cost_usd": 0.014726824998999999,
+      "cost_details_complete": true,
+      "last_generation_reported_cost_usd": 0.000613425,
+      "application_generation_calls": 5,
+      "application_reasoning_tokens": 163,
+      "stage_seconds": {
+        "answer": 3.021,
+        "evaluate_candidates": 4.135,
+        "select_candidates": 3.434,
+        "search_stones_hybrid": 0.23,
+        "ground_question": 2.267,
+        "parse_question": 3.227,
+        "questions": 16.457
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "coverage": [
+        {
+          "stage": "lexical",
+          "status": "partial",
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ]
+        },
+        {
+          "stage": "evidence",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "decision",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "answer",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        }
+      ],
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "outcomes": [
+        {
+          "name": "Madame Obsidian",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "outcome": "recommended",
+          "ranking": 1.0,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:8738e5ce-5d44-4adb-b2a1-87b8a2224947",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:8738e5ce-5d44-4adb-b2a1-87b8a2224947",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "prefers a peaceful home",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:8738e5ce-5d44-4adb-b2a1-87b8a2224947",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        },
+        {
+          "name": "Sir Pebble",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "outcome": "conditional_option",
+          "ranking": 0.64,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:6e76ea9a-9f38-4d5f-9cea-cd7155ce6e35",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "enjoys quiet evenings",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:6e76ea9a-9f38-4d5f-9cea-cd7155ce6e35",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 3,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "enjoys quiet evenings",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        }
+      ],
+      "answer": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian suits a quiet home: she prefers a peaceful setting and predictable routine. The granite-and-obsidian pairing is described as harmonious, with patient granite potentially giving her room to express herself. A considerate match would use direct reassurance and private conversations; this is a general compatibility guide, not a guarantee for these individual stones. The card also notes she is cautious with strangers, needs a slow introduction, and becomes anxious around vacuum cleaners.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+      "provider_errors": []
+    },
+    {
+      "run_number": 3,
+      "label": "strict_after_fix",
+      "trace_id": "231dc6cfb2f0e27501858d99061ae0d1",
+      "trace_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/traces/231dc6cfb2f0e27501858d99061ae0d1",
+      "archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r03-20261113T231646264360Z-challenge20.json",
+      "configuration_id": "cfg-abcb857a35140901",
+      "source_hash": "ee863063b9bab4a94cb0e26e104e8736a1d3f00ca4c1f7d3364cac74bc03e75b",
+      "models": {
+        "parsing": "openai/gpt-6.1-terra",
+        "grounding_and_candidate_evidence": "openai/gpt-6.1-terra",
+        "selection": "openai/gpt-6-luna",
+        "answer": "openai/gpt-6-luna",
+        "embedding": "qwen3-embedding:0.6b"
+      },
+      "http_status": 200,
+      "application_seconds": 29.344,
+      "application_reported_cost_usd": 0.015124825,
+      "cost_details_complete": true,
+      "last_generation_reported_cost_usd": 0.00059905,
+      "application_generation_calls": 5,
+      "application_reasoning_tokens": 143,
+      "stage_seconds": {
+        "answer": 5.819,
+        "evaluate_candidates": 11.44,
+        "select_candidates": 3.849,
+        "search_stones_hybrid": 0.132,
+        "ground_question": 3.54,
+        "parse_question": 4.203,
+        "questions": 29.087
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "coverage": [
+        {
+          "stage": "lexical",
+          "status": "partial",
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ]
+        },
+        {
+          "stage": "evidence",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "decision",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "answer",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        }
+      ],
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "outcomes": [
+        {
+          "name": "Madame Obsidian",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "outcome": "recommended",
+          "ranking": 1.0,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:d08e90d5-ed7f-4ebb-a767-2be57fa57aa9",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:d08e90d5-ed7f-4ebb-a767-2be57fa57aa9",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "prefers a peaceful home",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:d08e90d5-ed7f-4ebb-a767-2be57fa57aa9",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        },
+        {
+          "name": "Sir Pebble",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "outcome": "conditional_option",
+          "ranking": 0.64,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:87a25e25-3da4-48d7-8ccc-f06bf5ea5fc2",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "enjoys quiet evenings",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:87a25e25-3da4-48d7-8ccc-f06bf5ea5fc2",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 3,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "enjoys quiet evenings",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        }
+      ],
+      "answer": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian suits a quiet home: her profile says she prefers a peaceful home and a predictable routine. Her pairing with Granite is described as harmonious, with Granite's patient presence giving her room to express herself. The evidence supports a promising fit, not a guarantee; she may need slow introductions and reassurance, and she is anxious around vacuum cleaners.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+      "provider_errors": []
+    },
+    {
+      "run_number": 4,
+      "label": "strict_free_nemotron",
+      "trace_id": "eb4c7c8fe716ecfd801c018772c547c2",
+      "trace_url": "https://cloud.langfuse.com/project/cmwah4jeo00ydad0jdcttd1zn/traces/eb4c7c8fe716ecfd801c018772c547c2",
+      "archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r04-20261114T065408725914Z-challenge20.json",
+      "configuration_id": "cfg-7dd75dfa980c7531",
+      "source_hash": "ee863063b9bab4a94cb0e26e104e8736a1d3f00ca4c1f7d3364cac74bc03e75b",
+      "models": {
+        "parsing": "nvidia/nemotron-3.5-super-vl:free",
+        "grounding_and_candidate_evidence": "nvidia/nemotron-3.5-super-vl:free",
+        "selection": "nvidia/nemotron-3.5-super-vl:free",
+        "answer": "nvidia/nemotron-3.5-super-vl:free",
+        "embedding": "qwen3-embedding:0.6b"
+      },
+      "http_status": 200,
+      "application_seconds": 90.359,
+      "application_reported_cost_usd": null,
+      "cost_details_complete": false,
+      "last_generation_reported_cost_usd": 0.0,
+      "application_generation_calls": 5,
+      "application_reasoning_tokens": 11936,
+      "stage_seconds": {
+        "answer": 7.724,
+        "evaluate_candidates": 41.841,
+        "select_candidates": 8.822,
+        "search_stones_hybrid": 0.154,
+        "ground_question": 16.326,
+        "parse_question": 15.072,
+        "questions": 90.063
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "coverage": [
+        {
+          "stage": "lexical",
+          "status": "partial",
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ]
+        },
+        {
+          "stage": "evidence",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "decision",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        },
+        {
+          "stage": "answer",
+          "status": "partial",
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": []
+        }
+      ],
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "outcomes": [
+        {
+          "name": "Madame Obsidian",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "outcome": "recommended",
+          "ranking": 1.0,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:7b27ec55-55e4-4d8b-9bda-75ab7f6e7216",
+                  "field": "preferred_environment",
+                  "source_kind": "profile",
+                  "priority": 1,
+                  "weight": 1.0,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A quiet home with a predictable routine.",
+                  "scope": null
+                },
+                {
+                  "source_id": "stone-card:7b27ec55-55e4-4d8b-9bda-75ab7f6e7216",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "contradicted",
+                  "quote": "An affectionate stone who prefers a peaceful home.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:7b27ec55-55e4-4d8b-9bda-75ab7f6e7216",
+                "field": "preferred_environment",
+                "source_kind": "profile",
+                "priority": 1,
+                "weight": 1.0,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A quiet home with a predictable routine.",
+                "scope": null
+              },
+              "conflict": true,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        },
+        {
+          "name": "Sir Pebble",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "outcome": "conditional_option",
+          "ranking": 0.64,
+          "character_reasons": [
+            {
+              "criterion": "character",
+              "finding": "confirmed",
+              "required": true,
+              "question_quote": "for a quiet home",
+              "criterion_id": "requirement.character.1",
+              "source_id": null,
+              "status": null,
+              "pair_key": null,
+              "verdict": null,
+              "household_quote": null,
+              "conditions_status": null,
+              "condition_checks": [],
+              "evidence": [
+                {
+                  "source_id": "stone-card:7fd51ac0-6adc-4ea3-a748-0d13d03bd3a5",
+                  "field": "biography",
+                  "source_kind": "biography",
+                  "priority": 3,
+                  "weight": 0.85,
+                  "supports_requirement": true,
+                  "finding": "confirmed",
+                  "quote": "A thoughtful stone who enjoys quiet evenings.",
+                  "scope": null
+                }
+              ],
+              "chosen_evidence": {
+                "source_id": "stone-card:7fd51ac0-6adc-4ea3-a748-0d13d03bd3a5",
+                "field": "biography",
+                "source_kind": "biography",
+                "priority": 3,
+                "weight": 0.85,
+                "supports_requirement": true,
+                "finding": "confirmed",
+                "quote": "A thoughtful stone who enjoys quiet evenings.",
+                "scope": null
+              },
+              "conflict": false,
+              "unknown_reason": null,
+              "policy_rule": "confirmed",
+              "base_score": 1.0,
+              "action": "rank",
+              "lookup_only": false
+            }
+          ]
+        }
+      ],
+      "answer": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian fits a quiet home: its profile states a preferred environment of “A quiet home with a predictable routine,” directly matching the request. Its biography calls it affectionate and peaceful-loving, but that biographical line was flagged as contradicted in the supplied analysis, so the character match rests mainly on the profile field rather than the biography quote. Practical limits: Obsidian needs slow introductions, is cautious with strangers, becomes anxious around vacuum cleaners, and has an old crack requiring occasional polishing. Compatibility with the existing Granite is rated HARMONIOUS: the guide says Granite’s patient presence gives Obsidian room to speak without defending its intensity, while Obsidian notices affection beneath Granite’s practical manner. Household guidance favors direct reassurance and private conversation over guessing at silence, and cautions against public jokes about sensitivity. This compatibility is supportive but not a hard requirement.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+      "provider_errors": []
+    }
+  ],
+  "fixtures_identical": true,
+  "target_config_identical": true,
+  "offline_evaluator_identical": true,
+  "source_hash_runs3_4_identical": true,
+  "assistant_semantic_review": {
+    "type": "uncalibrated_assistant_review",
+    "run4_issue": {
+      "candidate": "Madame Obsidian",
+      "criterion": "for a quiet home",
+      "source_field": "biography",
+      "quote": "An affectionate stone who prefers a peaceful home.",
+      "actual_finding": "contradicted",
+      "review": "The quote supports quiet-home fit; contradicted is a reversed semantic label. The stronger profile wins the decision but the final answer repeats the artificial conflict."
+    },
+    "shared_shortlist_gap": "Homeward Pumice is retrieved but not shortlisted in runs 2/3/4.",
+    "shared_answer_gap": "The conditional Sir Pebble section does not explain its quiet-evening biography in runs 2/3/4.",
+    "not_a_benchmark": "Single case and single execution per setup; cannot estimate reliability or general speed."
+  }
+}

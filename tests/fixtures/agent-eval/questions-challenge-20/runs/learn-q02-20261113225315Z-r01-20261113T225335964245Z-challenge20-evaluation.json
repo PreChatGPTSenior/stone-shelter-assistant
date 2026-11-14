@@ -1,0 +1,276 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "complete",
+  "semantic_judge": "unmeasured",
+  "archive_integrity": {
+    "duplicate_case_record_ids": [],
+    "selected_cases_missing_target_config": [],
+    "unexpected_record_case_ids": []
+  },
+  "scenario_reports": [
+    {
+      "case_id": "Q02",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "unresolved_question",
+        "criteria_status": "pending_grounding",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "not_run",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_lexical_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_semantic_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_engine_union_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_rrf_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_shortlist_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_evidence_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "unknown",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "missing_decision_output",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "67269139-e8b8-4c7d-aa58-33b88162ec70",
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "unknown",
+          "coverage_status": "not_run"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [
+          "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "actual_supplied_sources": {},
+        "required_assertions": [
+          "Return at most two recommendations, all verified AVAILABLE.",
+          "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+          "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+          "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+          "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
+        ],
+        "forbidden_assertions": [
+          "Do not require one fixed shortlist or order before inspecting retrieval.",
+          "Do not count conditional options as unconditional recommendations.",
+          "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "plan_status": "unresolved_question",
+        "grounding_status": "grounding_model_error",
+        "question_coverage_status": "not_run",
+        "question_coverage_audit": null,
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-6-luna",
+          "parse_question": "openai/gpt-6.1-terra",
+          "evaluate_candidates": "openai/gpt-6.1-terra",
+          "answer": "openai/gpt-6-luna",
+          "collect_reference_evidence": "openai/gpt-6.1-terra",
+          "ground_question": "openai/gpt-6.1-terra"
+        },
+        "evaluation_run": {
+          "comparison_id": "learn-q02-20261113225315Z",
+          "run_number": 1,
+          "run_id": "STPY-learn-q02-20261113225315Z-r01",
+          "session_id": "STPY-learn-q02-20261113225315Z-r01",
+          "configuration_id": "cfg-abcb857a35140901",
+          "eval_case_id": "Q02",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "990834e2a7f550f7fba594ad35f64c7e52beb2604ff5d02f53a18c1b88d0bc82"
+        },
+        "trace_id": "a772bedeb8061e4bdeb4dfa1cdb37869"
+      }
+    }
+  ],
+  "source_archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r01-20261113T225335964245Z-challenge20.json",
+  "source_archive_sha256": "a7763c23ef9af7992fb40cf75c9c0e714a602fdab6316bcc82c8a4f928931ed1",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/tests/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "b5336563fb7e242f24210dc245131d14d7b7f91ebd13795f93702a50083e1249"
+}

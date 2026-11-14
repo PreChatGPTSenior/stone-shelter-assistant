@@ -1,0 +1,243 @@
+{
+  "title": "GroundingResponse",
+  "$defs": {
+    "GroundingDecision": {
+      "properties": {
+        "proposal_id": {
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "finding": {
+          "enum": [
+            "supported",
+            "contradicted",
+            "unknown"
+          ],
+          "title": "Finding",
+          "type": "string"
+        },
+        "fragment_id": {
+          "minimum": 1,
+          "title": "Fragment Id",
+          "type": "integer"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "finding",
+        "fragment_id",
+        "quote",
+        "reason"
+      ],
+      "title": "GroundingDecision",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "MisclassifiedCoverageIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "misclassified",
+          "title": "Kind",
+          "type": "string"
+        },
+        "atom_id": {
+          "minLength": 1,
+          "title": "Atom Id",
+          "type": "string"
+        },
+        "fragment_id": {
+          "minimum": 1,
+          "title": "Fragment Id",
+          "type": "integer"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "atom_id",
+        "fragment_id",
+        "quote",
+        "reason"
+      ],
+      "title": "MisclassifiedCoverageIssue",
+      "type": "object"
+    },
+    "OmittedCoverageIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "omitted",
+          "title": "Kind",
+          "type": "string"
+        },
+        "atom_id": {
+          "title": "Atom Id",
+          "type": "null"
+        },
+        "fragment_id": {
+          "minimum": 1,
+          "title": "Fragment Id",
+          "type": "integer"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "atom_id",
+        "fragment_id",
+        "quote",
+        "reason"
+      ],
+      "title": "OmittedCoverageIssue",
+      "type": "object"
+    },
+    "QuestionCoverageAudit": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "uncertain"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "summary": {
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/OmittedCoverageIssue"
+              },
+              {
+                "$ref": "#/$defs/MisclassifiedCoverageIssue"
+              },
+              {
+                "$ref": "#/$defs/UncertainCoverageIssue"
+              }
+            ]
+          },
+          "title": "Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "status",
+        "summary",
+        "issues"
+      ],
+      "title": "QuestionCoverageAudit",
+      "type": "object"
+    },
+    "UncertainCoverageIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "uncertain",
+          "title": "Kind",
+          "type": "string"
+        },
+        "atom_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Atom Id"
+        },
+        "fragment_id": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fragment Id"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Quote"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "atom_id",
+        "fragment_id",
+        "quote",
+        "reason"
+      ],
+      "title": "UncertainCoverageIssue",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/GroundingDecision"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "question_coverage": {
+      "$ref": "#/$defs/QuestionCoverageAudit"
+    }
+  },
+  "required": [
+    "decisions",
+    "question_coverage"
+  ],
+  "type": "object",
+  "additionalProperties": false
+}

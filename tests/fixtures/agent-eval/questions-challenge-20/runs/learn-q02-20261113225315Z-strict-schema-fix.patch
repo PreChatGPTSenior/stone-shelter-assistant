@@ -1,0 +1,251 @@
+diff --git a/src/stone_shelter_assistant/assistant/workflow.py b/src/stone_shelter_assistant/assistant/workflow.py
+index e153eb2..62fc050 100644
+--- a/src/stone_shelter_assistant/assistant/workflow.py
++++ b/src/stone_shelter_assistant/assistant/workflow.py
+@@ -16,6 +16,8 @@ from langgraph.graph.state import CompiledStateGraph
+ from langgraph.prebuilt import ToolNode
+ from langgraph.runtime import Runtime
+ from pydantic import BaseModel, Field, ValidationError
++from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
++from pydantic_core import core_schema
+ 
+ from stone_shelter_assistant.assistant.budget import RunBudget
+ from stone_shelter_assistant.assistant.candidate_assessment import (
+@@ -237,6 +239,21 @@ class GroundingAuditResult:
+     failure: dict[str, str] | None = None
+ 
+ 
++class StrictOutputSchemaGenerator(GenerateJsonSchema):
++    """Render tagged unions using the provider's supported strict JSON Schema subset."""
++
++    def tagged_union_schema(self, schema: core_schema.TaggedUnionSchema) -> JsonSchemaValue:
++        result = super().tagged_union_schema(schema)
++        # Literal discriminator values keep these branches mutually exclusive.
++        result["anyOf"] = result.pop("oneOf")
++        result.pop("discriminator", None)
++        return result
++
++    def default_schema(self, schema: core_schema.WithDefaultSchema) -> JsonSchemaValue:
++        # Strict output requires every field; defaults remain an application concern.
++        return self.generate_inner(schema["schema"])
++
++
+ def candidate_explanation_evidence_ids(
+     stone_id: str,
+     evaluation: CandidateEvaluation,
+@@ -462,19 +479,6 @@ async def tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[str
+     return result
+ 
+ 
+-def _normalize_strict_schema(value: Any) -> None:
+-    """Apply strict object rules inside union variants omitted by LangChain conversion."""
+-    if isinstance(value, dict):
+-        if value.get("type") == "object":
+-            value["required"] = list(value.get("properties", {}))
+-            value["additionalProperties"] = False
+-        for nested in value.values():
+-            _normalize_strict_schema(nested)
+-    elif isinstance(value, list):
+-        for nested in value:
+-            _normalize_strict_schema(nested)
+-
+-
+ # Uses strict schema only for models whose provider advertises support.
+ def structured_model(
+     model: ChatOpenRouter,
+@@ -488,8 +492,9 @@ def structured_model(
+         # langchain-openrouter 0.2.9 sets strict on the outer response format,
+         # but does not pass it to convert_to_json_schema. Normalize the wire
+         # schema here, then validate the decoded object with the original DTO.
+-        wire_schema = convert_to_json_schema(schema, strict=True)
+-        _normalize_strict_schema(wire_schema)
++        wire_schema = convert_to_json_schema(
++            schema.model_json_schema(schema_generator=StrictOutputSchemaGenerator), strict=True
++        )
+         structured = model.with_structured_output(
+             wire_schema,
+             method="json_schema",
+diff --git a/tests/unit/test_strict_structured_output.py b/tests/unit/test_strict_structured_output.py
+index a88f5c1..21d521b 100644
+--- a/tests/unit/test_strict_structured_output.py
++++ b/tests/unit/test_strict_structured_output.py
+@@ -11,13 +11,21 @@ from stone_shelter_assistant.assistant.candidate_evidence import (
+     CandidateEvidence,
+     assessment_failure_status,
+ )
+-from stone_shelter_assistant.assistant.question_grounding import GroundingResponse
++from stone_shelter_assistant.assistant.question_grounding import (
++    GroundingResponse,
++    MisclassifiedCoverageIssue,
++    OmittedCoverageIssue,
++    UncertainCoverageIssue,
++)
+ from stone_shelter_assistant.assistant.tracing import provider_error_details
+ from stone_shelter_assistant.assistant.workflow import structured_model
+ 
+ 
+ def _strict_properties(value: Any) -> None:
+     if isinstance(value, dict):
++        assert "oneOf" not in value
++        assert "discriminator" not in value
++        assert "default" not in value
+         if value.get("type") == "object":
+             properties = value.get("properties", {})
+             assert set(value.get("required", [])) == set(properties)
+@@ -29,25 +37,84 @@ def _strict_properties(value: Any) -> None:
+             _strict_properties(nested)
+ 
+ 
++def _schema_definition(root: dict[str, Any], node: dict[str, Any]) -> dict[str, Any]:
++    if "$ref" in node:
++        return cast(dict[str, Any], root["$defs"][node["$ref"].removeprefix("#/$defs/")])
++    return node
++
++
+ @pytest.mark.asyncio
+ @pytest.mark.parametrize(
+-    ("schema", "content"),
++    ("schema", "content", "expected_valid"),
+     [
+         (
+             CandidateEvidence,
+             '{"character": [{"stone_id": "s1", "source_ref": "biography", '
+             '"finding": "confirmed", "quote": "calm", "observation_external_id": null, '
+             '"criterion_id": "c1", "fragment_id": 1}], "individual_compatibility": []}',
++            True,
+         ),
+         (
+             GroundingResponse,
+             '{"decisions": [], "question_coverage": '
+             '{"status": "complete", "summary": "All requests are represented.", "issues": []}}',
++            True,
++        ),
++        (
++            GroundingResponse,
++            json.dumps(
++                {
++                    "decisions": [],
++                    "question_coverage": {
++                        "status": "incomplete",
++                        "summary": "Coverage needs review.",
++                        "issues": [
++                            {
++                                "kind": "omitted",
++                                "atom_id": None,
++                                "fragment_id": 1,
++                                "quote": "quiet",
++                                "reason": "A constraint is missing.",
++                            },
++                            {
++                                "kind": "misclassified",
++                                "atom_id": "c1",
++                                "fragment_id": 1,
++                                "quote": "quiet",
++                                "reason": "The role is incorrect.",
++                            },
++                            {
++                                "kind": "uncertain",
++                                "atom_id": None,
++                                "fragment_id": None,
++                                "quote": None,
++                                "reason": "The intent is unclear.",
++                            },
++                        ],
++                    },
++                }
++            ),
++            True,
++        ),
++        (
++            GroundingResponse,
++            '{"decisions": [], "question_coverage": {"status": "incomplete", '
++            '"summary": "Missing criterion.", "issues": [{"kind": "omitted", '
++            '"atom_id": "existing-atom", "fragment_id": 1, "quote": "quiet", '
++            '"reason": "A constraint is missing."}]}}',
++            False,
++        ),
++        (
++            GroundingResponse,
++            '{"decisions": [], "question_coverage": {"status": "incomplete", '
++            '"summary": "Incorrect role.", "issues": [{"kind": "misclassified", '
++            '"fragment_id": 1, "quote": "quiet", "reason": "The role is incorrect."}]}}',
++            False,
+         ),
+     ],
+ )
+ async def test_strict_wire_schema_is_sent_and_parsed_as_original_dto(
+-    schema: type[BaseModel], content: str
++    schema: type[BaseModel], content: str, expected_valid: bool
+ ) -> None:
+     requests: list[dict[str, Any]] = []
+ 
+@@ -74,9 +141,7 @@ async def test_strict_wire_schema_is_sent_and_parsed_as_original_dto(
+ 
+     transport = httpx.MockTransport(handle)
+     http_client = httpx.AsyncClient(transport=transport)
+-    sdk_client = OpenRouter(
+-        api_key="offline-test-key", async_client=http_client, retry_config=None
+-    )
++    sdk_client = OpenRouter(api_key="offline-test-key", async_client=http_client, retry_config=None)
+     model = ChatOpenRouter(
+         model_name="test/model",
+         openrouter_api_key=SecretStr("offline-test-key"),
+@@ -89,26 +154,31 @@ async def test_strict_wire_schema_is_sent_and_parsed_as_original_dto(
+         await http_client.aclose()
+ 
+     assert isinstance(result, dict)
+-    assert isinstance(result["parsed"], schema)
+-    assert result["parsing_error"] is None
++    if expected_valid:
++        assert isinstance(result["parsed"], schema)
++        assert result["parsing_error"] is None
++    else:
++        assert result["parsed"] is None
++        assert isinstance(result["parsing_error"], ValidationError)
+     assert len(requests) == 1
+     body = requests[0]
+     assert body["response_format"]["json_schema"]["strict"] is True
+     wire_schema = body["response_format"]["json_schema"]["schema"]
+     _strict_properties(wire_schema)
+     if schema is CandidateEvidence:
+-        nested = wire_schema["properties"]["character"]["items"]
++        nested = _schema_definition(wire_schema, wire_schema["properties"]["character"]["items"])
+         assert "observation_external_id" in nested["required"]
+         assert {"type": "null"} in nested["properties"]["observation_external_id"]["anyOf"]
+         parsed_evidence = cast(CandidateEvidence, result["parsed"])
+         assert parsed_evidence.character[0].observation_external_id is None
+     else:
+-        coverage = wire_schema["properties"]["question_coverage"]["properties"]
+-        assert "issues" in wire_schema["properties"]["question_coverage"]["required"]
+-        issue = coverage["issues"]["items"]
+-        assert issue["discriminator"]["propertyName"] == "kind"
++        coverage = _schema_definition(wire_schema, wire_schema["properties"]["question_coverage"])
++        assert "issues" in coverage["required"]
++        issue = coverage["properties"]["issues"]["items"]
+         variants = {
+-            variant["properties"]["kind"]["const"]: variant for variant in issue["oneOf"]
++            branch["properties"]["kind"]["const"]: branch
++            for variant in issue["anyOf"]
++            for branch in [_schema_definition(wire_schema, variant)]
+         }
+         assert set(variants) == {"omitted", "misclassified", "uncertain"}
+         for variant in variants.values():
+@@ -116,6 +186,18 @@ async def test_strict_wire_schema_is_sent_and_parsed_as_original_dto(
+         assert variants["omitted"]["properties"]["atom_id"]["type"] == "null"
+         assert variants["misclassified"]["properties"]["atom_id"]["type"] == "string"
+         assert {"type": "null"} in variants["uncertain"]["properties"]["atom_id"]["anyOf"]
++        original_issue = schema.model_json_schema()["$defs"]["QuestionCoverageAudit"]["properties"][
++            "issues"
++        ]["items"]
++        assert original_issue["discriminator"]["propertyName"] == "kind"
++        assert "oneOf" in original_issue
++        parsed = result["parsed"]
++        if isinstance(parsed, GroundingResponse) and parsed.question_coverage.issues:
++            assert [type(item) for item in parsed.question_coverage.issues] == [
++                OmittedCoverageIssue,
++                MisclassifiedCoverageIssue,
++                UncertainCoverageIssue,
++            ]
+ 
+ 
+ @pytest.mark.asyncio

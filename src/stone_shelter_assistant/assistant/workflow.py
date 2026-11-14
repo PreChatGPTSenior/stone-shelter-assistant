@@ -16,6 +16,8 @@ from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import ToolNode
 from langgraph.runtime import Runtime
 from pydantic import BaseModel, Field, ValidationError
+from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
+from pydantic_core import core_schema
 
 from stone_shelter_assistant.assistant.budget import RunBudget
 from stone_shelter_assistant.assistant.candidate_assessment import (
@@ -235,6 +237,21 @@ class GroundingAuditResult:
     supported: frozenset[str]
     updates: dict[str, object]
     failure: dict[str, str] | None = None
+
+
+class StrictOutputSchemaGenerator(GenerateJsonSchema):
+    """Render tagged unions using the provider's supported strict JSON Schema subset."""
+
+    def tagged_union_schema(self, schema: core_schema.TaggedUnionSchema) -> JsonSchemaValue:
+        result = super().tagged_union_schema(schema)
+        # Literal discriminator values keep these branches mutually exclusive.
+        result["anyOf"] = result.pop("oneOf")
+        result.pop("discriminator", None)
+        return result
+
+    def default_schema(self, schema: core_schema.WithDefaultSchema) -> JsonSchemaValue:
+        # Strict output requires every field; defaults remain an application concern.
+        return self.generate_inner(schema["schema"])
 
 
 def candidate_explanation_evidence_ids(
@@ -462,19 +479,6 @@ async def tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[str
     return result
 
 
-def _normalize_strict_schema(value: Any) -> None:
-    """Apply strict object rules inside union variants omitted by LangChain conversion."""
-    if isinstance(value, dict):
-        if value.get("type") == "object":
-            value["required"] = list(value.get("properties", {}))
-            value["additionalProperties"] = False
-        for nested in value.values():
-            _normalize_strict_schema(nested)
-    elif isinstance(value, list):
-        for nested in value:
-            _normalize_strict_schema(nested)
-
-
 # Uses strict schema only for models whose provider advertises support.
 def structured_model(
     model: ChatOpenRouter,
@@ -488,8 +492,9 @@ def structured_model(
         # langchain-openrouter 0.2.9 sets strict on the outer response format,
         # but does not pass it to convert_to_json_schema. Normalize the wire
         # schema here, then validate the decoded object with the original DTO.
-        wire_schema = convert_to_json_schema(schema, strict=True)
-        _normalize_strict_schema(wire_schema)
+        wire_schema = convert_to_json_schema(
+            schema.model_json_schema(schema_generator=StrictOutputSchemaGenerator), strict=True
+        )
         structured = model.with_structured_output(
             wire_schema,
             method="json_schema",

@@ -1,0 +1,161 @@
+{
+  "trace_id": "72ecd8b17ef32ff44cda50c1002d9e05",
+  "source_archive": "tests/fixtures/agent-eval/questions-challenge-20/runs/learn-q02-20261113225315Z-r02-20261113T225722694712Z-challenge20.json",
+  "source_archive_sha256": "53ca1236fb5707b711b2ff2d2199ff31bec1a78dc7822ba235ae37a7046cc0fe",
+  "judge_model": "openai/gpt-6.1-terra",
+  "deepeval_version": "4.3.3",
+  "metric": "learning_answer_support",
+  "threshold": 0.8,
+  "calibrated": false,
+  "evaluation_steps": [
+    "Evaluate whether the answer addresses the request for up to two currently available stones suited to a quiet home with an existing granite stone.",
+    "Check factual claims against only the supplied actual response sources and verified statuses. Keep individual evidence separate from general type-pair guidance and preserve conflicts. Do not invent household agreements.",
+    "A conditional option must be distinguished from an unconditional recommendation. Fewer than two recommendations is acceptable when additional candidates cannot be verified. Do not infer global retrieval completeness from the supplied sources.",
+    "Reward a supported explanation, explicit uncertainty and appropriate scope. Penalize unsupported claims or omission of the requested availability, quiet-home fit or granite compatibility."
+  ],
+  "input": {
+    "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+    "actual_sources": {
+      "stone-card:8738e5ce-5d44-4adb-b2a1-87b8a2224947": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "8738e5ce-5d44-4adb-b2a1-87b8a2224947",
+          "external_id": "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "name": "Madame Obsidian",
+          "stone_type": "OBSIDIAN",
+          "stone_size": "MEDIUM",
+          "biography": "An affectionate stone who prefers a peaceful home.",
+          "profile": {
+            "socialization_traits": [
+              "CAUTIOUS_WITH_STRANGERS",
+              "ENJOYS_HUMAN_COMPANY",
+              "NEEDS_SLOW_INTRODUCTION"
+            ],
+            "care_level": "ADDITIONAL",
+            "health_notes": "An old crack requires occasional polishing.",
+            "trigger_notes": "Becomes anxious around vacuum cleaners.",
+            "preferred_environment": "A quiet home with a predictable routine."
+          },
+          "shelter_case": {
+            "id": "0351b173-d273-4d73-94cd-c31b97febe6d",
+            "external_id": "65bd7147-e394-44d5-bf97-24e15b1b428e",
+            "case_number": "0002-2026-P2",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "10ad5165-1b0c-4255-bfb8-ef6979d10e2b",
+            "admission_date": "2026-10-30T09:30:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+          "title": "Granite + Obsidian — A steady audience for complicated feelings",
+          "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "OBSIDIAN"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+OBSIDIAN",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "stone-card:6e76ea9a-9f38-4d5f-9cea-cd7155ce6e35": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "6e76ea9a-9f38-4d5f-9cea-cd7155ce6e35",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "873bca7e-88a4-4e6f-b9bf-c60cd82740fb",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+          "title": "Granite + Granite — The permanently adjourned furniture meeting",
+          "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL",
+          "conditions": [
+            {
+              "id": "rotate_decisions",
+              "fact_type": "decision_rotation_agreed",
+              "expected_value": true,
+              "source_quote": "Rotate small decisions"
+            },
+            {
+              "id": "decision_deadline",
+              "fact_type": "decision_deadline_agreed",
+              "expected_value": true,
+              "source_quote": "set a friendly decision deadline for shared arrangements."
+            }
+          ]
+        }
+      }
+    },
+    "verified_statuses": {
+      "6e76ea9a-9f38-4d5f-9cea-cd7155ce6e35": "AVAILABLE",
+      "8738e5ce-5d44-4adb-b2a1-87b8a2224947": "AVAILABLE"
+    }
+  },
+  "actual_output": "**Madame Obsidian** · `AVAILABLE` · `recommended` · `HARMONIOUS`\nMadame Obsidian suits a quiet home: she prefers a peaceful setting and predictable routine. The granite-and-obsidian pairing is described as harmonious, with patient granite potentially giving her room to express herself. A considerate match would use direct reassurance and private conversations; this is a general compatibility guide, not a guarantee for these individual stones. The card also notes she is cautious with strangers, needs a slow introduction, and becomes anxious around vacuum cleaners.\n- GRANITE+OBSIDIAN · `HARMONIOUS` · `confirmed`\n  > Verdict: HARMONIOUS\n  > Explanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\n  > Household agreement: Use direct reassurance and private conversations rather than guessing at silence.\n  > Avoid: No public jokes about sensitivity or emotional overengineering.\n  > Bureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+  "scope_limit": "Judges final answer against supplied sources, not retrieval completeness; judge shares a model family with application stages.",
+  "status": "evaluated",
+  "score": 0.9,
+  "reason": "Both stones are correctly listed as available, and the answer distinguishes Madame Obsidian’s harmonious type pairing from Sir Pebble’s conditional pairing without assuming the household agreements are met. It explains Madame’s quiet-home fit and relevant care needs, but omits Sir Pebble’s individual suitability: his biography says he enjoys quiet evenings.",
+  "passed": true,
+  "judge_calls": [
+    {
+      "model_name": "openai/gpt-6.1-terra",
+      "id": "gen-1794610930-5UZVZ3vbtkji5bV7Q3eX",
+      "cost": 0.00373925,
+      "finish_reason": "stop",
+      "usage": {
+        "input_tokens": 2300,
+        "output_tokens": 173,
+        "total_tokens": 2473,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 2297
+        },
+        "output_token_details": {
+          "reasoning": 91
+        }
+      }
+    }
+  ],
+  "observation_id": "28d6cf667dbbc890"
+}
