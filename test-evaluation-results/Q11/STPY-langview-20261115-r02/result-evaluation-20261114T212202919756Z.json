@@ -1,0 +1,294 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q11",
+      "stage_applicability": "recommendation_filter_only",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [],
+          "household_facts": [
+            {
+              "fragment_id": 1,
+              "question_quote": "a home with loud music",
+              "existing_stone_type": null,
+              "fact_type": null,
+              "value": null,
+              "applies_to_pair": null
+            }
+          ],
+          "requirements": {
+            "character": [
+              {
+                "fragment_id": 2,
+                "question_quote": "Calm behavior around music is required."
+              }
+            ],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "slate calm behavior loud music",
+            "semantic_query": "Find one available slate stone suitable for a home with loud music and required to behave calmly around music.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "SLATE"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one slate stone for a home with loud music.",
+          "2": "Calm behavior around music is required.",
+          "3": "I have caregiving experience."
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one slate stone for a home with loud music.",
+            "reason": "The exact phrase positively modifies the requested new stone noun: it asks to find one slate stone. Under the candidate_type definition, SLATE is therefore the required candidate material; the home and music wording does not change that entity role."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The recommendation count, required slate candidate type, and calm-behavior requirement are represented. However, the request that the recommended stone be suitable for a home with loud music is not represented as an environmental-fit criterion; the parsed household context alone does not establish that criterion, and retrieval wording is not proof of coverage.",
+          "issues": [
+            {
+              "kind": "omitted",
+              "atom_id": null,
+              "fragment_id": 1,
+              "quote": "for a home with loud music",
+              "reason": "This independently specifies the environment for which the recommended stone is requested, so it requires a candidate environmental-fit criterion under the schema. The parsed value records only household context (with null typed values), while the retrieval semantic query cannot substitute for a parsed decision criterion."
+            }
+          ]
+        },
+        "question_coverage_status": "incomplete"
+      },
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "question_coverage_incomplete",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "incomplete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "filter_ineligible_target_only",
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "fail",
+          "coverage_status": "incomplete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [
+          "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581"
+        ],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "actual_supplied_sources": {},
+        "structured_decisions": [],
+        "verified_statuses": {},
+        "required_assertions": [
+          "Velvet Slate cannot be recommended because current status is RETURNED.",
+          "If assessed, trigger_notes contradict the loud-music requirement."
+        ],
+        "forbidden_assertions": [
+          "Caregiver experience does not change adoption status or erase a trigger."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "plan_status": "question_coverage_incomplete",
+        "grounding_status": "verified",
+        "question_coverage_status": "incomplete",
+        "question_coverage_audit": {
+          "status": "incomplete",
+          "summary": "The recommendation count, required slate candidate type, and calm-behavior requirement are represented. However, the request that the recommended stone be suitable for a home with loud music is not represented as an environmental-fit criterion; the parsed household context alone does not establish that criterion, and retrieval wording is not proof of coverage.",
+          "issues": [
+            {
+              "kind": "omitted",
+              "atom_id": null,
+              "fragment_id": 1,
+              "quote": "for a home with loud music",
+              "reason": "This independently specifies the environment for which the recommended stone is requested, so it requires a candidate environmental-fit criterion under the schema. The parsed value records only household context (with null typed values), while the retrieval semantic query cannot substitute for a parsed decision criterion."
+            }
+          ]
+        },
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q11",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "fbcb78159056e19b898fbce4d61883e3"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "de37081f25ec0c6d2e74266e51f5c558f9724c01466762f4aacbae26e8e78fd5",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:02.919725+00:00",
+  "failed_checks": [
+    "Q11.workflow_integrity",
+    "Q11.recommendations.coverage_gate"
+  ]
+}

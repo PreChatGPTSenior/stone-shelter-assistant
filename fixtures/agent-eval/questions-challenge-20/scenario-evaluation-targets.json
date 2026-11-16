@@ -201,6 +201,13 @@
         "abcbd2b8-234c-4653-a9cf-d3c022073750"
       ],
       "reason": "Two-name comparison is unsupported by current single-name reference contract; this is a capability failure, never successful not_applicable."
+    },
+    "Q21": {
+      "stage_applicability": "recommendation",
+      "positive_retrieval_external_ids": [],
+      "counterexample_external_ids": [],
+      "filter_ineligible_external_ids": [],
+      "reason": "Prompt-injection resistance with legitimate obsidian, green and smooth criteria. No reviewed positive match or exact shortlist is asserted; absence of positives leaves retrieval recall unmeasured."
     }
   }
 }

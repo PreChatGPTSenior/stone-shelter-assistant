@@ -503,6 +503,7 @@ def structured_model(
             provider={"require_parameters": True},
             reasoning=reasoning,
         )
+
         def validate_typed_response(response: Any) -> Any:
             if (
                 not isinstance(response, dict)
@@ -745,7 +746,10 @@ async def _run_grounding_audit(
         return GroundingAuditResult(
             frozenset(),
             updates,
-            {"grounding_status": "grounding_model_error", "grounding_error_type": type(error).__name__},
+            {
+                "grounding_status": "grounding_model_error",
+                "grounding_error_type": type(error).__name__,
+            },
         )
     return _validate_grounding_model_response(response, proposals, atoms, fragments, updates)
 
@@ -822,8 +826,10 @@ def _resolve_grounded_question(
     supported: frozenset[str],
     result: dict[str, object],
 ) -> dict[str, object]:
-    if proposals and "candidate_type" in {proposal.proposal_id for proposal in proposals} and (
-        "candidate_type" not in supported
+    if (
+        proposals
+        and "candidate_type" in {proposal.proposal_id for proposal in proposals}
+        and ("candidate_type" not in supported)
     ):
         return {**result, "criteria_status": "unverified_candidate_type"}
     try:
@@ -844,6 +850,7 @@ def _resolve_grounded_question(
         "parser_diagnostics": diagnostics,
         "duplicate_criteria_removed": duplicates,
     }
+
 
 async def plan_tools(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[str, object]:
     """Order the parsed reference and candidate tasks using the code-owned dependencies."""
@@ -951,7 +958,9 @@ async def answer_reference(
         "reference_answer_status": answer_status,
         "result": {
             "answer": "\n\n".join(lines),
-            "recommendation_status": "blocked_question_coverage" if recommendation_blocked else None,
+            "recommendation_status": "blocked_question_coverage"
+            if recommendation_blocked
+            else None,
             "sources": reference.sources,
             "verified_statuses": {str(stone.stone_id): stone.adoption_status.value}
             if stone
@@ -1036,9 +1045,7 @@ def _render_reference_answer(
         _append_uncovered_reference_scopes(
             lines, reference, quotes, rendered_source_ids, rendered_raw_source_ids
         )
-    _append_uncovered_care_sources(
-        lines, reference, request, rendered_raw_source_ids
-    )
+    _append_uncovered_care_sources(lines, reference, request, rendered_raw_source_ids)
     _append_exact_pair_sources(lines, reference)
     if recommendation_blocked:
         lines.append(
@@ -1362,7 +1369,9 @@ async def _load_candidate_evaluation_inputs(
     encyclopedia = (
         await load_encyclopedia(cards, runtime.context.tools.encyclopedia_tool) if character else {}
     )
-    observations = await _load_candidate_observations(cards, runtime) if character or targets else {}
+    observations = (
+        await _load_candidate_observations(cards, runtime) if character or targets else {}
+    )
     texts = {
         str(card.id): candidate_sources(
             card, encyclopedia.get(card.stone_type), observations.get(str(card.id), [])
@@ -1528,9 +1537,7 @@ async def answer(state: SearchState, *, runtime: Runtime[RunContext]) -> dict[st
     inputs = _prepare_candidate_answer_inputs(state, runtime)
     explanations, model_details = await _generate_candidate_explanations(state, runtime, inputs)
     sources = _candidate_answer_sources(inputs, explanations, runtime)
-    decisions, lines, fallback_source_ids = _render_candidate_decisions(
-        inputs, explanations
-    )
+    decisions, lines, fallback_source_ids = _render_candidate_decisions(inputs, explanations)
     sources.update(
         (source_id, inputs.evaluation_sources[source_id])
         for source_id in fallback_source_ids
@@ -1643,9 +1650,7 @@ async def _generate_candidate_explanations(
         return {}, {}
     model_details = model_call_details(raw)
     draft = response.get("parsed")
-    if raw.response_metadata.get("finish_reason") == "length" or not isinstance(
-        draft, AnswerDraft
-    ):
+    if raw.response_metadata.get("finish_reason") == "length" or not isinstance(draft, AnswerDraft):
         return {}, model_details
     return _validate_candidate_explanations(draft, inputs), model_details
 
@@ -1769,9 +1774,7 @@ def _render_unmet_reasons(item: CandidateEvaluation) -> str:
     )
 
 
-def _render_evidence_fallback(
-    item: CandidateEvaluation, fallback_source_ids: set[str]
-) -> str:
+def _render_evidence_fallback(item: CandidateEvaluation, fallback_source_ids: set[str]) -> str:
     lines = []
     for reason in item.reasons:
         if reason.criterion == "availability":

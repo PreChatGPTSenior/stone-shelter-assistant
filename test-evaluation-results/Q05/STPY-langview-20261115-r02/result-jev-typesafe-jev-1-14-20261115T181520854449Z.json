@@ -1,0 +1,355 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:22.830878+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q05/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "79e786ab930d0d997dc61e7d8f071aa603d8bfa68656a799e06047190c365982",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q05/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "a6bdafb496c791e04436b2b631883d208be33ac575c34d52ddd8cdbada3764cd",
+  "source_trace_id": "2e2f5e142c830d7675e9da9aad0f93ae",
+  "case_id": "Q05",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Rotation is confirmed; deadline is unknown.",
+      "text": "Rotation is confirmed; deadline is unknown."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Sir Pebble remains a conditional option.",
+      "text": "Sir Pebble remains a conditional option."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "One confirmed condition cannot confirm the pair.",
+      "text": "One confirmed condition cannot confirm the pair."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+  "captured_answer": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+  "captured_sources": {
+    "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "stone_size": "SMALL",
+        "biography": "A thoughtful stone who enjoys quiet evenings.",
+        "profile": null,
+        "shelter_case": {
+          "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+          "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+          "case_number": "0001-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-30T09:00:00Z"
+        }
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+      "tool": "get_compatibility_pair",
+      "data": {
+        "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+        "title": "Granite + Granite — The permanently adjourned furniture meeting",
+        "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL",
+        "conditions": [
+          {
+            "id": "rotate_decisions",
+            "fact_type": "decision_rotation_agreed",
+            "expected_value": true,
+            "source_quote": "Rotate small decisions"
+          },
+          {
+            "id": "decision_deadline",
+            "fact_type": "decision_deadline_agreed",
+            "expected_value": true,
+            "source_quote": "set a friendly decision deadline for shared arrangements."
+          }
+        ]
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "assessment_status": "parsed",
+    "candidate_decisions": [
+      {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "adoption_status": "AVAILABLE",
+        "outcome": "conditional_option",
+        "rank": null,
+        "exclusion_rules": []
+      }
+    ],
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+          "title": "Granite + Granite — The permanently adjourned furniture meeting",
+          "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL",
+          "conditions": [
+            {
+              "id": "rotate_decisions",
+              "fact_type": "decision_rotation_agreed",
+              "expected_value": true,
+              "source_quote": "Rotate small decisions"
+            },
+            {
+              "id": "decision_deadline",
+              "fact_type": "decision_deadline_agreed",
+              "expected_value": true,
+              "source_quote": "set a friendly decision deadline for shared arrangements."
+            }
+          ]
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "assessment_status": "parsed",
+      "candidate_decisions": [
+        {
+          "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "name": "Sir Pebble",
+          "adoption_status": "AVAILABLE",
+          "outcome": "conditional_option",
+          "rank": null,
+          "exclusion_rules": []
+        }
+      ],
+      "verified_statuses": {
+        "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment"
+    ]
+  },
+  "request_sha256": "71e6e5a5b8c9b79d6e22d81b87022d318ce3a75d44a50a19f7f342aad086b6ff",
+  "response_sha256": "50ed04caa1779232466b6c1070afedce7f5a1b248c384756afb1b6668891a268",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+        "actual_output": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"assessment_status\": \"parsed\", \"candidate_decisions\": [{\"adoption_status\": \"AVAILABLE\", \"exclusion_rules\": [], \"name\": \"Sir Pebble\", \"outcome\": \"conditional_option\", \"rank\": null, \"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\"}], \"verified_statuses\": {\"28f739c2-41f8-4ca6-b6e6-f56665d67d23\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\"], \"final_answer_sources\": {\"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\": {\"data\": {\"conditions\": [{\"expected_value\": true, \"fact_type\": \"decision_rotation_agreed\", \"id\": \"rotate_decisions\", \"source_quote\": \"Rotate small decisions\"}, {\"expected_value\": true, \"fact_type\": \"decision_deadline_agreed\", \"id\": \"decision_deadline\", \"source_quote\": \"set a friendly decision deadline for shared arrangements.\"}], \"content_hash\": \"sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f\", \"document_kind\": \"compatibility_pair\", \"id\": \"395ba917-3d27-51ac-a77e-759ead4f916b\", \"language\": \"en\", \"pair_key\": \"GRANITE+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"GRANITE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\\nAvoid: Do not require unanimous approval for every cushion adjustment.\\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\", \"title\": \"Granite + Granite — The permanently adjourned furniture meeting\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"get_compatibility_pair\"}, \"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"data\": {\"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"name\": \"Sir Pebble\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-30T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0001-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\"}, \"stone_size\": \"SMALL\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_details\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Rotation is confirmed; deadline is unknown.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble remains a conditional option.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: One confirmed condition cannot confirm the pair.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "partially_satisfies",
+        "confidence": 0.07,
+        "probabilities": {
+          "satisfies": 0.31,
+          "partially_satisfies": 0.38,
+          "does_not_satisfy": 0.31
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.83,
+        "probabilities": {
+          "satisfies": 0.89,
+          "partially_satisfies": 0.02,
+          "does_not_satisfy": 0.09
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 2077,
+      "output_tokens": 156,
+      "cost": 8.7234e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Rotation is confirmed; deadline is unknown.",
+      "text": "Rotation is confirmed; deadline is unknown.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Rotation is confirmed; deadline is unknown.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.5,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.31,
+        "partially_satisfies": 0.38,
+        "does_not_satisfy": 0.31
+      },
+      "confidence": 0.07,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Sir Pebble remains a conditional option.",
+      "text": "Sir Pebble remains a conditional option.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble remains a conditional option.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "One confirmed condition cannot confirm the pair.",
+      "text": "One confirmed condition cannot confirm the pair.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: One confirmed condition cannot confirm the pair.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.9,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.89,
+        "partially_satisfies": 0.02,
+        "does_not_satisfy": 0.09
+      },
+      "confidence": 0.83,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 2077,
+    "output_tokens": 156,
+    "cost": 8.7234e-05
+  },
+  "score": 0.7999999999999999,
+  "success": false,
+  "confidence": 0.07,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.07.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Rotation is confirmed; deadline is unknown. -> \"partially_satisfies\", leaning \"satisfies\" (P=0.38, confidence=0.07)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble remains a conditional option. -> \"satisfies\" (P=1.00, confidence=1.00)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: One confirmed condition cannot confirm the pair. -> \"satisfies\" (P=0.89, confidence=0.83)\nScore: 0.80 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 8.7234e-05,
+  "input_tokens": 2077,
+  "output_tokens": 156
+}

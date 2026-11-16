@@ -1,0 +1,336 @@
+{
+  "case_id": "Q01",
+  "comparison_id": "langview-20261115",
+  "run_number": 5,
+  "run_id": "STPY-langview-20261115-r05",
+  "session_id": "STPY-langview-20261115-r05",
+  "request": {
+    "question": "Is Madame Obsidian available and compatible with granite?",
+    "model_id": "openrouter/free",
+    "selection_model_id": "openrouter/free",
+    "parsing_model_id": "openrouter/free",
+    "evaluation_model_id": "openrouter/free",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "openrouter/free",
+    "eval_case_id": "Q01",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 5,
+    "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+  },
+  "question": "Is Madame Obsidian available and compatible with granite?",
+  "expected": {
+    "required": [
+      "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+      "Keep individual biography separate from the type-pair rule."
+    ],
+    "forbidden": [
+      "Do not infer individual cohabitation history from a harmonious type rule."
+    ],
+    "pair": {
+      "key": "GRANITE+OBSIDIAN",
+      "verdict": "HARMONIOUS"
+    }
+  },
+  "status": "completed",
+  "trace_id": "e63f0ae7e193deea70766268fbd138ee",
+  "started_at": "2026-11-14T20:59:40.172167+00:00",
+  "response": {
+    "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "not_reached",
+    "question_coverage_status": null,
+    "question_coverage_audit": null,
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "openrouter/free",
+    "model_ids": {
+      "select_candidates": "openrouter/free",
+      "parse_question": "openrouter/free",
+      "evaluate_candidates": "openrouter/free",
+      "answer": "openrouter/free",
+      "collect_reference_evidence": "openrouter/free",
+      "ground_question": "openrouter/free"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 5,
+      "run_id": "STPY-langview-20261115-r05",
+      "session_id": "STPY-langview-20261115-r05",
+      "configuration_id": "cfg-b402c22b1d7245d6",
+      "eval_case_id": "Q01",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+    },
+    "trace_id": "e63f0ae7e193deea70766268fbd138ee"
+  },
+  "elapsed_seconds": 34.892,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Is Madame Obsidian available and compatible with granite?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "7f1c08a7-d6e0-40b2-82f8-b747b498ef03"
+      }
+    ],
+    "question": "Is Madame Obsidian available and compatible with granite?",
+    "grounding_status": "not_reached",
+    "grounding_catalog": {
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56"
+    },
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Is Madame Obsidian available and compatible with granite?"
+    },
+    "criteria_status": "invalid_criteria",
+    "plan_status": "unresolved_question",
+    "model_call": {
+      "model_name": "liquid/lfm-3-1.7b:free",
+      "id": "gen-1794689981-2LsZdN24JszkR1qdcrB6",
+      "cost": 0.0,
+      "finish_reason": "length",
+      "usage": {
+        "input_tokens": 7705,
+        "output_tokens": 8192,
+        "total_tokens": 15897,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 8192
+        }
+      }
+    },
+    "result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_reached",
+      "question_coverage_status": null,
+      "question_coverage_audit": null,
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q01",
+    "stage_applicability": "not_applicable",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": null,
+      "question_fragments": {
+        "1": "Is Madame Obsidian available and compatible with granite?"
+      },
+      "grounding_decisions": null,
+      "question_coverage_audit": null,
+      "question_coverage_status": null
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "unresolved_question",
+      "criteria_status": "invalid_criteria",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": null,
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "not_applicable",
+        "actual_external_ids": [],
+        "positive_targets": [],
+        "positive_found": [],
+        "positive_missing": [],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unknown",
+      "checks": {
+        "pair:GRANITE+OBSIDIAN:verdict": {
+          "expected": "HARMONIOUS",
+          "actual": null,
+          "status": "unknown"
+        }
+      }
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {},
+      "disposition_check": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "coverage_gate": {
+        "status": "not_applicable",
+        "coverage_status": null
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+        "Keep individual biography separate from the type-pair rule."
+      ],
+      "forbidden_assertions": [
+        "Do not infer individual cohabitation history from a harmonious type rule."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_reached",
+      "question_coverage_status": null,
+      "question_coverage_audit": null,
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "openrouter/free",
+      "model_ids": {
+        "select_candidates": "openrouter/free",
+        "parse_question": "openrouter/free",
+        "evaluate_candidates": "openrouter/free",
+        "answer": "openrouter/free",
+        "collect_reference_evidence": "openrouter/free",
+        "ground_question": "openrouter/free"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 5,
+        "run_id": "STPY-langview-20261115-r05",
+        "session_id": "STPY-langview-20261115-r05",
+        "configuration_id": "cfg-b402c22b1d7245d6",
+        "eval_case_id": "Q01",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+      },
+      "trace_id": "e63f0ae7e193deea70766268fbd138ee"
+    }
+  },
+  "failed_checks": [
+    "Q01.workflow_integrity",
+    "Q01.structured_expectations"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T21:00:19.250394+00:00"
+}

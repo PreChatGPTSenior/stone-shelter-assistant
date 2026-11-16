@@ -1,0 +1,335 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q09",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [],
+          "household_facts": [],
+          "requirements": {
+            "character": [
+              {
+                "fragment_id": 2,
+                "question_quote": "must tolerate a vacuum cleaner calmly because we use it daily"
+              }
+            ],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [
+              {
+                "fragment_id": 3,
+                "question_quote": "Enjoying human company is a preference"
+              }
+            ],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "obsidian stone calm around vacuum cleaner enjoys human company",
+            "semantic_query": "Recommend one available obsidian stone that can calmly tolerate frequent daily vacuum-cleaner use, with enjoying human company as a preference.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "OBSIDIAN"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one obsidian stone.",
+          "2": "The stone must tolerate a vacuum cleaner calmly because we use it daily.",
+          "3": "Enjoying human company is a preference,",
+          "4": "not a requirement."
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one obsidian stone.",
+            "reason": "The positive material type OBSIDIAN directly modifies the requested stone noun, and the fragment requests finding one stone; this matches the candidate_type definition and schema semantics."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "complete",
+          "summary": "The parsed question represents the recommendation quantity, required vacuum-cleaner tolerance criterion, human-company preference, and required candidate material type. The daily-use wording is explanatory context already included in the requirement quote, and the preference denial is correctly represented by the preference wording plus absence from requirements.",
+          "issues": []
+        },
+        "question_coverage_status": "complete"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "not_needed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "67269139-e8b8-4c7d-aa58-33b88162ec70"
+          ],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "67269139-e8b8-4c7d-aa58-33b88162ec70": {
+          "lexical_rank": 1,
+          "semantic_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "retrieval_rank": 1,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {
+          "67269139-e8b8-4c7d-aa58-33b88162ec70": "excluded"
+        },
+        "disposition_check": {
+          "status": "not_evaluated",
+          "checks": {
+            "67269139-e8b8-4c7d-aa58-33b88162ec70": {
+              "expected": "excluded",
+              "actual": null,
+              "status": "not_evaluated"
+            }
+          }
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [
+          "67269139-e8b8-4c7d-aa58-33b88162ec70"
+        ],
+        "retrieved": [
+          "67269139-e8b8-4c7d-aa58-33b88162ec70"
+        ],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "67269139-e8b8-4c7d-aa58-33b88162ec70"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "No checked candidates.",
+        "actual_supplied_sources": {},
+        "structured_decisions": [],
+        "verified_statuses": {},
+        "required_assertions": [
+          "Madame's trigger_notes contradict the vacuum requirement.",
+          "If evaluated, exclude her for the unmet requirement even though she enjoys human company.",
+          "If no candidate is returned, separately score retrieval so an empty shortlist cannot masquerade as successful evaluation."
+        ],
+        "forbidden_assertions": [
+          "Positive socialization must not cancel the mandatory trigger conflict."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "No checked candidates.",
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "question": "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement.",
+        "question_fragments": {
+          "1": "Find one obsidian stone.",
+          "2": "The stone must tolerate a vacuum cleaner calmly because we use it daily.",
+          "3": "Enjoying human company is a preference,",
+          "4": "not a requirement."
+        },
+        "candidate_status": "not_needed",
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q09",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "d1e1e04ab32a26894b152b21c09df5f5"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q09/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "2ffd1b9c2f4ec75c712e5690e891a14ade9f3be292b51a8c644dac7f5a2ca184",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:21:57.420604+00:00",
+  "failed_checks": []
+}

@@ -1,0 +1,310 @@
+{
+  "session_id": "STPY-langview-20261115-r02",
+  "evaluation_id": "20261115T181520854449Z",
+  "status": "completed",
+  "metric": "DeepEval JevEval",
+  "model_requested": "typesafe/jev-1.14",
+  "model_reported": [
+    "typesafe/jev-1.14-20261014"
+  ],
+  "completed_count": 20,
+  "threshold": 0.8,
+  "threshold_calibrated": false,
+  "recorded_above_threshold": 5,
+  "recorded_below_threshold": 15,
+  "reported_cost_usd": "0.002411934",
+  "input_tokens": 57427,
+  "output_tokens": 3915,
+  "replaced_previous_report_count": 24,
+  "limitations": [
+    "Diagnostic threshold and criterion aggregation remain uncalibrated.",
+    "Q05 score is 0.7999999999999999; recorded failure at 0.8 is a floating-point boundary artifact. No recorded score was changed.",
+    "Conditional-applicability and average-score limitations identified earlier remain; these judge scores are not verified application correctness."
+  ],
+  "cases": [
+    {
+      "case_id": "Q01",
+      "score": 0.735,
+      "recorded_success": false,
+      "confidence": 0.19,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q01/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 1833,
+      "output_tokens": 153,
+      "reported_cost_usd": "7.6986e-05"
+    },
+    {
+      "case_id": "Q02",
+      "score": 0.7364285714285714,
+      "recorded_success": false,
+      "confidence": 0.16,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q02/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 7,
+      "unmeasured_criteria": [
+        {
+          "id": "forbidden-1",
+          "direction": "forbidden",
+          "source_text": "Do not require one fixed shortlist or order before inspecting retrieval.",
+          "status": "not_measured",
+          "reason": "This is a retrieval-evaluation policy, not a final-answer claim."
+        }
+      ],
+      "input_tokens": 4143,
+      "output_tokens": 357,
+      "reported_cost_usd": "0.000174006"
+    },
+    {
+      "case_id": "Q03",
+      "score": 0.6925,
+      "recorded_success": false,
+      "confidence": 0.73,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q03/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 2273,
+      "output_tokens": 205,
+      "reported_cost_usd": "9.5466e-05"
+    },
+    {
+      "case_id": "Q04",
+      "score": 0.99625,
+      "recorded_success": true,
+      "confidence": 0.97,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q04/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 2345,
+      "output_tokens": 203,
+      "reported_cost_usd": "9.849e-05"
+    },
+    {
+      "case_id": "Q05",
+      "score": 0.7999999999999999,
+      "recorded_success": false,
+      "confidence": 0.07,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q05/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 2077,
+      "output_tokens": 156,
+      "reported_cost_usd": "8.7234e-05"
+    },
+    {
+      "case_id": "Q06",
+      "score": 0.8166666666666668,
+      "recorded_success": true,
+      "confidence": 0.24,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 986,
+      "output_tokens": 153,
+      "reported_cost_usd": "4.1412e-05"
+    },
+    {
+      "case_id": "Q07",
+      "score": 0.6683333333333333,
+      "recorded_success": false,
+      "confidence": 0.46,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q07/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 2085,
+      "output_tokens": 155,
+      "reported_cost_usd": "8.757e-05"
+    },
+    {
+      "case_id": "Q08",
+      "score": 0.34833333333333333,
+      "recorded_success": false,
+      "confidence": 0.14,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q08/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 2747,
+      "output_tokens": 157,
+      "reported_cost_usd": "0.000115374"
+    },
+    {
+      "case_id": "Q09",
+      "score": 0.11166666666666668,
+      "recorded_success": false,
+      "confidence": 0.6,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q09/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [
+        {
+          "id": "required-3",
+          "direction": "required",
+          "source_text": "If no candidate is returned, separately score retrieval so an empty shortlist cannot masquerade as successful evaluation.",
+          "status": "not_measured",
+          "reason": "This requires a separate retrieval metric and cannot be judged from the final answer."
+        }
+      ],
+      "input_tokens": 972,
+      "output_tokens": 159,
+      "reported_cost_usd": "4.0824e-05"
+    },
+    {
+      "case_id": "Q10",
+      "score": 0.892,
+      "recorded_success": true,
+      "confidence": 0.31,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q10/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 5,
+      "unmeasured_criteria": [],
+      "input_tokens": 2162,
+      "output_tokens": 253,
+      "reported_cost_usd": "9.0804e-05"
+    },
+    {
+      "case_id": "Q11",
+      "score": 0.11166666666666668,
+      "recorded_success": false,
+      "confidence": 0.55,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 980,
+      "output_tokens": 159,
+      "reported_cost_usd": "4.116e-05"
+    },
+    {
+      "case_id": "Q12",
+      "score": 0.501,
+      "recorded_success": false,
+      "confidence": 0.35,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 5,
+      "unmeasured_criteria": [],
+      "input_tokens": 1337,
+      "output_tokens": 259,
+      "reported_cost_usd": "5.6154e-05"
+    },
+    {
+      "case_id": "Q13",
+      "score": 0.25666666666666665,
+      "recorded_success": false,
+      "confidence": 0.58,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 969,
+      "output_tokens": 157,
+      "reported_cost_usd": "4.0698e-05"
+    },
+    {
+      "case_id": "Q14",
+      "score": 0.6866666666666666,
+      "recorded_success": false,
+      "confidence": 0.83,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 3,
+      "unmeasured_criteria": [],
+      "input_tokens": 1110,
+      "output_tokens": 155,
+      "reported_cost_usd": "4.662e-05"
+    },
+    {
+      "case_id": "Q15",
+      "score": 0.48125,
+      "recorded_success": false,
+      "confidence": 0.37,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q15/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 1323,
+      "output_tokens": 208,
+      "reported_cost_usd": "5.5566e-05"
+    },
+    {
+      "case_id": "Q16",
+      "score": 0.7875,
+      "recorded_success": false,
+      "confidence": 0.26,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q16/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 2287,
+      "output_tokens": 206,
+      "reported_cost_usd": "9.6054e-05"
+    },
+    {
+      "case_id": "Q17",
+      "score": 0.445,
+      "recorded_success": false,
+      "confidence": 0.31,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q17/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [
+        {
+          "id": "forbidden-2",
+          "direction": "forbidden",
+          "source_text": "Event frequency is not evidence strength under the current assessment source policy.",
+          "status": "not_measured",
+          "reason": "This is an evidence-assessment policy, not a final-answer claim."
+        }
+      ],
+      "input_tokens": 1659,
+      "output_tokens": 207,
+      "reported_cost_usd": "6.9678e-05"
+    },
+    {
+      "case_id": "Q18",
+      "score": 0.4275,
+      "recorded_success": false,
+      "confidence": 0.38,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q18/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 10714,
+      "output_tokens": 207,
+      "reported_cost_usd": "0.000449988"
+    },
+    {
+      "case_id": "Q19",
+      "score": 0.93625,
+      "recorded_success": true,
+      "confidence": 0.56,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 3855,
+      "output_tokens": 203,
+      "reported_cost_usd": "0.00016191"
+    },
+    {
+      "case_id": "Q20",
+      "score": 0.90875,
+      "recorded_success": true,
+      "confidence": 0.44,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q20/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261115T181520854449Z.json",
+      "model_reported": "typesafe/jev-1.14-20261014",
+      "measured_criteria": 4,
+      "unmeasured_criteria": [],
+      "input_tokens": 11570,
+      "output_tokens": 203,
+      "reported_cost_usd": "0.00048594"
+    }
+  ]
+}

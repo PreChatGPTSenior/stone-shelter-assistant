@@ -1,0 +1,160 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:33:15.287572+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "a40df06dded662d97c8602af75df4a355d1e8a11e04dff1617046e4eba742ea0",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "e7cfad99001b5c15942b5fa6e6d64be969d6a35a32c0bd88dc46ce8004d59d2b",
+  "source_trace_id": "ea0d378b4d49b260fcfc6ef1e1ee4233",
+  "case_id": "Q06",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "expected": {
+      "required": [
+        "No positive established agreement may be extracted.",
+        "Neither condition is confirmed; keep the option conditional."
+      ],
+      "forbidden": [
+        "Do not turn 'want to agree' into an agreement."
+      ],
+      "pair": {
+        "key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL"
+      }
+    },
+    "sources": {}
+  },
+  "resolved_judge_input": {
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "expected": {
+      "required": [
+        "No positive established agreement may be extracted.",
+        "Neither condition is confirmed; keep the option conditional."
+      ],
+      "forbidden": [
+        "Do not turn 'want to agree' into an agreement."
+      ],
+      "pair": {
+        "key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL"
+      }
+    },
+    "sources": {}
+  },
+  "captured_generation_output": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation, candidate type, quiet-home environmental requirement, and existing granite household context are represented correctly. However, the question also states that the household wants to agree on rotating decisions and deadlines but has not yet done so; those two independent agreement states are omitted from the parsed question.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We want to agree on rotating decisions and deadlines someday,",
+          "reason": "This independently mentions both a rotation agreement and a deadline agreement. The current parsed question contains no household_fact entries with decision_rotation_agreed or decision_deadline_agreed for this scope."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "This explicitly states that the contemplated rotating-decisions and deadline agreements have not been reached. Neither agreement state is represented in household_facts."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation, candidate type, quiet-home environmental requirement, and existing granite household context are represented correctly. However, the question also states that the household wants to agree on rotating decisions and deadlines but has not yet done so; those two independent agreement states are omitted from the parsed question.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We want to agree on rotating decisions and deadlines someday,",
+          "reason": "This independently mentions both a rotation agreement and a deadline agreement. The current parsed question contains no household_fact entries with decision_rotation_agreed or decision_deadline_agreed for this scope."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "This explicitly states that the contemplated rotating-decisions and deadline agreements have not been reached. Neither agreement state is represented in household_facts."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "738cad8f3eac234b7e1e6690b0b7ed0d07a8f9343e54cdb65ee702cbfd29c9a3",
+  "resolved_judge_input_sha256": "738cad8f3eac234b7e1e6690b0b7ed0d07a8f9343e54cdb65ee702cbfd29c9a3",
+  "captured_assessment_sha256": "7ab2fe1ccaca3208970e984c29ec6e9ff5739fd57eb4efd27f7b02f35b64b138",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.4,
+    "reason": "The response correctly avoids turning the desire to agree into an established agreement and makes no unsupported recommendation. However, it incorrectly marks the rotation and deadline states as omitted even though the question explicitly says they have not been reached, and it fails to represent the required conditional GRANITE+GRANITE disposition or state that neither condition is confirmed. Its refusal also leaves the requested granite stone unresolved.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794691996-uYgCU0F2AnnwaTyLSBZO",
+        "cost": 0.0004094,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 775,
+          "output_tokens": 212,
+          "total_tokens": 987,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 119
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.\", \"expected\": {\"required\": [\"No positive established agreement may be extracted.\", \"Neither condition is confirmed; keep the option conditional.\"], \"forbidden\": [\"Do not turn 'want to agree' into an agreement.\"], \"pair\": {\"key\": \"GRANITE+GRANITE\", \"verdict\": \"CONDITIONAL\"}}, \"sources\": {}} \n\nActual Output:\n{\"answer\": \"I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.\", \"plan_status\": \"question_coverage_incomplete\", \"grounding_status\": \"verified\", \"question_coverage_status\": \"incomplete\", \"question_coverage_audit\": {\"status\": \"incomplete\", \"summary\": \"The recommendation, candidate type, quiet-home environmental requirement, and existing granite household context are represented correctly. However, the question also states that the household wants to agree on rotating decisions and deadlines but has not yet done so; those two independent agreement states are omitted from the parsed question.\", \"issues\": [{\"kind\": \"omitted\", \"atom_id\": null, \"fragment_id\": 2, \"quote\": \"We want to agree on rotating decisions and deadlines someday,\", \"reason\": \"This independently mentions both a rotation agreement and a deadline agreement. The current parsed question contains no household_fact entries with decision_rotation_agreed or decision_deadline_agreed for this scope.\"}, {\"kind\": \"omitted\", \"atom_id\": null, \"fragment_id\": 3, \"quote\": \"but we have not done so yet.\", \"reason\": \"This explicitly states that the contemplated rotating-decisions and deadline agreements have not been reached. Neither agreement state is represented in household_facts.\"}]}, \"sources\": {}, \"verified_statuses\": {}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly avoids turning the desire to agree into an established agreement and makes no unsupported recommendation. However, it incorrectly marks the rotation and deadline states as omitted even though the question explicitly says they have not been reached, and it fails to represent the required conditional GRANITE+GRANITE disposition or state that neither condition is confirmed. Its refusal also leaves the requested granite stone unresolved.\",\"score\":4}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

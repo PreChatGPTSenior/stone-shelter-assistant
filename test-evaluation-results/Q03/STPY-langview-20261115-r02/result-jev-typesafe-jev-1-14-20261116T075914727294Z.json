@@ -1,0 +1,411 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:15.773261+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q03/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "43291cdff3c1cc3a2fe0a8f5277569af6205f1a621e8d07168a58ce6d57e13c9",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q03/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "9ffa2d816303e3686fa6344ed85bf1aca6d218f8a8dde03706f025b69f1ef550",
+  "source_trace_id": "c7e04129a80d7648b499b88d0f911f68",
+  "case_id": "Q03",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Retrieve Sir Pebble; his biography supports the quiet-home requirement.",
+      "text": "Sir Pebble is presented as a quiet-home fit and the answer's supporting source is his own biography."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+      "text": "Keep Sir Pebble as a conditional option when the evidence is correctly bound."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Both authored granite conditions remain unknown.",
+      "text": "Both authored granite conditions remain unknown."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never borrow Sir Pebble's biography for Professor Quartzless.",
+      "text": "Never borrow Sir Pebble's biography for Professor Quartzless."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one granite stone for a quiet home where another granite stone already lives. Who is currently available and why might they fit?",
+  "captured_answer": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+  "captured_sources": {
+    "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "stone_size": "SMALL",
+        "biography": "A thoughtful stone who enjoys quiet evenings.",
+        "profile": null,
+        "shelter_case": {
+          "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+          "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+          "case_number": "0001-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-30T09:00:00Z"
+        }
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+      "tool": "get_compatibility_pair",
+      "data": {
+        "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+        "title": "Granite + Granite — The permanently adjourned furniture meeting",
+        "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL",
+        "conditions": [
+          {
+            "id": "rotate_decisions",
+            "fact_type": "decision_rotation_agreed",
+            "expected_value": true,
+            "source_quote": "Rotate small decisions"
+          },
+          {
+            "id": "decision_deadline",
+            "fact_type": "decision_deadline_agreed",
+            "expected_value": true,
+            "source_quote": "set a friendly decision deadline for shared arrangements."
+          }
+        ]
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "assessment_status": "parsed",
+    "candidate_decisions": [
+      {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "adoption_status": "AVAILABLE",
+        "outcome": "conditional_option",
+        "rank": null,
+        "exclusion_rules": []
+      }
+    ],
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+          "title": "Granite + Granite — The permanently adjourned furniture meeting",
+          "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL",
+          "conditions": [
+            {
+              "id": "rotate_decisions",
+              "fact_type": "decision_rotation_agreed",
+              "expected_value": true,
+              "source_quote": "Rotate small decisions"
+            },
+            {
+              "id": "decision_deadline",
+              "fact_type": "decision_deadline_agreed",
+              "expected_value": true,
+              "source_quote": "set a friendly decision deadline for shared arrangements."
+            }
+          ]
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "assessment_status": "parsed",
+      "candidate_decisions": [
+        {
+          "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "name": "Sir Pebble",
+          "adoption_status": "AVAILABLE",
+          "outcome": "conditional_option",
+          "rank": null,
+          "exclusion_rules": []
+        }
+      ],
+      "verified_statuses": {
+        "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment"
+    ]
+  },
+  "request_sha256": "8ac622f126eb4b6e2bdfae163066e17213eb2314b8dbaf64ea2fe45405225807",
+  "response_sha256": "693eb0315bbdbae0ee624c9d34bcbf698abfd90316a0464f1c61ac2cf47c43fd",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one granite stone for a quiet home where another granite stone already lives. Who is currently available and why might they fit?",
+        "actual_output": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"assessment_status\": \"parsed\", \"candidate_decisions\": [{\"adoption_status\": \"AVAILABLE\", \"exclusion_rules\": [], \"name\": \"Sir Pebble\", \"outcome\": \"conditional_option\", \"rank\": null, \"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\"}], \"verified_statuses\": {\"28f739c2-41f8-4ca6-b6e6-f56665d67d23\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\"], \"final_answer_sources\": {\"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\": {\"data\": {\"conditions\": [{\"expected_value\": true, \"fact_type\": \"decision_rotation_agreed\", \"id\": \"rotate_decisions\", \"source_quote\": \"Rotate small decisions\"}, {\"expected_value\": true, \"fact_type\": \"decision_deadline_agreed\", \"id\": \"decision_deadline\", \"source_quote\": \"set a friendly decision deadline for shared arrangements.\"}], \"content_hash\": \"sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f\", \"document_kind\": \"compatibility_pair\", \"id\": \"395ba917-3d27-51ac-a77e-759ead4f916b\", \"language\": \"en\", \"pair_key\": \"GRANITE+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"GRANITE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\\nAvoid: Do not require unanimous approval for every cushion adjustment.\\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\", \"title\": \"Granite + Granite — The permanently adjourned furniture meeting\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"get_compatibility_pair\"}, \"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"data\": {\"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"name\": \"Sir Pebble\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-30T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0001-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\"}, \"stone_size\": \"SMALL\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_details\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble is presented as a quiet-home fit and the answer's supporting source is his own biography.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both authored granite conditions remain unknown.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never borrow Sir Pebble's biography for Professor Quartzless.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.83,
+        "probabilities": {
+          "satisfies": 0.02,
+          "partially_satisfies": 0.09,
+          "does_not_satisfy": 0.89
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.98,
+        "probabilities": {
+          "satisfies": 0.99,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.5,
+        "probabilities": {
+          "satisfies": 0.67,
+          "partially_satisfies": 0.06,
+          "does_not_satisfy": 0.27
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.88,
+        "probabilities": {
+          "satisfies": 0.92,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.07
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 2433,
+      "output_tokens": 205,
+      "cost": 0.000102186
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Retrieve Sir Pebble; his biography supports the quiet-home requirement.",
+      "text": "Sir Pebble is presented as a quiet-home fit and the answer's supporting source is his own biography.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble is presented as a quiet-home fit and the answer's supporting source is his own biography.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.065,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.02,
+        "partially_satisfies": 0.09,
+        "does_not_satisfy": 0.89
+      },
+      "confidence": 0.83,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+      "text": "Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Keep Sir Pebble as a conditional option when the evidence is correctly bound.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.995,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.99,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 0.98,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Both authored granite conditions remain unknown.",
+      "text": "Both authored granite conditions remain unknown.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both authored granite conditions remain unknown.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.7000000000000001,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.67,
+        "partially_satisfies": 0.06,
+        "does_not_satisfy": 0.27
+      },
+      "confidence": 0.5,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never borrow Sir Pebble's biography for Professor Quartzless.",
+      "text": "Never borrow Sir Pebble's biography for Professor Quartzless.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never borrow Sir Pebble's biography for Professor Quartzless.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.925,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.92,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.07
+      },
+      "confidence": 0.88,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 2433,
+    "output_tokens": 205,
+    "cost": 0.000102186
+  },
+  "score": 0.67125,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.67125,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.5,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.50.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Sir Pebble is presented as a quiet-home fit and the answer's supporting source is his own biography. -> \"does_not_satisfy\" (P=0.89, confidence=0.83)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Keep Sir Pebble as a conditional option when the evidence is correctly bound. -> \"satisfies\" (P=0.99, confidence=0.98)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both authored granite conditions remain unknown. -> \"satisfies\" (P=0.67, confidence=0.50)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never borrow Sir Pebble's biography for Professor Quartzless. -> \"satisfies\" (P=0.92, confidence=0.88)\nScore: 0.67 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 0.000102186,
+  "input_tokens": 2433,
+  "output_tokens": 205,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

@@ -94,9 +94,7 @@ def build_parsing_messages(
     default_recommendation_limit: int,
 ) -> list[BaseMessage]:
     return [
-        SystemMessage(
-            content=parsing_system_prompt(default_recommendation_limit)
-        ),
+        SystemMessage(content=parsing_system_prompt(default_recommendation_limit)),
         HumanMessage(
             content=json.dumps(
                 {

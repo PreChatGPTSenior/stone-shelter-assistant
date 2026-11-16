@@ -67,7 +67,11 @@ def _safe_error_text(value: Any, limit: int) -> str:
 
 def _safe_raw_value(value: Any, depth: int = 0) -> Any:
     if depth >= 3:
-        return _safe_error_text(value, 120) if isinstance(value, (str, int, float, bool)) else "[TRUNCATED]"
+        return (
+            _safe_error_text(value, 120)
+            if isinstance(value, (str, int, float, bool))
+            else "[TRUNCATED]"
+        )
     if isinstance(value, dict):
         return {
             _safe_error_text(key, 80): _safe_raw_value(item, depth + 1)
@@ -137,9 +141,9 @@ def trace_result(result: dict[str, Any], *, include_answer: bool = False) -> dic
             "candidate_decisions",
             "plan_status",
             "grounding_status",
-    "question_coverage_status",
-    "question_coverage_audit",
-    "blocked_tools",
+            "question_coverage_status",
+            "question_coverage_audit",
+            "blocked_tools",
             "stop_reason",
         )
         if key in result

@@ -19,7 +19,9 @@ def scored_reason(
     criterion: Literal["availability", "character", "compatibility"],
     score: float,
     *,
-    source_kind: Literal["profile", "observation", "biography", "encyclopedia", "compatibility_pair"]
+    source_kind: Literal[
+        "profile", "observation", "biography", "encyclopedia", "compatibility_pair"
+    ]
     | None = None,
     lookup_only: bool = False,
     action: Literal["rank", "conditional_option", "exclude"] = "rank",
@@ -91,9 +93,9 @@ def test_score_aggregation() -> None:
     assert result.criteria["character"].effective_weight == pytest.approx(0.4)
     assert result.total == pytest.approx(0.53)
 
-    lookup_only = evaluation("stone-2", "external-2", [scored_reason(
-        "compatibility", 1.0, lookup_only=True
-    )])
+    lookup_only = evaluation(
+        "stone-2", "external-2", [scored_reason("compatibility", 1.0, lookup_only=True)]
+    )
     assert calculate_ranking(lookup_only, include_lookups=False).total is None
     assert calculate_ranking(lookup_only, include_lookups=True).total == pytest.approx(1.0)
 

@@ -1,0 +1,955 @@
+{
+  "case_id": "Q16",
+  "comparison_id": "langview-20261115",
+  "run_number": 3,
+  "run_id": "STPY-langview-20261115-r03",
+  "session_id": "STPY-langview-20261115-r03",
+  "request": {
+    "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+    "model_id": "deepseek/deepseek-v4.1-flash",
+    "selection_model_id": "deepseek/deepseek-v4.1-flash",
+    "parsing_model_id": "deepseek/deepseek-v4.1-flash",
+    "evaluation_model_id": "deepseek/deepseek-v4.1-flash",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "deepseek/deepseek-v4.1-flash",
+    "eval_case_id": "Q16",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 3,
+    "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+  },
+  "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+  "expected": {
+    "required": [
+      "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+      "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+      "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists."
+    ],
+    "forbidden": [
+      "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability."
+    ],
+    "pair": {
+      "key": "GRANITE+PUMICE",
+      "verdict": "CONDITIONAL"
+    }
+  },
+  "status": "completed",
+  "trace_id": "e696fe3d3c0508266d6d33fd6e196c38",
+  "started_at": "2026-11-14T20:35:34.784065+00:00",
+  "response": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation, candidate type, and granite household context are represented, but the explicit compatibility question in fragment 2 is omitted from the parsed question.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "Is enjoying the company of other stones enough to prove compatibility with granite?",
+          "reason": "This fragment is an explicit compatibility question asking whether a behavior is sufficient to prove compatibility with granite. The schema requires such explicit compatibility questions, including sufficiency wording, to be represented in requested_compatibility, but the parsed question leaves requested_compatibility empty."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "deepseek/deepseek-v4.1-flash",
+    "model_ids": {
+      "select_candidates": "deepseek/deepseek-v4.1-flash",
+      "parse_question": "deepseek/deepseek-v4.1-flash",
+      "evaluate_candidates": "deepseek/deepseek-v4.1-flash",
+      "answer": "deepseek/deepseek-v4.1-flash",
+      "collect_reference_evidence": "deepseek/deepseek-v4.1-flash",
+      "ground_question": "deepseek/deepseek-v4.1-flash"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 3,
+      "run_id": "STPY-langview-20261115-r03",
+      "session_id": "STPY-langview-20261115-r03",
+      "configuration_id": "cfg-5cdebfb0dd3d4fb3",
+      "eval_case_id": "Q16",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+    },
+    "trace_id": "e696fe3d3c0508266d6d33fd6e196c38"
+  },
+  "elapsed_seconds": 23.736,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "93db65fd-c9c6-4937-a9ae-0f92299e936b"
+      }
+    ],
+    "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+    "parsed_question": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "fragment_id": 1,
+          "question_quote": "a home where granite already lives",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "fragment_id": 1,
+            "question_quote": "for a home where granite already lives"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": null,
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": {
+        "lexical_query": "pumice stone home granite",
+        "semantic_query": "Find one pumice stone suited to a home where granite already lives.",
+        "candidate_type": {
+          "fragment_id": 1,
+          "stone_type": "PUMICE"
+        }
+      }
+    },
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation, candidate type, and granite household context are represented, but the explicit compatibility question in fragment 2 is omitted from the parsed question.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "Is enjoying the company of other stones enough to prove compatibility with granite?",
+          "reason": "This fragment is an explicit compatibility question asking whether a behavior is sufficient to prove compatibility with granite. The schema requires such explicit compatibility questions, including sufficiency wording, to be represented in requested_compatibility, but the parsed question leaves requested_compatibility empty."
+        }
+      ]
+    },
+    "grounding_catalog": {
+      "language": "en",
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entry_ids": [
+        "en-v1-definition-candidate_compatibility",
+        "en-v1-definition-candidate_environment_fit",
+        "en-v1-definition-candidate_type",
+        "en-v1-definition-decision_deadline_agreed",
+        "en-v1-definition-decision_rotation_agreed",
+        "en-v1-example-candidate-compatibility-context",
+        "en-v1-example-candidate-denial",
+        "en-v1-example-candidate-environment-fit",
+        "en-v1-example-candidate-hard-compatibility",
+        "en-v1-example-candidate-household",
+        "en-v1-example-candidate-preference",
+        "en-v1-example-candidate-required",
+        "en-v1-example-candidate-type-no-modal",
+        "en-v1-example-candidate-type-optional",
+        "en-v1-example-candidate-type-with-other-household-type",
+        "en-v1-example-deadline-asserted",
+        "en-v1-example-deadline-explicit-pair-refusal",
+        "en-v1-example-deadline-other-pair-not-denial",
+        "en-v1-example-deadline-wished",
+        "en-v1-example-environment-background",
+        "en-v1-example-rotation-asserted",
+        "en-v1-example-rotation-denied",
+        "en-v1-example-rotation-explicit-pair-refusal",
+        "en-v1-example-rotation-intended",
+        "en-v1-example-rotation-other-household",
+        "en-v1-example-rotation-other-pair-not-denial"
+      ]
+    },
+    "grounding_catalog_snapshot": {
+      "language": "en",
+      "catalog_version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entries": [
+        {
+          "id": "en-v1-definition-candidate_compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "definition",
+          "text": "A hard candidate-to-type compatibility criterion is stated independently when the user requires the new stone to live well with another type. Merely mentioning an existing stone, asking for a companion, or asking for environmental fit can trigger contextual pair assessment without imposing mandatory compatibility. A direct must/refusal about cohabitation remains binding.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_environment_fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "definition",
+          "text": "A recommendation requested for a stated home may express suitability to that environment. Represent the exact source wording as environmental fit; it does not claim the recommended stone intrinsically has the home’s quality. A home detail used only as background is not a fit criterion.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "definition",
+          "text": "The explicitly required material type of the new recommended stone. A positive type directly modifying the requested stone noun (for example, find a granite stone) is required without modal words such as must. A type stated as optional/preferred or negated is not required and must not become a retrieval filter. Identify which entity a type modifies: a type modifying an existing household stone is household context.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_deadline_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_rotation_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-compatibility-context",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a companion for the marble stone already at home.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a stone, but not granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-environment-fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "Find a stone suited to a quiet home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-hard-compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a slate stone that must live well with the existing marble stone.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a companion for my granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-preference",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally granite.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-required",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a granite companion.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-no-modal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find one granite stone for a small home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-optional",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally, find a granite stone.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-with-other-household-type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a basalt stone for a home where granite already lives.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "BASALT",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We established a deadline for shared decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to set a deadline for pumice-pair decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We set a deadline for marble-slate decisions; it applies only to that pair.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-wished",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We hope to agree on a deadline for decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-environment-background",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "My home is quiet. Tell me whether the named stone is available.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-denied",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We have not agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to rotate decisions for the pumice pair.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-rotation-intended",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We want to agree to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We discussed how they agreed to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions for marble-slate. The agreement is scoped to that pair, not pumice pairs.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        }
+      ]
+    },
+    "grounding_decisions": [
+      {
+        "proposal_id": "candidate_type",
+        "finding": "supported",
+        "fragment_id": 1,
+        "quote": "Find one pumice stone for a home where granite already lives.",
+        "reason": "The phrase 'pumice stone' directly modifies the requested new stone noun without any optional, preferred, or negated marking, so PUMICE is an explicitly required candidate type for the new recommended stone."
+      }
+    ],
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Find one pumice stone for a home where granite already lives.",
+      "2": "Is enjoying the company of other stones enough to prove compatibility with granite?"
+    },
+    "duplicate_criteria_removed": 0,
+    "retrieval": {
+      "lexical_query": "pumice stone home granite",
+      "semantic_query": "Find one pumice stone suited to a home where granite already lives.",
+      "filters": {
+        "stone_external_id": null,
+        "case_external_id": null,
+        "case_number": null,
+        "stone_type": "PUMICE",
+        "stone_size": null,
+        "current_shelter_id": null,
+        "adoption_status": "AVAILABLE",
+        "care_level": null,
+        "language": "en",
+        "socialization_traits": []
+      }
+    },
+    "parser_diagnostics": [],
+    "criteria": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "criterion_id": "household_fact.1",
+          "fragment_id": 1,
+          "question_quote": "a home where granite already lives",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "criterion_id": "requirement.character.1",
+            "fragment_id": 1,
+            "question_quote": "for a home where granite already lives"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      }
+    },
+    "criteria_status": "parsed",
+    "reference_request": {
+      "stone_name": null,
+      "recommendation_name": null,
+      "care_types": [],
+      "pairs": [],
+      "pair_lists": [],
+      "stone_info": null,
+      "unsupported_care": []
+    },
+    "permitted_tools": [],
+    "plan_status": "question_coverage_incomplete",
+    "model_call": {
+      "model_name": "deepseek/deepseek-v4.1-flash",
+      "id": "gen-1794688541-OViewNpNunRBEQQW3e4h",
+      "cost": 0.00356564,
+      "finish_reason": "stop",
+      "usage": {
+        "input_tokens": 8563,
+        "output_tokens": 3773,
+        "total_tokens": 12336,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 3508
+        }
+      }
+    },
+    "result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The recommendation, candidate type, and granite household context are represented, but the explicit compatibility question in fragment 2 is omitted from the parsed question.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "Is enjoying the company of other stones enough to prove compatibility with granite?",
+            "reason": "This fragment is an explicit compatibility question asking whether a behavior is sufficient to prove compatibility with granite. The schema requires such explicit compatibility questions, including sufficiency wording, to be represented in requested_compatibility, but the parsed question leaves requested_compatibility empty."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q16",
+    "stage_applicability": "recommendation",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 1,
+        "requested_availability": [],
+        "requested_compatibility": [],
+        "household_facts": [
+          {
+            "fragment_id": 1,
+            "question_quote": "a home where granite already lives",
+            "existing_stone_type": "GRANITE",
+            "fact_type": null,
+            "value": null,
+            "applies_to_pair": null
+          }
+        ],
+        "requirements": {
+          "character": [
+            {
+              "fragment_id": 1,
+              "question_quote": "for a home where granite already lives"
+            }
+          ],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": null,
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": {
+          "lexical_query": "pumice stone home granite",
+          "semantic_query": "Find one pumice stone suited to a home where granite already lives.",
+          "candidate_type": {
+            "fragment_id": 1,
+            "stone_type": "PUMICE"
+          }
+        }
+      },
+      "question_fragments": {
+        "1": "Find one pumice stone for a home where granite already lives.",
+        "2": "Is enjoying the company of other stones enough to prove compatibility with granite?"
+      },
+      "grounding_decisions": [
+        {
+          "proposal_id": "candidate_type",
+          "finding": "supported",
+          "fragment_id": 1,
+          "quote": "Find one pumice stone for a home where granite already lives.",
+          "reason": "The phrase 'pumice stone' directly modifies the requested new stone noun without any optional, preferred, or negated marking, so PUMICE is an explicitly required candidate type for the new recommended stone."
+        }
+      ],
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The recommendation, candidate type, and granite household context are represented, but the explicit compatibility question in fragment 2 is omitted from the parsed question.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "Is enjoying the company of other stones enough to prove compatibility with granite?",
+            "reason": "This fragment is an explicit compatibility question asking whether a behavior is sufficient to prove compatibility with granite. The schema requires such explicit compatibility questions, including sufficiency wording, to be represented in requested_compatibility, but the parsed question leaves requested_compatibility empty."
+          }
+        ]
+      },
+      "question_coverage_status": "incomplete"
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "question_coverage_incomplete",
+      "criteria_status": "parsed",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": "incomplete",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_lexical_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_semantic_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_engine_union_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_rrf_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_shortlist_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_evidence_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_decision_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "fail",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": null,
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unknown",
+      "checks": {
+        "pair:GRANITE+PUMICE:verdict": {
+          "expected": "CONDITIONAL",
+          "actual": null,
+          "status": "unknown"
+        }
+      }
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {},
+      "disposition_check": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "coverage_gate": {
+        "status": "fail",
+        "coverage_status": "incomplete"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+        "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+        "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists."
+      ],
+      "forbidden_assertions": [
+        "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The recommendation, candidate type, and granite household context are represented, but the explicit compatibility question in fragment 2 is omitted from the parsed question.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "Is enjoying the company of other stones enough to prove compatibility with granite?",
+            "reason": "This fragment is an explicit compatibility question asking whether a behavior is sufficient to prove compatibility with granite. The schema requires such explicit compatibility questions, including sufficiency wording, to be represented in requested_compatibility, but the parsed question leaves requested_compatibility empty."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "model_ids": {
+        "select_candidates": "deepseek/deepseek-v4.1-flash",
+        "parse_question": "deepseek/deepseek-v4.1-flash",
+        "evaluate_candidates": "deepseek/deepseek-v4.1-flash",
+        "answer": "deepseek/deepseek-v4.1-flash",
+        "collect_reference_evidence": "deepseek/deepseek-v4.1-flash",
+        "ground_question": "deepseek/deepseek-v4.1-flash"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 3,
+        "run_id": "STPY-langview-20261115-r03",
+        "session_id": "STPY-langview-20261115-r03",
+        "configuration_id": "cfg-5cdebfb0dd3d4fb3",
+        "eval_case_id": "Q16",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+      },
+      "trace_id": "e696fe3d3c0508266d6d33fd6e196c38"
+    }
+  },
+  "failed_checks": [
+    "Q16.workflow_integrity",
+    "Q16.engine_union.unknown",
+    "Q16.rrf.unknown",
+    "Q16.structured_expectations",
+    "Q16.recommendations.coverage_gate"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T20:35:59.558937+00:00"
+}

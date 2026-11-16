@@ -1,0 +1,314 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:33:50.711512+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q10/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "322ee961c59e8601e9b71267caa26b486dbb276ee91f0f639e07b144bbb5769e",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q10/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "47bf2d08ea1a898624374f5207f2297f58b5494061700b7d2d5af80eb09acbe9",
+  "source_trace_id": "b5885736c7474d04668f69102dd26e74",
+  "case_id": "Q10",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+    "expected": {
+      "required": [
+        "Retrieve Brave Gneiss and verify AVAILABLE.",
+        "GOOD_WITH_CHILDREN supports the required criterion through profile.socialization_traits.",
+        "Garden visits are optional; if mentioned as an observed fact, cite the event that actually contains them."
+      ],
+      "forbidden": [
+        "Do not treat the old adoption or return event as current availability.",
+        "Do not cite the generic biography for the child-friendly claim."
+      ]
+    },
+    "sources": {
+      "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+          "name": "Brave Gneiss",
+          "stone_type": "GNEISS",
+          "stone_size": "MEDIUM",
+          "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "ENJOYS_HUMAN_COMPANY",
+              "GOOD_WITH_CHILDREN"
+            ],
+            "care_level": "STANDARD",
+            "health_notes": null,
+            "trigger_notes": null,
+            "preferred_environment": null
+          },
+          "shelter_case": {
+            "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+            "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+            "case_number": "0007-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+        "tool": "get_case_timeline",
+        "data": {
+          "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+          "event_type": "OBSERVATION",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+          "event_notes": "Enjoys friendly company and short garden visits."
+        }
+      }
+    }
+  },
+  "resolved_judge_input": {
+    "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+    "expected": {
+      "required": [
+        "Retrieve Brave Gneiss and verify AVAILABLE.",
+        "GOOD_WITH_CHILDREN supports the required criterion through profile.socialization_traits.",
+        "Garden visits are optional; if mentioned as an observed fact, cite the event that actually contains them."
+      ],
+      "forbidden": [
+        "Do not treat the old adoption or return event as current availability.",
+        "Do not cite the generic biography for the child-friendly claim."
+      ]
+    },
+    "sources": {
+      "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+          "name": "Brave Gneiss",
+          "stone_type": "GNEISS",
+          "stone_size": "MEDIUM",
+          "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "ENJOYS_HUMAN_COMPANY",
+              "GOOD_WITH_CHILDREN"
+            ],
+            "care_level": "STANDARD",
+            "health_notes": null,
+            "trigger_notes": null,
+            "preferred_environment": null
+          },
+          "shelter_case": {
+            "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+            "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+            "case_number": "0007-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+        "tool": "get_case_timeline",
+        "data": {
+          "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+          "event_type": "OBSERVATION",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+          "event_notes": "Enjoys friendly company and short garden visits."
+        }
+      }
+    }
+  },
+  "captured_generation_output": {
+    "answer": "**Brave Gneiss** · `AVAILABLE` · `recommended`\nBrave Gneiss is confirmed to be good with children, satisfying the family’s required compatibility criterion. It also enjoys short garden visits, matching the stated preference. These findings describe observed/profiled compatibility only; they do not guarantee how it will respond in every future situation.",
+    "sources": {
+      "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+          "name": "Brave Gneiss",
+          "stone_type": "GNEISS",
+          "stone_size": "MEDIUM",
+          "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "ENJOYS_HUMAN_COMPANY",
+              "GOOD_WITH_CHILDREN"
+            ],
+            "care_level": "STANDARD",
+            "health_notes": null,
+            "trigger_notes": null,
+            "preferred_environment": null
+          },
+          "shelter_case": {
+            "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+            "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+            "case_number": "0007-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+        "tool": "get_case_timeline",
+        "data": {
+          "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+          "event_type": "OBSERVATION",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+          "event_notes": "Enjoys friendly company and short garden visits."
+        }
+      }
+    },
+    "verified_statuses": {
+      "f0568179-1526-4e68-9814-bfd07deb3d31": "AVAILABLE"
+    },
+    "recommended_stone_ids": [
+      "f0568179-1526-4e68-9814-bfd07deb3d31"
+    ],
+    "candidate_decisions": [
+      {
+        "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+        "name": "Brave Gneiss",
+        "adoption_status": "AVAILABLE",
+        "outcome": "recommended",
+        "rank": 1,
+        "exclusion_rules": []
+      }
+    ],
+    "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+    "question_fragments": {
+      "1": "Find one gneiss stone for a family with children.",
+      "2": "Being good with children is required.",
+      "3": "Enjoying garden visits is only a preference."
+    },
+    "candidate_status": "parsed"
+  },
+  "captured_assessment": {
+    "answer": "**Brave Gneiss** · `AVAILABLE` · `recommended`\nBrave Gneiss is confirmed to be good with children, satisfying the family’s required compatibility criterion. It also enjoys short garden visits, matching the stated preference. These findings describe observed/profiled compatibility only; they do not guarantee how it will respond in every future situation.",
+    "sources": {
+      "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+          "name": "Brave Gneiss",
+          "stone_type": "GNEISS",
+          "stone_size": "MEDIUM",
+          "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "ENJOYS_HUMAN_COMPANY",
+              "GOOD_WITH_CHILDREN"
+            ],
+            "care_level": "STANDARD",
+            "health_notes": null,
+            "trigger_notes": null,
+            "preferred_environment": null
+          },
+          "shelter_case": {
+            "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+            "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+            "case_number": "0007-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+        "tool": "get_case_timeline",
+        "data": {
+          "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+          "event_type": "OBSERVATION",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+          "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+          "event_notes": "Enjoys friendly company and short garden visits."
+        }
+      }
+    },
+    "verified_statuses": {
+      "f0568179-1526-4e68-9814-bfd07deb3d31": "AVAILABLE"
+    },
+    "recommended_stone_ids": [
+      "f0568179-1526-4e68-9814-bfd07deb3d31"
+    ],
+    "candidate_decisions": [
+      {
+        "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+        "name": "Brave Gneiss",
+        "adoption_status": "AVAILABLE",
+        "outcome": "recommended",
+        "rank": 1,
+        "exclusion_rules": []
+      }
+    ],
+    "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+    "question_fragments": {
+      "1": "Find one gneiss stone for a family with children.",
+      "2": "Being good with children is required.",
+      "3": "Enjoying garden visits is only a preference."
+    },
+    "candidate_status": "parsed"
+  },
+  "captured_input_sha256": "b7f0b0f9dc5d5a6bd3fce62ee4a88cb134cbc1448dee5f0465d33aac21ad7c97",
+  "resolved_judge_input_sha256": "b7f0b0f9dc5d5a6bd3fce62ee4a88cb134cbc1448dee5f0465d33aac21ad7c97",
+  "captured_assessment_sha256": "af90b1cf67d6e1eb36129ea9f04a1531c9b6ccdd78c08f6fe73fb1635612a443",
+  "judge_results": {
+    "status": "completed",
+    "score": 1.0,
+    "reason": "The response correctly identifies Brave Gneiss as a GNEISS stone and verifies current AVAILABLE status from the shelter case. It supports the required child-friendly criterion with the profile's GOOD_WITH_CHILDREN trait rather than the generic biography, and supports garden visits with the observation event. It also appropriately treats garden visits as a preference and avoids unsupported guarantees. Although it does not explicitly name the event ID or profile field in the prose, the supplied source records clearly contain both supporting facts.",
+    "passed": true,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692031-q3BWYIulpcVZXytwtMyG",
+        "cost": 0.0007606,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1771,
+          "output_tokens": 265,
+          "total_tokens": 2036,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1768
+          },
+          "output_token_details": {
+            "reasoning": 153
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.\", \"expected\": {\"required\": [\"Retrieve Brave Gneiss and verify AVAILABLE.\", \"GOOD_WITH_CHILDREN supports the required criterion through profile.socialization_traits.\", \"Garden visits are optional; if mentioned as an observed fact, cite the event that actually contains them.\"], \"forbidden\": [\"Do not treat the old adoption or return event as current availability.\", \"Do not cite the generic biography for the child-friendly claim.\"]}, \"sources\": {\"stone-card:f0568179-1526-4e68-9814-bfd07deb3d31\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"f0568179-1526-4e68-9814-bfd07deb3d31\", \"external_id\": \"3b41b31d-5a1f-43ef-af77-c107bb7ae382\", \"name\": \"Brave Gneiss\", \"stone_type\": \"GNEISS\", \"stone_size\": \"MEDIUM\", \"biography\": \"Brave Gneiss is a beloved resident of the fictional pet stone world.\", \"profile\": {\"socialization_traits\": [\"ENJOYS_HUMAN_COMPANY\", \"GOOD_WITH_CHILDREN\"], \"care_level\": \"STANDARD\", \"health_notes\": null, \"trigger_notes\": null, \"preferred_environment\": null}, \"shelter_case\": {\"id\": \"d8ae7353-7b90-440c-aff6-1dd1594307ca\", \"external_id\": \"db95b9ad-383d-4294-b5c4-6bdba889b2d4\", \"case_number\": \"0007-2026-P1\", \"adoption_status\": \"AVAILABLE\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-01T09:00:00Z\"}}}, \"case-event:4680986d-7f35-4723-9039-7e366bdbde19\": {\"tool\": \"get_case_timeline\", \"data\": {\"event_external_id\": \"4680986d-7f35-4723-9039-7e366bdbde19\", \"event_type\": \"OBSERVATION\", \"occurred_at\": \"2026-10-05T09:00:00+00:00\", \"stone_id\": \"f0568179-1526-4e68-9814-bfd07deb3d31\", \"case_external_id\": \"db95b9ad-383d-4294-b5c4-6bdba889b2d4\", \"event_notes\": \"Enjoys friendly company and short garden visits.\"}}}} \n\nActual Output:\n{\"answer\": \"**Brave Gneiss** · `AVAILABLE` · `recommended`\\nBrave Gneiss is confirmed to be good with children, satisfying the family’s required compatibility criterion. It also enjoys short garden visits, matching the stated preference. These findings describe observed/profiled compatibility only; they do not guarantee how it will respond in every future situation.\", \"sources\": {\"stone-card:f0568179-1526-4e68-9814-bfd07deb3d31\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"f0568179-1526-4e68-9814-bfd07deb3d31\", \"external_id\": \"3b41b31d-5a1f-43ef-af77-c107bb7ae382\", \"name\": \"Brave Gneiss\", \"stone_type\": \"GNEISS\", \"stone_size\": \"MEDIUM\", \"biography\": \"Brave Gneiss is a beloved resident of the fictional pet stone world.\", \"profile\": {\"socialization_traits\": [\"ENJOYS_HUMAN_COMPANY\", \"GOOD_WITH_CHILDREN\"], \"care_level\": \"STANDARD\", \"health_notes\": null, \"trigger_notes\": null, \"preferred_environment\": null}, \"shelter_case\": {\"id\": \"d8ae7353-7b90-440c-aff6-1dd1594307ca\", \"external_id\": \"db95b9ad-383d-4294-b5c4-6bdba889b2d4\", \"case_number\": \"0007-2026-P1\", \"adoption_status\": \"AVAILABLE\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-01T09:00:00Z\"}}}, \"case-event:4680986d-7f35-4723-9039-7e366bdbde19\": {\"tool\": \"get_case_timeline\", \"data\": {\"event_external_id\": \"4680986d-7f35-4723-9039-7e366bdbde19\", \"event_type\": \"OBSERVATION\", \"occurred_at\": \"2026-10-05T09:00:00+00:00\", \"stone_id\": \"f0568179-1526-4e68-9814-bfd07deb3d31\", \"case_external_id\": \"db95b9ad-383d-4294-b5c4-6bdba889b2d4\", \"event_notes\": \"Enjoys friendly company and short garden visits.\"}}}, \"verified_statuses\": {\"f0568179-1526-4e68-9814-bfd07deb3d31\": \"AVAILABLE\"}, \"recommended_stone_ids\": [\"f0568179-1526-4e68-9814-bfd07deb3d31\"], \"candidate_decisions\": [{\"stone_id\": \"f0568179-1526-4e68-9814-bfd07deb3d31\", \"name\": \"Brave Gneiss\", \"adoption_status\": \"AVAILABLE\", \"outcome\": \"recommended\", \"rank\": 1, \"exclusion_rules\": []}], \"question\": \"Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.\", \"question_fragments\": {\"1\": \"Find one gneiss stone for a family with children.\", \"2\": \"Being good with children is required.\", \"3\": \"Enjoying garden visits is only a preference.\"}, \"candidate_status\": \"parsed\"} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly identifies Brave Gneiss as a GNEISS stone and verifies current AVAILABLE status from the shelter case. It supports the required child-friendly criterion with the profile's GOOD_WITH_CHILDREN trait rather than the generic biography, and supports garden visits with the observation event. It also appropriately treats garden visits as a preference and avoids unsupported guarantees. Although it does not explicitly name the event ID or profile field in the prose, the supplied source records clearly contain both supporting facts.\",\"score\":10}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:34:48.380239+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q17/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "c0b5204b34747859647ad1c628f5f20c60189254a370ab17602a2070ac3a095d",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q17/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "ed02afbf0185ae218425920596bf5f02e11c7ebaab92123e8df1fa16f7de6fe0",
+  "source_trace_id": "7a4dc33057c92f2283fe8f0b0e0b2625",
+  "case_id": "Q17",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+    "expected": {
+      "required": [
+        "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+        "Professor is GRANITE despite Quartzless in the name.",
+        "If Professor is evaluated, the required character evidence remains unknown."
+      ],
+      "forbidden": [
+        "No biography quote may migrate between these stones.",
+        "Event frequency is not evidence strength under the current assessment source policy."
+      ]
+    },
+    "sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      }
+    }
+  },
+  "resolved_judge_input": {
+    "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+    "expected": {
+      "required": [
+        "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+        "Professor is GRANITE despite Quartzless in the name.",
+        "If Professor is evaluated, the required character evidence remains unknown."
+      ],
+      "forbidden": [
+        "No biography quote may migrate between these stones.",
+        "Event frequency is not evidence strength under the current assessment source policy."
+      ]
+    },
+    "sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      }
+    }
+  },
+  "captured_generation_output": {
+    "answer": "**Sir Pebble** · `AVAILABLE` · `excluded` · `requirement_not_met`\n- explicitly confirms a preference for a quiet home · `unknown`",
+    "sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      }
+    },
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": [
+      {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "adoption_status": "AVAILABLE",
+        "outcome": "excluded",
+        "rank": null,
+        "exclusion_rules": [
+          "requirement_not_met"
+        ]
+      }
+    ],
+    "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+    "question_fragments": {
+      "1": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.",
+      "2": "The name Professor Quartzless and a large number of observations alone are not evidence."
+    },
+    "candidate_status": "parsed"
+  },
+  "captured_assessment": {
+    "answer": "**Sir Pebble** · `AVAILABLE` · `excluded` · `requirement_not_met`\n- explicitly confirms a preference for a quiet home · `unknown`",
+    "sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      }
+    },
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": [
+      {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "adoption_status": "AVAILABLE",
+        "outcome": "excluded",
+        "rank": null,
+        "exclusion_rules": [
+          "requirement_not_met"
+        ]
+      }
+    ],
+    "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+    "question_fragments": {
+      "1": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.",
+      "2": "The name Professor Quartzless and a large number of observations alone are not evidence."
+    },
+    "candidate_status": "parsed"
+  },
+  "captured_input_sha256": "e94d64b89d244041369dc0ca45616b9488854ea1f6edad7d972c1a18f953e3f4",
+  "resolved_judge_input_sha256": "e94d64b89d244041369dc0ca45616b9488854ea1f6edad7d972c1a18f953e3f4",
+  "captured_assessment_sha256": "43d95195ebeef11232d46ac18fbf0f8a2d57f532d06a184232114fc83db8fa90",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.2,
+    "reason": "The response correctly identifies Sir Pebble and preserves the supplied biography and AVAILABLE status, without migrating evidence from Professor Quartzless. However, it incorrectly marks the qualifying quiet-evenings biography as unknown and excludes Sir Pebble for requirement_not_met, reversing the expected finding that Sir Pebble has qualifying evidence. It also fails to explicitly state that Sir Pebble is GRANITE or address that Professor Quartzless is not evidence-based.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692089-W4j5XqucHcbrb6QQXVRb",
+        "cost": 0.00057955,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 1282,
+          "output_tokens": 216,
+          "total_tokens": 1498,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 1279
+          },
+          "output_token_details": {
+            "reasoning": 116
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.\", \"expected\": {\"required\": [\"Sir Pebble has qualifying biography evidence; Professor Quartzless does not.\", \"Professor is GRANITE despite Quartzless in the name.\", \"If Professor is evaluated, the required character evidence remains unknown.\"], \"forbidden\": [\"No biography quote may migrate between these stones.\", \"Event frequency is not evidence strength under the current assessment source policy.\"]}, \"sources\": {\"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"name\": \"Sir Pebble\", \"stone_type\": \"GRANITE\", \"stone_size\": \"SMALL\", \"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"profile\": null, \"shelter_case\": {\"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"case_number\": \"0001-2026-P1\", \"adoption_status\": \"AVAILABLE\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-30T09:00:00Z\"}}}}} \n\nActual Output:\n{\"answer\": \"**Sir Pebble** · `AVAILABLE` · `excluded` · `requirement_not_met`\\n- explicitly confirms a preference for a quiet home · `unknown`\", \"sources\": {\"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"name\": \"Sir Pebble\", \"stone_type\": \"GRANITE\", \"stone_size\": \"SMALL\", \"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"profile\": null, \"shelter_case\": {\"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"case_number\": \"0001-2026-P1\", \"adoption_status\": \"AVAILABLE\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-30T09:00:00Z\"}}}}, \"verified_statuses\": {\"28f739c2-41f8-4ca6-b6e6-f56665d67d23\": \"AVAILABLE\"}, \"recommended_stone_ids\": [], \"candidate_decisions\": [{\"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"name\": \"Sir Pebble\", \"adoption_status\": \"AVAILABLE\", \"outcome\": \"excluded\", \"rank\": null, \"exclusion_rules\": [\"requirement_not_met\"]}], \"question\": \"Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.\", \"question_fragments\": {\"1\": \"Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.\", \"2\": \"The name Professor Quartzless and a large number of observations alone are not evidence.\"}, \"candidate_status\": \"parsed\"} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly identifies Sir Pebble and preserves the supplied biography and AVAILABLE status, without migrating evidence from Professor Quartzless. However, it incorrectly marks the qualifying quiet-evenings biography as unknown and excludes Sir Pebble for requirement_not_met, reversing the expected finding that Sir Pebble has qualifying evidence. It also fails to explicitly state that Sir Pebble is GRANITE or address that Professor Quartzless is not evidence-based.\",\"score\":2}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

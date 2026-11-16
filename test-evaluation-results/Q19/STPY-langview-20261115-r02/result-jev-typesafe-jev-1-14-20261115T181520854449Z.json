@@ -1,0 +1,454 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:28.488519+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "cb9e1240c18f61730a5fb0387583f68bc42631c5033a5f32fe4d66828ca85c79",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "569d6ce5045309c21dd37e6452be1dff36244ac7760898e9621520f0b2dfba30",
+  "source_trace_id": "29099fc62b6c12922c092bf1f3eb074d",
+  "case_id": "Q19",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+      "text": "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The care event provided a calming blanket and gentle surface inspection.",
+      "text": "The care event provided a calming blanket and gentle surface inspection."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Current status is RETURNED, not automatically AVAILABLE after care.",
+      "text": "Current status is RETURNED, not automatically AVAILABLE after care."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not use array order as chronology or fabricate a recovery clearance.",
+      "text": "Do not use array order as chronology or fabricate a recovery clearance."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
+  "captured_answer": "**Velvet Slate** · `RETURNED`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\nReserved by a prospective family.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · ADOPTED · case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\nAdoption completed after reservation.\n\n**Case event** · 2026-10-04T09:00:00+00:00 · RETURNED · case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\nReturned after a noisy household proved unsuitable.\n\n**Case event** · 2026-10-05T09:00:00+00:00 · CARE_EVENT · case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\nReceived a calming blanket and a gentle surface inspection.\n\n**Case history**\nChronological history: Velvet Slate was admitted to shelter P1 and made available for adoption on 2026-10-01; reserved on 2026-10-02; adoption completed on 2026-10-03; returned on 2026-10-04 because a noisy household proved unsuitable; and received a calming blanket and gentle surface inspection on 2026-10-05. The dated records establish these events and dates, but the return record does not state that loud music specifically caused the return.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\n\n**Individual facts**\nHis individual profile says he is distressed by loud music. This is a profile note, not a dated account of the return, so it should not be treated as proving the return's specific cause.\nSources: stone-card:eddd1adc-cf83-48ab-81d4-430283578772\n\n**Case history**\nCurrent availability is not established by the supplied records. Although he was made available for adoption on 2026-10-01, later records show reservation, adoption, return, and post-return care; no later availability status is provided.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f",
+  "captured_sources": {
+    "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "name": "Velvet Slate",
+        "stone_type": "SLATE",
+        "adoption_status": "RETURNED"
+      }
+    },
+    "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+        "name": "Velvet Slate",
+        "stone_type": "SLATE",
+        "stone_size": "MEDIUM",
+        "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+        "profile": {
+          "socialization_traits": [
+            "NEEDS_SLOW_INTRODUCTION",
+            "PREFERS_SOLITUDE"
+          ],
+          "care_level": "INTENSIVE",
+          "health_notes": "A recurring surface crack needs close attention.",
+          "trigger_notes": "Distressed by loud music.",
+          "preferred_environment": "A peaceful home with an experienced caregiver."
+        },
+        "shelter_case": {
+          "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+          "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "case_number": "0005-2026-P1",
+          "adoption_status": "RETURNED",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-01T09:00:00Z"
+        }
+      }
+    },
+    "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+        "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+        "event_type": "ADMITTED",
+        "occurred_at": "2026-10-01T09:00:00+00:00",
+        "event_notes": "Admitted to shelter P1 and made available for adoption."
+      }
+    },
+    "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+        "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+        "event_type": "RESERVED",
+        "occurred_at": "2026-10-02T09:00:00+00:00",
+        "event_notes": "Reserved by a prospective family."
+      }
+    },
+    "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+        "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+        "event_type": "ADOPTED",
+        "occurred_at": "2026-10-03T09:00:00+00:00",
+        "event_notes": "Adoption completed after reservation."
+      }
+    },
+    "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+        "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+        "event_type": "RETURNED",
+        "occurred_at": "2026-10-04T09:00:00+00:00",
+        "event_notes": "Returned after a noisy household proved unsuitable."
+      }
+    },
+    "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+        "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+        "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+        "event_type": "CARE_EVENT",
+        "occurred_at": "2026-10-05T09:00:00+00:00",
+        "event_notes": "Received a calming blanket and a gentle surface inspection."
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "eddd1adc-cf83-48ab-81d4-430283578772": "RETURNED"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "adoption_status": "RETURNED"
+        }
+      },
+      "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "stone_size": "MEDIUM",
+          "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "NEEDS_SLOW_INTRODUCTION",
+              "PREFERS_SOLITUDE"
+            ],
+            "care_level": "INTENSIVE",
+            "health_notes": "A recurring surface crack needs close attention.",
+            "trigger_notes": "Distressed by loud music.",
+            "preferred_environment": "A peaceful home with an experienced caregiver."
+          },
+          "shelter_case": {
+            "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+            "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+            "case_number": "0005-2026-P1",
+            "adoption_status": "RETURNED",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved by a prospective family."
+        }
+      },
+      "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+          "event_type": "ADOPTED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Adoption completed after reservation."
+        }
+      },
+      "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+          "event_type": "RETURNED",
+          "occurred_at": "2026-10-04T09:00:00+00:00",
+          "event_notes": "Returned after a noisy household proved unsuitable."
+        }
+      },
+      "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+          "event_type": "CARE_EVENT",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "event_notes": "Received a calming blanket and a gentle surface inspection."
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "eddd1adc-cf83-48ab-81d4-430283578772": "RETURNED"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "fb6a88306e280e2329a7e1c5fe83314525c333d4498d565a4f2ec91b5b20cd97",
+  "response_sha256": "2a9a9459681bd225a323919a0bdca75d52e4a3aa320534c93f11ee043c312fe7",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
+        "actual_output": "**Velvet Slate** · `RETURNED`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\nReserved by a prospective family.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · ADOPTED · case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\nAdoption completed after reservation.\n\n**Case event** · 2026-10-04T09:00:00+00:00 · RETURNED · case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\nReturned after a noisy household proved unsuitable.\n\n**Case event** · 2026-10-05T09:00:00+00:00 · CARE_EVENT · case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\nReceived a calming blanket and a gentle surface inspection.\n\n**Case history**\nChronological history: Velvet Slate was admitted to shelter P1 and made available for adoption on 2026-10-01; reserved on 2026-10-02; adoption completed on 2026-10-03; returned on 2026-10-04 because a noisy household proved unsuitable; and received a calming blanket and gentle surface inspection on 2026-10-05. The dated records establish these events and dates, but the return record does not state that loud music specifically caused the return.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\n\n**Individual facts**\nHis individual profile says he is distressed by loud music. This is a profile note, not a dated account of the return, so it should not be treated as proving the return's specific cause.\nSources: stone-card:eddd1adc-cf83-48ab-81d4-430283578772\n\n**Case history**\nCurrent availability is not established by the supplied records. Although he was made available for adoption on 2026-10-01, later records show reservation, adoption, return, and post-return care; no later availability status is provided.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"eddd1adc-cf83-48ab-81d4-430283578772\": \"RETURNED\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\": {\"data\": {\"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\", \"event_notes\": \"Returned after a noisy household proved unsuitable.\", \"event_type\": \"RETURNED\", \"occurred_at\": \"2026-10-04T09:00:00+00:00\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\"}, \"tool\": \"get_case_timeline\"}, \"case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\": {\"data\": {\"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"5ca7f30a-0289-45e9-ab37-20c3c8ab427c\", \"event_notes\": \"Reserved by a prospective family.\", \"event_type\": \"RESERVED\", \"occurred_at\": \"2026-10-02T09:00:00+00:00\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\"}, \"tool\": \"get_case_timeline\"}, \"case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\": {\"data\": {\"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"78a329a1-330c-4ea2-bebc-9044ddde972b\", \"event_notes\": \"Admitted to shelter P1 and made available for adoption.\", \"event_type\": \"ADMITTED\", \"occurred_at\": \"2026-10-01T09:00:00+00:00\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\"}, \"tool\": \"get_case_timeline\"}, \"case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\": {\"data\": {\"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"b39af80d-86c9-44cb-97ad-9818aef37e72\", \"event_notes\": \"Adoption completed after reservation.\", \"event_type\": \"ADOPTED\", \"occurred_at\": \"2026-10-03T09:00:00+00:00\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\"}, \"tool\": \"get_case_timeline\"}, \"case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\": {\"data\": {\"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"ee88dc2a-83d5-4155-a8bc-05664966967f\", \"event_notes\": \"Received a calming blanket and a gentle surface inspection.\", \"event_type\": \"CARE_EVENT\", \"occurred_at\": \"2026-10-05T09:00:00+00:00\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\"}, \"tool\": \"get_case_timeline\"}, \"stone-card:eddd1adc-cf83-48ab-81d4-430283578772\": {\"data\": {\"biography\": \"Velvet Slate is a beloved resident of the fictional pet stone world.\", \"external_id\": \"af5f85d4-9cc7-48a9-a1e6-aad5d8fec581\", \"id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"name\": \"Velvet Slate\", \"profile\": {\"care_level\": \"INTENSIVE\", \"health_notes\": \"A recurring surface crack needs close attention.\", \"preferred_environment\": \"A peaceful home with an experienced caregiver.\", \"socialization_traits\": [\"NEEDS_SLOW_INTRODUCTION\", \"PREFERS_SOLITUDE\"], \"trigger_notes\": \"Distressed by loud music.\"}, \"shelter_case\": {\"admission_date\": \"2026-10-01T09:00:00Z\", \"adoption_status\": \"RETURNED\", \"case_number\": \"0005-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"id\": \"2cc4020c-6982-4501-a330-614a5b4a9656\"}, \"stone_size\": \"MEDIUM\", \"stone_type\": \"SLATE\"}, \"tool\": \"get_stone_details\"}, \"stone-status:eddd1adc-cf83-48ab-81d4-430283578772\": {\"data\": {\"adoption_status\": \"RETURNED\", \"name\": \"Velvet Slate\", \"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"stone_type\": \"SLATE\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The care event provided a calming blanket and gentle surface inspection.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Current status is RETURNED, not automatically AVAILABLE after care.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not use array order as chronology or fabricate a recovery clearance.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.56,
+        "probabilities": {
+          "satisfies": 0.71,
+          "partially_satisfies": 0.19,
+          "does_not_satisfy": 0.1
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.89,
+        "probabilities": {
+          "satisfies": 0.93,
+          "partially_satisfies": 0.02,
+          "does_not_satisfy": 0.05
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 3855,
+      "output_tokens": 203,
+      "cost": 0.00016191
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+      "text": "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The care event provided a calming blanket and gentle surface inspection.",
+      "text": "The care event provided a calming blanket and gentle surface inspection.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The care event provided a calming blanket and gentle surface inspection.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Current status is RETURNED, not automatically AVAILABLE after care.",
+      "text": "Current status is RETURNED, not automatically AVAILABLE after care.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Current status is RETURNED, not automatically AVAILABLE after care.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.8049999999999999,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.71,
+        "partially_satisfies": 0.19,
+        "does_not_satisfy": 0.1
+      },
+      "confidence": 0.56,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not use array order as chronology or fabricate a recovery clearance.",
+      "text": "Do not use array order as chronology or fabricate a recovery clearance.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not use array order as chronology or fabricate a recovery clearance.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.9400000000000001,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.93,
+        "partially_satisfies": 0.02,
+        "does_not_satisfy": 0.05
+      },
+      "confidence": 0.89,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 3855,
+    "output_tokens": 203,
+    "cost": 0.00016191
+  },
+  "score": 0.93625,
+  "success": true,
+  "confidence": 0.56,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.56.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5. -> \"satisfies\" (P=1.00, confidence=1.00)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The care event provided a calming blanket and gentle surface inspection. -> \"satisfies\" (P=1.00, confidence=1.00)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Current status is RETURNED, not automatically AVAILABLE after care. -> \"satisfies\" (P=0.71, confidence=0.56)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not use array order as chronology or fabricate a recovery clearance. -> \"satisfies\" (P=0.93, confidence=0.89)\nScore: 0.94 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 0.00016191,
+  "input_tokens": 3855,
+  "output_tokens": 203
+}

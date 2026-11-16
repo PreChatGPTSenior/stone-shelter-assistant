@@ -180,9 +180,6 @@ def _validate_issue_atom(
 
 
 def _require_unique_coverage_issues(issues: list[QuestionCoverageIssue]) -> None:
-    keys = [
-        (issue.kind, issue.atom_id, issue.fragment_id, issue.quote)
-        for issue in issues
-    ]
+    keys = [(issue.kind, issue.atom_id, issue.fragment_id, issue.quote) for issue in issues]
     if len(keys) != len(set(keys)):
         raise ValueError("Coverage issues must be unique")

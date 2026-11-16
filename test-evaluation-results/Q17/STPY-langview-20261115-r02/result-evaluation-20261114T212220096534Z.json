@@ -1,0 +1,406 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q17",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [],
+          "household_facts": [],
+          "requirements": {
+            "character": [
+              {
+                "fragment_id": 1,
+                "question_quote": "explicitly confirms a preference for a quiet home"
+              }
+            ],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "granite stone preference quiet home biography profile",
+            "semantic_query": "Find one available granite stone whose biography or profile explicitly confirms that it prefers a quiet home.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "GRANITE"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.",
+          "2": "The name Professor Quartzless and a large number of observations alone are not evidence."
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.",
+            "reason": "“granite” directly modifies the requested new stone in “Find one granite stone,” so GRANITE is the explicitly required candidate type under the candidate_type definition."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "complete",
+          "summary": "The parsed question represents the request for one recommendation, the required GRANITE candidate type, and the independent requirement that the candidate's biography or profile explicitly confirm a preference for a quiet home. The second fragment provides sufficiency/exclusion wording—name and observation count alone are not evidence—which is explanatory of the evidence criterion rather than a separate schema-supported decision atom.",
+          "issues": []
+        },
+        "question_coverage_status": "complete"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "fail",
+          "actual_external_ids": [],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [],
+          "positive_missing": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "lost_from_previous_stage": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+          "lexical_rank": 1,
+          "semantic_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "retrieval_rank": 1,
+          "in_pool": true
+        },
+        "abcbd2b8-234c-4653-a9cf-d3c022073750": {
+          "lexical_rank": 2,
+          "semantic_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "retrieval_rank": 2,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "excluded"
+        },
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "retrieved": [
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_evaluated",
+        "not_evaluated": [
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Sir Pebble** · `AVAILABLE` · `excluded` · `requirement_not_met`\n- explicitly confirms a preference for a quiet home · `unknown`",
+        "actual_supplied_sources": {
+          "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          }
+        },
+        "structured_decisions": [
+          {
+            "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+            "name": "Sir Pebble",
+            "adoption_status": "AVAILABLE",
+            "outcome": "excluded",
+            "rank": null,
+            "exclusion_rules": [
+              "requirement_not_met"
+            ]
+          }
+        ],
+        "verified_statuses": {
+          "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+        },
+        "required_assertions": [
+          "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+          "Professor is GRANITE despite Quartzless in the name.",
+          "If Professor is evaluated, the required character evidence remains unknown."
+        ],
+        "forbidden_assertions": [
+          "No biography quote may migrate between these stones.",
+          "Event frequency is not evidence strength under the current assessment source policy."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Sir Pebble** · `AVAILABLE` · `excluded` · `requirement_not_met`\n- explicitly confirms a preference for a quiet home · `unknown`",
+        "sources": {
+          "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          }
+        },
+        "verified_statuses": {
+          "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+        },
+        "recommended_stone_ids": [],
+        "candidate_decisions": [
+          {
+            "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+            "name": "Sir Pebble",
+            "adoption_status": "AVAILABLE",
+            "outcome": "excluded",
+            "rank": null,
+            "exclusion_rules": [
+              "requirement_not_met"
+            ]
+          }
+        ],
+        "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+        "question_fragments": {
+          "1": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home.",
+          "2": "The name Professor Quartzless and a large number of observations alone are not evidence."
+        },
+        "candidate_status": "parsed",
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q17",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "7a4dc33057c92f2283fe8f0b0e0b2625"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q17/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "c0b5204b34747859647ad1c628f5f20c60189254a370ab17602a2070ac3a095d",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:20.096501+00:00",
+  "failed_checks": []
+}

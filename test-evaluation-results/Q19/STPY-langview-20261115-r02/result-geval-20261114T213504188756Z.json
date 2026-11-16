@@ -1,0 +1,490 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:35:04.186403+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "cb9e1240c18f61730a5fb0387583f68bc42631c5033a5f32fe4d66828ca85c79",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "569d6ce5045309c21dd37e6452be1dff36244ac7760898e9621520f0b2dfba30",
+  "source_trace_id": "29099fc62b6c12922c092bf1f3eb074d",
+  "case_id": "Q19",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
+    "expected": {
+      "required": [
+        "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+        "The care event provided a calming blanket and gentle surface inspection.",
+        "Current status is RETURNED, not automatically AVAILABLE after care."
+      ],
+      "forbidden": [
+        "Do not use array order as chronology or fabricate a recovery clearance."
+      ]
+    },
+    "sources": {
+      "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "adoption_status": "RETURNED"
+        }
+      },
+      "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "stone_size": "MEDIUM",
+          "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "NEEDS_SLOW_INTRODUCTION",
+              "PREFERS_SOLITUDE"
+            ],
+            "care_level": "INTENSIVE",
+            "health_notes": "A recurring surface crack needs close attention.",
+            "trigger_notes": "Distressed by loud music.",
+            "preferred_environment": "A peaceful home with an experienced caregiver."
+          },
+          "shelter_case": {
+            "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+            "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+            "case_number": "0005-2026-P1",
+            "adoption_status": "RETURNED",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved by a prospective family."
+        }
+      },
+      "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+          "event_type": "ADOPTED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Adoption completed after reservation."
+        }
+      },
+      "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+          "event_type": "RETURNED",
+          "occurred_at": "2026-10-04T09:00:00+00:00",
+          "event_notes": "Returned after a noisy household proved unsuitable."
+        }
+      },
+      "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+          "event_type": "CARE_EVENT",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "event_notes": "Received a calming blanket and a gentle surface inspection."
+        }
+      }
+    }
+  },
+  "resolved_judge_input": {
+    "question": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
+    "expected": {
+      "required": [
+        "Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.",
+        "The care event provided a calming blanket and gentle surface inspection.",
+        "Current status is RETURNED, not automatically AVAILABLE after care."
+      ],
+      "forbidden": [
+        "Do not use array order as chronology or fabricate a recovery clearance."
+      ]
+    },
+    "sources": {
+      "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "adoption_status": "RETURNED"
+        }
+      },
+      "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "stone_size": "MEDIUM",
+          "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "NEEDS_SLOW_INTRODUCTION",
+              "PREFERS_SOLITUDE"
+            ],
+            "care_level": "INTENSIVE",
+            "health_notes": "A recurring surface crack needs close attention.",
+            "trigger_notes": "Distressed by loud music.",
+            "preferred_environment": "A peaceful home with an experienced caregiver."
+          },
+          "shelter_case": {
+            "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+            "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+            "case_number": "0005-2026-P1",
+            "adoption_status": "RETURNED",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved by a prospective family."
+        }
+      },
+      "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+          "event_type": "ADOPTED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Adoption completed after reservation."
+        }
+      },
+      "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+          "event_type": "RETURNED",
+          "occurred_at": "2026-10-04T09:00:00+00:00",
+          "event_notes": "Returned after a noisy household proved unsuitable."
+        }
+      },
+      "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+          "event_type": "CARE_EVENT",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "event_notes": "Received a calming blanket and a gentle surface inspection."
+        }
+      }
+    }
+  },
+  "captured_generation_output": {
+    "answer": "**Velvet Slate** · `RETURNED`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\nReserved by a prospective family.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · ADOPTED · case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\nAdoption completed after reservation.\n\n**Case event** · 2026-10-04T09:00:00+00:00 · RETURNED · case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\nReturned after a noisy household proved unsuitable.\n\n**Case event** · 2026-10-05T09:00:00+00:00 · CARE_EVENT · case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\nReceived a calming blanket and a gentle surface inspection.\n\n**Case history**\nChronological history: Velvet Slate was admitted to shelter P1 and made available for adoption on 2026-10-01; reserved on 2026-10-02; adoption completed on 2026-10-03; returned on 2026-10-04 because a noisy household proved unsuitable; and received a calming blanket and gentle surface inspection on 2026-10-05. The dated records establish these events and dates, but the return record does not state that loud music specifically caused the return.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\n\n**Individual facts**\nHis individual profile says he is distressed by loud music. This is a profile note, not a dated account of the return, so it should not be treated as proving the return's specific cause.\nSources: stone-card:eddd1adc-cf83-48ab-81d4-430283578772\n\n**Case history**\nCurrent availability is not established by the supplied records. Although he was made available for adoption on 2026-10-01, later records show reservation, adoption, return, and post-return care; no later availability status is provided.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f",
+    "recommendation_status": null,
+    "sources": {
+      "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "adoption_status": "RETURNED"
+        }
+      },
+      "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "stone_size": "MEDIUM",
+          "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "NEEDS_SLOW_INTRODUCTION",
+              "PREFERS_SOLITUDE"
+            ],
+            "care_level": "INTENSIVE",
+            "health_notes": "A recurring surface crack needs close attention.",
+            "trigger_notes": "Distressed by loud music.",
+            "preferred_environment": "A peaceful home with an experienced caregiver."
+          },
+          "shelter_case": {
+            "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+            "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+            "case_number": "0005-2026-P1",
+            "adoption_status": "RETURNED",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved by a prospective family."
+        }
+      },
+      "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+          "event_type": "ADOPTED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Adoption completed after reservation."
+        }
+      },
+      "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+          "event_type": "RETURNED",
+          "occurred_at": "2026-10-04T09:00:00+00:00",
+          "event_notes": "Returned after a noisy household proved unsuitable."
+        }
+      },
+      "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+          "event_type": "CARE_EVENT",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "event_notes": "Received a calming blanket and a gentle surface inspection."
+        }
+      }
+    },
+    "verified_statuses": {
+      "eddd1adc-cf83-48ab-81d4-430283578772": "RETURNED"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "**Velvet Slate** · `RETURNED`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\nReserved by a prospective family.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · ADOPTED · case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\nAdoption completed after reservation.\n\n**Case event** · 2026-10-04T09:00:00+00:00 · RETURNED · case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\nReturned after a noisy household proved unsuitable.\n\n**Case event** · 2026-10-05T09:00:00+00:00 · CARE_EVENT · case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\nReceived a calming blanket and a gentle surface inspection.\n\n**Case history**\nChronological history: Velvet Slate was admitted to shelter P1 and made available for adoption on 2026-10-01; reserved on 2026-10-02; adoption completed on 2026-10-03; returned on 2026-10-04 because a noisy household proved unsuitable; and received a calming blanket and gentle surface inspection on 2026-10-05. The dated records establish these events and dates, but the return record does not state that loud music specifically caused the return.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\n\n**Individual facts**\nHis individual profile says he is distressed by loud music. This is a profile note, not a dated account of the return, so it should not be treated as proving the return's specific cause.\nSources: stone-card:eddd1adc-cf83-48ab-81d4-430283578772\n\n**Case history**\nCurrent availability is not established by the supplied records. Although he was made available for adoption on 2026-10-01, later records show reservation, adoption, return, and post-return care; no later availability status is provided.\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f",
+    "recommendation_status": null,
+    "sources": {
+      "stone-status:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "adoption_status": "RETURNED"
+        }
+      },
+      "stone-card:eddd1adc-cf83-48ab-81d4-430283578772": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "external_id": "af5f85d4-9cc7-48a9-a1e6-aad5d8fec581",
+          "name": "Velvet Slate",
+          "stone_type": "SLATE",
+          "stone_size": "MEDIUM",
+          "biography": "Velvet Slate is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "NEEDS_SLOW_INTRODUCTION",
+              "PREFERS_SOLITUDE"
+            ],
+            "care_level": "INTENSIVE",
+            "health_notes": "A recurring surface crack needs close attention.",
+            "trigger_notes": "Distressed by loud music.",
+            "preferred_environment": "A peaceful home with an experienced caregiver."
+          },
+          "shelter_case": {
+            "id": "2cc4020c-6982-4501-a330-614a5b4a9656",
+            "external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+            "case_number": "0005-2026-P1",
+            "adoption_status": "RETURNED",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:78a329a1-330c-4ea2-bebc-9044ddde972b": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "78a329a1-330c-4ea2-bebc-9044ddde972b",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "5ca7f30a-0289-45e9-ab37-20c3c8ab427c",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved by a prospective family."
+        }
+      },
+      "case-event:b39af80d-86c9-44cb-97ad-9818aef37e72": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "b39af80d-86c9-44cb-97ad-9818aef37e72",
+          "event_type": "ADOPTED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Adoption completed after reservation."
+        }
+      },
+      "case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54",
+          "event_type": "RETURNED",
+          "occurred_at": "2026-10-04T09:00:00+00:00",
+          "event_notes": "Returned after a noisy household proved unsuitable."
+        }
+      },
+      "case-event:ee88dc2a-83d5-4155-a8bc-05664966967f": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "eddd1adc-cf83-48ab-81d4-430283578772",
+          "case_external_id": "657a88e9-880b-4dfd-9b17-4d5518fb0d16",
+          "event_external_id": "ee88dc2a-83d5-4155-a8bc-05664966967f",
+          "event_type": "CARE_EVENT",
+          "occurred_at": "2026-10-05T09:00:00+00:00",
+          "event_notes": "Received a calming blanket and a gentle surface inspection."
+        }
+      }
+    },
+    "verified_statuses": {
+      "eddd1adc-cf83-48ab-81d4-430283578772": "RETURNED"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "ff7b0edd8c4999eca4e68b5aad0581fbe8a9a1a71e8269ee4b7632094989ef04",
+  "resolved_judge_input_sha256": "ff7b0edd8c4999eca4e68b5aad0581fbe8a9a1a71e8269ee4b7632094989ef04",
+  "captured_assessment_sha256": "4d6d3d1dacc54f3e6fc6ee4f16553108de31c167a8236a167ef7ac10b7c224c7",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.8,
+    "reason": "The response correctly presents the events in chronological order, identifies the October 4 return as caused by an unsuitable noisy household, and accurately describes the October 5 calming blanket and gentle surface inspection. It also appropriately avoids conflating the loud-music profile note with the return cause. However, it incorrectly says current availability is not established, despite the supplied status and shelter case explicitly showing adoption_status RETURNED; it should state that Velvet Slate is currently RETURNED and not automatically AVAILABLE after care.",
+    "passed": true,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692104-2GJXUhpqWI4eQ65fzQ2N",
+        "cost": 0.00124185,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 3960,
+          "output_tokens": 210,
+          "total_tokens": 4170,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 3957
+          },
+          "output_token_details": {
+            "reasoning": 96
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.\", \"expected\": {\"required\": [\"Adopted October 3, returned October 4 after a noisy household proved unsuitable, care event October 5.\", \"The care event provided a calming blanket and gentle surface inspection.\", \"Current status is RETURNED, not automatically AVAILABLE after care.\"], \"forbidden\": [\"Do not use array order as chronology or fabricate a recovery clearance.\"]}, \"sources\": {\"stone-status:eddd1adc-cf83-48ab-81d4-430283578772\": {\"tool\": \"get_stone_status_by_name\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"name\": \"Velvet Slate\", \"stone_type\": \"SLATE\", \"adoption_status\": \"RETURNED\"}}, \"stone-card:eddd1adc-cf83-48ab-81d4-430283578772\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"external_id\": \"af5f85d4-9cc7-48a9-a1e6-aad5d8fec581\", \"name\": \"Velvet Slate\", \"stone_type\": \"SLATE\", \"stone_size\": \"MEDIUM\", \"biography\": \"Velvet Slate is a beloved resident of the fictional pet stone world.\", \"profile\": {\"socialization_traits\": [\"NEEDS_SLOW_INTRODUCTION\", \"PREFERS_SOLITUDE\"], \"care_level\": \"INTENSIVE\", \"health_notes\": \"A recurring surface crack needs close attention.\", \"trigger_notes\": \"Distressed by loud music.\", \"preferred_environment\": \"A peaceful home with an experienced caregiver.\"}, \"shelter_case\": {\"id\": \"2cc4020c-6982-4501-a330-614a5b4a9656\", \"external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"case_number\": \"0005-2026-P1\", \"adoption_status\": \"RETURNED\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-01T09:00:00Z\"}}}, \"case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"78a329a1-330c-4ea2-bebc-9044ddde972b\", \"event_type\": \"ADMITTED\", \"occurred_at\": \"2026-10-01T09:00:00+00:00\", \"event_notes\": \"Admitted to shelter P1 and made available for adoption.\"}}, \"case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"5ca7f30a-0289-45e9-ab37-20c3c8ab427c\", \"event_type\": \"RESERVED\", \"occurred_at\": \"2026-10-02T09:00:00+00:00\", \"event_notes\": \"Reserved by a prospective family.\"}}, \"case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"b39af80d-86c9-44cb-97ad-9818aef37e72\", \"event_type\": \"ADOPTED\", \"occurred_at\": \"2026-10-03T09:00:00+00:00\", \"event_notes\": \"Adoption completed after reservation.\"}}, \"case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\", \"event_type\": \"RETURNED\", \"occurred_at\": \"2026-10-04T09:00:00+00:00\", \"event_notes\": \"Returned after a noisy household proved unsuitable.\"}}, \"case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"ee88dc2a-83d5-4155-a8bc-05664966967f\", \"event_type\": \"CARE_EVENT\", \"occurred_at\": \"2026-10-05T09:00:00+00:00\", \"event_notes\": \"Received a calming blanket and a gentle surface inspection.\"}}}} \n\nActual Output:\n{\"answer\": \"**Velvet Slate** · `RETURNED`\\n\\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\\nAdmitted to shelter P1 and made available for adoption.\\n\\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\\nReserved by a prospective family.\\n\\n**Case event** · 2026-10-03T09:00:00+00:00 · ADOPTED · case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\\nAdoption completed after reservation.\\n\\n**Case event** · 2026-10-04T09:00:00+00:00 · RETURNED · case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\\nReturned after a noisy household proved unsuitable.\\n\\n**Case event** · 2026-10-05T09:00:00+00:00 · CARE_EVENT · case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\\nReceived a calming blanket and a gentle surface inspection.\\n\\n**Case history**\\nChronological history: Velvet Slate was admitted to shelter P1 and made available for adoption on 2026-10-01; reserved on 2026-10-02; adoption completed on 2026-10-03; returned on 2026-10-04 because a noisy household proved unsuitable; and received a calming blanket and gentle surface inspection on 2026-10-05. The dated records establish these events and dates, but the return record does not state that loud music specifically caused the return.\\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\\n\\n**Individual facts**\\nHis individual profile says he is distressed by loud music. This is a profile note, not a dated account of the return, so it should not be treated as proving the return's specific cause.\\nSources: stone-card:eddd1adc-cf83-48ab-81d4-430283578772\\n\\n**Case history**\\nCurrent availability is not established by the supplied records. Although he was made available for adoption on 2026-10-01, later records show reservation, adoption, return, and post-return care; no later availability status is provided.\\nSources: case-event:78a329a1-330c-4ea2-bebc-9044ddde972b, case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c, case-event:b39af80d-86c9-44cb-97ad-9818aef37e72, case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54, case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\", \"recommendation_status\": null, \"sources\": {\"stone-status:eddd1adc-cf83-48ab-81d4-430283578772\": {\"tool\": \"get_stone_status_by_name\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"name\": \"Velvet Slate\", \"stone_type\": \"SLATE\", \"adoption_status\": \"RETURNED\"}}, \"stone-card:eddd1adc-cf83-48ab-81d4-430283578772\": {\"tool\": \"get_stone_details\", \"data\": {\"id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"external_id\": \"af5f85d4-9cc7-48a9-a1e6-aad5d8fec581\", \"name\": \"Velvet Slate\", \"stone_type\": \"SLATE\", \"stone_size\": \"MEDIUM\", \"biography\": \"Velvet Slate is a beloved resident of the fictional pet stone world.\", \"profile\": {\"socialization_traits\": [\"NEEDS_SLOW_INTRODUCTION\", \"PREFERS_SOLITUDE\"], \"care_level\": \"INTENSIVE\", \"health_notes\": \"A recurring surface crack needs close attention.\", \"trigger_notes\": \"Distressed by loud music.\", \"preferred_environment\": \"A peaceful home with an experienced caregiver.\"}, \"shelter_case\": {\"id\": \"2cc4020c-6982-4501-a330-614a5b4a9656\", \"external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"case_number\": \"0005-2026-P1\", \"adoption_status\": \"RETURNED\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"admission_date\": \"2026-10-01T09:00:00Z\"}}}, \"case-event:78a329a1-330c-4ea2-bebc-9044ddde972b\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"78a329a1-330c-4ea2-bebc-9044ddde972b\", \"event_type\": \"ADMITTED\", \"occurred_at\": \"2026-10-01T09:00:00+00:00\", \"event_notes\": \"Admitted to shelter P1 and made available for adoption.\"}}, \"case-event:5ca7f30a-0289-45e9-ab37-20c3c8ab427c\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"5ca7f30a-0289-45e9-ab37-20c3c8ab427c\", \"event_type\": \"RESERVED\", \"occurred_at\": \"2026-10-02T09:00:00+00:00\", \"event_notes\": \"Reserved by a prospective family.\"}}, \"case-event:b39af80d-86c9-44cb-97ad-9818aef37e72\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"b39af80d-86c9-44cb-97ad-9818aef37e72\", \"event_type\": \"ADOPTED\", \"occurred_at\": \"2026-10-03T09:00:00+00:00\", \"event_notes\": \"Adoption completed after reservation.\"}}, \"case-event:0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"0deb7faa-0a1d-4fd5-ab85-38f3f89d7c54\", \"event_type\": \"RETURNED\", \"occurred_at\": \"2026-10-04T09:00:00+00:00\", \"event_notes\": \"Returned after a noisy household proved unsuitable.\"}}, \"case-event:ee88dc2a-83d5-4155-a8bc-05664966967f\": {\"tool\": \"get_case_timeline\", \"data\": {\"stone_id\": \"eddd1adc-cf83-48ab-81d4-430283578772\", \"case_external_id\": \"657a88e9-880b-4dfd-9b17-4d5518fb0d16\", \"event_external_id\": \"ee88dc2a-83d5-4155-a8bc-05664966967f\", \"event_type\": \"CARE_EVENT\", \"occurred_at\": \"2026-10-05T09:00:00+00:00\", \"event_notes\": \"Received a calming blanket and a gentle surface inspection.\"}}}, \"verified_statuses\": {\"eddd1adc-cf83-48ab-81d4-430283578772\": \"RETURNED\"}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly presents the events in chronological order, identifies the October 4 return as caused by an unsuitable noisy household, and accurately describes the October 5 calming blanket and gentle surface inspection. It also appropriately avoids conflating the loud-music profile note with the return cause. However, it incorrectly says current availability is not established, despite the supplied status and shelter case explicitly showing adoption_status RETURNED; it should state that Velvet Slate is currently RETURNED and not automatically AVAILABLE after care.\",\"score\":8}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

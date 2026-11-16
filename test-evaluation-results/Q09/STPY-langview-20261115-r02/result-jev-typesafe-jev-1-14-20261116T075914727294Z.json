@@ -1,0 +1,244 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:17.866463+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q09/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "2ffd1b9c2f4ec75c712e5690e891a14ade9f3be292b51a8c644dac7f5a2ca184",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q09/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "70b432a589d13d8f91e6b886c2cccb70993e552fbb2e6607793e767ce65e2622",
+  "source_trace_id": "d1e1e04ab32a26894b152b21c09df5f5",
+  "case_id": "Q09",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Madame's trigger_notes contradict the vacuum requirement.",
+      "text": "Madame's trigger_notes contradict the vacuum requirement."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If evaluated, exclude her for the unmet requirement even though she enjoys human company.",
+      "text": "If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended.",
+      "applicability_option": "not_applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Positive socialization must not cancel the mandatory trigger conflict.",
+      "text": "Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer."
+    }
+  ],
+  "unmeasured_criteria": [
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "If no candidate is returned, separately score retrieval so an empty shortlist cannot masquerade as successful evaluation.",
+      "status": "not_measured",
+      "reason": "This requires a separate retrieval metric and cannot be judged from the final answer."
+    }
+  ],
+  "captured_input": "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement.",
+  "captured_answer": "No checked candidates.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "assessment_status": "not_needed",
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "assessment_status": "not_needed",
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment"
+    ]
+  },
+  "request_sha256": "7ec74e70ee466aef9cf7fcecb841af411bdf0e36962f18eb256d9437ec5d3ac3",
+  "response_sha256": "1972f8c6411c595270e191bc3f03175879980e9187d353f0599df817591ba1fb",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement.",
+        "actual_output": "No checked candidates.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"assessment_status\": \"not_needed\", \"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Madame's trigger_notes contradict the vacuum requirement.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior.",
+          "not_applicable": "The final answer does not meet the stated condition for judging this criterion."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.77,
+        "probabilities": {
+          "satisfies": 0.14,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.85
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "not_applicable",
+        "confidence": 0.97,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0.01,
+          "not_applicable": 0.98
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1177,
+      "output_tokens": 166,
+      "cost": 4.9434e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Madame's trigger_notes contradict the vacuum requirement.",
+      "text": "Madame's trigger_notes contradict the vacuum requirement.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Madame's trigger_notes contradict the vacuum requirement.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.14500000000000002,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.14,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.85
+      },
+      "confidence": 0.77,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If evaluated, exclude her for the unmet requirement even though she enjoys human company.",
+      "text": "If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended.",
+      "applicability_option": "not_applicable",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": null,
+      "applicable": false,
+      "probabilities": {
+        "satisfies": 0.01,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.01,
+        "not_applicable": 0.98
+      },
+      "confidence": 0.97,
+      "passed": null,
+      "applicability_status": "not_applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Positive socialization must not cancel the mandatory trigger conflict.",
+      "text": "Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1177,
+    "output_tokens": 166,
+    "cost": 4.9434e-05
+  },
+  "score": 0.5725,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.5725,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.77,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.77.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Madame's trigger_notes contradict the vacuum requirement. -> \"does_not_satisfy\" (P=0.85, confidence=0.77)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended. -> not applicable (not applicable, confidence=0.97)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer. -> \"satisfies\" (P=1.00, confidence=1.00)\nScore: 0.57 (weighted mean of 2 applicable questions).",
+  "evaluation_cost": 4.9434e-05,
+  "input_tokens": 1177,
+  "output_tokens": 166,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

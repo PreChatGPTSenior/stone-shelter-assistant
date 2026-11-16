@@ -20,9 +20,9 @@ def test_scenarios_cover_every_authored_stone_without_stale_operational_facts() 
         assert stone["stone_type"] == card["stone"]["stoneType"]
         assert stone["status"] == card["shelterCase"]["adoptionStatus"]
     scenarios = suite["scenarios"]
-    assert len(scenarios) == 20
-    assert len({scenario["id"] for scenario in scenarios}) == 20
-    assert len({scenario["question"] for scenario in scenarios}) == 20
+    assert len(scenarios) == 21
+    assert len({scenario["id"] for scenario in scenarios}) == 21
+    assert len({scenario["question"] for scenario in scenarios}) == 21
     assert {sid for scenario in scenarios for sid in scenario["focus_stone_ids"]} == set(cards)
     for scenario in scenarios:
         assert scenario["expected"]["required"]

@@ -1,0 +1,480 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q16",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [
+            {
+              "fragment_id": 2,
+              "household_type": "GRANITE",
+              "first_type": null,
+              "target": "candidate"
+            }
+          ],
+          "household_facts": [
+            {
+              "fragment_id": 1,
+              "question_quote": "granite already lives",
+              "existing_stone_type": "GRANITE",
+              "fact_type": null,
+              "value": null,
+              "applies_to_pair": null
+            }
+          ],
+          "requirements": {
+            "character": [],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "pumice stone granite compatibility company with other stones",
+            "semantic_query": "Recommend one available pumice stone for a household where granite is already present, assessing whether its social enjoyment indicates compatibility with granite.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "PUMICE"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one pumice stone for a home where granite already lives.",
+          "2": "Is enjoying the company of other stones enough to prove compatibility with granite?"
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one pumice stone for a home where granite already lives.",
+            "reason": "The source explicitly requests one new pumice stone; “pumice” directly modifies the requested stone noun. The granite is existing household context, not the candidate type."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "complete",
+          "summary": "The recommendation quantity, candidate type, existing household context, and explicit compatibility question are represented with the correct roles and scopes. The environmental wording is contextual to the recommendation and does not require a separate independent criterion; no independent hard constraint is omitted.",
+          "issues": []
+        },
+        "question_coverage_status": "complete"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "pass",
+          "actual_external_ids": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_targets": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_found": [
+            "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf": {
+          "lexical_rank": 1,
+          "semantic_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "retrieval_rank": 1,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {
+        "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf": [
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_source_id"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_evidence"
+          }
+        ]
+      },
+      "structured_expectations": {
+        "status": "pass",
+        "checks": {
+          "pair:GRANITE+PUMICE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": "CONDITIONAL",
+            "status": "pass"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf": "conditional_option"
+        },
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_applicable",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Homeward Pumice** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+PUMICE · `CONDITIONAL` · `conditional` · conditions: `unmarked`\n  > Verdict: CONDITIONAL\n  > Explanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\n  > Household agreement: Alternate a predictable shared activity with a brief playful one.\n  > Avoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\n  > Bureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+        "actual_supplied_sources": {
+          "stone-card:f8c57ca2-37b9-4c7b-a967-5021582cbaf7": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+              "external_id": "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+              "name": "Homeward Pumice",
+              "stone_type": "PUMICE",
+              "stone_size": "MEDIUM",
+              "biography": "Homeward Pumice is a beloved resident of the fictional pet stone world.",
+              "profile": {
+                "socialization_traits": [
+                  "ENJOYS_OTHER_STONES"
+                ],
+                "care_level": null,
+                "health_notes": null,
+                "trigger_notes": null,
+                "preferred_environment": null
+              },
+              "shelter_case": {
+                "id": "bca1c4c5-8cac-4490-9634-18cbd2daded2",
+                "external_id": "397c770a-9528-4d79-81b0-85129785e563",
+                "case_number": "0009-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-01T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+              "title": "Granite + Pumice — The agenda acquires stickers",
+              "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "PUMICE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+PUMICE",
+              "verdict": "CONDITIONAL",
+              "conditions": []
+            }
+          }
+        },
+        "structured_decisions": [
+          {
+            "stone_id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+            "name": "Homeward Pumice",
+            "adoption_status": "AVAILABLE",
+            "outcome": "conditional_option",
+            "rank": null,
+            "exclusion_rules": []
+          }
+        ],
+        "verified_statuses": {
+          "f8c57ca2-37b9-4c7b-a967-5021582cbaf7": "AVAILABLE"
+        },
+        "required_assertions": [
+          "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+          "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+          "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists."
+        ],
+        "forbidden_assertions": [
+          "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Homeward Pumice** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+PUMICE · `CONDITIONAL` · `conditional` · conditions: `unmarked`\n  > Verdict: CONDITIONAL\n  > Explanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\n  > Household agreement: Alternate a predictable shared activity with a brief playful one.\n  > Avoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\n  > Bureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+        "sources": {
+          "stone-card:f8c57ca2-37b9-4c7b-a967-5021582cbaf7": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+              "external_id": "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+              "name": "Homeward Pumice",
+              "stone_type": "PUMICE",
+              "stone_size": "MEDIUM",
+              "biography": "Homeward Pumice is a beloved resident of the fictional pet stone world.",
+              "profile": {
+                "socialization_traits": [
+                  "ENJOYS_OTHER_STONES"
+                ],
+                "care_level": null,
+                "health_notes": null,
+                "trigger_notes": null,
+                "preferred_environment": null
+              },
+              "shelter_case": {
+                "id": "bca1c4c5-8cac-4490-9634-18cbd2daded2",
+                "external_id": "397c770a-9528-4d79-81b0-85129785e563",
+                "case_number": "0009-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-01T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+              "title": "Granite + Pumice — The agenda acquires stickers",
+              "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "PUMICE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+PUMICE",
+              "verdict": "CONDITIONAL",
+              "conditions": []
+            }
+          }
+        },
+        "verified_statuses": {
+          "f8c57ca2-37b9-4c7b-a967-5021582cbaf7": "AVAILABLE"
+        },
+        "recommended_stone_ids": [],
+        "candidate_decisions": [
+          {
+            "stone_id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+            "name": "Homeward Pumice",
+            "adoption_status": "AVAILABLE",
+            "outcome": "conditional_option",
+            "rank": null,
+            "exclusion_rules": []
+          }
+        ],
+        "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+        "question_fragments": {
+          "1": "Find one pumice stone for a home where granite already lives.",
+          "2": "Is enjoying the company of other stones enough to prove compatibility with granite?"
+        },
+        "candidate_status": "parsed",
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q16",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "75d10b1c286e8f25e053ba3de8031cb0"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q16/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "87e4364e9eac450e54be15b80563aa4dea582598816b3e4e318bfe362f2d4099",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:16.631667+00:00",
+  "failed_checks": []
+}

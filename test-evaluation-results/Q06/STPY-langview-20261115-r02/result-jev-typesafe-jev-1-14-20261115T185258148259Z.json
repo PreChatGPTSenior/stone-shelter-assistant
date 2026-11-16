@@ -1,0 +1,288 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:53:00.789748+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "a40df06dded662d97c8602af75df4a355d1e8a11e04dff1617046e4eba742ea0",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "e7cfad99001b5c15942b5fa6e6d64be969d6a35a32c0bd88dc46ce8004d59d2b",
+  "source_trace_id": "ea0d378b4d49b260fcfc6ef1e1ee4233",
+  "case_id": "Q06",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "No positive established agreement may be extracted.",
+      "text": "The answer does not state that either shared decision agreement has already been established."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Neither condition is confirmed; keep the option conditional.",
+      "text": "Neither condition is confirmed; keep the option conditional."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not turn 'want to agree' into an agreement.",
+      "text": "Do not turn 'want to agree' into an agreement."
+    },
+    {
+      "id": "answer-substance-gate",
+      "direction": "required_gate",
+      "source_text": "Provide a substantive, useful response rather than only a clarification or error message.",
+      "text": "Does the final answer provide any useful, substantive response to the user's recommendation request, even if it appropriately describes a candidate as conditional? Choose clarification_or_error_only only when the answer merely asks the user to restate the request, refuses, or gives no usable finding.",
+      "gate": true
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+  "captured_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "cdb987ac3f3fd036a70e970d331f6a51b3f66438150e187055a7b4861d8e8e14",
+  "response_sha256": "0b7bd4950ebc7cdaef4e0a5f26fd5f29de238d8081e8cedc94047df75e9b4e8c",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+        "actual_output": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The answer does not state that either shared decision agreement has already been established.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Neither condition is confirmed; keep the option conditional.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn 'want to agree' into an agreement.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Does the final answer provide any useful, substantive response to the user's recommendation request, even if it appropriately describes a candidate as conditional? Choose clarification_or_error_only only when the answer merely asks the user to restate the request, refuses, or gives no usable finding.",
+        "criteria": {
+          "substantive": "The answer provides a substantive, useful response to the request.",
+          "partial_but_useful": "The answer provides some useful response, though it is incomplete.",
+          "clarification_or_error_only": "The answer only requests clarification, refuses, or provides no usable finding."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.86,
+        "probabilities": {
+          "satisfies": 0.91,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.08
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.22,
+        "probabilities": {
+          "satisfies": 0.48,
+          "partially_satisfies": 0.06,
+          "does_not_satisfy": 0.46
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "clarification_or_error_only",
+        "confidence": 1,
+        "probabilities": {
+          "substantive": 0,
+          "partial_but_useful": 0,
+          "clarification_or_error_only": 1
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1139,
+      "output_tokens": 206,
+      "cost": 4.7838e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "No positive established agreement may be extracted.",
+      "text": "The answer does not state that either shared decision agreement has already been established.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The answer does not state that either shared decision agreement has already been established.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.915,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.91,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.08
+      },
+      "confidence": 0.86,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Neither condition is confirmed; keep the option conditional.",
+      "text": "Neither condition is confirmed; keep the option conditional.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Neither condition is confirmed; keep the option conditional.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.51,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.48,
+        "partially_satisfies": 0.06,
+        "does_not_satisfy": 0.46
+      },
+      "confidence": 0.22,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not turn 'want to agree' into an agreement.",
+      "text": "Do not turn 'want to agree' into an agreement.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn 'want to agree' into an agreement.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "answer-substance-gate",
+      "direction": "required_gate",
+      "source_text": "Provide a substantive, useful response rather than only a clarification or error message.",
+      "text": "Does the final answer provide any useful, substantive response to the user's recommendation request, even if it appropriately describes a candidate as conditional? Choose clarification_or_error_only only when the answer merely asks the user to restate the request, refuses, or gives no usable finding.",
+      "gate": true,
+      "question": "Does the final answer provide any useful, substantive response to the user's recommendation request, even if it appropriately describes a candidate as conditional? Choose clarification_or_error_only only when the answer merely asks the user to restate the request, refuses, or gives no usable finding.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.0,
+      "applicable": true,
+      "probabilities": {
+        "substantive": 0.0,
+        "partial_but_useful": 0.0,
+        "clarification_or_error_only": 1.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable",
+      "gate_result": {
+        "id": "answer-substance-gate",
+        "selected": "clarification_or_error_only",
+        "passed": false
+      }
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1139,
+    "output_tokens": 206,
+    "cost": 4.7838e-05
+  },
+  "score": 0.60625,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.60625,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.22,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.22.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The answer does not state that either shared decision agreement has already been established. -> \"satisfies\" (P=0.91, confidence=0.86)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Neither condition is confirmed; keep the option conditional. -> \"satisfies\", leaning \"does_not_satisfy\" (P=0.48, confidence=0.22)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn 'want to agree' into an agreement. -> \"satisfies\" (P=1.00, confidence=1.00)\n4. Does the final answer provide any useful, substantive response to the user's recommendation request, even if it appropriately describes a candidate as conditional? Choose clarification_or_error_only only when the answer merely asks the user to restate the request, refuses, or gives no usable finding. -> \"clarification_or_error_only\" (P=1.00, confidence=1.00)\nScore: 0.61 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 4.7838e-05,
+  "input_tokens": 1139,
+  "output_tokens": 206,
+  "required_gates_passed": false,
+  "required_gate_results": [
+    {
+      "id": "answer-substance-gate",
+      "selected": "clarification_or_error_only",
+      "passed": false
+    }
+  ],
+  "success": false
+}

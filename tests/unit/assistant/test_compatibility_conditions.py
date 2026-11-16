@@ -199,5 +199,3 @@ def test_typed_fact_requires_its_own_boolean_value() -> None:
             existing_stone_type=StoneType.GRANITE,
             value=True,
         )
-
-

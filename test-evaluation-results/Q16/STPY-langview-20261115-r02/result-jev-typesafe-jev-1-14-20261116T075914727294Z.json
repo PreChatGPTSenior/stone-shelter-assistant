@@ -1,0 +1,406 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:20.227959+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q16/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "87e4364e9eac450e54be15b80563aa4dea582598816b3e4e318bfe362f2d4099",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q16/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "4c047b9ef2e38bae48383c7f50320d00d203b2cf1cdab3d6e7b4a48e0be633fa",
+  "source_trace_id": "75d10b1c286e8f25e053ba3de8031cb0",
+  "case_id": "Q16",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+      "text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+      "text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists.",
+      "text": "If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim.",
+      "applicability_option": "not_applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability.",
+      "text": "Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+  "captured_answer": "**Homeward Pumice** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+PUMICE · `CONDITIONAL` · `conditional` · conditions: `unmarked`\n  > Verdict: CONDITIONAL\n  > Explanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\n  > Household agreement: Alternate a predictable shared activity with a brief playful one.\n  > Avoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\n  > Bureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+  "captured_sources": {
+    "stone-card:f8c57ca2-37b9-4c7b-a967-5021582cbaf7": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+        "external_id": "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+        "name": "Homeward Pumice",
+        "stone_type": "PUMICE",
+        "stone_size": "MEDIUM",
+        "biography": "Homeward Pumice is a beloved resident of the fictional pet stone world.",
+        "profile": {
+          "socialization_traits": [
+            "ENJOYS_OTHER_STONES"
+          ],
+          "care_level": null,
+          "health_notes": null,
+          "trigger_notes": null,
+          "preferred_environment": null
+        },
+        "shelter_case": {
+          "id": "bca1c4c5-8cac-4490-9634-18cbd2daded2",
+          "external_id": "397c770a-9528-4d79-81b0-85129785e563",
+          "case_number": "0009-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-01T09:00:00Z"
+        }
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+      "tool": "get_compatibility_pair",
+      "data": {
+        "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+        "title": "Granite + Pumice — The agenda acquires stickers",
+        "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "PUMICE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+PUMICE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "assessment_status": "parsed",
+    "candidate_decisions": [
+      {
+        "stone_id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+        "name": "Homeward Pumice",
+        "adoption_status": "AVAILABLE",
+        "outcome": "conditional_option",
+        "rank": null,
+        "exclusion_rules": []
+      }
+    ],
+    "verified_statuses": {
+      "f8c57ca2-37b9-4c7b-a967-5021582cbaf7": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-card:f8c57ca2-37b9-4c7b-a967-5021582cbaf7": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+          "external_id": "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf",
+          "name": "Homeward Pumice",
+          "stone_type": "PUMICE",
+          "stone_size": "MEDIUM",
+          "biography": "Homeward Pumice is a beloved resident of the fictional pet stone world.",
+          "profile": {
+            "socialization_traits": [
+              "ENJOYS_OTHER_STONES"
+            ],
+            "care_level": null,
+            "health_notes": null,
+            "trigger_notes": null,
+            "preferred_environment": null
+          },
+          "shelter_case": {
+            "id": "bca1c4c5-8cac-4490-9634-18cbd2daded2",
+            "external_id": "397c770a-9528-4d79-81b0-85129785e563",
+            "case_number": "0009-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+          "title": "Granite + Pumice — The agenda acquires stickers",
+          "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "PUMICE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+PUMICE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "assessment_status": "parsed",
+      "candidate_decisions": [
+        {
+          "stone_id": "f8c57ca2-37b9-4c7b-a967-5021582cbaf7",
+          "name": "Homeward Pumice",
+          "adoption_status": "AVAILABLE",
+          "outcome": "conditional_option",
+          "rank": null,
+          "exclusion_rules": []
+        }
+      ],
+      "verified_statuses": {
+        "f8c57ca2-37b9-4c7b-a967-5021582cbaf7": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment"
+    ]
+  },
+  "request_sha256": "8009124b4a7970ca653141b6e60b82ed1187215776c79b66821f0608c158a6e2",
+  "response_sha256": "2c809b31e1206560ab7735467271644dc4f64ca6c908c0450b1f14a52ae4b794",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+        "actual_output": "**Homeward Pumice** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+PUMICE · `CONDITIONAL` · `conditional` · conditions: `unmarked`\n  > Verdict: CONDITIONAL\n  > Explanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\n  > Household agreement: Alternate a predictable shared activity with a brief playful one.\n  > Avoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\n  > Bureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"assessment_status\": \"parsed\", \"candidate_decisions\": [{\"adoption_status\": \"AVAILABLE\", \"exclusion_rules\": [], \"name\": \"Homeward Pumice\", \"outcome\": \"conditional_option\", \"rank\": null, \"stone_id\": \"f8c57ca2-37b9-4c7b-a967-5021582cbaf7\"}], \"verified_statuses\": {\"f8c57ca2-37b9-4c7b-a967-5021582cbaf7\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\"], \"final_answer_sources\": {\"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d\", \"document_kind\": \"compatibility_pair\", \"id\": \"fec4aa53-aeb4-5f6c-8662-3bba35808998\", \"language\": \"en\", \"pair_key\": \"GRANITE+PUMICE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"PUMICE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.\", \"title\": \"Granite + Pumice — The agenda acquires stickers\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"get_compatibility_pair\"}, \"stone-card:f8c57ca2-37b9-4c7b-a967-5021582cbaf7\": {\"data\": {\"biography\": \"Homeward Pumice is a beloved resident of the fictional pet stone world.\", \"external_id\": \"d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf\", \"id\": \"f8c57ca2-37b9-4c7b-a967-5021582cbaf7\", \"name\": \"Homeward Pumice\", \"profile\": {\"care_level\": null, \"health_notes\": null, \"preferred_environment\": null, \"socialization_traits\": [\"ENJOYS_OTHER_STONES\"], \"trigger_notes\": null}, \"shelter_case\": {\"admission_date\": \"2026-10-01T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0009-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"397c770a-9528-4d79-81b0-85129785e563\", \"id\": \"bca1c4c5-8cac-4490-9634-18cbd2daded2\"}, \"stone_size\": \"MEDIUM\", \"stone_type\": \"PUMICE\"}, \"tool\": \"get_stone_details\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior.",
+          "not_applicable": "The final answer does not meet the stated condition for judging this criterion."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "partially_satisfies",
+        "confidence": 0.31,
+        "probabilities": {
+          "satisfies": 0.18,
+          "partially_satisfies": 0.54,
+          "does_not_satisfy": 0.28
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.94,
+        "probabilities": {
+          "satisfies": 0.96,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.01
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.73,
+        "probabilities": {
+          "satisfies": 0.8,
+          "partially_satisfies": 0.06,
+          "does_not_satisfy": 0.12,
+          "not_applicable": 0.02
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.8,
+        "probabilities": {
+          "satisfies": 0.87,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.1
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 2516,
+      "output_tokens": 216,
+      "cost": 0.000105672
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+      "text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.45,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.18,
+        "partially_satisfies": 0.54,
+        "does_not_satisfy": 0.28
+      },
+      "confidence": 0.31,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+      "text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.975,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.96,
+        "partially_satisfies": 0.03,
+        "does_not_satisfy": 0.01
+      },
+      "confidence": 0.94,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists.",
+      "text": "If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim.",
+      "applicability_option": "not_applicable",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.8469387755102041,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.8,
+        "partially_satisfies": 0.06,
+        "does_not_satisfy": 0.12,
+        "not_applicable": 0.02
+      },
+      "confidence": 0.73,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability.",
+      "text": "Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.885,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.87,
+        "partially_satisfies": 0.03,
+        "does_not_satisfy": 0.1
+      },
+      "confidence": 0.8,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 2516,
+    "output_tokens": 216,
+    "cost": 0.000105672
+  },
+  "score": 0.7892346938775511,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.7892346938775511,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.31,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.31.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability. -> \"partially_satisfies\" (P=0.54, confidence=0.31)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: GRANITE+PUMICE stays CONDITIONAL with unmarked conditions. -> \"satisfies\" (P=0.96, confidence=0.94)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim. -> \"satisfies\" (P=0.80, confidence=0.73)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer. -> \"satisfies\" (P=0.87, confidence=0.80)\nScore: 0.79 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 0.000105672,
+  "input_tokens": 2516,
+  "output_tokens": 216,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

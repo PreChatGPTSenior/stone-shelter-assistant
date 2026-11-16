@@ -1,0 +1,231 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:53:03.125628+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "de37081f25ec0c6d2e74266e51f5c558f9724c01466762f4aacbae26e8e78fd5",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "aff0fc033d5eb33f502b1469ce8c2adaf41530c0684208b98ea807dbad077fba",
+  "source_trace_id": "fbcb78159056e19b898fbce4d61883e3",
+  "case_id": "Q11",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Velvet Slate cannot be recommended because current status is RETURNED.",
+      "text": "Velvet Slate cannot be recommended because current status is RETURNED."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If assessed, trigger_notes contradict the loud-music requirement.",
+      "text": "If assessed, trigger_notes contradict the loud-music requirement."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Caregiver experience does not change adoption status or erase a trigger.",
+      "text": "Caregiver experience does not change adoption status or erase a trigger."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
+  "captured_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "cb1701008f80d3c3092cb785977c4e0c6826971fd8b4939b5445e47f5585f78a",
+  "response_sha256": "c690b83ee621e1fd3734615399b12ff0ba25b9a4cb630ba2c1aca98c3cce743c",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
+        "actual_output": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Velvet Slate cannot be recommended because current status is RETURNED.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If assessed, trigger_notes contradict the loud-music requirement.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Caregiver experience does not change adoption status or erase a trigger.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.98,
+        "probabilities": {
+          "satisfies": 0,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.99
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.94,
+        "probabilities": {
+          "satisfies": 0.03,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.96
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.49,
+        "probabilities": {
+          "satisfies": 0.3,
+          "partially_satisfies": 0.04,
+          "does_not_satisfy": 0.66
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 980,
+      "output_tokens": 159,
+      "cost": 4.116e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Velvet Slate cannot be recommended because current status is RETURNED.",
+      "text": "Velvet Slate cannot be recommended because current status is RETURNED.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Velvet Slate cannot be recommended because current status is RETURNED.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.005,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.0,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.99
+      },
+      "confidence": 0.98,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If assessed, trigger_notes contradict the loud-music requirement.",
+      "text": "If assessed, trigger_notes contradict the loud-music requirement.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If assessed, trigger_notes contradict the loud-music requirement.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.034999999999999996,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.03,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.96
+      },
+      "confidence": 0.94,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Caregiver experience does not change adoption status or erase a trigger.",
+      "text": "Caregiver experience does not change adoption status or erase a trigger.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Caregiver experience does not change adoption status or erase a trigger.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.32,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.3,
+        "partially_satisfies": 0.04,
+        "does_not_satisfy": 0.66
+      },
+      "confidence": 0.49,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 980,
+    "output_tokens": 159,
+    "cost": 4.116e-05
+  },
+  "score": 0.12,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.12,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.49,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.49.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Velvet Slate cannot be recommended because current status is RETURNED. -> \"does_not_satisfy\" (P=0.99, confidence=0.98)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If assessed, trigger_notes contradict the loud-music requirement. -> \"does_not_satisfy\" (P=0.96, confidence=0.94)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Caregiver experience does not change adoption status or erase a trigger. -> \"does_not_satisfy\" (P=0.66, confidence=0.49)\nScore: 0.12 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 4.116e-05,
+  "input_tokens": 980,
+  "output_tokens": 159,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

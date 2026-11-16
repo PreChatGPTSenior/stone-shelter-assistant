@@ -68,9 +68,7 @@ def payload(span: Any, field: str) -> Any:
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "current_status", ["AVAILABLE", "RESERVED", "ADOPTED", "RETURNED", None]
-)
+@pytest.mark.parametrize("current_status", ["AVAILABLE", "RESERVED", "ADOPTED", "RETURNED", None])
 @pytest.mark.acceptance("AC-FLOW-01")
 @pytest.mark.acceptance("AC-FLOW-02")
 @pytest.mark.acceptance("AC-FLOW-03")

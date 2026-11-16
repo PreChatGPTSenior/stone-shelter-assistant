@@ -98,6 +98,7 @@ from tests.integration.conftest import typesense_settings as typesense_settings
 ROOT = Path(__file__).resolve().parents[2]
 SUITE = ROOT / "fixtures/agent-eval/questions-challenge-20"
 RUNS = ROOT / "test-evaluation-results"
+GROUNDING_RUNS = RUNS / "grounding-catalog"
 pytestmark = [
     pytest.mark.asyncio(loop_scope="module"),
     pytest.mark.skipif(
@@ -167,10 +168,36 @@ def _json_value(value: Any) -> Any:
     return str(value)
 
 
+def _archive_json_value(value: Any) -> Any:
+    """Keep run artifacts compact while preserving grounding provenance."""
+    value = _json_value(value)
+    if isinstance(value, dict):
+        compacted = {
+            key: _archive_json_value(item)
+            for key, item in value.items()
+            if key not in {"grounding_catalog_snapshot", "ranking_policy"}
+        }
+        catalog = value.get("grounding_catalog_snapshot") or value.get("grounding_catalog")
+        if isinstance(catalog, dict):
+            compacted["grounding_catalog"] = {
+                "version": catalog.get("catalog_version", catalog.get("version")),
+                "content_hash": catalog.get("content_hash"),
+            }
+        policy = value.get("ranking_policy")
+        if isinstance(policy, dict):
+            compacted["ranking_policy"] = {"version": policy.get("version")}
+        return compacted
+    if isinstance(value, list):
+        return [_archive_json_value(item) for item in value]
+    return value
+
+
 def _write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".json.tmp")
-    temporary.write_text(json.dumps(_json_value(value), ensure_ascii=False, indent=2) + "\n")
+    temporary.write_text(
+        json.dumps(_archive_json_value(value), ensure_ascii=False, indent=2) + "\n"
+    )
     temporary.replace(path)
 
 
@@ -316,10 +343,19 @@ async def full_run_environment(
             )
             for index in range(len(configurations)):
                 run_id = EvaluationRunIdentity.create(comparison_id, first_run + index).run_id
+                grounding_catalog_path = (
+                    (GROUNDING_RUNS / f"{run_id}.json").relative_to(RUNS).as_posix()
+                )
+                _write_json(GROUNDING_RUNS / f"{run_id}.json", snapshot.model_dump(mode="json"))
                 manifest["runs"][run_id].update(
                     status="ready",
                     embedding_model=embedding_settings.embedding_model,
                     embedding_dimension=embedding_settings.embedding_dimension,
+                    grounding_catalog={
+                        "path": grounding_catalog_path,
+                        "version": snapshot.catalog_version,
+                        "content_hash": snapshot.content_hash,
+                    },
                     preparation={
                         "stones": loaded_stones,
                         "encyclopedia": loaded_encyclopedia,

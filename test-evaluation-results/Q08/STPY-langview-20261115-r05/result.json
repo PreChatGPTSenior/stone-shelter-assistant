@@ -1,0 +1,44 @@
+{
+  "case_id": "Q08",
+  "comparison_id": "langview-20261115",
+  "run_number": 5,
+  "run_id": "STPY-langview-20261115-r05",
+  "session_id": "STPY-langview-20261115-r05",
+  "request": {
+    "question": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
+    "model_id": "openrouter/free",
+    "selection_model_id": "openrouter/free",
+    "parsing_model_id": "openrouter/free",
+    "evaluation_model_id": "openrouter/free",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "openrouter/free",
+    "eval_case_id": "Q08",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 5,
+    "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+  },
+  "question": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
+  "expected": {
+    "required": [
+      "Both granite condition checks have no applicable positive facts and remain unknown.",
+      "Typed agreements, if extracted, retain BASALT+GNEISS scope."
+    ],
+    "forbidden": [
+      "Do not widen scoped facts to household-wide facts."
+    ],
+    "condition_checks": {
+      "pair_key": "GRANITE+GRANITE",
+      "rotate_decisions": "unknown",
+      "decision_deadline": "unknown"
+    },
+    "pair": {
+      "key": "GRANITE+GRANITE",
+      "verdict": "CONDITIONAL"
+    }
+  },
+  "status": "running",
+  "trace_id": null,
+  "started_at": "2026-11-14T21:08:19.078581+00:00"
+}

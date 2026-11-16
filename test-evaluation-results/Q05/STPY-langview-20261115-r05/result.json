@@ -1,0 +1,607 @@
+{
+  "case_id": "Q05",
+  "comparison_id": "langview-20261115",
+  "run_number": 5,
+  "run_id": "STPY-langview-20261115-r05",
+  "session_id": "STPY-langview-20261115-r05",
+  "request": {
+    "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+    "model_id": "openrouter/free",
+    "selection_model_id": "openrouter/free",
+    "parsing_model_id": "openrouter/free",
+    "evaluation_model_id": "openrouter/free",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "openrouter/free",
+    "eval_case_id": "Q05",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 5,
+    "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+  },
+  "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+  "expected": {
+    "required": [
+      "Rotation is confirmed; deadline is unknown.",
+      "Sir Pebble remains a conditional option."
+    ],
+    "forbidden": [
+      "One confirmed condition cannot confirm the pair."
+    ],
+    "condition_checks": {
+      "pair_key": "GRANITE+GRANITE",
+      "rotate_decisions": "confirmed",
+      "decision_deadline": "unknown"
+    },
+    "pair": {
+      "key": "GRANITE+GRANITE",
+      "verdict": "CONDITIONAL"
+    }
+  },
+  "status": "completed",
+  "trace_id": "73ff68b9497c52efb003d38bd5ce1401",
+  "started_at": "2026-11-14T21:05:05.286303+00:00",
+  "response": {
+    "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "not_needed",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "No proposals were submitted in `proposals` (empty array), so there are no proposal-level supported/contradicted/unknown verdicts to issue. The supplied `parsed_question` is nonetheless incomplete: several independent decision-bearing requests from the original question are absent or not represented.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "Find one granite stone",
+          "reason": "Fragment 1 positively requires granite as the material of the new stone (`find one granite stone`). This required candidate type should appear in `retrieval.candidate_type` (stone_type GRANITE), but `retrieval` is null in `parsed_question`, so the explicit type filter is dropped."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a quiet home",
+          "reason": "Fragment 1 requests suitability to a quiet home, which is an environmental-fit criterion belonging in `requirements.character`. `requirements.character` is empty."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We agreed to take turns on small decisions.",
+          "reason": "Fragment 2 explicitly establishes that the household takes shared decisions in turns. This is a supported `decision_rotation_agreed` fact with value true and no stone-pair scope (`applies_to_pair` null). It is absent from `household_facts`."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "We have not decided anything about a deadline for shared decisions yet.",
+          "reason": "Fragment 3 states that no deadline decision has been reached. Under the definition this is missing information, i.e. unknown/null rather than false, and should be recorded as a `decision_deadline_agreed` household fact with value null and `applies_to_pair` null. It is absent from `household_facts`."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "openrouter/free",
+    "model_ids": {
+      "select_candidates": "openrouter/free",
+      "parse_question": "openrouter/free",
+      "evaluate_candidates": "openrouter/free",
+      "answer": "openrouter/free",
+      "collect_reference_evidence": "openrouter/free",
+      "ground_question": "openrouter/free"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 5,
+      "run_id": "STPY-langview-20261115-r05",
+      "session_id": "STPY-langview-20261115-r05",
+      "configuration_id": "cfg-b402c22b1d7245d6",
+      "eval_case_id": "Q05",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+    },
+    "trace_id": "73ff68b9497c52efb003d38bd5ce1401"
+  },
+  "elapsed_seconds": 37.02,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "c43f87ec-38fc-4cb7-8bde-cefc83572cf7"
+      }
+    ],
+    "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+    "parsed_question": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [],
+      "requirements": {
+        "character": [],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": null,
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": null
+    },
+    "grounding_status": "not_needed",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "No proposals were submitted in `proposals` (empty array), so there are no proposal-level supported/contradicted/unknown verdicts to issue. The supplied `parsed_question` is nonetheless incomplete: several independent decision-bearing requests from the original question are absent or not represented.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "Find one granite stone",
+          "reason": "Fragment 1 positively requires granite as the material of the new stone (`find one granite stone`). This required candidate type should appear in `retrieval.candidate_type` (stone_type GRANITE), but `retrieval` is null in `parsed_question`, so the explicit type filter is dropped."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a quiet home",
+          "reason": "Fragment 1 requests suitability to a quiet home, which is an environmental-fit criterion belonging in `requirements.character`. `requirements.character` is empty."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We agreed to take turns on small decisions.",
+          "reason": "Fragment 2 explicitly establishes that the household takes shared decisions in turns. This is a supported `decision_rotation_agreed` fact with value true and no stone-pair scope (`applies_to_pair` null). It is absent from `household_facts`."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "We have not decided anything about a deadline for shared decisions yet.",
+          "reason": "Fragment 3 states that no deadline decision has been reached. Under the definition this is missing information, i.e. unknown/null rather than false, and should be recorded as a `decision_deadline_agreed` household fact with value null and `applies_to_pair` null. It is absent from `household_facts`."
+        }
+      ]
+    },
+    "grounding_catalog": {
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56"
+    },
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Find one granite stone for a quiet home with our granite.",
+      "2": "We agreed to take turns on small decisions.",
+      "3": "We have not decided anything about a deadline for shared decisions yet."
+    },
+    "criteria_status": "missing_retrieval_request",
+    "plan_status": "unresolved_question",
+    "model_call": {
+      "model_name": "nvidia/nemotron-3.5-super-vl:free",
+      "id": "gen-1794690311-oL4x96tbvHaYFvt6eEQg",
+      "cost": 0.0,
+      "finish_reason": "stop",
+      "usage": {
+        "input_tokens": 7107,
+        "output_tokens": 4142,
+        "total_tokens": 11249,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 3678
+        }
+      }
+    },
+    "result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_needed",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "No proposals were submitted in `proposals` (empty array), so there are no proposal-level supported/contradicted/unknown verdicts to issue. The supplied `parsed_question` is nonetheless incomplete: several independent decision-bearing requests from the original question are absent or not represented.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "Find one granite stone",
+            "reason": "Fragment 1 positively requires granite as the material of the new stone (`find one granite stone`). This required candidate type should appear in `retrieval.candidate_type` (stone_type GRANITE), but `retrieval` is null in `parsed_question`, so the explicit type filter is dropped."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 requests suitability to a quiet home, which is an environmental-fit criterion belonging in `requirements.character`. `requirements.character` is empty."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We agreed to take turns on small decisions.",
+            "reason": "Fragment 2 explicitly establishes that the household takes shared decisions in turns. This is a supported `decision_rotation_agreed` fact with value true and no stone-pair scope (`applies_to_pair` null). It is absent from `household_facts`."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "We have not decided anything about a deadline for shared decisions yet.",
+            "reason": "Fragment 3 states that no deadline decision has been reached. Under the definition this is missing information, i.e. unknown/null rather than false, and should be recorded as a `decision_deadline_agreed` household fact with value null and `applies_to_pair` null. It is absent from `household_facts`."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q05",
+    "stage_applicability": "recommendation",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 1,
+        "requested_availability": [],
+        "requested_compatibility": [],
+        "household_facts": [],
+        "requirements": {
+          "character": [],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": null,
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": null
+      },
+      "question_fragments": {
+        "1": "Find one granite stone for a quiet home with our granite.",
+        "2": "We agreed to take turns on small decisions.",
+        "3": "We have not decided anything about a deadline for shared decisions yet."
+      },
+      "grounding_decisions": null,
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "No proposals were submitted in `proposals` (empty array), so there are no proposal-level supported/contradicted/unknown verdicts to issue. The supplied `parsed_question` is nonetheless incomplete: several independent decision-bearing requests from the original question are absent or not represented.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "Find one granite stone",
+            "reason": "Fragment 1 positively requires granite as the material of the new stone (`find one granite stone`). This required candidate type should appear in `retrieval.candidate_type` (stone_type GRANITE), but `retrieval` is null in `parsed_question`, so the explicit type filter is dropped."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 requests suitability to a quiet home, which is an environmental-fit criterion belonging in `requirements.character`. `requirements.character` is empty."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We agreed to take turns on small decisions.",
+            "reason": "Fragment 2 explicitly establishes that the household takes shared decisions in turns. This is a supported `decision_rotation_agreed` fact with value true and no stone-pair scope (`applies_to_pair` null). It is absent from `household_facts`."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "We have not decided anything about a deadline for shared decisions yet.",
+            "reason": "Fragment 3 states that no deadline decision has been reached. Under the definition this is missing information, i.e. unknown/null rather than false, and should be recorded as a `decision_deadline_agreed` household fact with value null and `applies_to_pair` null. It is absent from `household_facts`."
+          }
+        ]
+      },
+      "question_coverage_status": "incomplete"
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "unresolved_question",
+      "criteria_status": "missing_retrieval_request",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": "incomplete",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_lexical_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_semantic_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_engine_union_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_rrf_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_shortlist_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_evidence_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_decision_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "fail",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": null,
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unknown",
+      "checks": {
+        "pair:GRANITE+GRANITE:verdict": {
+          "expected": "CONDITIONAL",
+          "actual": null,
+          "status": "unknown"
+        },
+        "condition:GRANITE+GRANITE:rotate_decisions": {
+          "expected": "confirmed",
+          "actual": null,
+          "status": "unknown"
+        },
+        "condition:GRANITE+GRANITE:decision_deadline": {
+          "expected": "unknown",
+          "actual": null,
+          "status": "unknown"
+        }
+      }
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      },
+      "disposition_check": {
+        "status": "unknown",
+        "checks": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+            "expected": "conditional_option",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "coverage_gate": {
+        "status": "fail",
+        "coverage_status": "incomplete"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "Rotation is confirmed; deadline is unknown.",
+        "Sir Pebble remains a conditional option."
+      ],
+      "forbidden_assertions": [
+        "One confirmed condition cannot confirm the pair."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_needed",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "No proposals were submitted in `proposals` (empty array), so there are no proposal-level supported/contradicted/unknown verdicts to issue. The supplied `parsed_question` is nonetheless incomplete: several independent decision-bearing requests from the original question are absent or not represented.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "Find one granite stone",
+            "reason": "Fragment 1 positively requires granite as the material of the new stone (`find one granite stone`). This required candidate type should appear in `retrieval.candidate_type` (stone_type GRANITE), but `retrieval` is null in `parsed_question`, so the explicit type filter is dropped."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 requests suitability to a quiet home, which is an environmental-fit criterion belonging in `requirements.character`. `requirements.character` is empty."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We agreed to take turns on small decisions.",
+            "reason": "Fragment 2 explicitly establishes that the household takes shared decisions in turns. This is a supported `decision_rotation_agreed` fact with value true and no stone-pair scope (`applies_to_pair` null). It is absent from `household_facts`."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "We have not decided anything about a deadline for shared decisions yet.",
+            "reason": "Fragment 3 states that no deadline decision has been reached. Under the definition this is missing information, i.e. unknown/null rather than false, and should be recorded as a `decision_deadline_agreed` household fact with value null and `applies_to_pair` null. It is absent from `household_facts`."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "openrouter/free",
+      "model_ids": {
+        "select_candidates": "openrouter/free",
+        "parse_question": "openrouter/free",
+        "evaluate_candidates": "openrouter/free",
+        "answer": "openrouter/free",
+        "collect_reference_evidence": "openrouter/free",
+        "ground_question": "openrouter/free"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 5,
+        "run_id": "STPY-langview-20261115-r05",
+        "session_id": "STPY-langview-20261115-r05",
+        "configuration_id": "cfg-b402c22b1d7245d6",
+        "eval_case_id": "Q05",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+      },
+      "trace_id": "73ff68b9497c52efb003d38bd5ce1401"
+    }
+  },
+  "failed_checks": [
+    "Q05.workflow_integrity",
+    "Q05.engine_union.unknown",
+    "Q05.rrf.unknown",
+    "Q05.structured_expectations",
+    "Q05.recommendations.coverage_gate",
+    "Q05.recommendations.disposition_check"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T21:05:43.459699+00:00"
+}

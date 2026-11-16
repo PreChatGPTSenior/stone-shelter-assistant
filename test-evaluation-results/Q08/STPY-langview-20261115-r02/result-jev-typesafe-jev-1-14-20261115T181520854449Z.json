@@ -1,0 +1,417 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:23.965931+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q08/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "31d8311526f278f1ebe8fb13ae59d67e19fbb1df773297d2d70adca6f9dee960",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q08/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "4cdb8d8f0af7fe18771add5d6ea17da5d9b3672e1ae43710bf891bea4f048f72",
+  "source_trace_id": "e69fa81fb2e4770dfb3789f75104a04d",
+  "case_id": "Q08",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Both granite condition checks have no applicable positive facts and remain unknown.",
+      "text": "Both granite condition checks have no applicable positive facts and remain unknown."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Typed agreements, if extracted, retain BASALT+GNEISS scope.",
+      "text": "Any agreement described in the answer is scoped only to BASALT+GNEISS and is not generalized to the granite household."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not widen scoped facts to household-wide facts.",
+      "text": "Do not widen scoped facts to household-wide facts."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
+  "captured_answer": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\n\n**Professor Quartzless** · `AVAILABLE` · `excluded` · `requirement_not_met` · `CONDITIONAL`\nConditions are not confirmed.\n- for a quiet home · `unknown`\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+  "captured_sources": {
+    "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "stone_size": "SMALL",
+        "biography": "A thoughtful stone who enjoys quiet evenings.",
+        "profile": null,
+        "shelter_case": {
+          "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+          "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+          "case_number": "0001-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-30T09:00:00Z"
+        }
+      }
+    },
+    "stone-card:64e18f75-0c7c-4e24-bf8e-643576a773df": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "64e18f75-0c7c-4e24-bf8e-643576a773df",
+        "external_id": "abcbd2b8-234c-4653-a9cf-d3c022073750",
+        "name": "Professor Quartzless",
+        "stone_type": "GRANITE",
+        "stone_size": "MEDIUM",
+        "biography": "Professor Quartzless is a beloved resident of the fictional pet stone world.",
+        "profile": null,
+        "shelter_case": {
+          "id": "8f7d0b25-4894-4ed3-b616-151a07f9b264",
+          "external_id": "ad5c3c16-cbe4-4ebe-8800-4d957a3ce9e7",
+          "case_number": "0010-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-01T09:00:00Z"
+        }
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+      "tool": "get_compatibility_pair",
+      "data": {
+        "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+        "title": "Granite + Granite — The permanently adjourned furniture meeting",
+        "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL",
+        "conditions": [
+          {
+            "id": "rotate_decisions",
+            "fact_type": "decision_rotation_agreed",
+            "expected_value": true,
+            "source_quote": "Rotate small decisions"
+          },
+          {
+            "id": "decision_deadline",
+            "fact_type": "decision_deadline_agreed",
+            "expected_value": true,
+            "source_quote": "set a friendly decision deadline for shared arrangements."
+          }
+        ]
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "assessment_status": "parsed",
+    "candidate_decisions": [
+      {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "adoption_status": "AVAILABLE",
+        "outcome": "conditional_option",
+        "rank": null,
+        "exclusion_rules": []
+      },
+      {
+        "stone_id": "64e18f75-0c7c-4e24-bf8e-643576a773df",
+        "name": "Professor Quartzless",
+        "adoption_status": "AVAILABLE",
+        "outcome": "excluded",
+        "rank": null,
+        "exclusion_rules": [
+          "requirement_not_met"
+        ]
+      }
+    ],
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE",
+      "64e18f75-0c7c-4e24-bf8e-643576a773df": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      },
+      "stone-card:64e18f75-0c7c-4e24-bf8e-643576a773df": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "64e18f75-0c7c-4e24-bf8e-643576a773df",
+          "external_id": "abcbd2b8-234c-4653-a9cf-d3c022073750",
+          "name": "Professor Quartzless",
+          "stone_type": "GRANITE",
+          "stone_size": "MEDIUM",
+          "biography": "Professor Quartzless is a beloved resident of the fictional pet stone world.",
+          "profile": null,
+          "shelter_case": {
+            "id": "8f7d0b25-4894-4ed3-b616-151a07f9b264",
+            "external_id": "ad5c3c16-cbe4-4ebe-8800-4d957a3ce9e7",
+            "case_number": "0010-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+          "title": "Granite + Granite — The permanently adjourned furniture meeting",
+          "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL",
+          "conditions": [
+            {
+              "id": "rotate_decisions",
+              "fact_type": "decision_rotation_agreed",
+              "expected_value": true,
+              "source_quote": "Rotate small decisions"
+            },
+            {
+              "id": "decision_deadline",
+              "fact_type": "decision_deadline_agreed",
+              "expected_value": true,
+              "source_quote": "set a friendly decision deadline for shared arrangements."
+            }
+          ]
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "assessment_status": "parsed",
+      "candidate_decisions": [
+        {
+          "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "name": "Sir Pebble",
+          "adoption_status": "AVAILABLE",
+          "outcome": "conditional_option",
+          "rank": null,
+          "exclusion_rules": []
+        },
+        {
+          "stone_id": "64e18f75-0c7c-4e24-bf8e-643576a773df",
+          "name": "Professor Quartzless",
+          "adoption_status": "AVAILABLE",
+          "outcome": "excluded",
+          "rank": null,
+          "exclusion_rules": [
+            "requirement_not_met"
+          ]
+        }
+      ],
+      "verified_statuses": {
+        "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE",
+        "64e18f75-0c7c-4e24-bf8e-643576a773df": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment"
+    ]
+  },
+  "request_sha256": "839c526080a4544d66dbd9c979738701a42e02a6b736355106c3e0386dfcfadd",
+  "response_sha256": "22bbeb1191df7c5058f80b3d29a5bfc787d63ecea69776566acb6f63fa2de9cb",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
+        "actual_output": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\n\n**Professor Quartzless** · `AVAILABLE` · `excluded` · `requirement_not_met` · `CONDITIONAL`\nConditions are not confirmed.\n- for a quiet home · `unknown`\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"assessment_status\": \"parsed\", \"candidate_decisions\": [{\"adoption_status\": \"AVAILABLE\", \"exclusion_rules\": [], \"name\": \"Sir Pebble\", \"outcome\": \"conditional_option\", \"rank\": null, \"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\"}, {\"adoption_status\": \"AVAILABLE\", \"exclusion_rules\": [\"requirement_not_met\"], \"name\": \"Professor Quartzless\", \"outcome\": \"excluded\", \"rank\": null, \"stone_id\": \"64e18f75-0c7c-4e24-bf8e-643576a773df\"}], \"verified_statuses\": {\"28f739c2-41f8-4ca6-b6e6-f56665d67d23\": \"AVAILABLE\", \"64e18f75-0c7c-4e24-bf8e-643576a773df\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\"], \"final_answer_sources\": {\"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\": {\"data\": {\"conditions\": [{\"expected_value\": true, \"fact_type\": \"decision_rotation_agreed\", \"id\": \"rotate_decisions\", \"source_quote\": \"Rotate small decisions\"}, {\"expected_value\": true, \"fact_type\": \"decision_deadline_agreed\", \"id\": \"decision_deadline\", \"source_quote\": \"set a friendly decision deadline for shared arrangements.\"}], \"content_hash\": \"sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f\", \"document_kind\": \"compatibility_pair\", \"id\": \"395ba917-3d27-51ac-a77e-759ead4f916b\", \"language\": \"en\", \"pair_key\": \"GRANITE+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"GRANITE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\\nAvoid: Do not require unanimous approval for every cushion adjustment.\\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\", \"title\": \"Granite + Granite — The permanently adjourned furniture meeting\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"get_compatibility_pair\"}, \"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"data\": {\"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"name\": \"Sir Pebble\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-30T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0001-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\"}, \"stone_size\": \"SMALL\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_details\"}, \"stone-card:64e18f75-0c7c-4e24-bf8e-643576a773df\": {\"data\": {\"biography\": \"Professor Quartzless is a beloved resident of the fictional pet stone world.\", \"external_id\": \"abcbd2b8-234c-4653-a9cf-d3c022073750\", \"id\": \"64e18f75-0c7c-4e24-bf8e-643576a773df\", \"name\": \"Professor Quartzless\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-01T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0010-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"ad5c3c16-cbe4-4ebe-8800-4d957a3ce9e7\", \"id\": \"8f7d0b25-4894-4ed3-b616-151a07f9b264\"}, \"stone_size\": \"MEDIUM\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_details\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Both granite condition checks have no applicable positive facts and remain unknown.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Any agreement described in the answer is scoped only to BASALT+GNEISS and is not generalized to the granite household.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not widen scoped facts to household-wide facts.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.14,
+        "probabilities": {
+          "satisfies": 0.43,
+          "partially_satisfies": 0.21,
+          "does_not_satisfy": 0.36
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.97,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.98
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.2,
+        "probabilities": {
+          "satisfies": 0.46,
+          "partially_satisfies": 0.07,
+          "does_not_satisfy": 0.47
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 2747,
+      "output_tokens": 157,
+      "cost": 0.000115374
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Both granite condition checks have no applicable positive facts and remain unknown.",
+      "text": "Both granite condition checks have no applicable positive facts and remain unknown.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Both granite condition checks have no applicable positive facts and remain unknown.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.535,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.43,
+        "partially_satisfies": 0.21,
+        "does_not_satisfy": 0.36
+      },
+      "confidence": 0.14,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Typed agreements, if extracted, retain BASALT+GNEISS scope.",
+      "text": "Any agreement described in the answer is scoped only to BASALT+GNEISS and is not generalized to the granite household.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Any agreement described in the answer is scoped only to BASALT+GNEISS and is not generalized to the granite household.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.015,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.01,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.98
+      },
+      "confidence": 0.97,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not widen scoped facts to household-wide facts.",
+      "text": "Do not widen scoped facts to household-wide facts.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not widen scoped facts to household-wide facts.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.495,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.46,
+        "partially_satisfies": 0.07,
+        "does_not_satisfy": 0.47
+      },
+      "confidence": 0.2,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 2747,
+    "output_tokens": 157,
+    "cost": 0.000115374
+  },
+  "score": 0.34833333333333333,
+  "success": false,
+  "confidence": 0.14,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.14.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Both granite condition checks have no applicable positive facts and remain unknown. -> \"satisfies\", leaning \"does_not_satisfy\" (P=0.43, confidence=0.14)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Any agreement described in the answer is scoped only to BASALT+GNEISS and is not generalized to the granite household. -> \"does_not_satisfy\" (P=0.98, confidence=0.97)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not widen scoped facts to household-wide facts. -> \"does_not_satisfy\", leaning \"satisfies\" (P=0.47, confidence=0.20)\nScore: 0.35 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 0.000115374,
+  "input_tokens": 2747,
+  "output_tokens": 157
+}

@@ -1,0 +1,90 @@
+{
+  "run_id": "STPY-langview-20261115-r02",
+  "judge_timestamp": "20261115T185258148259Z",
+  "cases": [
+    {
+      "case_id": "Q01",
+      "category": "app_issue",
+      "score": 0.7599999999999999,
+      "finding": "Contradictory availability"
+    },
+    {
+      "case_id": "Q02",
+      "category": "mixed",
+      "score": 0.722857142857143,
+      "finding": "Valid shortlist; missing biography; counterexample overreach"
+    },
+    {
+      "case_id": "Q03",
+      "category": "app_issue",
+      "score": 0.69375,
+      "finding": "Retrieved quiet-home explanation lost"
+    },
+    {
+      "case_id": "Q06",
+      "category": "app_issue",
+      "score": 0.60625,
+      "finding": "Coverage stop; clarification only"
+    },
+    {
+      "case_id": "Q07",
+      "category": "app_issue",
+      "score": 0.6483333333333333,
+      "finding": "Correct internal denial hidden"
+    },
+    {
+      "case_id": "Q08",
+      "category": "judge_or_rubric_issue",
+      "score": 0.3416666666666666,
+      "finding": "Guide requirement confused with accomplished agreement"
+    },
+    {
+      "case_id": "Q09",
+      "category": "mixed",
+      "score": 0.1366666666666667,
+      "finding": "Unhelpful empty result; no cancelled trigger"
+    },
+    {
+      "case_id": "Q11",
+      "category": "mixed",
+      "score": 0.12,
+      "finding": "Coverage stop; safe but incomplete"
+    },
+    {
+      "case_id": "Q12",
+      "category": "app_issue",
+      "score": 0.503,
+      "finding": "Invalid grounding blocks facts"
+    },
+    {
+      "case_id": "Q13",
+      "category": "app_issue",
+      "score": 0.25833333333333336,
+      "finding": "Invalid grounding blocks status/personality answer"
+    },
+    {
+      "case_id": "Q15",
+      "category": "app_issue",
+      "score": 0.505,
+      "finding": "Location and case identity dropped"
+    },
+    {
+      "case_id": "Q16",
+      "category": "mixed",
+      "score": 0.7887500000000001,
+      "finding": "Correct conditional pair; sociability omitted"
+    },
+    {
+      "case_id": "Q17",
+      "category": "mixed",
+      "score": 0.46625,
+      "finding": "Retrieved biography wrongly treated as missing"
+    },
+    {
+      "case_id": "Q18",
+      "category": "app_issue",
+      "score": 0.41250000000000003,
+      "finding": "Single-entity plan; identity uncertainty contradicts source"
+    }
+  ]
+}

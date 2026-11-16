@@ -1,0 +1,260 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:19.571861+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "f584f24c768603999742a7db97319c233bec38b999f4596c26156a558b5a26eb",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "6510b47a9d4cb048deafc14e8ccc611af872a390bd8f4b221550089b4f752610",
+  "source_trace_id": "ebfb48b446ce2981de88c74b8fd939e1",
+  "case_id": "Q14",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL.",
+      "text": "Report AVAILABLE from PostgreSQL."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If discussing history, reservation ended after reservation began.",
+      "text": "If the final answer discusses reservation history, does it state that the reservation ended after it began? Select not_applicable when the final answer does not discuss reservation history; do not infer the chronology from sources that the answer did not mention.",
+      "applicability_option": "not_applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not report RESERVED based on a search hit from the older event.",
+      "text": "Do not report RESERVED based on a search hit from the older event."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
+  "captured_answer": "**Mossy Limestone** · `AVAILABLE`",
+  "captured_sources": {
+    "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "name": "Mossy Limestone",
+        "stone_type": "LIMESTONE",
+        "adoption_status": "AVAILABLE"
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "name": "Mossy Limestone",
+          "stone_type": "LIMESTONE",
+          "adoption_status": "AVAILABLE"
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "797f4decbbbcb2767334f94581737cb01109e29a92bdf7eb02e77c30cfa453bd",
+  "response_sha256": "593517f4c111501f1b853c8b0a38588d7fa280fce6a0324252e3c1562225e7ba",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
+        "actual_output": "**Mossy Limestone** · `AVAILABLE`",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"49522edc-86f0-4ff5-bb20-f0baaf4d4256\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256\": {\"data\": {\"adoption_status\": \"AVAILABLE\", \"name\": \"Mossy Limestone\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\", \"stone_type\": \"LIMESTONE\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer discusses reservation history, does it state that the reservation ended after it began? Select not_applicable when the final answer does not discuss reservation history; do not infer the chronology from sources that the answer did not mention.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior.",
+          "not_applicable": "The final answer does not meet the stated condition for judging this criterion."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.96,
+        "probabilities": {
+          "satisfies": 0.97,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.02
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "not_applicable",
+        "confidence": 0.99,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0,
+          "not_applicable": 0.99
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1298,
+      "output_tokens": 164,
+      "cost": 5.4516e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL.",
+      "text": "Report AVAILABLE from PostgreSQL.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.975,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.97,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.02
+      },
+      "confidence": 0.96,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If discussing history, reservation ended after reservation began.",
+      "text": "If the final answer discusses reservation history, does it state that the reservation ended after it began? Select not_applicable when the final answer does not discuss reservation history; do not infer the chronology from sources that the answer did not mention.",
+      "applicability_option": "not_applicable",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer discusses reservation history, does it state that the reservation ended after it began? Select not_applicable when the final answer does not discuss reservation history; do not infer the chronology from sources that the answer did not mention.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": null,
+      "applicable": false,
+      "probabilities": {
+        "satisfies": 0.01,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0,
+        "not_applicable": 0.99
+      },
+      "confidence": 0.99,
+      "passed": null,
+      "applicability_status": "not_applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not report RESERVED based on a search hit from the older event.",
+      "text": "Do not report RESERVED based on a search hit from the older event.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1298,
+    "output_tokens": 164,
+    "cost": 5.4516e-05
+  },
+  "score": 0.9875,
+  "metric_success": true,
+  "score_threshold_passed": true,
+  "threshold_comparison": {
+    "raw_score": 0.9875,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.96,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.96.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL. -> \"satisfies\" (P=0.97, confidence=0.96)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: If the final answer discusses reservation history, does it state that the reservation ended after it began? Select not_applicable when the final answer does not discuss reservation history; do not infer the chronology from sources that the answer did not mention. -> not applicable (not applicable, confidence=0.99)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event. -> \"satisfies\" (P=1.00, confidence=1.00)\nScore: 0.99 (weighted mean of 2 applicable questions).",
+  "evaluation_cost": 5.4516e-05,
+  "input_tokens": 1298,
+  "output_tokens": 164,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": true
+}

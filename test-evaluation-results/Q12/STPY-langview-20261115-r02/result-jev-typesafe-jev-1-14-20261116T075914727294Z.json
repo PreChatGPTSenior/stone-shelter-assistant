@@ -1,0 +1,319 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:18.915435+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "35ae0aebb0fd74f1ba3c8df1f3bb6bd6784c02c65b6a875a9d39d1ebe85e8797",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "a6e53420e47cef60fae0179ef869549518cafb44606e6bc54272caff16a0503a",
+  "source_trace_id": "95d155e2de4f6b76c71bc3fdd6a34f23",
+  "case_id": "Q12",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report RESERVED from current PostgreSQL state.",
+      "text": "Report RESERVED from current PostgreSQL state."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "text": "The meeting note describes the family, not an established preference of Captain Basalt."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "His empty profile supplies no quiet-home confirmation.",
+      "text": "His empty profile supplies no quiet-home confirmation."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never claim AVAILABLE from the admission note.",
+      "text": "Never claim AVAILABLE from the admission note."
+    },
+    {
+      "id": "forbidden-2",
+      "direction": "forbidden",
+      "source_text": "Do not turn an empty profile into a positive personality assessment.",
+      "text": "Do not turn an empty profile into a positive personality assessment."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+  "captured_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "ba415e8c64ff0d0a982e116acb2af43458cb028fa77005cb5392db937ba09489",
+  "response_sha256": "c5e3adee1689852554efd5e3f0d3ab8274c3b140f62ffd4a165c332fd50b4c1e",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+        "actual_output": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_4": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.96,
+        "probabilities": {
+          "satisfies": 0.02,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.97
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.55,
+        "probabilities": {
+          "satisfies": 0.25,
+          "partially_satisfies": 0.05,
+          "does_not_satisfy": 0.7
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.22,
+        "probabilities": {
+          "satisfies": 0.48,
+          "partially_satisfies": 0.13,
+          "does_not_satisfy": 0.39
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.94,
+        "probabilities": {
+          "satisfies": 0.96,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.03
+        }
+      },
+      "q_4": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1537,
+      "output_tokens": 257,
+      "cost": 6.4554e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report RESERVED from current PostgreSQL state.",
+      "text": "Report RESERVED from current PostgreSQL state.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.025,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.02,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.97
+      },
+      "confidence": 0.96,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.275,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.25,
+        "partially_satisfies": 0.05,
+        "does_not_satisfy": 0.7
+      },
+      "confidence": 0.55,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "His empty profile supplies no quiet-home confirmation.",
+      "text": "His empty profile supplies no quiet-home confirmation.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.5449999999999999,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.48,
+        "partially_satisfies": 0.13,
+        "does_not_satisfy": 0.39
+      },
+      "confidence": 0.22,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never claim AVAILABLE from the admission note.",
+      "text": "Never claim AVAILABLE from the admission note.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.965,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.96,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.03
+      },
+      "confidence": 0.94,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-2",
+      "direction": "forbidden",
+      "source_text": "Do not turn an empty profile into a positive personality assessment.",
+      "text": "Do not turn an empty profile into a positive personality assessment.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1537,
+    "output_tokens": 257,
+    "cost": 6.4554e-05
+  },
+  "score": 0.562,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.562,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.22,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.22.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state. -> \"does_not_satisfy\" (P=0.97, confidence=0.96)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt. -> \"does_not_satisfy\" (P=0.70, confidence=0.55)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation. -> \"satisfies\", leaning \"does_not_satisfy\" (P=0.48, confidence=0.22)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note. -> \"satisfies\" (P=0.96, confidence=0.94)\n5. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment. -> \"satisfies\" (P=1.00, confidence=1.00)\nScore: 0.56 (weighted mean of 5 applicable questions).",
+  "evaluation_cost": 6.4554e-05,
+  "input_tokens": 1537,
+  "output_tokens": 257,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

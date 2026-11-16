@@ -231,9 +231,7 @@ async def test_measure_grounding_on_held_out_questions(
                 for row in rows
                 if row.get("technical_error")
             ],
-            "unmeasured_case_ids": [
-                row["case"]["id"] for row in rows if row["actual"] is None
-            ],
+            "unmeasured_case_ids": [row["case"]["id"] for row in rows if row["actual"] is None],
             "note": (
                 "Expected labels are never sent to the model. Acceptance mode requires every reviewed holdout outcome; "
                 "diagnostic mode records outcome mismatches without a semantic pass claim. Telemetry export errors "
@@ -253,13 +251,11 @@ async def test_measure_grounding_on_held_out_questions(
         f"Grounding execution failed for {technical_failures}; archive: {archive}"
     )
     unmeasured = [row["case"]["id"] for row in rows if row["actual"] is None]
-    assert not unmeasured, f"Grounding produced no usable finding for {unmeasured}; archive: {archive}"
+    assert not unmeasured, (
+        f"Grounding produced no usable finding for {unmeasured}; archive: {archive}"
+    )
     if acceptance_mode:
-        mismatches = [
-            row["case"]["id"]
-            for row in rows
-            if row["actual"] != row["case"]["expected"]
-        ]
+        mismatches = [row["case"]["id"] for row in rows if row["actual"] != row["case"]["expected"]]
         assert not mismatches, (
             f"Reviewed grounding outcomes did not match for {mismatches}; archive: {archive}"
         )

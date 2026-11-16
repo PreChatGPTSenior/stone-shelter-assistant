@@ -1,0 +1,154 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:34:29.809657+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q15/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "44b6ab63b32ebeff401a8fa08d89e69350587d543d2bc625803fce1d8d28f9c1",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q15/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "4743c518a587a9b0be83cd6f475c4e7b1b523c05751092c114e9bea654d39c25",
+  "source_trace_id": "9945bb92284ebf29ee956cf887af6680",
+  "case_id": "Q15",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him?",
+    "expected": {
+      "required": [
+        "Current shelter is P2 - Quiet Quarry and status is RESERVED.",
+        "Lifetime case number remains 0008-2026-P1."
+      ],
+      "forbidden": [
+        "Do not derive current shelter from the P1 suffix.",
+        "Transfer does not imply availability."
+      ]
+    },
+    "sources": {
+      "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+          "name": "Wandering Sandstone",
+          "stone_type": "SANDSTONE",
+          "adoption_status": "RESERVED"
+        }
+      }
+    }
+  },
+  "resolved_judge_input": {
+    "question": "Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him?",
+    "expected": {
+      "required": [
+        "Current shelter is P2 - Quiet Quarry and status is RESERVED.",
+        "Lifetime case number remains 0008-2026-P1."
+      ],
+      "forbidden": [
+        "Do not derive current shelter from the P1 suffix.",
+        "Transfer does not imply availability."
+      ]
+    },
+    "sources": {
+      "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+          "name": "Wandering Sandstone",
+          "stone_type": "SANDSTONE",
+          "adoption_status": "RESERVED"
+        }
+      }
+    }
+  },
+  "captured_generation_output": {
+    "answer": "**Wandering Sandstone** · `RESERVED`",
+    "recommendation_status": null,
+    "sources": {
+      "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+          "name": "Wandering Sandstone",
+          "stone_type": "SANDSTONE",
+          "adoption_status": "RESERVED"
+        }
+      }
+    },
+    "verified_statuses": {
+      "db2c5c3d-7d7d-47e7-856a-abf06b66b708": "RESERVED"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "**Wandering Sandstone** · `RESERVED`",
+    "recommendation_status": null,
+    "sources": {
+      "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+          "name": "Wandering Sandstone",
+          "stone_type": "SANDSTONE",
+          "adoption_status": "RESERVED"
+        }
+      }
+    },
+    "verified_statuses": {
+      "db2c5c3d-7d7d-47e7-856a-abf06b66b708": "RESERVED"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "c17284816c9ebae6dbbf87aaf2f786969e2a6029f88ce5b005780879bb509c76",
+  "resolved_judge_input_sha256": "c17284816c9ebae6dbbf87aaf2f786969e2a6029f88ce5b005780879bb509c76",
+  "captured_assessment_sha256": "2e3ff9680ad3b892e4f4b3328224fbb29c531a9e9537ec032661f6e5ea03bab1",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.3,
+    "reason": "The response correctly identifies Wandering Sandstone as RESERVED and does not incorrectly infer location from the P1 suffix or recommend adoption. However, it fails to answer the key location question (P2 – Quiet Quarry), omits that the lifetime case number remains 0008-2026-P1, and does not explicitly explain that reserved status means he is not currently available for adoption.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692070-vwQNReLFpX6BXQNlS19J",
+        "cost": 0.0004222,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 749,
+          "output_tokens": 227,
+          "total_tokens": 976,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 134
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him?\", \"expected\": {\"required\": [\"Current shelter is P2 - Quiet Quarry and status is RESERVED.\", \"Lifetime case number remains 0008-2026-P1.\"], \"forbidden\": [\"Do not derive current shelter from the P1 suffix.\", \"Transfer does not imply availability.\"]}, \"sources\": {\"stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708\": {\"tool\": \"get_stone_status_by_name\", \"data\": {\"stone_id\": \"db2c5c3d-7d7d-47e7-856a-abf06b66b708\", \"name\": \"Wandering Sandstone\", \"stone_type\": \"SANDSTONE\", \"adoption_status\": \"RESERVED\"}}}} \n\nActual Output:\n{\"answer\": \"**Wandering Sandstone** · `RESERVED`\", \"recommendation_status\": null, \"sources\": {\"stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708\": {\"tool\": \"get_stone_status_by_name\", \"data\": {\"stone_id\": \"db2c5c3d-7d7d-47e7-856a-abf06b66b708\", \"name\": \"Wandering Sandstone\", \"stone_type\": \"SANDSTONE\", \"adoption_status\": \"RESERVED\"}}}, \"verified_statuses\": {\"db2c5c3d-7d7d-47e7-856a-abf06b66b708\": \"RESERVED\"}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly identifies Wandering Sandstone as RESERVED and does not incorrectly infer location from the P1 suffix or recommend adoption. However, it fails to answer the key location question (P2 – Quiet Quarry), omits that the lifetime case number remains 0008-2026-P1, and does not explicitly explain that reserved status means he is not currently available for adoption.\",\"score\":3}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

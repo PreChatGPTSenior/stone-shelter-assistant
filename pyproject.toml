@@ -41,6 +41,7 @@ dev = [
 ]
 eval = [
     "deepeval>=4.3.3",
+    "ragas>=0.4.3",
 ]
 
 [tool.ruff]

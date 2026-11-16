@@ -1,0 +1,22 @@
+{
+  "suite_id": "jev-evidence-calibration-en-v1",
+  "run_id": "20261115T142707Z",
+  "status": "completed",
+  "endpoint": "https://openrouter.ai/api/alpha/decisions",
+  "model_requested": "typesafe/jev-1.14",
+  "fixture_hashes": {
+    "fixtures/agent-eval/model-calibration/cases.json": "b0c247d4042b5540e1ae1bd879d30d40eec47958af42c8f72e5e963e78d58298",
+    "fixtures/agent-eval/questions-challenge-20/scenarios.json": "54dc9ef486e91c898054c89f99f8c9e9a89d65c26ac354b2c4ac23aa33f3efb9",
+    "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md": "802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322",
+    "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json": "7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+    "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json": "f7a0b0039d7b4af6d8d768fc921601c97e813913f4c3816240fa8006bec05263",
+    "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json": "0235829896601637932a101ae6e523f871325839f32b4a8ffa4c0e24c1592999"
+  },
+  "code_hashes": {
+    "tests/synthetic_evaluation/model_calibration/test_jev_model_calibration.py": "4c76f8922deee0f453a0c20b9e497d5d25b89303f7e323130903d92fa791598e",
+    "tests/synthetic_evaluation/model_calibration/jev_calibration.py": "badcfaa30eefd3253397b19095eb46344b8b776a430b215bd75bd6914fde7c45"
+  },
+  "case_count": 3,
+  "limitation": "Three reviewed cases share one expected label; this is a smoke calibration, not evidence of judge quality or broad performance.",
+  "mismatches": []
+}

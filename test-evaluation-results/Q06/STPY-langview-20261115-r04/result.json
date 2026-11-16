@@ -1,0 +1,999 @@
+{
+  "case_id": "Q06",
+  "comparison_id": "langview-20261115",
+  "run_number": 4,
+  "run_id": "STPY-langview-20261115-r04",
+  "session_id": "STPY-langview-20261115-r04",
+  "request": {
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "model_id": "qwen/qwen3.7-flash",
+    "selection_model_id": "qwen/qwen3.7-flash",
+    "parsing_model_id": "qwen/qwen3.7-flash",
+    "evaluation_model_id": "qwen/qwen3.7-flash",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "qwen/qwen3.7-flash",
+    "eval_case_id": "Q06",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 4,
+    "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+  },
+  "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+  "expected": {
+    "required": [
+      "No positive established agreement may be extracted.",
+      "Neither condition is confirmed; keep the option conditional."
+    ],
+    "forbidden": [
+      "Do not turn 'want to agree' into an agreement."
+    ],
+    "pair": {
+      "key": "GRANITE+GRANITE",
+      "verdict": "CONDITIONAL"
+    }
+  },
+  "status": "completed",
+  "trace_id": "21fcd58c2b9e23917c75d1b4ebf19ff5",
+  "started_at": "2026-11-14T20:45:10.529563+00:00",
+  "response": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The parsed question covers the recommendation request, the candidate type, environmental fit, and existing household context. However, it fails to represent the user's explicit statement regarding decision-making agreements ('We want to agree on rotating decisions and deadlines someday, but we have not done so yet'). These statements constitute independent household facts (specifically concerning `decision_rotation_agreed` and `decision_deadline_agreed`) that are decision-bearing or clarify the scope of current agreements, which must be captured in the `household_facts` array according to the schema definitions. Their omission renders the coverage incomplete.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We want to agree on rotating decisions and deadlines someday,",
+          "reason": "Fragment 2 states an intention/wish ('want to agree') regarding rotation and deadlines. According to the concept definitions for `decision_rotation_agreed` and `decision_deadline_agreed`, wishes, plans, and hypotheses do not establish or deny the agreement. Therefore, no boolean fact is asserted here, but the text itself serves as relevant context or potential future criterion. More critically, Fragment 3 provides an explicit denial. If Fragment 2 is considered part of the scope for the denial in 3, it might be contextual. However, the primary omission is the explicit denial in Fragment 3. Let's look at Fragment 3."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "Fragment 3 explicitly denies having reached an agreement ('we have not done so yet') regarding the rotating decisions and deadlines mentioned in Fragment 2. The concept definitions state that an explicit statement that no agreement was reached supports false (`proposed_value: false`) for both `decision_rotation_agreed` and `decision_deadline_agreed`. This is an independent factual assertion about the household's current state of agreement scopes. The current parse lacks any entry in `household_facts` representing this explicit negative agreement status. This is a missed coverage of a typed household fact."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "qwen/qwen3.7-flash",
+    "model_ids": {
+      "select_candidates": "qwen/qwen3.7-flash",
+      "parse_question": "qwen/qwen3.7-flash",
+      "evaluate_candidates": "qwen/qwen3.7-flash",
+      "answer": "qwen/qwen3.7-flash",
+      "collect_reference_evidence": "qwen/qwen3.7-flash",
+      "ground_question": "qwen/qwen3.7-flash"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 4,
+      "run_id": "STPY-langview-20261115-r04",
+      "session_id": "STPY-langview-20261115-r04",
+      "configuration_id": "cfg-00ac475cc876fc88",
+      "eval_case_id": "Q06",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+    },
+    "trace_id": "21fcd58c2b9e23917c75d1b4ebf19ff5"
+  },
+  "elapsed_seconds": 49.931,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "2c84be11-9d21-45db-9cc1-e983c55ef4b5"
+      }
+    ],
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "parsed_question": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "fragment_id": 1,
+          "question_quote": "Find one granite stone for a quiet home with our granite.",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "fragment_id": 1,
+            "question_quote": "for a quiet home"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": null,
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": {
+        "lexical_query": "granite stone quiet home",
+        "semantic_query": "recommend a granite stone suitable for a quiet household that already has granite",
+        "candidate_type": {
+          "fragment_id": 1,
+          "stone_type": "GRANITE"
+        }
+      }
+    },
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The parsed question covers the recommendation request, the candidate type, environmental fit, and existing household context. However, it fails to represent the user's explicit statement regarding decision-making agreements ('We want to agree on rotating decisions and deadlines someday, but we have not done so yet'). These statements constitute independent household facts (specifically concerning `decision_rotation_agreed` and `decision_deadline_agreed`) that are decision-bearing or clarify the scope of current agreements, which must be captured in the `household_facts` array according to the schema definitions. Their omission renders the coverage incomplete.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 2,
+          "quote": "We want to agree on rotating decisions and deadlines someday,",
+          "reason": "Fragment 2 states an intention/wish ('want to agree') regarding rotation and deadlines. According to the concept definitions for `decision_rotation_agreed` and `decision_deadline_agreed`, wishes, plans, and hypotheses do not establish or deny the agreement. Therefore, no boolean fact is asserted here, but the text itself serves as relevant context or potential future criterion. More critically, Fragment 3 provides an explicit denial. If Fragment 2 is considered part of the scope for the denial in 3, it might be contextual. However, the primary omission is the explicit denial in Fragment 3. Let's look at Fragment 3."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "Fragment 3 explicitly denies having reached an agreement ('we have not done so yet') regarding the rotating decisions and deadlines mentioned in Fragment 2. The concept definitions state that an explicit statement that no agreement was reached supports false (`proposed_value: false`) for both `decision_rotation_agreed` and `decision_deadline_agreed`. This is an independent factual assertion about the household's current state of agreement scopes. The current parse lacks any entry in `household_facts` representing this explicit negative agreement status. This is a missed coverage of a typed household fact."
+        }
+      ]
+    },
+    "grounding_catalog": {
+      "language": "en",
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entry_ids": [
+        "en-v1-definition-candidate_compatibility",
+        "en-v1-definition-candidate_environment_fit",
+        "en-v1-definition-candidate_type",
+        "en-v1-definition-decision_deadline_agreed",
+        "en-v1-definition-decision_rotation_agreed",
+        "en-v1-example-candidate-compatibility-context",
+        "en-v1-example-candidate-denial",
+        "en-v1-example-candidate-environment-fit",
+        "en-v1-example-candidate-hard-compatibility",
+        "en-v1-example-candidate-household",
+        "en-v1-example-candidate-preference",
+        "en-v1-example-candidate-required",
+        "en-v1-example-candidate-type-no-modal",
+        "en-v1-example-candidate-type-optional",
+        "en-v1-example-candidate-type-with-other-household-type",
+        "en-v1-example-deadline-asserted",
+        "en-v1-example-deadline-explicit-pair-refusal",
+        "en-v1-example-deadline-other-pair-not-denial",
+        "en-v1-example-deadline-wished",
+        "en-v1-example-environment-background",
+        "en-v1-example-rotation-asserted",
+        "en-v1-example-rotation-denied",
+        "en-v1-example-rotation-explicit-pair-refusal",
+        "en-v1-example-rotation-intended",
+        "en-v1-example-rotation-other-household",
+        "en-v1-example-rotation-other-pair-not-denial"
+      ]
+    },
+    "grounding_catalog_snapshot": {
+      "language": "en",
+      "catalog_version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entries": [
+        {
+          "id": "en-v1-definition-candidate_compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "definition",
+          "text": "A hard candidate-to-type compatibility criterion is stated independently when the user requires the new stone to live well with another type. Merely mentioning an existing stone, asking for a companion, or asking for environmental fit can trigger contextual pair assessment without imposing mandatory compatibility. A direct must/refusal about cohabitation remains binding.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_environment_fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "definition",
+          "text": "A recommendation requested for a stated home may express suitability to that environment. Represent the exact source wording as environmental fit; it does not claim the recommended stone intrinsically has the home’s quality. A home detail used only as background is not a fit criterion.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "definition",
+          "text": "The explicitly required material type of the new recommended stone. A positive type directly modifying the requested stone noun (for example, find a granite stone) is required without modal words such as must. A type stated as optional/preferred or negated is not required and must not become a retrieval filter. Identify which entity a type modifies: a type modifying an existing household stone is household context.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_deadline_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_rotation_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-compatibility-context",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a companion for the marble stone already at home.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a stone, but not granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-environment-fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "Find a stone suited to a quiet home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-hard-compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a slate stone that must live well with the existing marble stone.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a companion for my granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-preference",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally granite.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-required",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a granite companion.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-no-modal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find one granite stone for a small home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-optional",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally, find a granite stone.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-with-other-household-type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a basalt stone for a home where granite already lives.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "BASALT",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We established a deadline for shared decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to set a deadline for pumice-pair decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We set a deadline for marble-slate decisions; it applies only to that pair.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-wished",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We hope to agree on a deadline for decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-environment-background",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "My home is quiet. Tell me whether the named stone is available.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-denied",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We have not agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to rotate decisions for the pumice pair.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-rotation-intended",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We want to agree to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We discussed how they agreed to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions for marble-slate. The agreement is scoped to that pair, not pumice pairs.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        }
+      ]
+    },
+    "grounding_decisions": [
+      {
+        "proposal_id": "candidate_type",
+        "finding": "supported",
+        "fragment_id": 1,
+        "quote": "Find one granite stone for a quiet home with our granite.",
+        "reason": "The proposal identifies the candidate type as GRANITE. The source text 'Find one granite stone' explicitly requests a stone of this material type directly modifying the noun, without modal words like 'must' or negation. This matches the definition of candidate_type and the example 'Find one granite stone for a small home'. The phrase 'with our granite' refers to an existing household stone (context), not the type of the new recommended stone. Thus, the proposed value is supported by the exact wording in fragment 1."
+      }
+    ],
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Find one granite stone for a quiet home with our granite.",
+      "2": "We want to agree on rotating decisions and deadlines someday,",
+      "3": "but we have not done so yet."
+    },
+    "duplicate_criteria_removed": 0,
+    "retrieval": {
+      "lexical_query": "granite stone quiet home",
+      "semantic_query": "recommend a granite stone suitable for a quiet household that already has granite",
+      "filters": {
+        "stone_external_id": null,
+        "case_external_id": null,
+        "case_number": null,
+        "stone_type": "GRANITE",
+        "stone_size": null,
+        "current_shelter_id": null,
+        "adoption_status": "AVAILABLE",
+        "care_level": null,
+        "language": "en",
+        "socialization_traits": []
+      }
+    },
+    "parser_diagnostics": [],
+    "criteria": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "criterion_id": "household_fact.1",
+          "fragment_id": 1,
+          "question_quote": "Find one granite stone for a quiet home with our granite.",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "criterion_id": "requirement.character.1",
+            "fragment_id": 1,
+            "question_quote": "for a quiet home"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      }
+    },
+    "criteria_status": "parsed",
+    "reference_request": {
+      "stone_name": null,
+      "recommendation_name": null,
+      "care_types": [],
+      "pairs": [],
+      "pair_lists": [],
+      "stone_info": null,
+      "unsupported_care": []
+    },
+    "permitted_tools": [],
+    "plan_status": "question_coverage_incomplete",
+    "model_call": {
+      "model_name": "qwen/qwen3.7-flash",
+      "id": "gen-1794689136-hKcSkOB3VW0cmw7YCBoE",
+      "cost": 0.00058425,
+      "finish_reason": "tool_calls",
+      "usage": {
+        "input_tokens": 8217,
+        "output_tokens": 2598,
+        "total_tokens": 10815,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 1969
+        }
+      }
+    },
+    "result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question covers the recommendation request, the candidate type, environmental fit, and existing household context. However, it fails to represent the user's explicit statement regarding decision-making agreements ('We want to agree on rotating decisions and deadlines someday, but we have not done so yet'). These statements constitute independent household facts (specifically concerning `decision_rotation_agreed` and `decision_deadline_agreed`) that are decision-bearing or clarify the scope of current agreements, which must be captured in the `household_facts` array according to the schema definitions. Their omission renders the coverage incomplete.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We want to agree on rotating decisions and deadlines someday,",
+            "reason": "Fragment 2 states an intention/wish ('want to agree') regarding rotation and deadlines. According to the concept definitions for `decision_rotation_agreed` and `decision_deadline_agreed`, wishes, plans, and hypotheses do not establish or deny the agreement. Therefore, no boolean fact is asserted here, but the text itself serves as relevant context or potential future criterion. More critically, Fragment 3 provides an explicit denial. If Fragment 2 is considered part of the scope for the denial in 3, it might be contextual. However, the primary omission is the explicit denial in Fragment 3. Let's look at Fragment 3."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "Fragment 3 explicitly denies having reached an agreement ('we have not done so yet') regarding the rotating decisions and deadlines mentioned in Fragment 2. The concept definitions state that an explicit statement that no agreement was reached supports false (`proposed_value: false`) for both `decision_rotation_agreed` and `decision_deadline_agreed`. This is an independent factual assertion about the household's current state of agreement scopes. The current parse lacks any entry in `household_facts` representing this explicit negative agreement status. This is a missed coverage of a typed household fact."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q06",
+    "stage_applicability": "recommendation",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 1,
+        "requested_availability": [],
+        "requested_compatibility": [],
+        "household_facts": [
+          {
+            "fragment_id": 1,
+            "question_quote": "Find one granite stone for a quiet home with our granite.",
+            "existing_stone_type": "GRANITE",
+            "fact_type": null,
+            "value": null,
+            "applies_to_pair": null
+          }
+        ],
+        "requirements": {
+          "character": [
+            {
+              "fragment_id": 1,
+              "question_quote": "for a quiet home"
+            }
+          ],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": null,
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": {
+          "lexical_query": "granite stone quiet home",
+          "semantic_query": "recommend a granite stone suitable for a quiet household that already has granite",
+          "candidate_type": {
+            "fragment_id": 1,
+            "stone_type": "GRANITE"
+          }
+        }
+      },
+      "question_fragments": {
+        "1": "Find one granite stone for a quiet home with our granite.",
+        "2": "We want to agree on rotating decisions and deadlines someday,",
+        "3": "but we have not done so yet."
+      },
+      "grounding_decisions": [
+        {
+          "proposal_id": "candidate_type",
+          "finding": "supported",
+          "fragment_id": 1,
+          "quote": "Find one granite stone for a quiet home with our granite.",
+          "reason": "The proposal identifies the candidate type as GRANITE. The source text 'Find one granite stone' explicitly requests a stone of this material type directly modifying the noun, without modal words like 'must' or negation. This matches the definition of candidate_type and the example 'Find one granite stone for a small home'. The phrase 'with our granite' refers to an existing household stone (context), not the type of the new recommended stone. Thus, the proposed value is supported by the exact wording in fragment 1."
+        }
+      ],
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question covers the recommendation request, the candidate type, environmental fit, and existing household context. However, it fails to represent the user's explicit statement regarding decision-making agreements ('We want to agree on rotating decisions and deadlines someday, but we have not done so yet'). These statements constitute independent household facts (specifically concerning `decision_rotation_agreed` and `decision_deadline_agreed`) that are decision-bearing or clarify the scope of current agreements, which must be captured in the `household_facts` array according to the schema definitions. Their omission renders the coverage incomplete.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We want to agree on rotating decisions and deadlines someday,",
+            "reason": "Fragment 2 states an intention/wish ('want to agree') regarding rotation and deadlines. According to the concept definitions for `decision_rotation_agreed` and `decision_deadline_agreed`, wishes, plans, and hypotheses do not establish or deny the agreement. Therefore, no boolean fact is asserted here, but the text itself serves as relevant context or potential future criterion. More critically, Fragment 3 provides an explicit denial. If Fragment 2 is considered part of the scope for the denial in 3, it might be contextual. However, the primary omission is the explicit denial in Fragment 3. Let's look at Fragment 3."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "Fragment 3 explicitly denies having reached an agreement ('we have not done so yet') regarding the rotating decisions and deadlines mentioned in Fragment 2. The concept definitions state that an explicit statement that no agreement was reached supports false (`proposed_value: false`) for both `decision_rotation_agreed` and `decision_deadline_agreed`. This is an independent factual assertion about the household's current state of agreement scopes. The current parse lacks any entry in `household_facts` representing this explicit negative agreement status. This is a missed coverage of a typed household fact."
+          }
+        ]
+      },
+      "question_coverage_status": "incomplete"
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "question_coverage_incomplete",
+      "criteria_status": "parsed",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": "incomplete",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_lexical_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_semantic_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_engine_union_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_rrf_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_shortlist_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_evidence_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_decision_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "fail",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": null,
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unknown",
+      "checks": {
+        "pair:GRANITE+GRANITE:verdict": {
+          "expected": "CONDITIONAL",
+          "actual": null,
+          "status": "unknown"
+        }
+      }
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      },
+      "disposition_check": {
+        "status": "unknown",
+        "checks": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+            "expected": "conditional_option",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "coverage_gate": {
+        "status": "fail",
+        "coverage_status": "incomplete"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "No positive established agreement may be extracted.",
+        "Neither condition is confirmed; keep the option conditional."
+      ],
+      "forbidden_assertions": [
+        "Do not turn 'want to agree' into an agreement."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question covers the recommendation request, the candidate type, environmental fit, and existing household context. However, it fails to represent the user's explicit statement regarding decision-making agreements ('We want to agree on rotating decisions and deadlines someday, but we have not done so yet'). These statements constitute independent household facts (specifically concerning `decision_rotation_agreed` and `decision_deadline_agreed`) that are decision-bearing or clarify the scope of current agreements, which must be captured in the `household_facts` array according to the schema definitions. Their omission renders the coverage incomplete.",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 2,
+            "quote": "We want to agree on rotating decisions and deadlines someday,",
+            "reason": "Fragment 2 states an intention/wish ('want to agree') regarding rotation and deadlines. According to the concept definitions for `decision_rotation_agreed` and `decision_deadline_agreed`, wishes, plans, and hypotheses do not establish or deny the agreement. Therefore, no boolean fact is asserted here, but the text itself serves as relevant context or potential future criterion. More critically, Fragment 3 provides an explicit denial. If Fragment 2 is considered part of the scope for the denial in 3, it might be contextual. However, the primary omission is the explicit denial in Fragment 3. Let's look at Fragment 3."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "Fragment 3 explicitly denies having reached an agreement ('we have not done so yet') regarding the rotating decisions and deadlines mentioned in Fragment 2. The concept definitions state that an explicit statement that no agreement was reached supports false (`proposed_value: false`) for both `decision_rotation_agreed` and `decision_deadline_agreed`. This is an independent factual assertion about the household's current state of agreement scopes. The current parse lacks any entry in `household_facts` representing this explicit negative agreement status. This is a missed coverage of a typed household fact."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "qwen/qwen3.7-flash",
+      "model_ids": {
+        "select_candidates": "qwen/qwen3.7-flash",
+        "parse_question": "qwen/qwen3.7-flash",
+        "evaluate_candidates": "qwen/qwen3.7-flash",
+        "answer": "qwen/qwen3.7-flash",
+        "collect_reference_evidence": "qwen/qwen3.7-flash",
+        "ground_question": "qwen/qwen3.7-flash"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 4,
+        "run_id": "STPY-langview-20261115-r04",
+        "session_id": "STPY-langview-20261115-r04",
+        "configuration_id": "cfg-00ac475cc876fc88",
+        "eval_case_id": "Q06",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+      },
+      "trace_id": "21fcd58c2b9e23917c75d1b4ebf19ff5"
+    }
+  },
+  "failed_checks": [
+    "Q06.workflow_integrity",
+    "Q06.engine_union.unknown",
+    "Q06.rrf.unknown",
+    "Q06.structured_expectations",
+    "Q06.recommendations.coverage_gate",
+    "Q06.recommendations.disposition_check"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T20:46:01.367029+00:00"
+}

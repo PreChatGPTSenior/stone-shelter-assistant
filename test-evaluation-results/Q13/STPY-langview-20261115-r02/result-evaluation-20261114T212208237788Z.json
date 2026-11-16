@@ -1,0 +1,257 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q13",
+      "stage_applicability": "not_applicable",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [
+            {
+              "fragment_id": 1
+            },
+            {
+              "fragment_id": 2
+            }
+          ],
+          "requested_compatibility": [],
+          "household_facts": [],
+          "requirements": {
+            "character": [],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [
+              {
+                "fragment_id": 3,
+                "question_quote": "cheerful personality"
+              }
+            ],
+            "compatibility": []
+          },
+          "named_stone": {
+            "fragment_id": 1,
+            "name": "Sunny Marble"
+          },
+          "recommendation_target": {
+            "fragment_id": 1,
+            "name": "Sunny Marble"
+          },
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": null
+        },
+        "question_fragments": {
+          "1": "Can I adopt Sunny Marble now?",
+          "2": "An old note says he is available.",
+          "3": "Does the name Sunny prove that he has a cheerful personality?"
+        },
+        "grounding_decisions": null,
+        "question_coverage_audit": null,
+        "question_coverage_status": "invalid_audit"
+      },
+      "workflow_integrity": {
+        "status": "fail",
+        "plan_status": "unresolved_question",
+        "criteria_status": "pending_grounding",
+        "selection_status": null,
+        "reference_assessment_status": null,
+        "candidate_assessment_status": null,
+        "question_coverage_status": "invalid_audit",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "unknown",
+          "coverage_status": "invalid_audit"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "actual_supplied_sources": {},
+        "structured_decisions": [],
+        "verified_statuses": {},
+        "required_assertions": [
+          "Report ADOPTED; no recommendation for adoption now.",
+          "Name and generic biography do not establish a cheerful personality."
+        ],
+        "forbidden_assertions": [
+          "Do not prefer the old admission note over current status."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "plan_status": "unresolved_question",
+        "grounding_status": "invalid_grounding_binding",
+        "question_coverage_status": "invalid_audit",
+        "question_coverage_audit": null,
+        "sources": {},
+        "verified_statuses": {},
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q13",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "83dfccb6f451f96b0438ca7ec8177b94"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "d83febb69246a5f84b701c525a8708c140af18475bd67c9da5c2da314603d5e5",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:08.237753+00:00",
+  "failed_checks": [
+    "Q13.workflow_integrity",
+    "Q13.recommendations.coverage_gate"
+  ]
+}

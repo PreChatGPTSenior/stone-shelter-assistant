@@ -1,0 +1,104 @@
+{
+  "references": [
+    {
+      "case_id": "Q01",
+      "question": "Is Madame Obsidian available and compatible with granite?",
+      "reference": "Madame Obsidian is currently AVAILABLE. The compatibility guide rates the GRANITE+OBSIDIAN type pair HARMONIOUS. This type-level verdict does not establish any individual cohabitation history."
+    },
+    {
+      "case_id": "Q02",
+      "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+      "reference": "Madame Obsidian is AVAILABLE and her individual profile says she prefers a quiet home with a predictable routine; GRANITE+OBSIDIAN is HARMONIOUS. Sir Pebble is AVAILABLE and his biography says he enjoys quiet evenings, but the GRANITE+GRANITE guide is CONDITIONAL and its decision-rotation and deadline conditions have not been established, so he is only a conditional option. Homeward Pumice is AVAILABLE and enjoys other stones, but that alone gives no quiet-home or granite-specific compatibility evidence. Professor Quartzless is AVAILABLE, but his generic biography provides no individual quiet-home evidence."
+    },
+    {
+      "case_id": "Q03",
+      "question": "Find one granite stone for a quiet home where another granite stone already lives. Who is currently available and why might they fit?",
+      "reference": "Sir Pebble is a currently AVAILABLE granite whose biography says he enjoys quiet evenings, so he has individual quiet-home evidence. GRANITE+GRANITE is CONDITIONAL: the guide requires agreement to rotate small decisions and set a friendly deadline for shared arrangements. Neither condition is established in the question, so Sir Pebble is only a conditional option. Professor Quartzless is also AVAILABLE and granite, but his generic biography does not establish a quiet-home preference."
+    },
+    {
+      "case_id": "Q04",
+      "question": "Find one granite stone for a quiet home where granite already lives. We have agreed to take turns on small decisions and established a deadline for shared decisions.",
+      "reference": "The GRANITE+GRANITE guide is CONDITIONAL and requires rotating small decisions plus a friendly deadline for shared arrangements. The question confirms both conditions, so their condition status is confirmed while the authored verdict remains CONDITIONAL. Sir Pebble is AVAILABLE and his biography supports a quiet-home fit; he may be recommended if retrieved and verified. Professor Quartzless is AVAILABLE but has no individual quiet-home evidence in his generic biography."
+    },
+    {
+      "case_id": "Q05",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+      "reference": "The GRANITE+GRANITE guide is CONDITIONAL and requires rotating small decisions and a friendly deadline. Rotation is confirmed, but the deadline is unknown because the household has not decided it; both conditions are not confirmed. Sir Pebble is AVAILABLE and has quiet-evening biography evidence, but remains a conditional option. Professor Quartzless is AVAILABLE but his generic biography does not establish a quiet-home preference."
+    },
+    {
+      "case_id": "Q06",
+      "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+      "reference": "The GRANITE+GRANITE guide is CONDITIONAL and requires agreement to rotate small decisions and set a friendly decision deadline. A future intention is not an established agreement, so both conditions remain unknown and the pair is not confirmed. Sir Pebble is AVAILABLE and his biography supports a quiet-home preference, but he is only a conditional option. Professor Quartzless is AVAILABLE but has no individual quiet-home evidence in his generic biography."
+    },
+    {
+      "case_id": "Q07",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on decisions, but refused to set a deadline for shared decisions.",
+      "reference": "The GRANITE+GRANITE guide is CONDITIONAL and requires decision rotation and a friendly deadline. Rotation is confirmed, while the deadline condition is contradicted because the household refused it; the pair remains unconfirmed. Sir Pebble is AVAILABLE and his biography supports a quiet-home preference, but he cannot be treated as an unconditionally suitable granite-pair match. Professor Quartzless is AVAILABLE but has no individual quiet-home evidence."
+    },
+    {
+      "case_id": "Q08",
+      "question": "Find one granite stone for a quiet home with our granite. We agreed to rotate decisions and set a deadline for shared decisions only for the basalt-gneiss pair. These agreements do not apply to granite pairs.",
+      "reference": "The GRANITE+GRANITE guide is CONDITIONAL and requires decision rotation and a friendly deadline. The stated agreements apply only to BASALT+GNEISS and explicitly do not apply to granite pairs, so both granite condition checks remain unknown. Sir Pebble is AVAILABLE and has quiet-evening biography evidence, but remains a conditional option; Professor Quartzless is AVAILABLE without individual quiet-home evidence."
+    },
+    {
+      "case_id": "Q09",
+      "question": "Find one obsidian stone. The stone must tolerate a vacuum cleaner calmly because we use it daily. Enjoying human company is a preference, not a requirement.",
+      "reference": "Madame Obsidian is AVAILABLE and enjoys human company, but her individual profile says she becomes anxious around vacuum cleaners. That conflicts with the mandatory requirement to tolerate daily vacuuming calmly, so her positive socialization trait does not make her a qualifying candidate. The authored obsidian fixture supplies no other obsidian candidate."
+    },
+    {
+      "case_id": "Q10",
+      "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+      "reference": "Brave Gneiss is AVAILABLE and the individual profile lists GOOD_WITH_CHILDREN, supporting the required child-friendly criterion. A shelter observation says Brave Gneiss enjoys short garden visits; that is optional and does not replace the profile evidence."
+    },
+    {
+      "case_id": "Q11",
+      "question": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
+      "reference": "Velvet Slate is currently RETURNED, so he is not eligible for an adoption recommendation even though the prospective caregiver has experience. His profile says he is distressed by loud music, which conflicts with the required calm behavior."
+    },
+    {
+      "case_id": "Q12",
+      "question": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+      "reference": "Captain Basalt is RESERVED. The meeting event says the family enjoys quiet board games; it does not establish that Captain Basalt prefers quiet surroundings. His profile is empty, so no individual quiet-home preference is recorded."
+    },
+    {
+      "case_id": "Q13",
+      "question": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
+      "reference": "Sunny Marble is currently ADOPTED and cannot be adopted now. The old admission event saying he was made available is historical; the current status is authoritative. His name and generic biography do not establish a cheerful individual personality, and no profile is supplied."
+    },
+    {
+      "case_id": "Q14",
+      "question": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
+      "reference": "Mossy Limestone is currently AVAILABLE and can be considered for adoption. The case history records a reservation on October 2, 2026, followed by the reservation ending on October 3, 2026; the older reservation does not describe his current status."
+    },
+    {
+      "case_id": "Q15",
+      "question": "Wandering Sandstone has case number 0008-2026-P1. Is he currently at P1 or P2, and can I adopt him?",
+      "reference": "Wandering Sandstone is currently at P2 - Quiet Quarry and is RESERVED, so he is not currently available for adoption. His lifetime case number remains 0008-2026-P1; its P1 suffix does not indicate his current shelter after the recorded transfer to P2."
+    },
+    {
+      "case_id": "Q16",
+      "question": "Find one pumice stone for a home where granite already lives. Is enjoying the company of other stones enough to prove compatibility with granite?",
+      "reference": "Homeward Pumice is AVAILABLE and his profile lists ENJOYS_OTHER_STONES, which supports general sociability. The GRANITE+PUMICE guide rates the pair CONDITIONAL and recommends alternating a predictable shared activity with a brief playful one. General sociability does not establish a granite-specific individual preference or confirm those accommodations, so compatibility is not proven."
+    },
+    {
+      "case_id": "Q17",
+      "question": "Find one granite stone whose biography or profile explicitly confirms a preference for a quiet home. The name Professor Quartzless and a large number of observations alone are not evidence.",
+      "reference": "Sir Pebble is AVAILABLE, is GRANITE, and his biography says he enjoys quiet evenings, providing individual quiet-home evidence. Professor Quartzless is also AVAILABLE and is GRANITE, but his biography is generic and his profile is absent; the 99 repeated settling-in observations do not establish a quiet-home preference under the stated source distinction."
+    },
+    {
+      "case_id": "Q18",
+      "question": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+      "reference": "Both Sir Pebble and Professor Quartzless are currently AVAILABLE granite stones. Sir Pebble's biography says he enjoys quiet evenings. Professor Quartzless has a generic biography and no supplied profile; Sir Pebble's description does not apply to Professor."
+    },
+    {
+      "case_id": "Q19",
+      "question": "Why was Velvet Slate returned, what care followed the return, and is he currently available? Put the events in chronological order.",
+      "reference": "Velvet Slate was reserved on October 2, 2026, adopted on October 3, and returned on October 4 after a noisy household proved unsuitable. On October 5 he received a calming blanket and a gentle surface inspection. The current status remains RETURNED; the care event does not record a clearance or change his availability."
+    },
+    {
+      "case_id": "Q20",
+      "question": "Mossy Limestone is limestone. Can I clean him with vinegar and keep him on a constantly wet shelf? What does the encyclopedia say, and are any individual care needs recorded?",
+      "reference": "The limestone encyclopedia says acids, including vinegar, can damage limestone; persistent dampness is undesirable, so use a dry shelf and avoid acidic cleaning. Mossy Limestone has no supplied individual profile or recorded personal care needs. These are general limestone-care facts, not individual traits."
+    }
+  ]
+}

@@ -1,0 +1,914 @@
+{
+  "case_id": "Q18",
+  "comparison_id": "langview-20261115",
+  "run_number": 4,
+  "run_id": "STPY-langview-20261115-r04",
+  "session_id": "STPY-langview-20261115-r04",
+  "request": {
+    "question": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+    "model_id": "qwen/qwen3.7-flash",
+    "selection_model_id": "qwen/qwen3.7-flash",
+    "parsing_model_id": "qwen/qwen3.7-flash",
+    "evaluation_model_id": "qwen/qwen3.7-flash",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "qwen/qwen3.7-flash",
+    "eval_case_id": "Q18",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 4,
+    "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+  },
+  "question": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+  "expected": {
+    "required": [
+      "Both are AVAILABLE.",
+      "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+      "Read and cite both identities; an answer covering only one is incomplete."
+    ],
+    "forbidden": [
+      "Do not accept a partial single-name answer as a passing comparison."
+    ]
+  },
+  "status": "completed",
+  "trace_id": "d8742a123df49e1034819f3818acd5ef",
+  "started_at": "2026-11-14T20:54:46.558773+00:00",
+  "response": {
+    "answer": "**Sir Pebble** · `AVAILABLE`",
+    "recommendation_status": null,
+    "sources": {
+      "stone-status:41481556-477b-4746-9ca6-c87701dc9e86": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "adoption_status": "AVAILABLE"
+        }
+      }
+    },
+    "verified_statuses": {
+      "41481556-477b-4746-9ca6-c87701dc9e86": "AVAILABLE"
+    },
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "qwen/qwen3.7-flash",
+    "model_ids": {
+      "select_candidates": "qwen/qwen3.7-flash",
+      "parse_question": "qwen/qwen3.7-flash",
+      "evaluate_candidates": "qwen/qwen3.7-flash",
+      "answer": "qwen/qwen3.7-flash",
+      "collect_reference_evidence": "qwen/qwen3.7-flash",
+      "ground_question": "qwen/qwen3.7-flash"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 4,
+      "run_id": "STPY-langview-20261115-r04",
+      "session_id": "STPY-langview-20261115-r04",
+      "configuration_id": "cfg-00ac475cc876fc88",
+      "eval_case_id": "Q18",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+    },
+    "trace_id": "d8742a123df49e1034819f3818acd5ef"
+  },
+  "elapsed_seconds": 25.273,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "64bc7ba6-8953-4796-a66d-d182ee0e4180"
+      }
+    ],
+    "question": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+    "parsed_question": {
+      "recommendation_limit": 0,
+      "requested_availability": [
+        {
+          "fragment_id": 2
+        }
+      ],
+      "requested_compatibility": [],
+      "household_facts": [],
+      "requirements": {
+        "character": [],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": {
+        "fragment_id": 1,
+        "name": "Sir Pebble"
+      },
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": {
+        "lexical_query": "Compare Sir Pebble Professor Quartzless available biography enjoys quiet evenings",
+        "semantic_query": "Check availability of two named stones and compare their biographies for mention of enjoying quiet evenings",
+        "candidate_type": null
+      }
+    },
+    "grounding_status": "not_needed",
+    "question_coverage_status": "not_run",
+    "grounding_catalog": {
+      "language": "en",
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entry_ids": [
+        "en-v1-definition-candidate_compatibility",
+        "en-v1-definition-candidate_environment_fit",
+        "en-v1-definition-candidate_type",
+        "en-v1-definition-decision_deadline_agreed",
+        "en-v1-definition-decision_rotation_agreed",
+        "en-v1-example-candidate-compatibility-context",
+        "en-v1-example-candidate-denial",
+        "en-v1-example-candidate-environment-fit",
+        "en-v1-example-candidate-hard-compatibility",
+        "en-v1-example-candidate-household",
+        "en-v1-example-candidate-preference",
+        "en-v1-example-candidate-required",
+        "en-v1-example-candidate-type-no-modal",
+        "en-v1-example-candidate-type-optional",
+        "en-v1-example-candidate-type-with-other-household-type",
+        "en-v1-example-deadline-asserted",
+        "en-v1-example-deadline-explicit-pair-refusal",
+        "en-v1-example-deadline-other-pair-not-denial",
+        "en-v1-example-deadline-wished",
+        "en-v1-example-environment-background",
+        "en-v1-example-rotation-asserted",
+        "en-v1-example-rotation-denied",
+        "en-v1-example-rotation-explicit-pair-refusal",
+        "en-v1-example-rotation-intended",
+        "en-v1-example-rotation-other-household",
+        "en-v1-example-rotation-other-pair-not-denial"
+      ]
+    },
+    "grounding_catalog_snapshot": {
+      "language": "en",
+      "catalog_version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56",
+      "entries": [
+        {
+          "id": "en-v1-definition-candidate_compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "definition",
+          "text": "A hard candidate-to-type compatibility criterion is stated independently when the user requires the new stone to live well with another type. Merely mentioning an existing stone, asking for a companion, or asking for environmental fit can trigger contextual pair assessment without imposing mandatory compatibility. A direct must/refusal about cohabitation remains binding.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_environment_fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "definition",
+          "text": "A recommendation requested for a stated home may express suitability to that environment. Represent the exact source wording as environmental fit; it does not claim the recommended stone intrinsically has the home’s quality. A home detail used only as background is not a fit criterion.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-candidate_type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "definition",
+          "text": "The explicitly required material type of the new recommended stone. A positive type directly modifying the requested stone noun (for example, find a granite stone) is required without modal words such as must. A type stated as optional/preferred or negated is not required and must not become a retrieval filter. Identify which entity a type modifies: a type modifying an existing household stone is household context.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_deadline_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established a deadline for shared decisions. A deadline for another activity does not count. Intention, requests, hypotheticals and missing information are unknown, not false. An explicit denial supports false. Preserve the household and pair scope. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-definition-decision_rotation_agreed",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "definition",
+          "text": "The user household explicitly established taking shared decisions in turns. Wishes, plans, hypotheses, questions, another household and missing information do not establish or deny this agreement. Check the proposed boolean and exact pair scope. Explicit refusal or an explicit statement that no agreement was reached supports false. Preserve the exact stated scope. A positive agreement for one pair does not prove a negative agreement for another pair. Non-applicability to another pair means unknown for that pair, not explicit false; false requires an explicit denial for the same scope.",
+          "expected": null,
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-compatibility-context",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a companion for the marble stone already at home.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a stone, but not granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-environment-fit",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "Find a stone suited to a quiet home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-hard-compatibility",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_compatibility",
+          "entry_kind": "example",
+          "text": "Find a slate stone that must live well with the existing marble stone.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a companion for my granite.",
+          "expected": "contradicted",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-preference",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally granite.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-required",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a granite companion.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-no-modal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find one granite stone for a small home.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-optional",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Ideally, find a granite stone.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": "GRANITE",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-candidate-type-with-other-household-type",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_type",
+          "entry_kind": "example",
+          "text": "Find a basalt stone for a home where granite already lives.",
+          "expected": "supported",
+          "proposed_value": null,
+          "proposed_type": "BASALT",
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We established a deadline for shared decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-deadline-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to set a deadline for pumice-pair decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We set a deadline for marble-slate decisions; it applies only to that pair.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-deadline-wished",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_deadline_agreed",
+          "entry_kind": "example",
+          "text": "We hope to agree on a deadline for decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-environment-background",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "candidate_environment_fit",
+          "entry_kind": "example",
+          "text": "My home is quiet. Tell me whether the named stone is available.",
+          "expected": "unknown",
+          "proposed_value": null,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-asserted",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-denied",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We have not agreed to rotate decisions.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-explicit-pair-refusal",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We explicitly refused to rotate decisions for the pumice pair.",
+          "expected": "supported",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        },
+        {
+          "id": "en-v1-example-rotation-intended",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We want to agree to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-household",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We discussed how they agreed to rotate decisions.",
+          "expected": "unknown",
+          "proposed_value": true,
+          "proposed_type": null,
+          "applies_to_pair": null
+        },
+        {
+          "id": "en-v1-example-rotation-other-pair-not-denial",
+          "language": "en",
+          "catalog_version": "en-v1",
+          "concept_id": "decision_rotation_agreed",
+          "entry_kind": "example",
+          "text": "We agreed to rotate decisions for marble-slate. The agreement is scoped to that pair, not pumice pairs.",
+          "expected": "unknown",
+          "proposed_value": false,
+          "proposed_type": null,
+          "applies_to_pair": [
+            "PUMICE",
+            "PUMICE"
+          ]
+        }
+      ]
+    },
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Compare Sir Pebble and Professor Quartzless.",
+      "2": "Are both available,",
+      "3": "and whose biography specifically says he enjoys quiet evenings?",
+      "4": "Do not transfer one stone's description to the other."
+    },
+    "duplicate_criteria_removed": 0,
+    "retrieval": {
+      "lexical_query": "Compare Sir Pebble Professor Quartzless available biography enjoys quiet evenings",
+      "semantic_query": "Check availability of two named stones and compare their biographies for mention of enjoying quiet evenings",
+      "filters": {
+        "stone_external_id": null,
+        "case_external_id": null,
+        "case_number": null,
+        "stone_type": null,
+        "stone_size": null,
+        "current_shelter_id": null,
+        "adoption_status": "AVAILABLE",
+        "care_level": null,
+        "language": "en",
+        "socialization_traits": []
+      }
+    },
+    "parser_diagnostics": [],
+    "criteria": {
+      "recommendation_limit": 0,
+      "requested_availability": [
+        {
+          "criterion_id": "requested_availability.1",
+          "fragment_id": 2,
+          "question_quote": "Are both available,"
+        }
+      ],
+      "requested_compatibility": [],
+      "household_facts": [],
+      "requirements": {
+        "character": [],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      }
+    },
+    "criteria_status": "parsed",
+    "reference_request": {
+      "stone_name": "Sir Pebble",
+      "recommendation_name": null,
+      "care_types": [],
+      "pairs": [],
+      "pair_lists": [],
+      "stone_info": null,
+      "unsupported_care": []
+    },
+    "permitted_tools": [
+      "get_stone_status_by_name"
+    ],
+    "tool_plan": {
+      "tools": [
+        "get_stone_status_by_name"
+      ],
+      "reason": "Ordered from parsed goals and fixed lookup dependencies."
+    },
+    "plan_status": "accepted",
+    "reference_result": {
+      "stone": {
+        "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "adoption_status": "AVAILABLE"
+      },
+      "recommendation_stone": null,
+      "recommendation_issue": null,
+      "card": null,
+      "lines": [
+        "**Sir Pebble** · `AVAILABLE`"
+      ],
+      "sources": {
+        "stone-status:41481556-477b-4746-9ca6-c87701dc9e86": {
+          "tool": "get_stone_status_by_name",
+          "data": {
+            "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+            "name": "Sir Pebble",
+            "stone_type": "GRANITE",
+            "adoption_status": "AVAILABLE"
+          }
+        }
+      },
+      "context_sources": {},
+      "exact_pair_source_ids": []
+    },
+    "reference_quotes": [],
+    "reference_assessment_status": "not_needed",
+    "reference_answer_status": "facts_only",
+    "model_call": {},
+    "result": {
+      "answer": "**Sir Pebble** · `AVAILABLE`",
+      "recommendation_status": null,
+      "sources": {
+        "stone-status:41481556-477b-4746-9ca6-c87701dc9e86": {
+          "tool": "get_stone_status_by_name",
+          "data": {
+            "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+            "name": "Sir Pebble",
+            "stone_type": "GRANITE",
+            "adoption_status": "AVAILABLE"
+          }
+        }
+      },
+      "verified_statuses": {
+        "41481556-477b-4746-9ca6-c87701dc9e86": "AVAILABLE"
+      },
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q18",
+    "stage_applicability": "unsupported_capability",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 0,
+        "requested_availability": [
+          {
+            "fragment_id": 2
+          }
+        ],
+        "requested_compatibility": [],
+        "household_facts": [],
+        "requirements": {
+          "character": [],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": {
+          "fragment_id": 1,
+          "name": "Sir Pebble"
+        },
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": {
+          "lexical_query": "Compare Sir Pebble Professor Quartzless available biography enjoys quiet evenings",
+          "semantic_query": "Check availability of two named stones and compare their biographies for mention of enjoying quiet evenings",
+          "candidate_type": null
+        }
+      },
+      "question_fragments": {
+        "1": "Compare Sir Pebble and Professor Quartzless.",
+        "2": "Are both available,",
+        "3": "and whose biography specifically says he enjoys quiet evenings?",
+        "4": "Do not transfer one stone's description to the other."
+      },
+      "grounding_decisions": null,
+      "question_coverage_audit": null,
+      "question_coverage_status": "not_run"
+    },
+    "workflow_integrity": {
+      "status": "pass",
+      "plan_status": "accepted",
+      "criteria_status": "parsed",
+      "selection_status": null,
+      "reference_assessment_status": "not_needed",
+      "candidate_assessment_status": null,
+      "question_coverage_status": "not_run",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "capability_unverified",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "abcbd2b8-234c-4653-a9cf-d3c022073750"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "unsupported_multi_name_comparison",
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unmeasured",
+      "checks": {}
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {},
+      "disposition_check": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "coverage_gate": {
+        "status": "not_applicable",
+        "coverage_status": "not_run"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "**Sir Pebble** · `AVAILABLE`",
+      "actual_supplied_sources": {
+        "stone-status:41481556-477b-4746-9ca6-c87701dc9e86": {
+          "tool": "get_stone_status_by_name",
+          "data": {
+            "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+            "name": "Sir Pebble",
+            "stone_type": "GRANITE",
+            "adoption_status": "AVAILABLE"
+          }
+        }
+      },
+      "structured_decisions": [],
+      "verified_statuses": {
+        "41481556-477b-4746-9ca6-c87701dc9e86": "AVAILABLE"
+      },
+      "required_assertions": [
+        "Both are AVAILABLE.",
+        "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+        "Read and cite both identities; an answer covering only one is incomplete."
+      ],
+      "forbidden_assertions": [
+        "Do not accept a partial single-name answer as a passing comparison."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "**Sir Pebble** · `AVAILABLE`",
+      "recommendation_status": null,
+      "sources": {
+        "stone-status:41481556-477b-4746-9ca6-c87701dc9e86": {
+          "tool": "get_stone_status_by_name",
+          "data": {
+            "stone_id": "41481556-477b-4746-9ca6-c87701dc9e86",
+            "name": "Sir Pebble",
+            "stone_type": "GRANITE",
+            "adoption_status": "AVAILABLE"
+          }
+        }
+      },
+      "verified_statuses": {
+        "41481556-477b-4746-9ca6-c87701dc9e86": "AVAILABLE"
+      },
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "qwen/qwen3.7-flash",
+      "model_ids": {
+        "select_candidates": "qwen/qwen3.7-flash",
+        "parse_question": "qwen/qwen3.7-flash",
+        "evaluate_candidates": "qwen/qwen3.7-flash",
+        "answer": "qwen/qwen3.7-flash",
+        "collect_reference_evidence": "qwen/qwen3.7-flash",
+        "ground_question": "qwen/qwen3.7-flash"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 4,
+        "run_id": "STPY-langview-20261115-r04",
+        "session_id": "STPY-langview-20261115-r04",
+        "configuration_id": "cfg-00ac475cc876fc88",
+        "eval_case_id": "Q18",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+      },
+      "trace_id": "d8742a123df49e1034819f3818acd5ef"
+    }
+  },
+  "failed_checks": [
+    "Q18.engine_union.capability_unverified",
+    "Q18.rrf.capability_unverified"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "pending",
+  "completed_at": "2026-11-14T20:55:15.467953+00:00"
+}

@@ -1,0 +1,547 @@
+{
+  "case_id": "Q02",
+  "comparison_id": "langview-20261115",
+  "run_number": 5,
+  "run_id": "STPY-langview-20261115-r05",
+  "session_id": "STPY-langview-20261115-r05",
+  "request": {
+    "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+    "model_id": "openrouter/free",
+    "selection_model_id": "openrouter/free",
+    "parsing_model_id": "openrouter/free",
+    "evaluation_model_id": "openrouter/free",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "openrouter/free",
+    "eval_case_id": "Q02",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 5,
+    "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+  },
+  "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+  "expected": {
+    "required": [
+      "Return at most two recommendations, all verified AVAILABLE.",
+      "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+      "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+      "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+      "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
+    ],
+    "forbidden": [
+      "Do not require one fixed shortlist or order before inspecting retrieval.",
+      "Do not count conditional options as unconditional recommendations.",
+      "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
+    ]
+  },
+  "status": "completed",
+  "trace_id": "a3d372b9c5876fb7d4e9b8e0426595d4",
+  "started_at": "2026-11-14T21:00:19.692254+00:00",
+  "response": {
+    "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "not_needed",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The `proposals` list is empty, so there are no parser proposals to verify. The coverage audit of `parsed_question` against the original question finds two omitted decision-bearing constraints:",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a quiet home",
+          "reason": "Fragment 1 recommends stones `for a quiet home`, which is a stated-home environmental-fit criterion. Per `candidate_environment_fit`, this must be represented in `requirements.character` (not treated as mere background). `parsed_question.requirements.character` is empty, so the criterion is omitted."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "where a granite stone already lives",
+          "reason": "Fragment 1 states that a granite stone already lives in the household. Per `candidate_type`, a type modifying an existing household stone is household context (`existing_stone_type`: GRANITE), not a required candidate type and not a mandatory compatibility criterion. `parsed_question.household_facts` is empty, so this household context is omitted."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "openrouter/free",
+    "model_ids": {
+      "select_candidates": "openrouter/free",
+      "parse_question": "openrouter/free",
+      "evaluate_candidates": "openrouter/free",
+      "answer": "openrouter/free",
+      "collect_reference_evidence": "openrouter/free",
+      "ground_question": "openrouter/free"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 5,
+      "run_id": "STPY-langview-20261115-r05",
+      "session_id": "STPY-langview-20261115-r05",
+      "configuration_id": "cfg-b402c22b1d7245d6",
+      "eval_case_id": "Q02",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+    },
+    "trace_id": "a3d372b9c5876fb7d4e9b8e0426595d4"
+  },
+  "elapsed_seconds": 52.54,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "501fa73a-5892-4382-9b62-fee2fecb91f8"
+      }
+    ],
+    "question": "Find up to two stones for a quiet home where a granite stone already lives. Who is currently available and why might they fit?",
+    "parsed_question": {
+      "recommendation_limit": 2,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [],
+      "requirements": {
+        "character": [],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": null,
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": null
+    },
+    "grounding_status": "not_needed",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The `proposals` list is empty, so there are no parser proposals to verify. The coverage audit of `parsed_question` against the original question finds two omitted decision-bearing constraints:",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a quiet home",
+          "reason": "Fragment 1 recommends stones `for a quiet home`, which is a stated-home environmental-fit criterion. Per `candidate_environment_fit`, this must be represented in `requirements.character` (not treated as mere background). `parsed_question.requirements.character` is empty, so the criterion is omitted."
+        },
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "where a granite stone already lives",
+          "reason": "Fragment 1 states that a granite stone already lives in the household. Per `candidate_type`, a type modifying an existing household stone is household context (`existing_stone_type`: GRANITE), not a required candidate type and not a mandatory compatibility criterion. `parsed_question.household_facts` is empty, so this household context is omitted."
+        }
+      ]
+    },
+    "grounding_catalog": {
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56"
+    },
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Find up to two stones for a quiet home where a granite stone already lives.",
+      "2": "Who is currently available and why might they fit?"
+    },
+    "criteria_status": "missing_retrieval_request",
+    "plan_status": "unresolved_question",
+    "model_call": {
+      "model_name": "nvidia/nemotron-3.5-super-vl:free",
+      "id": "gen-1794690026-R7oIXBvtK70MN7cjFZzb",
+      "cost": 0.0,
+      "finish_reason": "stop",
+      "usage": {
+        "input_tokens": 7079,
+        "output_tokens": 4699,
+        "total_tokens": 11778,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 4425
+        }
+      }
+    },
+    "result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_needed",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The `proposals` list is empty, so there are no parser proposals to verify. The coverage audit of `parsed_question` against the original question finds two omitted decision-bearing constraints:",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 recommends stones `for a quiet home`, which is a stated-home environmental-fit criterion. Per `candidate_environment_fit`, this must be represented in `requirements.character` (not treated as mere background). `parsed_question.requirements.character` is empty, so the criterion is omitted."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "where a granite stone already lives",
+            "reason": "Fragment 1 states that a granite stone already lives in the household. Per `candidate_type`, a type modifying an existing household stone is household context (`existing_stone_type`: GRANITE), not a required candidate type and not a mandatory compatibility criterion. `parsed_question.household_facts` is empty, so this household context is omitted."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q02",
+    "stage_applicability": "recommendation",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 2,
+        "requested_availability": [],
+        "requested_compatibility": [],
+        "household_facts": [],
+        "requirements": {
+          "character": [],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": null,
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": null
+      },
+      "question_fragments": {
+        "1": "Find up to two stones for a quiet home where a granite stone already lives.",
+        "2": "Who is currently available and why might they fit?"
+      },
+      "grounding_decisions": null,
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The `proposals` list is empty, so there are no parser proposals to verify. The coverage audit of `parsed_question` against the original question finds two omitted decision-bearing constraints:",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 recommends stones `for a quiet home`, which is a stated-home environmental-fit criterion. Per `candidate_environment_fit`, this must be represented in `requirements.character` (not treated as mere background). `parsed_question.requirements.character` is empty, so the criterion is omitted."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "where a granite stone already lives",
+            "reason": "Fragment 1 states that a granite stone already lives in the household. Per `candidate_type`, a type modifying an existing household stone is household context (`existing_stone_type`: GRANITE), not a required candidate type and not a mandatory compatibility criterion. `parsed_question.household_facts` is empty, so this household context is omitted."
+          }
+        ]
+      },
+      "question_coverage_status": "incomplete"
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "unresolved_question",
+      "criteria_status": "missing_retrieval_request",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": "incomplete",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_lexical_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_semantic_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_engine_union_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_rrf_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_shortlist_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_evidence_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_decision_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "fail",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "d8d61c1e-2f5d-472b-9c57-3c2f67ea0bbf"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": null,
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unmeasured",
+      "checks": {}
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {},
+      "disposition_check": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "coverage_gate": {
+        "status": "fail",
+        "coverage_status": "incomplete"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [
+        "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+      ],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [
+        "b19266ec-28a2-4fd3-851b-7fad50b6e175"
+      ],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "Return at most two recommendations, all verified AVAILABLE.",
+        "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+        "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+        "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+        "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict."
+      ],
+      "forbidden_assertions": [
+        "Do not require one fixed shortlist or order before inspecting retrieval.",
+        "Do not count conditional options as unconditional recommendations.",
+        "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "Please clarify which stone or stone type you mean and what you would like to know.",
+      "plan_status": "unresolved_question",
+      "grounding_status": "not_needed",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The `proposals` list is empty, so there are no parser proposals to verify. The coverage audit of `parsed_question` against the original question finds two omitted decision-bearing constraints:",
+        "issues": [
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "for a quiet home",
+            "reason": "Fragment 1 recommends stones `for a quiet home`, which is a stated-home environmental-fit criterion. Per `candidate_environment_fit`, this must be represented in `requirements.character` (not treated as mere background). `parsed_question.requirements.character` is empty, so the criterion is omitted."
+          },
+          {
+            "kind": "omitted",
+            "atom_id": null,
+            "fragment_id": 1,
+            "quote": "where a granite stone already lives",
+            "reason": "Fragment 1 states that a granite stone already lives in the household. Per `candidate_type`, a type modifying an existing household stone is household context (`existing_stone_type`: GRANITE), not a required candidate type and not a mandatory compatibility criterion. `parsed_question.household_facts` is empty, so this household context is omitted."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "openrouter/free",
+      "model_ids": {
+        "select_candidates": "openrouter/free",
+        "parse_question": "openrouter/free",
+        "evaluate_candidates": "openrouter/free",
+        "answer": "openrouter/free",
+        "collect_reference_evidence": "openrouter/free",
+        "ground_question": "openrouter/free"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 5,
+        "run_id": "STPY-langview-20261115-r05",
+        "session_id": "STPY-langview-20261115-r05",
+        "configuration_id": "cfg-b402c22b1d7245d6",
+        "eval_case_id": "Q02",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+      },
+      "trace_id": "a3d372b9c5876fb7d4e9b8e0426595d4"
+    }
+  },
+  "failed_checks": [
+    "Q02.workflow_integrity",
+    "Q02.engine_union.unknown",
+    "Q02.rrf.unknown",
+    "Q02.counterexamples",
+    "Q02.recommendations.coverage_gate"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T21:01:13.858426+00:00"
+}

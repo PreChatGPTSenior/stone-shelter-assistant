@@ -1,0 +1,26 @@
+{
+  "suite_id": "jev-evidence-calibration-en-v1",
+  "run_id": "20261115T144218Z",
+  "status": "completed",
+  "endpoint": "https://openrouter.ai/api/alpha/decisions",
+  "model_requested": "typesafe/jev-1.14",
+  "fixture_hashes": {
+    "fixtures/agent-eval/model-calibration/cases.json": "dea081fdc621c7674f1f88e6b30819a1556470227faaf7bd585758f56c3e1b76",
+    "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json": "feea5dc52d7abedccc4aab24e7a3f4c4ae07a8b2fa4a9f26bb3eef5abd7af3ac",
+    "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json": "f93c7e91b7ee83fd1e27186249407b53329e6764426daa5890cc6492297c0cea",
+    "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json": "f7a0b0039d7b4af6d8d768fc921601c97e813913f4c3816240fa8006bec05263"
+  },
+  "code_hashes": {
+    "tests/synthetic_evaluation/model_calibration/test_jev_model_calibration.py": "45ec049fee03d9a9d2e9a6bcc2275e7a07249d80909c0a9783e609fdafd2fbf7",
+    "tests/synthetic_evaluation/model_calibration/jev_calibration.py": "a8aa8e1a551865d0c8bde3d0c6b9a2b66bd215040048d6b2e14938497fdab6e0"
+  },
+  "case_count": 3,
+  "total_case_count": 6,
+  "selected_case_ids": [
+    "sir-pebble-quiet-evenings",
+    "madame-obsidian-vacuum-anxiety",
+    "quartzless-synthetic-same-session-conflict"
+  ],
+  "limitation": "Six reviewed cases provide a small calibration set. One case mixes authored fixture evidence with an explicitly synthetic calibration-only witness; results do not establish broad judge performance.",
+  "mismatches": []
+}

@@ -79,28 +79,11 @@ def _resolve_question_model_plan(
 ) -> QuestionModelPlan:
     request_default = payload.model_id or settings.model
     selection = (
-        payload.selection_model_id
-        or payload.model_id
-        or settings.selection_model
-        or settings.model
+        payload.selection_model_id or payload.model_id or settings.selection_model or settings.model
     )
-    parsing = (
-        payload.parsing_model_id
-        or payload.model_id
-        or settings.parsing_model
-        or selection
-    )
-    evaluation = (
-        payload.evaluation_model_id
-        or payload.model_id
-        or settings.evaluation_model
-    )
-    answer = (
-        payload.answer_model_id
-        or payload.model_id
-        or settings.answer_model
-        or settings.model
-    )
+    parsing = payload.parsing_model_id or payload.model_id or settings.parsing_model or selection
+    evaluation = payload.evaluation_model_id or payload.model_id or settings.evaluation_model
+    answer = payload.answer_model_id or payload.model_id or settings.answer_model or settings.model
     return QuestionModelPlan(
         request_default=request_default,
         selection=selection,

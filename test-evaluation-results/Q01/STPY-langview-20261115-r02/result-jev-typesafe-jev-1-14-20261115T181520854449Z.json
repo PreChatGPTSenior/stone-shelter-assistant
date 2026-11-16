@@ -1,0 +1,289 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:20.899800+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q01/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "e5076c6d7291e5198a32be81f9f9723d01e29a8508684329828a9b8b9d7e899a",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q01/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "43a641b65d3f77ff7ff297b71cd585270b1d03a3882b15697e6fbebc76e6db8b",
+  "source_trace_id": "aa5a8e1ed8edc2f5cf6a9677e1028245",
+  "case_id": "Q01",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+      "text": "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Keep individual biography separate from the type-pair rule.",
+      "text": "Keep individual biography separate from the type-pair rule."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not infer individual cohabitation history from a harmonious type rule.",
+      "text": "Do not infer individual cohabitation history from a harmonious type rule."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Is Madame Obsidian available and compatible with granite?",
+  "captured_answer": "**Madame Obsidian** · `AVAILABLE`\n\nOBSIDIAN + GRANITE · `HARMONIOUS`\n\n**General type compatibility**\nThe checked compatibility guide gives a harmonious verdict for Granite and Obsidian. It recommends direct reassurance and private conversations as a household agreement, but does not establish that such an agreement has been made. The quotation does not provide Madame Obsidian’s availability, so that part is unknown.\nSources: compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\nOriginal pair rule:\nVerdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+  "captured_sources": {
+    "stone-status:ceacaf66-077a-478d-b196-36194dc65711": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "ceacaf66-077a-478d-b196-36194dc65711",
+        "name": "Madame Obsidian",
+        "stone_type": "OBSIDIAN",
+        "adoption_status": "AVAILABLE"
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+      "tool": "get_compatibility_pair",
+      "data": {
+        "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+        "title": "Granite + Obsidian — A steady audience for complicated feelings",
+        "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "OBSIDIAN"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+OBSIDIAN",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "ceacaf66-077a-478d-b196-36194dc65711": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:ceacaf66-077a-478d-b196-36194dc65711": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "ceacaf66-077a-478d-b196-36194dc65711",
+          "name": "Madame Obsidian",
+          "stone_type": "OBSIDIAN",
+          "adoption_status": "AVAILABLE"
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+        "tool": "get_compatibility_pair",
+        "data": {
+          "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+          "title": "Granite + Obsidian — A steady audience for complicated feelings",
+          "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "OBSIDIAN"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+OBSIDIAN",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "ceacaf66-077a-478d-b196-36194dc65711": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "6f9351961e4a67f140f931b4ad6604be0e91fe6818878cc72bdb69825d165613",
+  "response_sha256": "cb79dc2f90545a932ea679724b817e90c00eedc5b78a07b648e49033fd2a8a60",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Is Madame Obsidian available and compatible with granite?",
+        "actual_output": "**Madame Obsidian** · `AVAILABLE`\n\nOBSIDIAN + GRANITE · `HARMONIOUS`\n\n**General type compatibility**\nThe checked compatibility guide gives a harmonious verdict for Granite and Obsidian. It recommends direct reassurance and private conversations as a household agreement, but does not establish that such an agreement has been made. The quotation does not provide Madame Obsidian’s availability, so that part is unknown.\nSources: compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\nOriginal pair rule:\nVerdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"ceacaf66-077a-478d-b196-36194dc65711\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885\", \"document_kind\": \"compatibility_pair\", \"id\": \"c3907cab-2ae1-561b-8577-7a500d078a3c\", \"language\": \"en\", \"pair_key\": \"GRANITE+OBSIDIAN\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"OBSIDIAN\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\\nAvoid: No public jokes about sensitivity or emotional overengineering.\\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\", \"title\": \"Granite + Obsidian — A steady audience for complicated feelings\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"get_compatibility_pair\"}, \"stone-status:ceacaf66-077a-478d-b196-36194dc65711\": {\"data\": {\"adoption_status\": \"AVAILABLE\", \"name\": \"Madame Obsidian\", \"stone_id\": \"ceacaf66-077a-478d-b196-36194dc65711\", \"stone_type\": \"OBSIDIAN\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Keep individual biography separate from the type-pair rule.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not infer individual cohabitation history from a harmonious type rule.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.19,
+        "probabilities": {
+          "satisfies": 0.46,
+          "partially_satisfies": 0.42,
+          "does_not_satisfy": 0.12
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.43,
+        "probabilities": {
+          "satisfies": 0.62,
+          "partially_satisfies": 0.1,
+          "does_not_satisfy": 0.28
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.77,
+        "probabilities": {
+          "satisfies": 0.85,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.12
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1833,
+      "output_tokens": 153,
+      "cost": 7.6986e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+      "text": "Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.67,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.46,
+        "partially_satisfies": 0.42,
+        "does_not_satisfy": 0.12
+      },
+      "confidence": 0.19,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Keep individual biography separate from the type-pair rule.",
+      "text": "Keep individual biography separate from the type-pair rule.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Keep individual biography separate from the type-pair rule.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.67,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.62,
+        "partially_satisfies": 0.1,
+        "does_not_satisfy": 0.28
+      },
+      "confidence": 0.43,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not infer individual cohabitation history from a harmonious type rule.",
+      "text": "Do not infer individual cohabitation history from a harmonious type rule.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not infer individual cohabitation history from a harmonious type rule.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.865,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.85,
+        "partially_satisfies": 0.03,
+        "does_not_satisfy": 0.12
+      },
+      "confidence": 0.77,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1833,
+    "output_tokens": 153,
+    "cost": 7.6986e-05
+  },
+  "score": 0.735,
+  "success": false,
+  "confidence": 0.19,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.19.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL and HARMONIOUS for GRANITE+OBSIDIAN. -> \"satisfies\", leaning \"partially_satisfies\" (P=0.46, confidence=0.19)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Keep individual biography separate from the type-pair rule. -> \"satisfies\" (P=0.62, confidence=0.43)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not infer individual cohabitation history from a harmonious type rule. -> \"satisfies\" (P=0.85, confidence=0.77)\nScore: 0.73 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 7.6986e-05,
+  "input_tokens": 1833,
+  "output_tokens": 153
+}

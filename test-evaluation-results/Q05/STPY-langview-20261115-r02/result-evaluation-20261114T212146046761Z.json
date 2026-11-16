@@ -1,0 +1,556 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q05",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [],
+          "household_facts": [
+            {
+              "fragment_id": 1,
+              "question_quote": "with our granite",
+              "existing_stone_type": "GRANITE",
+              "fact_type": null,
+              "value": null,
+              "applies_to_pair": null
+            },
+            {
+              "fragment_id": 2,
+              "question_quote": "We agreed to take turns on small decisions.",
+              "existing_stone_type": null,
+              "fact_type": "decision_rotation_agreed",
+              "value": true,
+              "applies_to_pair": null
+            },
+            {
+              "fragment_id": 3,
+              "question_quote": "We have not decided anything about a deadline for shared decisions yet.",
+              "existing_stone_type": null,
+              "fact_type": "decision_deadline_agreed",
+              "value": false,
+              "applies_to_pair": null
+            }
+          ],
+          "requirements": {
+            "character": [
+              {
+                "fragment_id": 1,
+                "question_quote": "for a quiet home"
+              }
+            ],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "granite stone quiet home",
+            "semantic_query": "Recommend one available granite stone suitable for a quiet home, considering the existing granite household stone.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "GRANITE"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one granite stone for a quiet home with our granite.",
+          "2": "We agreed to take turns on small decisions.",
+          "3": "We have not decided anything about a deadline for shared decisions yet."
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "agreement:1",
+            "finding": "supported",
+            "fragment_id": 2,
+            "quote": "We agreed to take turns on small decisions.",
+            "reason": "The fragment explicitly establishes a household agreement to take shared decisions in turns. The proposed value true matches, and no narrower stone-pair scope is stated."
+          },
+          {
+            "proposal_id": "agreement:2",
+            "finding": "supported",
+            "fragment_id": 3,
+            "quote": "We have not decided anything about a deadline for shared decisions yet.",
+            "reason": "The fragment explicitly states that no deadline agreement has been decided for shared decisions. The proposed value false matches the absence stated for that same decision scope."
+          },
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one granite stone for a quiet home with our granite.",
+            "reason": "“granite” directly modifies the requested new “stone,” so GRANITE is the required candidate type. “our granite” separately identifies existing household context and does not invert or weaken the candidate type."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "complete",
+          "summary": "Every independent decision-bearing request is represented: recommend one stone, require a granite candidate, require suitability for a quiet home, preserve the existing household granite as context, and represent both household agreement statements with their stated values and scopes. No independent compatibility, availability, care, named-stone, or pair-list request is present.",
+          "issues": []
+        },
+        "question_coverage_status": "complete"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5",
+            "abcbd2b8-234c-4653-a9cf-d3c022073750"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "pass",
+          "actual_external_ids": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_targets": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_found": [
+            "49cf225d-800f-4dce-8eb5-af192d2449d5"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+          "lexical_rank": 1,
+          "semantic_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "retrieval_rank": 1,
+          "in_pool": true
+        },
+        "abcbd2b8-234c-4653-a9cf-d3c022073750": {
+          "lexical_rank": null,
+          "semantic_rank": 2,
+          "rrf_score": 0.016129032258064516,
+          "retrieval_rank": 2,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": [
+          {
+            "source_id": "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+            "criterion": "character",
+            "quote": "enjoys quiet evenings",
+            "source_present": true,
+            "binding": "reason_evidence"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_source_id"
+          },
+          {
+            "source_id": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+            "criterion": "compatibility",
+            "quote": null,
+            "source_present": true,
+            "binding": "reason_evidence"
+          }
+        ]
+      },
+      "structured_expectations": {
+        "status": "fail",
+        "checks": {
+          "pair:GRANITE+GRANITE:verdict": {
+            "expected": "CONDITIONAL",
+            "actual": "CONDITIONAL",
+            "status": "pass"
+          },
+          "condition:GRANITE+GRANITE:rotate_decisions": {
+            "expected": "confirmed",
+            "actual": "confirmed",
+            "status": "pass"
+          },
+          "condition:GRANITE+GRANITE:decision_deadline": {
+            "expected": "unknown",
+            "actual": "contradicted",
+            "status": "fail"
+          }
+        }
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "expected_dispositions": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+        },
+        "disposition_check": {
+          "status": "pass",
+          "checks": {
+            "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+              "expected": "conditional_option",
+              "actual": "conditional_option",
+              "status": "pass"
+            }
+          }
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_applicable",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "actual_supplied_sources": {
+          "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+              "title": "Granite + Granite — The permanently adjourned furniture meeting",
+              "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "GRANITE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "conditions": [
+                {
+                  "id": "rotate_decisions",
+                  "fact_type": "decision_rotation_agreed",
+                  "expected_value": true,
+                  "source_quote": "Rotate small decisions"
+                },
+                {
+                  "id": "decision_deadline",
+                  "fact_type": "decision_deadline_agreed",
+                  "expected_value": true,
+                  "source_quote": "set a friendly decision deadline for shared arrangements."
+                }
+              ]
+            }
+          }
+        },
+        "structured_decisions": [
+          {
+            "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+            "name": "Sir Pebble",
+            "adoption_status": "AVAILABLE",
+            "outcome": "conditional_option",
+            "rank": null,
+            "exclusion_rules": []
+          }
+        ],
+        "verified_statuses": {
+          "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+        },
+        "required_assertions": [
+          "Rotation is confirmed; deadline is unknown.",
+          "Sir Pebble remains a conditional option."
+        ],
+        "forbidden_assertions": [
+          "One confirmed condition cannot confirm the pair."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Sir Pebble** · `AVAILABLE` · `conditional_option` · `CONDITIONAL`\nConditions are not confirmed.\n- GRANITE+GRANITE · `CONDITIONAL` · `conditional` · conditions: `unconfirmed`\n  > Verdict: CONDITIONAL\n  > Explanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\n  > Household agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\n  > Avoid: Do not require unanimous approval for every cushion adjustment.\n  > Bureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "sources": {
+          "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+              "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+              "name": "Sir Pebble",
+              "stone_type": "GRANITE",
+              "stone_size": "SMALL",
+              "biography": "A thoughtful stone who enjoys quiet evenings.",
+              "profile": null,
+              "shelter_case": {
+                "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+                "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+                "case_number": "0001-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-30T09:00:00Z"
+              }
+            }
+          },
+          "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+            "tool": "get_compatibility_pair",
+            "data": {
+              "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+              "title": "Granite + Granite — The permanently adjourned furniture meeting",
+              "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+              "language": "en",
+              "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+              "schema_version": 1,
+              "projection_version": 1,
+              "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+              "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+              "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+              "stone_types": [
+                "GRANITE",
+                "GRANITE"
+              ],
+              "document_kind": "compatibility_pair",
+              "pair_key": "GRANITE+GRANITE",
+              "verdict": "CONDITIONAL",
+              "conditions": [
+                {
+                  "id": "rotate_decisions",
+                  "fact_type": "decision_rotation_agreed",
+                  "expected_value": true,
+                  "source_quote": "Rotate small decisions"
+                },
+                {
+                  "id": "decision_deadline",
+                  "fact_type": "decision_deadline_agreed",
+                  "expected_value": true,
+                  "source_quote": "set a friendly decision deadline for shared arrangements."
+                }
+              ]
+            }
+          }
+        },
+        "verified_statuses": {
+          "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+        },
+        "recommended_stone_ids": [],
+        "candidate_decisions": [
+          {
+            "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+            "name": "Sir Pebble",
+            "adoption_status": "AVAILABLE",
+            "outcome": "conditional_option",
+            "rank": null,
+            "exclusion_rules": []
+          }
+        ],
+        "question": "Find one granite stone for a quiet home with our granite. We agreed to take turns on small decisions. We have not decided anything about a deadline for shared decisions yet.",
+        "question_fragments": {
+          "1": "Find one granite stone for a quiet home with our granite.",
+          "2": "We agreed to take turns on small decisions.",
+          "3": "We have not decided anything about a deadline for shared decisions yet."
+        },
+        "candidate_status": "parsed",
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q05",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "2e2f5e142c830d7675e9da9aad0f93ae"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q05/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "79e786ab930d0d997dc61e7d8f071aa603d8bfa68656a799e06047190c365982",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:21:46.046701+00:00",
+  "failed_checks": [
+    "Q05.structured_expectations"
+  ]
+}

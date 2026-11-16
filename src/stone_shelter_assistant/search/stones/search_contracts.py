@@ -39,6 +39,13 @@ class HybridStoneHit(BaseModel):
     in_pool: bool
 
 
+class SearchEngineFailure(BaseModel):
+    """Safe operational failure details; never include backend response text."""
+
+    engine: Literal["typesense", "qdrant"]
+    reason: Literal["transport_error", "timeout", "service_unavailable", "rate_limited"]
+
+
 class HybridSearchResult(BaseModel):
     """Full fusion provenance, including hits removed by the pool cutoff."""
 
@@ -47,6 +54,8 @@ class HybridSearchResult(BaseModel):
     semantic_ids: list[UUID]
     candidates: list[HybridStoneHit]
     dropped: list[HybridStoneHit]
+    degraded: bool = False
+    failures: list[SearchEngineFailure] = Field(default_factory=list)
 
 
 class StoneSearchFilters(BaseModel):

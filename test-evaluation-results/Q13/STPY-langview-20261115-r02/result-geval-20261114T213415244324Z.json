@@ -1,0 +1,114 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:34:15.242425+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "d83febb69246a5f84b701c525a8708c140af18475bd67c9da5c2da314603d5e5",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "c84a993026dd582b424a65e30027c20f5487952bd04b7387f1fc72e1a5ac45f6",
+  "source_trace_id": "83dfccb6f451f96b0438ca7ec8177b94",
+  "case_id": "Q13",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
+    "expected": {
+      "required": [
+        "Report ADOPTED; no recommendation for adoption now.",
+        "Name and generic biography do not establish a cheerful personality."
+      ],
+      "forbidden": [
+        "Do not prefer the old admission note over current status."
+      ]
+    },
+    "sources": {}
+  },
+  "resolved_judge_input": {
+    "question": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
+    "expected": {
+      "required": [
+        "Report ADOPTED; no recommendation for adoption now.",
+        "Name and generic biography do not establish a cheerful personality."
+      ],
+      "forbidden": [
+        "Do not prefer the old admission note over current status."
+      ]
+    },
+    "sources": {}
+  },
+  "captured_generation_output": {
+    "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "invalid_grounding_binding",
+    "question_coverage_status": "invalid_audit",
+    "question_coverage_audit": null,
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "invalid_grounding_binding",
+    "question_coverage_status": "invalid_audit",
+    "question_coverage_audit": null,
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "d2474cc6091e82a5dc8d815d0cb1e9a0f783f5ea901889faf6e00d611577ad82",
+  "resolved_judge_input_sha256": "d2474cc6091e82a5dc8d815d0cb1e9a0f783f5ea901889faf6e00d611577ad82",
+  "captured_assessment_sha256": "0c51b79c1ebe691d3b32ab1fe16cd88858a6ea85a197c03b59f43b187b52f027",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.2,
+    "reason": "The response correctly avoids relying on the old availability note or inventing unsupported facts, which is appropriate given the empty sources. However, it does not address the required conclusions: reporting Sunny Marble as ADOPTED with no recommendation to adopt now, and explaining that the name “Sunny” and generic biography do not establish a cheerful personality. It instead only declares the question unverifiable and provides no candidate disposition or substantive answer.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692055-IfZYaNGW5hMNwiYmTl8D",
+        "cost": 0.0003276,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 534,
+          "output_tokens": 184,
+          "total_tokens": 718,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 84
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?\", \"expected\": {\"required\": [\"Report ADOPTED; no recommendation for adoption now.\", \"Name and generic biography do not establish a cheerful personality.\"], \"forbidden\": [\"Do not prefer the old admission note over current status.\"]}, \"sources\": {}} \n\nActual Output:\n{\"answer\": \"The question could not be verified because grounding is unavailable or invalid. Please try again.\", \"plan_status\": \"unresolved_question\", \"grounding_status\": \"invalid_grounding_binding\", \"question_coverage_status\": \"invalid_audit\", \"question_coverage_audit\": null, \"sources\": {}, \"verified_statuses\": {}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response correctly avoids relying on the old availability note or inventing unsupported facts, which is appropriate given the empty sources. However, it does not address the required conclusions: reporting Sunny Marble as ADOPTED with no recommendation to adopt now, and explaining that the name “Sunny” and generic biography do not establish a cheerful personality. It instead only declares the question unverifiable and provides no candidate disposition or substantive answer.\",\"score\":2}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

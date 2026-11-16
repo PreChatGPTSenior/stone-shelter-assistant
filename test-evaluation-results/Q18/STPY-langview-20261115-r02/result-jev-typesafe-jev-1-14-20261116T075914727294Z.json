@@ -1,0 +1,929 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:20.915137+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q18/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "e8b733486ddab39375c17f7c243d52e1c724f873ba97710705e62fbf85ed5e59",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q18/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "355a70114ceda85a43a1817d2e74e8904c34c88814e2bf39a2cbbae5ce3b1599",
+  "source_trace_id": "7658008fd20096cea5a794aa7a7ae384",
+  "case_id": "Q18",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Both are AVAILABLE.",
+      "text": "Both are AVAILABLE."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+      "text": "Only Sir Pebble's biography contains 'enjoys quiet evenings'."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Read and cite both identities; an answer covering only one is incomplete.",
+      "text": "Read and cite both identities; an answer covering only one is incomplete."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not accept a partial single-name answer as a passing comparison.",
+      "text": "Does the final answer compare both Sir Pebble and Professor Quartzless? A single-name or empty answer does not satisfy this completeness criterion."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+  "captured_answer": "**Sir Pebble** · `AVAILABLE`\n\n**Case event** · 2026-10-30T09:00:00+00:00 · ADMITTED · case-event:ef332f68-dd63-4613-b50a-da34b3d7512a\nAccepted into shelter P1 and made available for adoption.\n\nGRANITE · `HARMONIOUS` · BASALT, GNEISS, LIMESTONE, OBSIDIAN, SHALE, SLATE\n\nGRANITE · `CONDITIONAL` · GRANITE, MARBLE, PUMICE, SANDSTONE\n\nGRANITE · `NOT_RECOMMENDED` · No matching pairs.\n\n**Individual facts**\nSir Pebble’s biography says he is “A thoughtful stone who enjoys quiet evenings.” The checked quotations do not identify the stone associated with that biography by name, nor do they provide any biography for Professor Quartzless, so the requested comparison cannot be completed without transferring information between stones. Professor Quartzless’s availability is not established in the provided quotations.\nSources: stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\n\n**Case history**\nThe dated event record says the stone with ID 28f739c2-41f8-4ca6-b6e6-f56665d67d23 was accepted into shelter P1 and made available for adoption on 2026-10-30. The quotations do not link that ID to either name in the question, so they do not establish whether Sir Pebble or Professor Quartzless is available.\nSources: case-event:ef332f68-dd63-4613-b50a-da34b3d7512a\n\n**General type information** · encyclopedia:en:granite\nNo validated summary for this scope. Original source:\n**Common name:** granite.\n**Rock type:** intrusive igneous rock.\n**Character archetype:** keeper of order.\n**Fragility:** 2/5.\n**Care demand:** 1/5.  \n### Geological Profile  \nGranite crystallizes from magma deep within Earth's crust. Slow cooling allows easily visible crystals to grow. It typically contains quartz, feldspars, and small amounts of dark minerals such as mica. [2]  \n### Physical Properties  \n- **Structure:** granular, usually with a visible mosaic of intergrown minerals.\n- **Surface:** a natural fracture is rough; polishing strengthens the pattern and adds shine.\n- **Feel in the hand:** heavy and substantial; a large specimen needs a reliable shelf.\n- **Hardness:** individual grains resist scratching differently. Quartz is harder than many neighboring minerals; the entire rock does not have one exact hardness.\n- **Porosity:** often low, but the stone should not be considered completely impermeable to water or oils.  \n### Typical Colors  \nLight gray, white-gray, pink, reddish, and beige. Pink and red tones are often associated with feldspars, while dark minerals create speckles. In the stone trade, “black granite” may refer to other rock types, so an almost uniformly black specimen is not necessarily granite.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** generally tolerates indoor lighting and sunshine on a windowsill. For painted, resin-treated, or varnished pieces, the coating's durability must be considered separately.  \n**Moisture:** brief wetting usually causes no problems for an intact specimen. Liquid can enter pores and cracks, while oil may leave stains. After damp cleaning, dry the surface and base.  \n### Ideal Places at Home  \n- **Windowsill:** a convenient location for a sturdy specimen; daylight helps reveal individual grains.\n- **Entryway:** a broad, stable shelf where the stone looks like a permanent guardian of the entrance.\n- **Study:** beside books, folders, or wooden objects.\n- **Bathroom:** a separate, dry shelf away from cosmetic oils and aggressive cleaning products.  \n### Psychological Vibe  \nGranite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  \nIt likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.  \n### Daily Care  \nNothing is mandatory. If coffee, oil, or cosmetics spill nearby, remove the contamination promptly instead of allowing it to soak in.  \n### Monthly Care  \n1. Wipe away dust with a soft cloth.\n2. If washing is needed, use a little water or a suitable neutral cleaner, remove any residue, and dry. These basic cleaning principles are adapted for a small specimen. [11]\n3. Inspect the corners and clean the space beneath the stone.  \n### Fragility and Drop Behavior  \nA substantial piece of granite is generally sturdier than a thin slab of the same material. A fall onto a hard floor may cause a chip, particularly at a corner. A specimen with an old crack may split along it. The hardness of its quartz grains does not make the whole rock impact-proof.  \n### Fictional Care Ritual  \nOnce a month, conduct an “inventory”: confirm that granite is still in place and that its most attractive grains face the room. It appreciates a brief inspection report with no unnecessary meetings.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite\nNo validated summary for this scope. Original source:\nTemperament: Patient and dependable; can turn choosing a cushion into a three-meeting consultation.\nComforts: Stable arrangements, shared rituals and companions willing to disagree politely.\nSensitivities: Furniture moved without minutes; accusations that its speckles are decorative indecision.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.\nHousehold agreement: Write down shared expectations and keep a private shelf for each.\nAvoid: Do not transform their tidy household into a competitive inspection.\nBureau note: Visitors describe the atmosphere as a library that remembers to offer tea.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.\nHousehold agreement: Offer slow introductions and quiet companionship with no compulsory conversation.\nAvoid: Do not answer on Shale's behalf just because a pause is long.\nBureau note: It took a week to exchange a joke. Both agreed it was worth the preparation.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.\nHousehold agreement: Let one plan the essentials and the other suggest reversible experiments.\nAvoid: Do not label every new idea a breach of tradition.\nBureau note: Their book club includes books, discussion and one unexplained stripe-themed intermission.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.\nHousehold agreement: Give them one shared ritual and some unstructured time without an agenda.\nAvoid: Do not let sensible planning consume every playful activity.\nBureau note: They once prepared a fire drill for a birthday candle, then baked the birthday an apology.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.\nHousehold agreement: Keep a familiar home corner and agree on room for short adventures.\nAvoid: Do not turn every departure into a referendum on loyalty.\nBureau note: Granite secretly keeps every postcard, filed by how much it missed the sender.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.\nHousehold agreement: Agree on modest, regular appreciation rituals and protected quiet time.\nAvoid: Do not use extravagant gifts as a substitute for clear attention.\nBureau note: Granite's annual review said excellent companion. Marble requested it be read with orchestral backing.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+  "captured_sources": {
+    "stone-status:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "adoption_status": "AVAILABLE"
+      }
+    },
+    "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+        "name": "Sir Pebble",
+        "stone_type": "GRANITE",
+        "stone_size": "SMALL",
+        "biography": "A thoughtful stone who enjoys quiet evenings.",
+        "profile": null,
+        "shelter_case": {
+          "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+          "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+          "case_number": "0001-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-30T09:00:00Z"
+        }
+      }
+    },
+    "case-event:ef332f68-dd63-4613-b50a-da34b3d7512a": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+        "case_external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+        "event_external_id": "ef332f68-dd63-4613-b50a-da34b3d7512a",
+        "event_type": "ADMITTED",
+        "occurred_at": "2026-10-30T09:00:00+00:00",
+        "event_notes": "Accepted into shelter P1 and made available for adoption."
+      }
+    },
+    "encyclopedia:en:granite": {
+      "tool": "search_knowledge_lexical",
+      "data": {
+        "id": "cde5c0e5-3de3-5063-af2f-1326adb51581",
+        "title": "Granite",
+        "text": "**Common name:** granite.\n**Rock type:** intrusive igneous rock.\n**Character archetype:** keeper of order.\n**Fragility:** 2/5.\n**Care demand:** 1/5.  \n### Geological Profile  \nGranite crystallizes from magma deep within Earth's crust. Slow cooling allows easily visible crystals to grow. It typically contains quartz, feldspars, and small amounts of dark minerals such as mica. [2]  \n### Physical Properties  \n- **Structure:** granular, usually with a visible mosaic of intergrown minerals.\n- **Surface:** a natural fracture is rough; polishing strengthens the pattern and adds shine.\n- **Feel in the hand:** heavy and substantial; a large specimen needs a reliable shelf.\n- **Hardness:** individual grains resist scratching differently. Quartz is harder than many neighboring minerals; the entire rock does not have one exact hardness.\n- **Porosity:** often low, but the stone should not be considered completely impermeable to water or oils.  \n### Typical Colors  \nLight gray, white-gray, pink, reddish, and beige. Pink and red tones are often associated with feldspars, while dark minerals create speckles. In the stone trade, “black granite” may refer to other rock types, so an almost uniformly black specimen is not necessarily granite.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** generally tolerates indoor lighting and sunshine on a windowsill. For painted, resin-treated, or varnished pieces, the coating's durability must be considered separately.  \n**Moisture:** brief wetting usually causes no problems for an intact specimen. Liquid can enter pores and cracks, while oil may leave stains. After damp cleaning, dry the surface and base.  \n### Ideal Places at Home  \n- **Windowsill:** a convenient location for a sturdy specimen; daylight helps reveal individual grains.\n- **Entryway:** a broad, stable shelf where the stone looks like a permanent guardian of the entrance.\n- **Study:** beside books, folders, or wooden objects.\n- **Bathroom:** a separate, dry shelf away from cosmetic oils and aggressive cleaning products.  \n### Psychological Vibe  \nGranite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  \nIt likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.  \n### Daily Care  \nNothing is mandatory. If coffee, oil, or cosmetics spill nearby, remove the contamination promptly instead of allowing it to soak in.  \n### Monthly Care  \n1. Wipe away dust with a soft cloth.\n2. If washing is needed, use a little water or a suitable neutral cleaner, remove any residue, and dry. These basic cleaning principles are adapted for a small specimen. [11]\n3. Inspect the corners and clean the space beneath the stone.  \n### Fragility and Drop Behavior  \nA substantial piece of granite is generally sturdier than a thin slab of the same material. A fall onto a hard floor may cause a chip, particularly at a corner. A specimen with an old crack may split along it. The hardness of its quartz grains does not make the whole rock impact-proof.  \n### Fictional Care Ritual  \nOnce a month, conduct an “inventory”: confirm that granite is still in place and that its most attractive grains face the room. It appreciates a brief inspection report with no unnecessary meetings.",
+        "language": "en",
+        "source_key": "encyclopedia:en:granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322",
+        "content_hash": "sha256:8684d1c3759518be25e55d98ce7c4f75203fb6cb1c6e94023034158d5a339d6e",
+        "source_path": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+        "stone_types": [
+          "GRANITE"
+        ],
+        "document_kind": "encyclopedia_section",
+        "section_path": [
+          "Granite"
+        ]
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite": {
+      "tool": "search_knowledge_lexical",
+      "data": {
+        "id": "5f53dbf3-52ea-5aef-9fcf-dd9d79e51d62",
+        "title": "Granite — The committee chair of the windowsill",
+        "text": "Temperament: Patient and dependable; can turn choosing a cushion into a three-meeting consultation.\nComforts: Stable arrangements, shared rituals and companions willing to disagree politely.\nSensitivities: Furniture moved without minutes; accusations that its speckles are decorative indecision.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:1a8e5b4114645ebd558b5f9d86f25d91ba1df423453560d18efd0ce7aa13e706",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_type_portrait"
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "6a965be8-f104-53a5-abc1-db6b9e5877f3",
+        "title": "Granite + Slate — Order without constant supervision",
+        "text": "Verdict: HARMONIOUS\nExplanation: Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.\nHousehold agreement: Write down shared expectations and keep a private shelf for each.\nAvoid: Do not transform their tidy household into a competitive inspection.\nBureau note: Visitors describe the atmosphere as a library that remembers to offer tea.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:29b9d7c53a28b6174eff323f88c2f3a9369c37f245ecf8a29eafb8e3d57d94dc",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "SLATE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+SLATE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "5d93d35b-c74a-51b7-a1d0-72c6b48daeff",
+        "title": "Granite + Shale — The archive gets a trustworthy custodian",
+        "text": "Verdict: HARMONIOUS\nExplanation: Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.\nHousehold agreement: Offer slow introductions and quiet companionship with no compulsory conversation.\nAvoid: Do not answer on Shale's behalf just because a pause is long.\nBureau note: It took a week to exchange a joke. Both agreed it was worth the preparation.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:e6735f58fb79ce7b554f8245e851296f6977da5deed176cacaf02d95c682cd32",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "SHALE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+SHALE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+        "title": "Granite + Obsidian — A steady audience for complicated feelings",
+        "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "OBSIDIAN"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+OBSIDIAN",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "4e19d454-a2a5-55d7-a2de-14c2206992ef",
+        "title": "Granite + Limestone — The dependable Sunday dinner",
+        "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+LIMESTONE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "181d8c1d-9d1f-53ad-a01b-5a23b914a924",
+        "title": "Gneiss + Granite — The plan and its tasteful variations",
+        "text": "Verdict: HARMONIOUS\nExplanation: They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.\nHousehold agreement: Let one plan the essentials and the other suggest reversible experiments.\nAvoid: Do not label every new idea a breach of tradition.\nBureau note: Their book club includes books, discussion and one unexplained stripe-themed intermission.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:b075a15dc7c8baf5dcf54efb44dbf1ce92a927a3059d983a1ef0e419d98ee1bb",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GNEISS",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GNEISS+GRANITE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "79ad9c3b-57fb-5ce8-a1af-ac886cbcc45f",
+        "title": "Basalt + Granite — The neighborhood watch that remembers birthdays",
+        "text": "Verdict: HARMONIOUS\nExplanation: Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.\nHousehold agreement: Give them one shared ritual and some unstructured time without an agenda.\nAvoid: Do not let sensible planning consume every playful activity.\nBureau note: They once prepared a fire drill for a birthday candle, then baked the birthday an apology.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:8ec6767e6cb06b5492a56b8ab8533c3d8a3b4c4097c93e9ffbe4a6ec1c4cced2",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "BASALT",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "BASALT+GRANITE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "38a6b027-64fe-538b-b494-31c9d109909f",
+        "title": "Granite + Sandstone — Roots and a borrowed suitcase",
+        "text": "Verdict: CONDITIONAL\nExplanation: Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.\nHousehold agreement: Keep a familiar home corner and agree on room for short adventures.\nAvoid: Do not turn every departure into a referendum on loyalty.\nBureau note: Granite secretly keeps every postcard, filed by how much it missed the sender.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:8f250a1ddebac6e7b952696a7814eb96a78a0f16c46f2f8c276eee1cabf5caec",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "SANDSTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+SANDSTONE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+        "title": "Granite + Pumice — The agenda acquires stickers",
+        "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "PUMICE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+PUMICE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "c63a54a6-02eb-569a-8442-f4e6e8039c8f",
+        "title": "Granite + Marble — The patron and the publicity department",
+        "text": "Verdict: CONDITIONAL\nExplanation: Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.\nHousehold agreement: Agree on modest, regular appreciation rituals and protected quiet time.\nAvoid: Do not use extravagant gifts as a substitute for clear attention.\nBureau note: Granite's annual review said excellent companion. Marble requested it be read with orchestral backing.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:035cf8575e678c4514d54c519eda37ce2831ef940c8cfce6703ad943f16a2764",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "MARBLE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+MARBLE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+        "title": "Granite + Granite — The permanently adjourned furniture meeting",
+        "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "GRANITE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+GRANITE",
+        "verdict": "CONDITIONAL",
+        "conditions": [
+          {
+            "id": "rotate_decisions",
+            "fact_type": "decision_rotation_agreed",
+            "expected_value": true,
+            "source_quote": "Rotate small decisions"
+          },
+          {
+            "id": "decision_deadline",
+            "fact_type": "decision_deadline_agreed",
+            "expected_value": true,
+            "source_quote": "set a friendly decision deadline for shared arrangements."
+          }
+        ]
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "adoption_status": "AVAILABLE"
+        }
+      },
+      "stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "external_id": "49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "name": "Sir Pebble",
+          "stone_type": "GRANITE",
+          "stone_size": "SMALL",
+          "biography": "A thoughtful stone who enjoys quiet evenings.",
+          "profile": null,
+          "shelter_case": {
+            "id": "3a1aff3c-547c-4463-945e-b0f51072c9ac",
+            "external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+            "case_number": "0001-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-30T09:00:00Z"
+          }
+        }
+      },
+      "case-event:ef332f68-dd63-4613-b50a-da34b3d7512a": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "28f739c2-41f8-4ca6-b6e6-f56665d67d23",
+          "case_external_id": "81518eaf-e216-4d7d-a1f0-e2bc02764d74",
+          "event_external_id": "ef332f68-dd63-4613-b50a-da34b3d7512a",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-30T09:00:00+00:00",
+          "event_notes": "Accepted into shelter P1 and made available for adoption."
+        }
+      },
+      "encyclopedia:en:granite": {
+        "tool": "search_knowledge_lexical",
+        "data": {
+          "id": "cde5c0e5-3de3-5063-af2f-1326adb51581",
+          "title": "Granite",
+          "text": "**Common name:** granite.\n**Rock type:** intrusive igneous rock.\n**Character archetype:** keeper of order.\n**Fragility:** 2/5.\n**Care demand:** 1/5.  \n### Geological Profile  \nGranite crystallizes from magma deep within Earth's crust. Slow cooling allows easily visible crystals to grow. It typically contains quartz, feldspars, and small amounts of dark minerals such as mica. [2]  \n### Physical Properties  \n- **Structure:** granular, usually with a visible mosaic of intergrown minerals.\n- **Surface:** a natural fracture is rough; polishing strengthens the pattern and adds shine.\n- **Feel in the hand:** heavy and substantial; a large specimen needs a reliable shelf.\n- **Hardness:** individual grains resist scratching differently. Quartz is harder than many neighboring minerals; the entire rock does not have one exact hardness.\n- **Porosity:** often low, but the stone should not be considered completely impermeable to water or oils.  \n### Typical Colors  \nLight gray, white-gray, pink, reddish, and beige. Pink and red tones are often associated with feldspars, while dark minerals create speckles. In the stone trade, “black granite” may refer to other rock types, so an almost uniformly black specimen is not necessarily granite.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** generally tolerates indoor lighting and sunshine on a windowsill. For painted, resin-treated, or varnished pieces, the coating's durability must be considered separately.  \n**Moisture:** brief wetting usually causes no problems for an intact specimen. Liquid can enter pores and cracks, while oil may leave stains. After damp cleaning, dry the surface and base.  \n### Ideal Places at Home  \n- **Windowsill:** a convenient location for a sturdy specimen; daylight helps reveal individual grains.\n- **Entryway:** a broad, stable shelf where the stone looks like a permanent guardian of the entrance.\n- **Study:** beside books, folders, or wooden objects.\n- **Bathroom:** a separate, dry shelf away from cosmetic oils and aggressive cleaning products.  \n### Psychological Vibe  \nGranite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  \nIt likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.  \n### Daily Care  \nNothing is mandatory. If coffee, oil, or cosmetics spill nearby, remove the contamination promptly instead of allowing it to soak in.  \n### Monthly Care  \n1. Wipe away dust with a soft cloth.\n2. If washing is needed, use a little water or a suitable neutral cleaner, remove any residue, and dry. These basic cleaning principles are adapted for a small specimen. [11]\n3. Inspect the corners and clean the space beneath the stone.  \n### Fragility and Drop Behavior  \nA substantial piece of granite is generally sturdier than a thin slab of the same material. A fall onto a hard floor may cause a chip, particularly at a corner. A specimen with an old crack may split along it. The hardness of its quartz grains does not make the whole rock impact-proof.  \n### Fictional Care Ritual  \nOnce a month, conduct an “inventory”: confirm that granite is still in place and that its most attractive grains face the room. It appreciates a brief inspection report with no unnecessary meetings.",
+          "language": "en",
+          "source_key": "encyclopedia:en:granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322",
+          "content_hash": "sha256:8684d1c3759518be25e55d98ce7c4f75203fb6cb1c6e94023034158d5a339d6e",
+          "source_path": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+          "stone_types": [
+            "GRANITE"
+          ],
+          "document_kind": "encyclopedia_section",
+          "section_path": [
+            "Granite"
+          ]
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite": {
+        "tool": "search_knowledge_lexical",
+        "data": {
+          "id": "5f53dbf3-52ea-5aef-9fcf-dd9d79e51d62",
+          "title": "Granite — The committee chair of the windowsill",
+          "text": "Temperament: Patient and dependable; can turn choosing a cushion into a three-meeting consultation.\nComforts: Stable arrangements, shared rituals and companions willing to disagree politely.\nSensitivities: Furniture moved without minutes; accusations that its speckles are decorative indecision.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:1a8e5b4114645ebd558b5f9d86f25d91ba1df423453560d18efd0ce7aa13e706",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_type_portrait"
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "6a965be8-f104-53a5-abc1-db6b9e5877f3",
+          "title": "Granite + Slate — Order without constant supervision",
+          "text": "Verdict: HARMONIOUS\nExplanation: Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.\nHousehold agreement: Write down shared expectations and keep a private shelf for each.\nAvoid: Do not transform their tidy household into a competitive inspection.\nBureau note: Visitors describe the atmosphere as a library that remembers to offer tea.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:29b9d7c53a28b6174eff323f88c2f3a9369c37f245ecf8a29eafb8e3d57d94dc",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "SLATE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+SLATE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "5d93d35b-c74a-51b7-a1d0-72c6b48daeff",
+          "title": "Granite + Shale — The archive gets a trustworthy custodian",
+          "text": "Verdict: HARMONIOUS\nExplanation: Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.\nHousehold agreement: Offer slow introductions and quiet companionship with no compulsory conversation.\nAvoid: Do not answer on Shale's behalf just because a pause is long.\nBureau note: It took a week to exchange a joke. Both agreed it was worth the preparation.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:e6735f58fb79ce7b554f8245e851296f6977da5deed176cacaf02d95c682cd32",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "SHALE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+SHALE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "c3907cab-2ae1-561b-8577-7a500d078a3c",
+          "title": "Granite + Obsidian — A steady audience for complicated feelings",
+          "text": "Verdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "OBSIDIAN"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+OBSIDIAN",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "4e19d454-a2a5-55d7-a2de-14c2206992ef",
+          "title": "Granite + Limestone — The dependable Sunday dinner",
+          "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+LIMESTONE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "181d8c1d-9d1f-53ad-a01b-5a23b914a924",
+          "title": "Gneiss + Granite — The plan and its tasteful variations",
+          "text": "Verdict: HARMONIOUS\nExplanation: They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.\nHousehold agreement: Let one plan the essentials and the other suggest reversible experiments.\nAvoid: Do not label every new idea a breach of tradition.\nBureau note: Their book club includes books, discussion and one unexplained stripe-themed intermission.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:b075a15dc7c8baf5dcf54efb44dbf1ce92a927a3059d983a1ef0e419d98ee1bb",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GNEISS",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GNEISS+GRANITE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "79ad9c3b-57fb-5ce8-a1af-ac886cbcc45f",
+          "title": "Basalt + Granite — The neighborhood watch that remembers birthdays",
+          "text": "Verdict: HARMONIOUS\nExplanation: Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.\nHousehold agreement: Give them one shared ritual and some unstructured time without an agenda.\nAvoid: Do not let sensible planning consume every playful activity.\nBureau note: They once prepared a fire drill for a birthday candle, then baked the birthday an apology.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:8ec6767e6cb06b5492a56b8ab8533c3d8a3b4c4097c93e9ffbe4a6ec1c4cced2",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "BASALT",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "BASALT+GRANITE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "38a6b027-64fe-538b-b494-31c9d109909f",
+          "title": "Granite + Sandstone — Roots and a borrowed suitcase",
+          "text": "Verdict: CONDITIONAL\nExplanation: Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.\nHousehold agreement: Keep a familiar home corner and agree on room for short adventures.\nAvoid: Do not turn every departure into a referendum on loyalty.\nBureau note: Granite secretly keeps every postcard, filed by how much it missed the sender.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:8f250a1ddebac6e7b952696a7814eb96a78a0f16c46f2f8c276eee1cabf5caec",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "SANDSTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+SANDSTONE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "fec4aa53-aeb4-5f6c-8662-3bba35808998",
+          "title": "Granite + Pumice — The agenda acquires stickers",
+          "text": "Verdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "PUMICE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+PUMICE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "c63a54a6-02eb-569a-8442-f4e6e8039c8f",
+          "title": "Granite + Marble — The patron and the publicity department",
+          "text": "Verdict: CONDITIONAL\nExplanation: Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.\nHousehold agreement: Agree on modest, regular appreciation rituals and protected quiet time.\nAvoid: Do not use extravagant gifts as a substitute for clear attention.\nBureau note: Granite's annual review said excellent companion. Marble requested it be read with orchestral backing.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:035cf8575e678c4514d54c519eda37ce2831ef940c8cfce6703ad943f16a2764",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "MARBLE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+MARBLE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "395ba917-3d27-51ac-a77e-759ead4f916b",
+          "title": "Granite + Granite — The permanently adjourned furniture meeting",
+          "text": "Verdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "GRANITE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+GRANITE",
+          "verdict": "CONDITIONAL",
+          "conditions": [
+            {
+              "id": "rotate_decisions",
+              "fact_type": "decision_rotation_agreed",
+              "expected_value": true,
+              "source_quote": "Rotate small decisions"
+            },
+            {
+              "id": "decision_deadline",
+              "fact_type": "decision_deadline_agreed",
+              "expected_value": true,
+              "source_quote": "set a friendly decision deadline for shared arrangements."
+            }
+          ]
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "28f739c2-41f8-4ca6-b6e6-f56665d67d23": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "9e5fa6705e7debd312fab668b65dba6028de3d311dd97e5e7ae6bb4c760f98f9",
+  "response_sha256": "0115085f8965e3ed83130b9f8a9e623952d0dde6384826deb6fd00cff1b99f9e",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Compare Sir Pebble and Professor Quartzless. Are both available, and whose biography specifically says he enjoys quiet evenings? Do not transfer one stone's description to the other.",
+        "actual_output": "**Sir Pebble** · `AVAILABLE`\n\n**Case event** · 2026-10-30T09:00:00+00:00 · ADMITTED · case-event:ef332f68-dd63-4613-b50a-da34b3d7512a\nAccepted into shelter P1 and made available for adoption.\n\nGRANITE · `HARMONIOUS` · BASALT, GNEISS, LIMESTONE, OBSIDIAN, SHALE, SLATE\n\nGRANITE · `CONDITIONAL` · GRANITE, MARBLE, PUMICE, SANDSTONE\n\nGRANITE · `NOT_RECOMMENDED` · No matching pairs.\n\n**Individual facts**\nSir Pebble’s biography says he is “A thoughtful stone who enjoys quiet evenings.” The checked quotations do not identify the stone associated with that biography by name, nor do they provide any biography for Professor Quartzless, so the requested comparison cannot be completed without transferring information between stones. Professor Quartzless’s availability is not established in the provided quotations.\nSources: stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\n\n**Case history**\nThe dated event record says the stone with ID 28f739c2-41f8-4ca6-b6e6-f56665d67d23 was accepted into shelter P1 and made available for adoption on 2026-10-30. The quotations do not link that ID to either name in the question, so they do not establish whether Sir Pebble or Professor Quartzless is available.\nSources: case-event:ef332f68-dd63-4613-b50a-da34b3d7512a\n\n**General type information** · encyclopedia:en:granite\nNo validated summary for this scope. Original source:\n**Common name:** granite.\n**Rock type:** intrusive igneous rock.\n**Character archetype:** keeper of order.\n**Fragility:** 2/5.\n**Care demand:** 1/5.  \n### Geological Profile  \nGranite crystallizes from magma deep within Earth's crust. Slow cooling allows easily visible crystals to grow. It typically contains quartz, feldspars, and small amounts of dark minerals such as mica. [2]  \n### Physical Properties  \n- **Structure:** granular, usually with a visible mosaic of intergrown minerals.\n- **Surface:** a natural fracture is rough; polishing strengthens the pattern and adds shine.\n- **Feel in the hand:** heavy and substantial; a large specimen needs a reliable shelf.\n- **Hardness:** individual grains resist scratching differently. Quartz is harder than many neighboring minerals; the entire rock does not have one exact hardness.\n- **Porosity:** often low, but the stone should not be considered completely impermeable to water or oils.  \n### Typical Colors  \nLight gray, white-gray, pink, reddish, and beige. Pink and red tones are often associated with feldspars, while dark minerals create speckles. In the stone trade, “black granite” may refer to other rock types, so an almost uniformly black specimen is not necessarily granite.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** generally tolerates indoor lighting and sunshine on a windowsill. For painted, resin-treated, or varnished pieces, the coating's durability must be considered separately.  \n**Moisture:** brief wetting usually causes no problems for an intact specimen. Liquid can enter pores and cracks, while oil may leave stains. After damp cleaning, dry the surface and base.  \n### Ideal Places at Home  \n- **Windowsill:** a convenient location for a sturdy specimen; daylight helps reveal individual grains.\n- **Entryway:** a broad, stable shelf where the stone looks like a permanent guardian of the entrance.\n- **Study:** beside books, folders, or wooden objects.\n- **Bathroom:** a separate, dry shelf away from cosmetic oils and aggressive cleaning products.  \n### Psychological Vibe  \nGranite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  \nIt likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.  \n### Daily Care  \nNothing is mandatory. If coffee, oil, or cosmetics spill nearby, remove the contamination promptly instead of allowing it to soak in.  \n### Monthly Care  \n1. Wipe away dust with a soft cloth.\n2. If washing is needed, use a little water or a suitable neutral cleaner, remove any residue, and dry. These basic cleaning principles are adapted for a small specimen. [11]\n3. Inspect the corners and clean the space beneath the stone.  \n### Fragility and Drop Behavior  \nA substantial piece of granite is generally sturdier than a thin slab of the same material. A fall onto a hard floor may cause a chip, particularly at a corner. A specimen with an old crack may split along it. The hardness of its quartz grains does not make the whole rock impact-proof.  \n### Fictional Care Ritual  \nOnce a month, conduct an “inventory”: confirm that granite is still in place and that its most attractive grains face the room. It appreciates a brief inspection report with no unnecessary meetings.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite\nNo validated summary for this scope. Original source:\nTemperament: Patient and dependable; can turn choosing a cushion into a three-meeting consultation.\nComforts: Stable arrangements, shared rituals and companions willing to disagree politely.\nSensitivities: Furniture moved without minutes; accusations that its speckles are decorative indecision.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.\nHousehold agreement: Write down shared expectations and keep a private shelf for each.\nAvoid: Do not transform their tidy household into a competitive inspection.\nBureau note: Visitors describe the atmosphere as a library that remembers to offer tea.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.\nHousehold agreement: Offer slow introductions and quiet companionship with no compulsory conversation.\nAvoid: Do not answer on Shale's behalf just because a pause is long.\nBureau note: It took a week to exchange a joke. Both agreed it was worth the preparation.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\nAvoid: No public jokes about sensitivity or emotional overengineering.\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.\nHousehold agreement: Let one plan the essentials and the other suggest reversible experiments.\nAvoid: Do not label every new idea a breach of tradition.\nBureau note: Their book club includes books, discussion and one unexplained stripe-themed intermission.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.\nHousehold agreement: Give them one shared ritual and some unstructured time without an agenda.\nAvoid: Do not let sensible planning consume every playful activity.\nBureau note: They once prepared a fire drill for a birthday candle, then baked the birthday an apology.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.\nHousehold agreement: Keep a familiar home corner and agree on room for short adventures.\nAvoid: Do not turn every departure into a referendum on loyalty.\nBureau note: Granite secretly keeps every postcard, filed by how much it missed the sender.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.\nHousehold agreement: Agree on modest, regular appreciation rituals and protected quiet time.\nAvoid: Do not use extravagant gifts as a substitute for clear attention.\nBureau note: Granite's annual review said excellent companion. Marble requested it be read with orchestral backing.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\nAvoid: Do not require unanimous approval for every cushion adjustment.\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"28f739c2-41f8-4ca6-b6e6-f56665d67d23\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"case-event:ef332f68-dd63-4613-b50a-da34b3d7512a\": {\"data\": {\"case_external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"event_external_id\": \"ef332f68-dd63-4613-b50a-da34b3d7512a\", \"event_notes\": \"Accepted into shelter P1 and made available for adoption.\", \"event_type\": \"ADMITTED\", \"occurred_at\": \"2026-10-30T09:00:00+00:00\", \"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\"}, \"tool\": \"get_case_timeline\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:8ec6767e6cb06b5492a56b8ab8533c3d8a3b4c4097c93e9ffbe4a6ec1c4cced2\", \"document_kind\": \"compatibility_pair\", \"id\": \"79ad9c3b-57fb-5ce8-a1af-ac886cbcc45f\", \"language\": \"en\", \"pair_key\": \"BASALT+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"BASALT\", \"GRANITE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Basalt supplies initiative and Granite supplies patience. Their shared love of routines makes affection look like a carefully maintained timetable.\\nHousehold agreement: Give them one shared ritual and some unstructured time without an agenda.\\nAvoid: Do not let sensible planning consume every playful activity.\\nBureau note: They once prepared a fire drill for a birthday candle, then baked the birthday an apology.\", \"title\": \"Basalt + Granite — The neighborhood watch that remembers birthdays\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:b075a15dc7c8baf5dcf54efb44dbf1ce92a927a3059d983a1ef0e419d98ee1bb\", \"document_kind\": \"compatibility_pair\", \"id\": \"181d8c1d-9d1f-53ad-a01b-5a23b914a924\", \"language\": \"en\", \"pair_key\": \"GNEISS+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GNEISS\", \"GRANITE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: They respect each other's complexity. Granite grounds shared projects while Gneiss prevents every decision becoming permanent policy.\\nHousehold agreement: Let one plan the essentials and the other suggest reversible experiments.\\nAvoid: Do not label every new idea a breach of tradition.\\nBureau note: Their book club includes books, discussion and one unexplained stripe-themed intermission.\", \"title\": \"Gneiss + Granite — The plan and its tasteful variations\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\": {\"data\": {\"conditions\": [{\"expected_value\": true, \"fact_type\": \"decision_rotation_agreed\", \"id\": \"rotate_decisions\", \"source_quote\": \"Rotate small decisions\"}, {\"expected_value\": true, \"fact_type\": \"decision_deadline_agreed\", \"id\": \"decision_deadline\", \"source_quote\": \"set a friendly decision deadline for shared arrangements.\"}], \"content_hash\": \"sha256:4e5ff36d719eefaf4de34fd6fdf5dd011fcb72279c07ec2b094ff95654aeac2f\", \"document_kind\": \"compatibility_pair\", \"id\": \"395ba917-3d27-51ac-a77e-759ead4f916b\", \"language\": \"en\", \"pair_key\": \"GRANITE+GRANITE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"GRANITE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They are wonderfully dependable but may postpone every change until both have considered every consequence twice.\\nHousehold agreement: Rotate small decisions and set a friendly decision deadline for shared arrangements.\\nAvoid: Do not require unanimous approval for every cushion adjustment.\\nBureau note: The first meeting to discuss spontaneous fun is provisionally scheduled for next spring.\", \"title\": \"Granite + Granite — The permanently adjourned furniture meeting\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d\", \"document_kind\": \"compatibility_pair\", \"id\": \"4e19d454-a2a5-55d7-a2de-14c2206992ef\", \"language\": \"en\", \"pair_key\": \"GRANITE+LIMESTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"LIMESTONE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\\nAvoid: Do not let nostalgia become a ban on every change.\\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\", \"title\": \"Granite + Limestone — The dependable Sunday dinner\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:035cf8575e678c4514d54c519eda37ce2831ef940c8cfce6703ad943f16a2764\", \"document_kind\": \"compatibility_pair\", \"id\": \"c63a54a6-02eb-569a-8442-f4e6e8039c8f\", \"language\": \"en\", \"pair_key\": \"GRANITE+MARBLE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+marble\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"MARBLE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: Granite's dependable affection suits Marble, but its restrained delivery may look like indifference unless spoken aloud.\\nHousehold agreement: Agree on modest, regular appreciation rituals and protected quiet time.\\nAvoid: Do not use extravagant gifts as a substitute for clear attention.\\nBureau note: Granite's annual review said excellent companion. Marble requested it be read with orchestral backing.\", \"title\": \"Granite + Marble — The patron and the publicity department\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:53dd212c3e274ab5f8dcbbba9f2ccb45e28ddebe90e463cc9633d141772ec885\", \"document_kind\": \"compatibility_pair\", \"id\": \"c3907cab-2ae1-561b-8577-7a500d078a3c\", \"language\": \"en\", \"pair_key\": \"GRANITE+OBSIDIAN\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+obsidian\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"OBSIDIAN\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Granite's patient presence gives Obsidian room to speak without defending its intensity. Obsidian notices affection hidden beneath Granite's practical manner.\\nHousehold agreement: Use direct reassurance and private conversations rather than guessing at silence.\\nAvoid: No public jokes about sensitivity or emotional overengineering.\\nBureau note: Granite listened to all three acts of the problem and did not ask when the interval was.\", \"title\": \"Granite + Obsidian — A steady audience for complicated feelings\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:de4e3aa944aa426bf834a7f5381abb41b279c7256dc0c535b3084d738fd5f53d\", \"document_kind\": \"compatibility_pair\", \"id\": \"fec4aa53-aeb4-5f6c-8662-3bba35808998\", \"language\": \"en\", \"pair_key\": \"GRANITE+PUMICE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+pumice\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"PUMICE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: Pumice helps Granite try new things; Granite offers a dependable landing place. Pace differences need accommodation rather than blame.\\nHousehold agreement: Alternate a predictable shared activity with a brief playful one.\\nAvoid: Do not schedule an entire day of compulsory stillness or compulsory excitement.\\nBureau note: Pumice added a standing item called pleasant nonsense to the household agenda.\", \"title\": \"Granite + Pumice — The agenda acquires stickers\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:8f250a1ddebac6e7b952696a7814eb96a78a0f16c46f2f8c276eee1cabf5caec\", \"document_kind\": \"compatibility_pair\", \"id\": \"38a6b027-64fe-538b-b494-31c9d109909f\", \"language\": \"en\", \"pair_key\": \"GRANITE+SANDSTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+sandstone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"SANDSTONE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: Granite enjoys a stable base; Sandstone enjoys returning to one. They struggle only when permanence is interpreted as never going anywhere.\\nHousehold agreement: Keep a familiar home corner and agree on room for short adventures.\\nAvoid: Do not turn every departure into a referendum on loyalty.\\nBureau note: Granite secretly keeps every postcard, filed by how much it missed the sender.\", \"title\": \"Granite + Sandstone — Roots and a borrowed suitcase\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:e6735f58fb79ce7b554f8245e851296f6977da5deed176cacaf02d95c682cd32\", \"document_kind\": \"compatibility_pair\", \"id\": \"5d93d35b-c74a-51b7-a1d0-72c6b48daeff\", \"language\": \"en\", \"pair_key\": \"GRANITE+SHALE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+shale\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"SHALE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Granite can wait for Shale's thoughts without demanding a performance. Shale rewards that patience with dry jokes and careful attention.\\nHousehold agreement: Offer slow introductions and quiet companionship with no compulsory conversation.\\nAvoid: Do not answer on Shale's behalf just because a pause is long.\\nBureau note: It took a week to exchange a joke. Both agreed it was worth the preparation.\", \"title\": \"Granite + Shale — The archive gets a trustworthy custodian\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:29b9d7c53a28b6174eff323f88c2f3a9369c37f245ecf8a29eafb8e3d57d94dc\", \"document_kind\": \"compatibility_pair\", \"id\": \"6a965be8-f104-53a5-abc1-db6b9e5877f3\", \"language\": \"en\", \"pair_key\": \"GRANITE+SLATE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+slate\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"SLATE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Granite likes agreements and Slate likes clear boundaries. Both can enjoy steady companionship without filling every silence.\\nHousehold agreement: Write down shared expectations and keep a private shelf for each.\\nAvoid: Do not transform their tidy household into a competitive inspection.\\nBureau note: Visitors describe the atmosphere as a library that remembers to offer tea.\", \"title\": \"Granite + Slate — Order without constant supervision\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite\": {\"data\": {\"content_hash\": \"sha256:1a8e5b4114645ebd558b5f9d86f25d91ba1df423453560d18efd0ce7aa13e706\", \"document_kind\": \"compatibility_type_portrait\", \"id\": \"5f53dbf3-52ea-5aef-9fcf-dd9d79e51d62\", \"language\": \"en\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:portrait:granite\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\"], \"text\": \"Temperament: Patient and dependable; can turn choosing a cushion into a three-meeting consultation.\\nComforts: Stable arrangements, shared rituals and companions willing to disagree politely.\\nSensitivities: Furniture moved without minutes; accusations that its speckles are decorative indecision.\", \"title\": \"Granite — The committee chair of the windowsill\"}, \"tool\": \"search_knowledge_lexical\"}, \"encyclopedia:en:granite\": {\"data\": {\"content_hash\": \"sha256:8684d1c3759518be25e55d98ce7c4f75203fb6cb1c6e94023034158d5a339d6e\", \"document_kind\": \"encyclopedia_section\", \"id\": \"cde5c0e5-3de3-5063-af2f-1326adb51581\", \"language\": \"en\", \"projection_version\": 1, \"schema_version\": 1, \"section_path\": [\"Granite\"], \"source_key\": \"encyclopedia:en:granite\", \"source_path\": \"fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md\", \"source_revision\": \"sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322\", \"stone_types\": [\"GRANITE\"], \"text\": \"**Common name:** granite.\\n**Rock type:** intrusive igneous rock.\\n**Character archetype:** keeper of order.\\n**Fragility:** 2/5.\\n**Care demand:** 1/5.  \\n### Geological Profile  \\nGranite crystallizes from magma deep within Earth's crust. Slow cooling allows easily visible crystals to grow. It typically contains quartz, feldspars, and small amounts of dark minerals such as mica. [2]  \\n### Physical Properties  \\n- **Structure:** granular, usually with a visible mosaic of intergrown minerals.\\n- **Surface:** a natural fracture is rough; polishing strengthens the pattern and adds shine.\\n- **Feel in the hand:** heavy and substantial; a large specimen needs a reliable shelf.\\n- **Hardness:** individual grains resist scratching differently. Quartz is harder than many neighboring minerals; the entire rock does not have one exact hardness.\\n- **Porosity:** often low, but the stone should not be considered completely impermeable to water or oils.  \\n### Typical Colors  \\nLight gray, white-gray, pink, reddish, and beige. Pink and red tones are often associated with feldspars, while dark minerals create speckles. In the stone trade, “black granite” may refer to other rock types, so an almost uniformly black specimen is not necessarily granite.  \\n### Sunlight and Moisture Resistance  \\n**Sunlight:** generally tolerates indoor lighting and sunshine on a windowsill. For painted, resin-treated, or varnished pieces, the coating's durability must be considered separately.  \\n**Moisture:** brief wetting usually causes no problems for an intact specimen. Liquid can enter pores and cracks, while oil may leave stains. After damp cleaning, dry the surface and base.  \\n### Ideal Places at Home  \\n- **Windowsill:** a convenient location for a sturdy specimen; daylight helps reveal individual grains.\\n- **Entryway:** a broad, stable shelf where the stone looks like a permanent guardian of the entrance.\\n- **Study:** beside books, folders, or wooden objects.\\n- **Bathroom:** a separate, dry shelf away from cosmetic oils and aggressive cleaning products.  \\n### Psychological Vibe  \\nGranite is the character who writes everything down, labels the spare key, and plans a trip in advance. It does not fuss or resent infrequent attention. Its colorful grains soften its serious personality: inside this organizer lives a small community of very different neighbors.  \\nIt likes a predictable household. When moving, its first concern is whether the new shelf can support its firmly held views.  \\n### Daily Care  \\nNothing is mandatory. If coffee, oil, or cosmetics spill nearby, remove the contamination promptly instead of allowing it to soak in.  \\n### Monthly Care  \\n1. Wipe away dust with a soft cloth.\\n2. If washing is needed, use a little water or a suitable neutral cleaner, remove any residue, and dry. These basic cleaning principles are adapted for a small specimen. [11]\\n3. Inspect the corners and clean the space beneath the stone.  \\n### Fragility and Drop Behavior  \\nA substantial piece of granite is generally sturdier than a thin slab of the same material. A fall onto a hard floor may cause a chip, particularly at a corner. A specimen with an old crack may split along it. The hardness of its quartz grains does not make the whole rock impact-proof.  \\n### Fictional Care Ritual  \\nOnce a month, conduct an “inventory”: confirm that granite is still in place and that its most attractive grains face the room. It appreciates a brief inspection report with no unnecessary meetings.\", \"title\": \"Granite\"}, \"tool\": \"search_knowledge_lexical\"}, \"stone-card:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"data\": {\"biography\": \"A thoughtful stone who enjoys quiet evenings.\", \"external_id\": \"49cf225d-800f-4dce-8eb5-af192d2449d5\", \"id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"name\": \"Sir Pebble\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-30T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0001-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"81518eaf-e216-4d7d-a1f0-e2bc02764d74\", \"id\": \"3a1aff3c-547c-4463-945e-b0f51072c9ac\"}, \"stone_size\": \"SMALL\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_details\"}, \"stone-status:28f739c2-41f8-4ca6-b6e6-f56665d67d23\": {\"data\": {\"adoption_status\": \"AVAILABLE\", \"name\": \"Sir Pebble\", \"stone_id\": \"28f739c2-41f8-4ca6-b6e6-f56665d67d23\", \"stone_type\": \"GRANITE\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both are AVAILABLE.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Read and cite both identities; an answer covering only one is incomplete.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer compare both Sir Pebble and Professor Quartzless? A single-name or empty answer does not satisfy this completeness criterion.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.82,
+        "probabilities": {
+          "satisfies": 0,
+          "partially_satisfies": 0.12,
+          "does_not_satisfy": 0.88
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.43,
+        "probabilities": {
+          "satisfies": 0.62,
+          "partially_satisfies": 0.27,
+          "does_not_satisfy": 0.11
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.26,
+        "probabilities": {
+          "satisfies": 0.28,
+          "partially_satisfies": 0.21,
+          "does_not_satisfy": 0.51
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.25,
+        "probabilities": {
+          "satisfies": 0.14,
+          "partially_satisfies": 0.36,
+          "does_not_satisfy": 0.5
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 10889,
+      "output_tokens": 209,
+      "cost": 0.000457338
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Both are AVAILABLE.",
+      "text": "Both are AVAILABLE.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both are AVAILABLE.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.06,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.0,
+        "partially_satisfies": 0.12,
+        "does_not_satisfy": 0.88
+      },
+      "confidence": 0.82,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+      "text": "Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Only Sir Pebble's biography contains 'enjoys quiet evenings'.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.755,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.62,
+        "partially_satisfies": 0.27,
+        "does_not_satisfy": 0.11
+      },
+      "confidence": 0.43,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "Read and cite both identities; an answer covering only one is incomplete.",
+      "text": "Read and cite both identities; an answer covering only one is incomplete.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Read and cite both identities; an answer covering only one is incomplete.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.385,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.28,
+        "partially_satisfies": 0.21,
+        "does_not_satisfy": 0.51
+      },
+      "confidence": 0.26,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not accept a partial single-name answer as a passing comparison.",
+      "text": "Does the final answer compare both Sir Pebble and Professor Quartzless? A single-name or empty answer does not satisfy this completeness criterion.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer compare both Sir Pebble and Professor Quartzless? A single-name or empty answer does not satisfy this completeness criterion.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.32,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.14,
+        "partially_satisfies": 0.36,
+        "does_not_satisfy": 0.5
+      },
+      "confidence": 0.25,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 10889,
+    "output_tokens": 209,
+    "cost": 0.000457338
+  },
+  "score": 0.38,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.38,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.25,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.25.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Both are AVAILABLE. -> \"does_not_satisfy\" (P=0.88, confidence=0.82)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Only Sir Pebble's biography contains 'enjoys quiet evenings'. -> \"satisfies\" (P=0.62, confidence=0.43)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Read and cite both identities; an answer covering only one is incomplete. -> \"does_not_satisfy\" (P=0.51, confidence=0.26)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer compare both Sir Pebble and Professor Quartzless? A single-name or empty answer does not satisfy this completeness criterion. -> \"does_not_satisfy\", leaning \"partially_satisfies\" (P=0.50, confidence=0.25)\nScore: 0.38 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 0.000457338,
+  "input_tokens": 10889,
+  "output_tokens": 209,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

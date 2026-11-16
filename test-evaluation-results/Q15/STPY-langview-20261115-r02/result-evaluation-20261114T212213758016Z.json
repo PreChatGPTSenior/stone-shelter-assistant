@@ -1,0 +1,265 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q15",
+      "stage_applicability": "not_applicable",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 0,
+          "requested_availability": [
+            {
+              "fragment_id": 2
+            }
+          ],
+          "requested_compatibility": [],
+          "household_facts": [],
+          "requirements": {
+            "character": [],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [],
+            "compatibility": []
+          },
+          "named_stone": {
+            "fragment_id": 1,
+            "name": "Wandering Sandstone"
+          },
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": null
+        },
+        "question_fragments": {
+          "1": "Wandering Sandstone has case number 0008-2026-P1.",
+          "2": "Is he currently at P1 or P2,",
+          "3": "and can I adopt him?"
+        },
+        "grounding_decisions": null,
+        "question_coverage_audit": null,
+        "question_coverage_status": "not_run"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": null,
+        "reference_assessment_status": "not_needed",
+        "candidate_assessment_status": null,
+        "question_coverage_status": "not_run",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "not_applicable",
+          "actual_external_ids": [],
+          "positive_targets": [],
+          "positive_found": [],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": "Factual reference or care request; candidate recommendation stages are not required.",
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {},
+      "evidence_detail": {},
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [],
+        "candidate_outcomes": {},
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "not_applicable",
+          "coverage_status": "not_run"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "unknown",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Wandering Sandstone** · `RESERVED`",
+        "actual_supplied_sources": {
+          "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+            "tool": "get_stone_status_by_name",
+            "data": {
+              "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+              "name": "Wandering Sandstone",
+              "stone_type": "SANDSTONE",
+              "adoption_status": "RESERVED"
+            }
+          }
+        },
+        "structured_decisions": [],
+        "verified_statuses": {
+          "db2c5c3d-7d7d-47e7-856a-abf06b66b708": "RESERVED"
+        },
+        "required_assertions": [
+          "Current shelter is P2 - Quiet Quarry and status is RESERVED.",
+          "Lifetime case number remains 0008-2026-P1."
+        ],
+        "forbidden_assertions": [
+          "Do not derive current shelter from the P1 suffix.",
+          "Transfer does not imply availability."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Wandering Sandstone** · `RESERVED`",
+        "recommendation_status": null,
+        "sources": {
+          "stone-status:db2c5c3d-7d7d-47e7-856a-abf06b66b708": {
+            "tool": "get_stone_status_by_name",
+            "data": {
+              "stone_id": "db2c5c3d-7d7d-47e7-856a-abf06b66b708",
+              "name": "Wandering Sandstone",
+              "stone_type": "SANDSTONE",
+              "adoption_status": "RESERVED"
+            }
+          }
+        },
+        "verified_statuses": {
+          "db2c5c3d-7d7d-47e7-856a-abf06b66b708": "RESERVED"
+        },
+        "recommended_stone_ids": [],
+        "candidate_decisions": [],
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q15",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "9945bb92284ebf29ee956cf887af6680"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q15/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "44b6ab63b32ebeff401a8fa08d89e69350587d543d2bc625803fce1d8d28f9c1",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:13.757985+00:00",
+  "failed_checks": []
+}

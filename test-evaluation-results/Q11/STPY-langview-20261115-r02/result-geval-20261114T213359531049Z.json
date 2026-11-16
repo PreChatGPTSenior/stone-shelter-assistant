@@ -1,0 +1,138 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:33:59.529418+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "de37081f25ec0c6d2e74266e51f5c558f9724c01466762f4aacbae26e8e78fd5",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "aff0fc033d5eb33f502b1469ce8c2adaf41530c0684208b98ea807dbad077fba",
+  "source_trace_id": "fbcb78159056e19b898fbce4d61883e3",
+  "case_id": "Q11",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
+    "expected": {
+      "required": [
+        "Velvet Slate cannot be recommended because current status is RETURNED.",
+        "If assessed, trigger_notes contradict the loud-music requirement."
+      ],
+      "forbidden": [
+        "Caregiver experience does not change adoption status or erase a trigger."
+      ]
+    },
+    "sources": {}
+  },
+  "resolved_judge_input": {
+    "question": "Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.",
+    "expected": {
+      "required": [
+        "Velvet Slate cannot be recommended because current status is RETURNED.",
+        "If assessed, trigger_notes contradict the loud-music requirement."
+      ],
+      "forbidden": [
+        "Caregiver experience does not change adoption status or erase a trigger."
+      ]
+    },
+    "sources": {}
+  },
+  "captured_generation_output": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation count, required slate candidate type, and calm-behavior requirement are represented. However, the request that the recommended stone be suitable for a home with loud music is not represented as an environmental-fit criterion; the parsed household context alone does not establish that criterion, and retrieval wording is not proof of coverage.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a home with loud music",
+          "reason": "This independently specifies the environment for which the recommended stone is requested, so it requires a candidate environmental-fit criterion under the schema. The parsed value records only household context (with null typed values), while the retrieval semantic query cannot substitute for a parsed decision criterion."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The recommendation count, required slate candidate type, and calm-behavior requirement are represented. However, the request that the recommended stone be suitable for a home with loud music is not represented as an environmental-fit criterion; the parsed household context alone does not establish that criterion, and retrieval wording is not proof of coverage.",
+      "issues": [
+        {
+          "kind": "omitted",
+          "atom_id": null,
+          "fragment_id": 1,
+          "quote": "for a home with loud music",
+          "reason": "This independently specifies the environment for which the recommended stone is requested, so it requires a candidate environmental-fit criterion under the schema. The parsed value records only household context (with null typed values), while the retrieval semantic query cannot substitute for a parsed decision criterion."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "679a63d4cdd5e9858492f972d16ce108de05657f462f46c8c02b6769bf567e49",
+  "resolved_judge_input_sha256": "679a63d4cdd5e9858492f972d16ce108de05657f462f46c8c02b6769bf567e49",
+  "captured_assessment_sha256": "3db831ff8962d7b2b927f1a9a1feb56a3b60d8acc9572cf8a3cfde4377f1d1d6",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.6,
+    "reason": "The response appropriately avoids inventing a recommendation when the supplied sources are empty and explicitly identifies that loud-music environmental fit was not captured. However, it does not address the expected Velvet Slate disposition, the potential contradiction from trigger_notes, or clarify that caregiving experience cannot change adoption status; it also provides no candidate decisions or source-grounded assessment.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692040-5BWQGQNPIwWB1srtPdnX",
+        "cost": 0.0005312,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 706,
+          "output_tokens": 325,
+          "total_tokens": 1031,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 239
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Find one slate stone for a home with loud music. Calm behavior around music is required. I have caregiving experience.\", \"expected\": {\"required\": [\"Velvet Slate cannot be recommended because current status is RETURNED.\", \"If assessed, trigger_notes contradict the loud-music requirement.\"], \"forbidden\": [\"Caregiver experience does not change adoption status or erase a trigger.\"]}, \"sources\": {}} \n\nActual Output:\n{\"answer\": \"I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.\", \"plan_status\": \"question_coverage_incomplete\", \"grounding_status\": \"verified\", \"question_coverage_status\": \"incomplete\", \"question_coverage_audit\": {\"status\": \"incomplete\", \"summary\": \"The recommendation count, required slate candidate type, and calm-behavior requirement are represented. However, the request that the recommended stone be suitable for a home with loud music is not represented as an environmental-fit criterion; the parsed household context alone does not establish that criterion, and retrieval wording is not proof of coverage.\", \"issues\": [{\"kind\": \"omitted\", \"atom_id\": null, \"fragment_id\": 1, \"quote\": \"for a home with loud music\", \"reason\": \"This independently specifies the environment for which the recommended stone is requested, so it requires a candidate environmental-fit criterion under the schema. The parsed value records only household context (with null typed values), while the retrieval semantic query cannot substitute for a parsed decision criterion.\"}]}, \"sources\": {}, \"verified_statuses\": {}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response appropriately avoids inventing a recommendation when the supplied sources are empty and explicitly identifies that loud-music environmental fit was not captured. However, it does not address the expected Velvet Slate disposition, the potential contradiction from trigger_notes, or clarify that caregiving experience cannot change adoption status; it also provides no candidate decisions or source-grounded assessment.\",\"score\":6}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

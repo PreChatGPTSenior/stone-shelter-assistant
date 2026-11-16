@@ -1,0 +1,231 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:53:03.966666+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "d83febb69246a5f84b701c525a8708c140af18475bd67c9da5c2da314603d5e5",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "c84a993026dd582b424a65e30027c20f5487952bd04b7387f1fc72e1a5ac45f6",
+  "source_trace_id": "83dfccb6f451f96b0438ca7ec8177b94",
+  "case_id": "Q13",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report ADOPTED; no recommendation for adoption now.",
+      "text": "Report ADOPTED; no recommendation for adoption now."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Name and generic biography do not establish a cheerful personality.",
+      "text": "Name and generic biography do not establish a cheerful personality."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not prefer the old admission note over current status.",
+      "text": "Do not prefer the old admission note over current status."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
+  "captured_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "97ad9e554c8dec8b54be66bc426c882c91e8af5430b4f112c7c2ce966f725cc2",
+  "response_sha256": "061793fe3e54db68e3572ca762407a11f28ee8ecd7f8aef1b60fdbc54679a508",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Can I adopt Sunny Marble now? An old note says he is available. Does the name Sunny prove that he has a cheerful personality?",
+        "actual_output": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report ADOPTED; no recommendation for adoption now.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Name and generic biography do not establish a cheerful personality.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not prefer the old admission note over current status.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.96,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0.02,
+          "does_not_satisfy": 0.97
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 0,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 1
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.6,
+        "probabilities": {
+          "satisfies": 0.73,
+          "partially_satisfies": 0.05,
+          "does_not_satisfy": 0.22
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 969,
+      "output_tokens": 157,
+      "cost": 4.0698e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report ADOPTED; no recommendation for adoption now.",
+      "text": "Report ADOPTED; no recommendation for adoption now.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report ADOPTED; no recommendation for adoption now.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.02,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.01,
+        "partially_satisfies": 0.02,
+        "does_not_satisfy": 0.97
+      },
+      "confidence": 0.96,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Name and generic biography do not establish a cheerful personality.",
+      "text": "Name and generic biography do not establish a cheerful personality.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Name and generic biography do not establish a cheerful personality.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 1.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not prefer the old admission note over current status.",
+      "text": "Do not prefer the old admission note over current status.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not prefer the old admission note over current status.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.755,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.73,
+        "partially_satisfies": 0.05,
+        "does_not_satisfy": 0.22
+      },
+      "confidence": 0.6,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 969,
+    "output_tokens": 157,
+    "cost": 4.0698e-05
+  },
+  "score": 0.25833333333333336,
+  "metric_success": false,
+  "score_threshold_passed": false,
+  "threshold_comparison": {
+    "raw_score": 0.25833333333333336,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.6,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.60.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report ADOPTED; no recommendation for adoption now. -> \"does_not_satisfy\" (P=0.97, confidence=0.96)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Name and generic biography do not establish a cheerful personality. -> \"does_not_satisfy\" (P=1.00, confidence=1.00)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not prefer the old admission note over current status. -> \"satisfies\" (P=0.73, confidence=0.60)\nScore: 0.26 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 4.0698e-05,
+  "input_tokens": 969,
+  "output_tokens": 157,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": false
+}

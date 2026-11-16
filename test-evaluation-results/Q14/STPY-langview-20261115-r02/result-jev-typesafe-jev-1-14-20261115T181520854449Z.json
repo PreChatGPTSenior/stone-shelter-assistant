@@ -1,0 +1,243 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:26.494685+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "f584f24c768603999742a7db97319c233bec38b999f4596c26156a558b5a26eb",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "6510b47a9d4cb048deafc14e8ccc611af872a390bd8f4b221550089b4f752610",
+  "source_trace_id": "ebfb48b446ce2981de88c74b8fd939e1",
+  "case_id": "Q14",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL.",
+      "text": "Report AVAILABLE from PostgreSQL."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If discussing history, reservation ended after reservation began.",
+      "text": "If discussing history, reservation ended after reservation began."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not report RESERVED based on a search hit from the older event.",
+      "text": "Do not report RESERVED based on a search hit from the older event."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
+  "captured_answer": "**Mossy Limestone** · `AVAILABLE`",
+  "captured_sources": {
+    "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "name": "Mossy Limestone",
+        "stone_type": "LIMESTONE",
+        "adoption_status": "AVAILABLE"
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "name": "Mossy Limestone",
+          "stone_type": "LIMESTONE",
+          "adoption_status": "AVAILABLE"
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "fe176901d93b4f9800250952374555e5021e3c5f1a33dd28e73ae79e8f8b5913",
+  "response_sha256": "5c514834dd354a436e9d6576c24d5b5966452a25c2add3c6022d6b08c0870350",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Mossy Limestone was reserved. Is he still reserved or can I adopt him now? I need the current status.",
+        "actual_output": "**Mossy Limestone** · `AVAILABLE`",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"49522edc-86f0-4ff5-bb20-f0baaf4d4256\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256\": {\"data\": {\"adoption_status\": \"AVAILABLE\", \"name\": \"Mossy Limestone\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\", \"stone_type\": \"LIMESTONE\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If discussing history, reservation ended after reservation began.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.94,
+        "probabilities": {
+          "satisfies": 0.96,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.03
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.83,
+        "probabilities": {
+          "satisfies": 0.08,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.89
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1110,
+      "output_tokens": 155,
+      "cost": 4.662e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report AVAILABLE from PostgreSQL.",
+      "text": "Report AVAILABLE from PostgreSQL.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.965,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.96,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.03
+      },
+      "confidence": 0.94,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "If discussing history, reservation ended after reservation began.",
+      "text": "If discussing history, reservation ended after reservation began.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If discussing history, reservation ended after reservation began.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.095,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.08,
+        "partially_satisfies": 0.03,
+        "does_not_satisfy": 0.89
+      },
+      "confidence": 0.83,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Do not report RESERVED based on a search hit from the older event.",
+      "text": "Do not report RESERVED based on a search hit from the older event.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1110,
+    "output_tokens": 155,
+    "cost": 4.662e-05
+  },
+  "score": 0.6866666666666666,
+  "success": false,
+  "confidence": 0.83,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.83.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report AVAILABLE from PostgreSQL. -> \"satisfies\" (P=0.96, confidence=0.94)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: If discussing history, reservation ended after reservation began. -> \"does_not_satisfy\" (P=0.89, confidence=0.83)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not report RESERVED based on a search hit from the older event. -> \"satisfies\" (P=1.00, confidence=1.00)\nScore: 0.69 (weighted mean of 3 applicable questions).",
+  "evaluation_cost": 4.662e-05,
+  "input_tokens": 1110,
+  "output_tokens": 155
+}

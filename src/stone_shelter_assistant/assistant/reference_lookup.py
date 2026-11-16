@@ -84,9 +84,7 @@ async def _read_stone_status(
 ) -> None:
     names = list(
         dict.fromkeys(
-            name
-            for name in (request.stone_name, request.recommendation_name)
-            if name is not None
+            name for name in (request.stone_name, request.recommendation_name) if name is not None
         )
     )
     resolved: dict[str, NamedStoneStatus | None] = {}
@@ -181,8 +179,7 @@ async def _read_case_timeline(
             case_external_id=data["case_external_id"],
         )
         result.lines.append(
-            f"**Case event** · {event['occurred_at']} · {event['event_type']} · "
-            f"{source_id}\n{text}"
+            f"**Case event** · {event['occurred_at']} · {event['event_type']} · {source_id}\n{text}"
         )
 
 
@@ -298,11 +295,7 @@ async def _read_pair_lists(
         for document in documents:
             entry = CompatibilityPairSearchDocument.model_validate(document)
             partner = next(
-                (
-                    kind
-                    for kind in entry.stone_types
-                    if kind != requested_list.stone_type
-                ),
+                (kind for kind in entry.stone_types if kind != requested_list.stone_type),
                 requested_list.stone_type,
             )
             partners.add(partner.value)

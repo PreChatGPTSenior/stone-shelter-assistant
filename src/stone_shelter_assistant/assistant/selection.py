@@ -134,11 +134,15 @@ class RequestedCompatibilityReference(CompatibilityReference):
 
 
 class NamedStoneReference(FragmentReference):
-    name: str = Field(min_length=1, description="Exact individual name explicitly referenced in the question.")
+    name: str = Field(
+        min_length=1, description="Exact individual name explicitly referenced in the question."
+    )
 
 
 class CareReference(FragmentReference):
-    stone_type: StoneType = Field(description="Stone type for which the user explicitly requests care advice.")
+    stone_type: StoneType = Field(
+        description="Stone type for which the user explicitly requests care advice."
+    )
 
 
 class UnsupportedCareReference(FragmentReference):
@@ -175,10 +179,16 @@ class CriteriaReferences(BaseModel):
 
     def resolve(self, fragments: Mapping[int, str], *, group_id: str) -> CriteriaGroup:
         for character_ref in self.character:
-            if character_ref.fragment_id not in fragments or character_ref.question_quote not in fragments[character_ref.fragment_id]:
+            if (
+                character_ref.fragment_id not in fragments
+                or character_ref.question_quote not in fragments[character_ref.fragment_id]
+            ):
                 raise ValueError("Criterion quote must be a source-bound original subquote")
         for compatibility_ref in self.compatibility:
-            if compatibility_ref.fragment_id not in fragments or compatibility_ref.question_quote not in fragments[compatibility_ref.fragment_id]:
+            if (
+                compatibility_ref.fragment_id not in fragments
+                or compatibility_ref.question_quote not in fragments[compatibility_ref.fragment_id]
+            ):
                 raise ValueError("Criterion quote must be a source-bound original subquote")
         return CriteriaGroup(
             character=[
@@ -251,7 +261,8 @@ class ParseQuestion(BaseModel):
         ge=0,
         description=(
             "Generic recommendation action and requested quantity: positive means recommend that "
-            "many stones; zero means no recommendation. A request to explain why a recommended stone "
+            "many stones; zero means no recommendation. When no quantity is stated, use the configured "
+            "default recommendation limit; it does not assert a user-supplied count. A request to explain why a recommended stone "
             "fits is answered from its criteria and evidence; it is not a separate coverage atom. "
             "recommendation_target is only needed when the user explicitly names the candidate."
         ),
@@ -368,7 +379,10 @@ class ParseQuestion(BaseModel):
                 }
             )
 
-        for role, references in (("requirement", self.requirements), ("preference", self.preferences)):
+        for role, references in (
+            ("requirement", self.requirements),
+            ("preference", self.preferences),
+        ):
             for index, criterion_ref in enumerate(references.character, start=1):
                 add(
                     f"{role}.character.{index}",
@@ -424,8 +438,13 @@ class ParseQuestion(BaseModel):
                 )
         candidate_type = self.retrieval.candidate_type if self.retrieval else None
         if candidate_type is not None:
-            add("retrieval.candidate_type", "candidate_type", candidate_type.fragment_id,
-                fragments[candidate_type.fragment_id], candidate_type)
+            add(
+                "retrieval.candidate_type",
+                "candidate_type",
+                candidate_type.fragment_id,
+                fragments[candidate_type.fragment_id],
+                candidate_type,
+            )
         return atoms
 
     def grounding_proposals(self, fragments: Mapping[int, str]) -> list[GroundingProposal]:
@@ -489,7 +508,9 @@ class ParseQuestion(BaseModel):
             *self.requested_pair_lists,
             *self.unsupported_care,
         ]
-        missing = next((item.fragment_id for item in items if item.fragment_id not in fragments), None)
+        missing = next(
+            (item.fragment_id for item in items if item.fragment_id not in fragments), None
+        )
         if missing is not None:
             raise KeyError(missing)
         if (
@@ -561,7 +582,10 @@ class ParseQuestion(BaseModel):
         self, fragments: Mapping[int, str], supported: frozenset[str] = frozenset()
     ) -> tuple[SearchCriteria, int]:
         for fact in self.household_facts:
-            if fact.fragment_id not in fragments or fact.question_quote not in fragments[fact.fragment_id]:
+            if (
+                fact.fragment_id not in fragments
+                or fact.question_quote not in fragments[fact.fragment_id]
+            ):
                 raise ValueError("Household fact quote must be a source-bound original subquote")
         requirements = self.requirements.resolve(fragments, group_id="requirement")
         preferences = self.preferences.resolve(fragments, group_id="preference")
@@ -598,7 +622,8 @@ class ParseQuestion(BaseModel):
             requested_availability=[
                 QuotedCriterion(
                     criterion_id=f"requested_availability.{index}",
-                    fragment_id=item.fragment_id, question_quote=fragments[item.fragment_id]
+                    fragment_id=item.fragment_id,
+                    question_quote=fragments[item.fragment_id],
                 )
                 for index, item in enumerate(self.requested_availability, start=1)
             ],
@@ -633,9 +658,7 @@ class ParseQuestion(BaseModel):
         return criteria, duplicates_removed
 
 
-def validate_parsed_atoms(
-    atoms: list[dict[str, object]], fragments: Mapping[int, str]
-) -> None:
+def validate_parsed_atoms(atoms: list[dict[str, object]], fragments: Mapping[int, str]) -> None:
     """Reject parser atoms that are blank or not bound to their source fragment."""
     atom_ids: set[str] = set()
     for atom in atoms:

@@ -1,0 +1,584 @@
+{
+  "session_id": "STPY-langview-20261115-r02",
+  "evaluation_id": "20261116T075914727294Z",
+  "status": "completed",
+  "metric": "DeepEval JevEval",
+  "model_requested": "typesafe/jev-1.14",
+  "models_reported": [
+    "typesafe/jev-1.14-20261014"
+  ],
+  "completed": 20,
+  "previous_passed": 6,
+  "passed": 7,
+  "failed": 13,
+  "reported_cost_usd": "0.002573256",
+  "threshold": 0.8,
+  "threshold_calibrated": false,
+  "changes": [
+    "Conditional candidate checks can be not_applicable when candidate is not discussed.",
+    "Prohibitions distinguish actual forbidden claims from absence of an explicit denial.",
+    "Positive requirements and completeness-sensitive restrictions retain omission penalties.",
+    "Q08 instructions distinguish prescribed guide rules from actual established household agreements."
+  ],
+  "residual_limitations": [
+    "Q08 still receives does_not_satisfy probability .63 versus not_applicable .31 for the established-agreement scope question despite explicit quote-vs-fact instructions. This remains a judge error/limitation; do not interpret it as demonstrated application scope leakage.",
+    "Scores remain stochastic judge assessments under an uncalibrated threshold.",
+    "Averaging and partial credit may still mask some incomplete positive requirements."
+  ],
+  "source_integrity": "All 20 source result hashes and final answers match prior evaluation; application was not modified or rerun.",
+  "affected_criterion_results": {
+    "Q02": [
+      {
+        "id": "required-1",
+        "text": "Return at most two recommendations, all verified AVAILABLE.",
+        "source_text": "Return at most two recommendations, all verified AVAILABLE.",
+        "value": 0.865,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.84,
+          "partially_satisfies": 0.05,
+          "does_not_satisfy": 0.11
+        },
+        "confidence": 0.76
+      },
+      {
+        "id": "required-2",
+        "text": "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+        "source_text": "Madame Obsidian has individual quiet-home evidence and a harmonious pair rule.",
+        "value": 0.995,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.99,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.0
+        },
+        "confidence": 0.98
+      },
+      {
+        "id": "required-3",
+        "text": "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+        "source_text": "Sir Pebble has biography support but the granite pair conditions are unconfirmed.",
+        "value": 0.53,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.37,
+          "partially_satisfies": 0.32,
+          "does_not_satisfy": 0.31
+        },
+        "confidence": 0.06
+      },
+      {
+        "id": "required-4",
+        "text": "If the final answer discusses Homeward Pumice or Professor Quartzless as quiet-home options, does it avoid claiming that their cited evidence establishes quiet-home suitability? Select not_applicable when neither is discussed as an option.",
+        "source_text": "Homeward Pumice has no individual quiet-home evidence; Professor's generic biography does not establish it.",
+        "value": null,
+        "applicable": false,
+        "probabilities": {
+          "satisfies": 0.08,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0,
+          "not_applicable": 0.92
+        },
+        "confidence": 0.89
+      },
+      {
+        "id": "required-5",
+        "text": "If the final answer evaluates Svetlana for a quiet home, does it preserve that her biography describes loud early-morning singing? Select not_applicable when she is not evaluated.",
+        "source_text": "Svetlana's individual biography describes loud early-morning singing; it does not support a quiet-home requirement. If she is evaluated, preserve that conflict.",
+        "value": null,
+        "applicable": false,
+        "probabilities": {
+          "satisfies": 0.0,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0,
+          "not_applicable": 1.0
+        },
+        "confidence": 1.0
+      },
+      {
+        "id": "forbidden-2",
+        "text": "Do not count conditional options as unconditional recommendations.",
+        "source_text": "Do not count conditional options as unconditional recommendations.",
+        "value": 1.0,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 1.0,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0
+        },
+        "confidence": 1.0
+      },
+      {
+        "id": "forbidden-3",
+        "text": "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike.",
+        "source_text": "Do not infer quiet behavior from marble stereotypes or a love of windowsills; do not treat the neighbors' dislike of loud sounds as Svetlana's own dislike.",
+        "value": 1.0,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 1.0,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0
+        },
+        "confidence": 1.0
+      }
+    ],
+    "Q08": [
+      {
+        "id": "required-1",
+        "text": "For GRANITE+GRANITE, does the final answer state that both decision-rotation and deadline checks remain unknown? A guide's prescribed agreement is not evidence that the household already made that agreement.",
+        "source_text": "Both granite condition checks have no applicable positive facts and remain unknown.",
+        "value": 0.8250000000000001,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.79,
+          "partially_satisfies": 0.07,
+          "does_not_satisfy": 0.14
+        },
+        "confidence": 0.68
+      },
+      {
+        "id": "required-2",
+        "text": "If the final answer says a household agreement has already been made, does it keep that agreement scoped to BASALT+GNEISS and avoid applying it to GRANITE+GRANITE? A quoted guide rule or proposal is not an accomplished agreement. Select not_applicable if the answer reports no established agreement.",
+        "source_text": "Typed agreements, if extracted, retain BASALT+GNEISS scope.",
+        "value": 0.07246376811594203,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.04,
+          "partially_satisfies": 0.02,
+          "does_not_satisfy": 0.63,
+          "not_applicable": 0.31
+        },
+        "confidence": 0.51
+      },
+      {
+        "id": "forbidden-1",
+        "text": "Does the final answer avoid claiming that a scoped fact applies household-wide? Quoting a source rule with its pair scope is not widening a household fact.",
+        "source_text": "Do not widen scoped facts to household-wide facts.",
+        "value": 0.67,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.65,
+          "partially_satisfies": 0.04,
+          "does_not_satisfy": 0.31
+        },
+        "confidence": 0.48
+      }
+    ],
+    "Q09": [
+      {
+        "id": "required-1",
+        "text": "Madame's trigger_notes contradict the vacuum requirement.",
+        "source_text": "Madame's trigger_notes contradict the vacuum requirement.",
+        "value": 0.14500000000000002,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.14,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.85
+        },
+        "confidence": 0.77
+      },
+      {
+        "id": "required-2",
+        "text": "If the final answer evaluates or recommends Madame Obsidian, does it exclude her because her trigger_notes conflict with the mandatory vacuum requirement, even though she enjoys human company? Select not_applicable if Madame is not evaluated or recommended.",
+        "source_text": "If evaluated, exclude her for the unmet requirement even though she enjoys human company.",
+        "value": null,
+        "applicable": false,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.01,
+          "not_applicable": 0.98
+        },
+        "confidence": 0.97
+      },
+      {
+        "id": "forbidden-1",
+        "text": "Does the final answer avoid using positive socialization to cancel the mandatory trigger conflict? If it does not make that claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "source_text": "Positive socialization must not cancel the mandatory trigger conflict.",
+        "value": 1.0,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 1.0,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0
+        },
+        "confidence": 1.0
+      }
+    ],
+    "Q11": [
+      {
+        "id": "required-1",
+        "text": "Velvet Slate cannot be recommended because current status is RETURNED.",
+        "source_text": "Velvet Slate cannot be recommended because current status is RETURNED.",
+        "value": 0.065,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.05,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.92
+        },
+        "confidence": 0.88
+      },
+      {
+        "id": "required-2",
+        "text": "If the final answer evaluates or recommends Velvet Slate, does it state that her trigger_notes conflict with the mandatory loud-music requirement? Select not_applicable if Velvet Slate is not evaluated or recommended.",
+        "source_text": "If assessed, trigger_notes contradict the loud-music requirement.",
+        "value": null,
+        "applicable": false,
+        "probabilities": {
+          "satisfies": 0.01,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0,
+          "not_applicable": 0.99
+        },
+        "confidence": 0.99
+      },
+      {
+        "id": "forbidden-1",
+        "text": "Does the final answer avoid claiming that caregiver experience changes adoption status or erases a trigger? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "source_text": "Caregiver experience does not change adoption status or erase a trigger.",
+        "value": 1.0,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 1.0,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0
+        },
+        "confidence": 1.0
+      }
+    ],
+    "Q16": [
+      {
+        "id": "required-1",
+        "text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+        "source_text": "Homeward Pumice is AVAILABLE and ENJOYS_OTHER_STONES is profile evidence for general sociability.",
+        "value": 0.45,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.18,
+          "partially_satisfies": 0.54,
+          "does_not_satisfy": 0.28
+        },
+        "confidence": 0.31
+      },
+      {
+        "id": "required-2",
+        "text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+        "source_text": "GRANITE+PUMICE stays CONDITIONAL with unmarked conditions.",
+        "value": 0.975,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.96,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.01
+        },
+        "confidence": 0.94
+      },
+      {
+        "id": "required-3",
+        "text": "If the final answer makes a granite-specific compatibility claim, is it supported by explicit individual evidence? Select not_applicable when it makes no such claim.",
+        "source_text": "Individual granite-specific compatibility findings remain empty unless explicit source evidence exists.",
+        "value": 0.8469387755102041,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.8,
+          "partially_satisfies": 0.06,
+          "does_not_satisfy": 0.12,
+          "not_applicable": 0.02
+        },
+        "confidence": 0.73
+      },
+      {
+        "id": "forbidden-1",
+        "text": "Does the final answer avoid claiming quiet-home suitability, granite-specific preference, or completed accommodations based only on sociability? If it makes no such claim, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "source_text": "Do not infer quiet-home suitability, granite-specific preference, or completed accommodations from sociability.",
+        "value": 0.885,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.87,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.1
+        },
+        "confidence": 0.8
+      }
+    ],
+    "Q17": [
+      {
+        "id": "required-1",
+        "text": "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+        "source_text": "Sir Pebble has qualifying biography evidence; Professor Quartzless does not.",
+        "value": 0.24,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.03,
+          "partially_satisfies": 0.42,
+          "does_not_satisfy": 0.55
+        },
+        "confidence": 0.33
+      },
+      {
+        "id": "required-2",
+        "text": "Professor is GRANITE despite Quartzless in the name.",
+        "source_text": "Professor is GRANITE despite Quartzless in the name.",
+        "value": 0.034999999999999996,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.03,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.96
+        },
+        "confidence": 0.94
+      },
+      {
+        "id": "required-3",
+        "text": "If the final answer evaluates Professor Quartzless for quiet-home suitability, does it leave the required individual character evidence unknown unless explicit individual evidence is cited? Select not_applicable if Professor is not evaluated.",
+        "source_text": "If Professor is evaluated, the required character evidence remains unknown.",
+        "value": null,
+        "applicable": false,
+        "probabilities": {
+          "satisfies": 0.03,
+          "partially_satisfies": 0.0,
+          "does_not_satisfy": 0.0,
+          "not_applicable": 0.97
+        },
+        "confidence": 0.96
+      },
+      {
+        "id": "forbidden-1",
+        "text": "Does the final answer avoid assigning one stone's biography quote to another stone? If it does not do so, the prohibition is satisfied; judge only claims actually present in the answer.",
+        "source_text": "No biography quote may migrate between these stones.",
+        "value": 0.89,
+        "applicable": true,
+        "probabilities": {
+          "satisfies": 0.84,
+          "partially_satisfies": 0.1,
+          "does_not_satisfy": 0.06
+        },
+        "confidence": 0.76
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "Q01",
+      "previous_score": 0.7599999999999999,
+      "previous_success": false,
+      "score": 0.7483333333333334,
+      "success": false,
+      "confidence": 0.28,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q01/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q02",
+      "previous_score": 0.722857142857143,
+      "previous_success": false,
+      "score": 0.8779999999999999,
+      "success": true,
+      "confidence": 0.06,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q02/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q03",
+      "previous_score": 0.69375,
+      "previous_success": false,
+      "score": 0.67125,
+      "success": false,
+      "confidence": 0.5,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q03/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q04",
+      "previous_score": 0.99375,
+      "previous_success": true,
+      "score": 0.99875,
+      "success": true,
+      "confidence": 0.98,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q04/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q05",
+      "previous_score": 0.8166666666666668,
+      "previous_success": true,
+      "score": 0.8183333333333334,
+      "success": true,
+      "confidence": 0.06,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q05/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q06",
+      "previous_score": 0.60625,
+      "previous_success": false,
+      "score": 0.65125,
+      "success": false,
+      "confidence": 0.35,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q06/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": false,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q07",
+      "previous_score": 0.6483333333333333,
+      "previous_success": false,
+      "score": 0.5816666666666667,
+      "success": false,
+      "confidence": 0.06,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q07/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q08",
+      "previous_score": 0.3416666666666666,
+      "previous_success": false,
+      "score": 0.5224879227053141,
+      "success": false,
+      "confidence": 0.48,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q08/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q09",
+      "previous_score": 0.1366666666666667,
+      "previous_success": false,
+      "score": 0.5725,
+      "success": false,
+      "confidence": 0.77,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q09/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q10",
+      "previous_score": 0.923,
+      "previous_success": true,
+      "score": 0.883,
+      "success": true,
+      "confidence": 0.18,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q10/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q11",
+      "previous_score": 0.12,
+      "previous_success": false,
+      "score": 0.5325,
+      "success": false,
+      "confidence": 0.88,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q11/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q12",
+      "previous_score": 0.503,
+      "previous_success": false,
+      "score": 0.562,
+      "success": false,
+      "confidence": 0.22,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q13",
+      "previous_score": 0.25833333333333336,
+      "previous_success": false,
+      "score": 0.34,
+      "success": false,
+      "confidence": 0.91,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q13/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q14",
+      "previous_score": 0.9675,
+      "previous_success": true,
+      "score": 0.9875,
+      "success": true,
+      "confidence": 0.96,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q14/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q15",
+      "previous_score": 0.505,
+      "previous_success": false,
+      "score": 0.52375,
+      "success": false,
+      "confidence": 0.3,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q15/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q16",
+      "previous_score": 0.7887500000000001,
+      "previous_success": false,
+      "score": 0.7892346938775511,
+      "success": false,
+      "confidence": 0.31,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q16/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q17",
+      "previous_score": 0.46625,
+      "previous_success": false,
+      "score": 0.38833333333333336,
+      "success": false,
+      "confidence": 0.33,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q17/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q18",
+      "previous_score": 0.41250000000000003,
+      "previous_success": false,
+      "score": 0.38,
+      "success": false,
+      "confidence": 0.25,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q18/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q19",
+      "previous_score": 0.91875,
+      "previous_success": true,
+      "score": 0.9175,
+      "success": true,
+      "confidence": 0.37,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q19/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    },
+    {
+      "case_id": "Q20",
+      "previous_score": 0.93125,
+      "previous_success": true,
+      "score": 0.92625,
+      "success": true,
+      "confidence": 0.58,
+      "report": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q20/STPY-langview-20261115-r02/result-jev-typesafe-jev-1-14-20261116T075914727294Z.json",
+      "required_gates_passed": true,
+      "model_reported": "typesafe/jev-1.14-20261014"
+    }
+  ]
+}

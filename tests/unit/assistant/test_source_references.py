@@ -344,29 +344,29 @@ def test_type_evidence_cannot_prove_individual_requirement() -> None:
         and item.source_key == "encyclopedia:en:granite"
     )
     source_id = encyclopedia.source_key
-    sources = {
-        "encyclopedia": SourceText(
-            "encyclopedia", source_id, "section", encyclopedia.text
-        )
-    }
+    sources = {"encyclopedia": SourceText("encyclopedia", source_id, "section", encyclopedia.text)}
     criteria = SearchCriteria.model_validate(
         {
             "recommendation_limit": 1,
             "household_facts": [],
             "requirements": {
-                "character": [{
-                    "criterion_id": "requirement.character.1",
-                    "fragment_id": 1,
-                    "question_quote": "Must be organized.",
-                }],
+                "character": [
+                    {
+                        "criterion_id": "requirement.character.1",
+                        "fragment_id": 1,
+                        "question_quote": "Must be organized.",
+                    }
+                ],
                 "compatibility": [],
             },
             "preferences": {
-                "character": [{
-                    "criterion_id": "preference.character.1",
-                    "fragment_id": 2,
-                    "question_quote": "Would prefer an organized type.",
-                }],
+                "character": [
+                    {
+                        "criterion_id": "preference.character.1",
+                        "fragment_id": 2,
+                        "question_quote": "Would prefer an organized type.",
+                    }
+                ],
                 "compatibility": [],
             },
         }

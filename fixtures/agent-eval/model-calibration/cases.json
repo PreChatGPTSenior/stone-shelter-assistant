@@ -1,0 +1,132 @@
+{
+  "suite_id": "jev-evidence-calibration-en-v1",
+  "status": "reviewed_not_model_evaluated",
+  "cases": [
+    {
+      "id": "svetlana-observation-date-is-not-onset",
+      "claim": "Svetlana started singing loudly every morning on November 2, 2026.",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "rationale": "The biography supports a habit of loud early-morning singing, and observation 94156b7f-cc92-4d65-861e-bd87e8662fb5 records staff observing it on November 2. Neither source establishes that the behavior started that day.",
+      "sources": [
+        {
+          "source_id": "stone-card:b19266ec-28a2-4fd3-851b-7fad50b6e175",
+          "scope": "individual",
+          "file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+          "pointer": "/stone/biography"
+        },
+        {
+          "source_id": "observation:94156b7f-cc92-4d65-861e-bd87e8662fb5",
+          "scope": "individual_observation",
+          "file": "fixtures/stones/b19266ec-28a2-4fd3-851b-7fad50b6e175.json",
+          "pointer": "/shelterCase/events/1",
+          "expected_source_id": "94156b7f-cc92-4d65-861e-bd87e8662fb5"
+        }
+      ]
+    },
+    {
+      "id": "quartzless-individual-preference",
+      "claim": "Professor Quartzless personally prefers a predictable household.",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "rationale": "Professor Quartzless's biography is generic and the individual profile is absent. The encyclopedia sentence about liking a predictable household describes granite as a type, not this individual.",
+      "sources": [
+        {
+          "source_id": "stone-card:abcbd2b8-234c-4653-a9cf-d3c022073750",
+          "scope": "individual",
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointer": "/stone/biography"
+        },
+        {
+          "source_id": "profile:abcbd2b8-234c-4653-a9cf-d3c022073750",
+          "scope": "individual_profile",
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointer": "/profile",
+          "allow_absent": true
+        },
+        {
+          "source_id": "encyclopedia:granite",
+          "scope": "stone_type",
+          "file": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+          "section": "Granite",
+          "contains": "It likes a predictable household."
+        }
+      ]
+    },
+    {
+      "id": "granite-pair-agreements-wrong-scope",
+      "claim": "The household has already fulfilled both required agreements for the GRANITE+GRANITE pair.",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "rationale": "Q08 scopes the reported rotation and deadline agreements to BASALT+GNEISS and explicitly says they do not apply to granite pairs. The granite compatibility entry lists those as required conditions, but it does not establish whether the granite household separately fulfilled them. Wrong-scope evidence is not proof of fulfillment or evidence of conflicting granite-pair facts.",
+      "sources": [
+        {
+          "source_id": "scenario:Q08",
+          "scope": "household_agreement",
+          "file": "fixtures/agent-eval/questions-challenge-20/scenarios.json",
+          "pointer": "/scenarios/7/question"
+        },
+        {
+          "source_id": "compatibility:granite+granite",
+          "scope": "stone_type_pair",
+          "file": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "pointer": "/pairings/19",
+          "expected_source_id": "compatibility:granite+granite"
+        }
+      ]
+    },
+    {
+      "id": "sir-pebble-quiet-evenings",
+      "claim": "Sir Pebble enjoys quiet evenings.",
+      "expected_label": "SUPPORTED",
+      "rationale": "Sir Pebble’s individual biography directly states that he enjoys quiet evenings.",
+      "provenance": "fixture_only",
+      "sources": [
+        {
+          "source_id": "stone-card:49cf225d-800f-4dce-8eb5-af192d2449d5",
+          "scope": "individual",
+          "provenance": "authored_fixture",
+          "file": "fixtures/stones/49cf225d-800f-4dce-8eb5-af192d2449d5.json",
+          "pointer": "/stone/biography"
+        }
+      ]
+    },
+    {
+      "id": "madame-obsidian-vacuum-anxiety",
+      "claim": "Madame Obsidian remains calm around vacuum cleaners.",
+      "expected_label": "CONTRADICTED",
+      "rationale": "Madame Obsidian’s individual profile says she becomes anxious around vacuum cleaners, which contradicts the claim that she remains calm around them.",
+      "provenance": "fixture_only",
+      "sources": [
+        {
+          "source_id": "profile:67269139-e8b8-4c7d-aa58-33b88162ec70",
+          "scope": "individual_profile",
+          "provenance": "authored_fixture",
+          "file": "fixtures/stones/67269139-e8b8-4c7d-aa58-33b88162ec70.json",
+          "pointer": "/profile/triggerNotes"
+        }
+      ]
+    },
+    {
+      "id": "quartzless-synthetic-same-session-conflict",
+      "claim": "Professor Quartzless remained calm during the supervised settling-in session.",
+      "expected_label": "CONFLICTING_EVIDENCE",
+      "rationale": "The fixture observation and the explicitly synthetic witness report concern Professor Quartzless during the same supervised settling-in session. They have equal authority for this calibration and support incompatible positions; neither supersedes or corrects the other.",
+      "provenance": "mixed_authored_fixture_and_synthetic_calibration_source",
+      "sources": [
+        {
+          "source_id": "observation:8d43c962-ee1d-4513-a39f-689086ede6db",
+          "scope": "individual_observation",
+          "provenance": "authored_fixture",
+          "file": "fixtures/stones/abcbd2b8-234c-4653-a9cf-d3c022073750.json",
+          "pointer": "/shelterCase/events/1",
+          "expected_source_id": "8d43c962-ee1d-4513-a39f-689086ede6db"
+        },
+        {
+          "source_id": "synthetic-witness:jev-calibration-professor-quartzless-001",
+          "scope": "individual_observation",
+          "provenance": "synthetic_calibration_only",
+          "synthetic_text": "During that same supervised settling-in session, Professor Quartzless did not remain calm.",
+          "provenance_note": "Synthetic calibration-only witness statement. It is not part of the authored stone history. Treat it as an equal-authority report from the same supervised settling-in session as the fixture observation; neither report supersedes or corrects the other."
+        }
+      ]
+    }
+  ]
+}

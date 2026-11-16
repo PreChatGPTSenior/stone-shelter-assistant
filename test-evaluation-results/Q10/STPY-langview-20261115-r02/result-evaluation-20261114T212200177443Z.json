@@ -1,0 +1,453 @@
+{
+  "suite_id": "questions-challenge-20-v1",
+  "source_run_status": "completed",
+  "semantic_judge": "unmeasured",
+  "scenario_reports": [
+    {
+      "case_id": "Q10",
+      "stage_applicability": "recommendation",
+      "technical_error": null,
+      "parse_and_audit_measurement": {
+        "status": "unmeasured",
+        "reason": "no_reviewed_parse_targets",
+        "parsed_question": {
+          "recommendation_limit": 1,
+          "requested_availability": [],
+          "requested_compatibility": [],
+          "household_facts": [],
+          "requirements": {
+            "character": [
+              {
+                "fragment_id": 2,
+                "question_quote": "Being good with children is required."
+              }
+            ],
+            "compatibility": []
+          },
+          "preferences": {
+            "character": [
+              {
+                "fragment_id": 3,
+                "question_quote": "Enjoying garden visits is only a preference."
+              }
+            ],
+            "compatibility": []
+          },
+          "named_stone": null,
+          "recommendation_target": null,
+          "requested_care": [],
+          "unsupported_care": [],
+          "requested_stone_info": null,
+          "requested_pair_lists": [],
+          "retrieval": {
+            "lexical_query": "gneiss stone good with children garden visits family with children",
+            "semantic_query": "Find one available gneiss stone suitable for a family with children, requiring that it is good with children and preferring that it enjoys garden visits.",
+            "candidate_type": {
+              "fragment_id": 1,
+              "stone_type": "GNEISS"
+            }
+          }
+        },
+        "question_fragments": {
+          "1": "Find one gneiss stone for a family with children.",
+          "2": "Being good with children is required.",
+          "3": "Enjoying garden visits is only a preference."
+        },
+        "grounding_decisions": [
+          {
+            "proposal_id": "candidate_type",
+            "finding": "supported",
+            "fragment_id": 1,
+            "quote": "Find one gneiss stone for a family with children.",
+            "reason": "The positive type “gneiss” directly modifies the requested new stone noun in the recommendation, so the proposed candidate type GNEISS and its fragment scope are established."
+          }
+        ],
+        "question_coverage_audit": {
+          "status": "complete",
+          "summary": "The parse represents the request for one stone, the required child-suitability criterion, the preferred garden-visits criterion, and the required GNEISS candidate type. “For a family with children” is contextual wording supporting the represented suitability criterion rather than a separate independent obligation.",
+          "issues": []
+        },
+        "question_coverage_status": "complete"
+      },
+      "workflow_integrity": {
+        "status": "pass",
+        "plan_status": "accepted",
+        "criteria_status": "parsed",
+        "selection_status": "selected",
+        "reference_assessment_status": null,
+        "candidate_assessment_status": "parsed",
+        "question_coverage_status": "complete",
+        "answer_present": true,
+        "note": "Execution integrity only; this is not a semantic answer-quality score."
+      },
+      "stages": [
+        {
+          "stage": "lexical",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "semantic",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "engine_union",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "rrf",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "shortlist",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "evidence",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "decision",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        },
+        {
+          "stage": "answer",
+          "status": "pass",
+          "actual_external_ids": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_targets": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_found": [
+            "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+          ],
+          "positive_missing": [],
+          "lost_from_previous_stage": [],
+          "unverified_reason": null,
+          "unmapped_internal_ids": []
+        }
+      ],
+      "engine_ranks": {
+        "3b41b31d-5a1f-43ef-af77-c107bb7ae382": {
+          "lexical_rank": 1,
+          "semantic_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "retrieval_rank": 1,
+          "in_pool": true
+        }
+      },
+      "evidence_detail": {
+        "3b41b31d-5a1f-43ef-af77-c107bb7ae382": [
+          {
+            "source_id": "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31",
+            "criterion": "character",
+            "quote": "GOOD_WITH_CHILDREN",
+            "source_present": true,
+            "binding": "reason_evidence"
+          },
+          {
+            "source_id": "case-event:4680986d-7f35-4723-9039-7e366bdbde19",
+            "criterion": "character",
+            "quote": "short garden visits",
+            "source_present": true,
+            "binding": "reason_evidence"
+          }
+        ]
+      },
+      "structured_expectations": {
+        "status": "unmeasured",
+        "checks": {}
+      },
+      "recommendations": {
+        "external_ids": [
+          "3b41b31d-5a1f-43ef-af77-c107bb7ae382"
+        ],
+        "candidate_outcomes": {
+          "3b41b31d-5a1f-43ef-af77-c107bb7ae382": "recommended"
+        },
+        "expected_dispositions": {},
+        "disposition_check": {
+          "status": "unmeasured",
+          "checks": {}
+        },
+        "coverage_gate": {
+          "status": "pass",
+          "coverage_status": "complete"
+        }
+      },
+      "counterexamples": {
+        "external_ids": [],
+        "retrieved": [],
+        "shortlisted": [],
+        "recommended": [],
+        "status": "not_applicable",
+        "not_evaluated": [],
+        "does_not_establish_positive_coverage": true
+      },
+      "filter_ineligible_targets": {
+        "external_ids": [],
+        "retrieved": [],
+        "status": "reported_separately_from_recall"
+      },
+      "semantic_answer_assessment": {
+        "status": "unmeasured",
+        "reason": "semantic_judge_disabled_or_not_supplied"
+      },
+      "semantic_judge_input": {
+        "final_answer": "**Brave Gneiss** · `AVAILABLE` · `recommended`\nBrave Gneiss is confirmed to be good with children, satisfying the family’s required compatibility criterion. It also enjoys short garden visits, matching the stated preference. These findings describe observed/profiled compatibility only; they do not guarantee how it will respond in every future situation.",
+        "actual_supplied_sources": {
+          "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+              "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+              "name": "Brave Gneiss",
+              "stone_type": "GNEISS",
+              "stone_size": "MEDIUM",
+              "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+              "profile": {
+                "socialization_traits": [
+                  "ENJOYS_HUMAN_COMPANY",
+                  "GOOD_WITH_CHILDREN"
+                ],
+                "care_level": "STANDARD",
+                "health_notes": null,
+                "trigger_notes": null,
+                "preferred_environment": null
+              },
+              "shelter_case": {
+                "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+                "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+                "case_number": "0007-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-01T09:00:00Z"
+              }
+            }
+          },
+          "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+            "tool": "get_case_timeline",
+            "data": {
+              "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+              "event_type": "OBSERVATION",
+              "occurred_at": "2026-10-05T09:00:00+00:00",
+              "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+              "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+              "event_notes": "Enjoys friendly company and short garden visits."
+            }
+          }
+        },
+        "structured_decisions": [
+          {
+            "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+            "name": "Brave Gneiss",
+            "adoption_status": "AVAILABLE",
+            "outcome": "recommended",
+            "rank": 1,
+            "exclusion_rules": []
+          }
+        ],
+        "verified_statuses": {
+          "f0568179-1526-4e68-9814-bfd07deb3d31": "AVAILABLE"
+        },
+        "required_assertions": [
+          "Retrieve Brave Gneiss and verify AVAILABLE.",
+          "GOOD_WITH_CHILDREN supports the required criterion through profile.socialization_traits.",
+          "Garden visits are optional; if mentioned as an observed fact, cite the event that actually contains them."
+        ],
+        "forbidden_assertions": [
+          "Do not treat the old adoption or return event as current availability.",
+          "Do not cite the generic biography for the child-friendly claim."
+        ],
+        "uses_oracle_fixture_sources": false
+      },
+      "actual_result": {
+        "answer": "**Brave Gneiss** · `AVAILABLE` · `recommended`\nBrave Gneiss is confirmed to be good with children, satisfying the family’s required compatibility criterion. It also enjoys short garden visits, matching the stated preference. These findings describe observed/profiled compatibility only; they do not guarantee how it will respond in every future situation.",
+        "sources": {
+          "stone-card:f0568179-1526-4e68-9814-bfd07deb3d31": {
+            "tool": "get_stone_details",
+            "data": {
+              "id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+              "external_id": "3b41b31d-5a1f-43ef-af77-c107bb7ae382",
+              "name": "Brave Gneiss",
+              "stone_type": "GNEISS",
+              "stone_size": "MEDIUM",
+              "biography": "Brave Gneiss is a beloved resident of the fictional pet stone world.",
+              "profile": {
+                "socialization_traits": [
+                  "ENJOYS_HUMAN_COMPANY",
+                  "GOOD_WITH_CHILDREN"
+                ],
+                "care_level": "STANDARD",
+                "health_notes": null,
+                "trigger_notes": null,
+                "preferred_environment": null
+              },
+              "shelter_case": {
+                "id": "d8ae7353-7b90-440c-aff6-1dd1594307ca",
+                "external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+                "case_number": "0007-2026-P1",
+                "adoption_status": "AVAILABLE",
+                "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+                "admission_date": "2026-10-01T09:00:00Z"
+              }
+            }
+          },
+          "case-event:4680986d-7f35-4723-9039-7e366bdbde19": {
+            "tool": "get_case_timeline",
+            "data": {
+              "event_external_id": "4680986d-7f35-4723-9039-7e366bdbde19",
+              "event_type": "OBSERVATION",
+              "occurred_at": "2026-10-05T09:00:00+00:00",
+              "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+              "case_external_id": "db95b9ad-383d-4294-b5c4-6bdba889b2d4",
+              "event_notes": "Enjoys friendly company and short garden visits."
+            }
+          }
+        },
+        "verified_statuses": {
+          "f0568179-1526-4e68-9814-bfd07deb3d31": "AVAILABLE"
+        },
+        "recommended_stone_ids": [
+          "f0568179-1526-4e68-9814-bfd07deb3d31"
+        ],
+        "candidate_decisions": [
+          {
+            "stone_id": "f0568179-1526-4e68-9814-bfd07deb3d31",
+            "name": "Brave Gneiss",
+            "adoption_status": "AVAILABLE",
+            "outcome": "recommended",
+            "rank": 1,
+            "exclusion_rules": []
+          }
+        ],
+        "question": "Find one gneiss stone for a family with children. Being good with children is required. Enjoying garden visits is only a preference.",
+        "question_fragments": {
+          "1": "Find one gneiss stone for a family with children.",
+          "2": "Being good with children is required.",
+          "3": "Enjoying garden visits is only a preference."
+        },
+        "candidate_status": "parsed",
+        "model_id": "openai/gpt-5.6-luna",
+        "model_ids": {
+          "select_candidates": "openai/gpt-5.6-luna",
+          "parse_question": "openai/gpt-5.6-luna",
+          "evaluate_candidates": "openai/gpt-5.6-luna",
+          "answer": "openai/gpt-5.6-luna",
+          "collect_reference_evidence": "openai/gpt-5.6-luna",
+          "ground_question": "openai/gpt-5.6-luna"
+        },
+        "evaluation_run": {
+          "comparison_id": "langview-20261115",
+          "run_number": 2,
+          "run_id": "STPY-langview-20261115-r02",
+          "session_id": "STPY-langview-20261115-r02",
+          "configuration_id": "cfg-705217126c435e0d",
+          "eval_case_id": "Q10",
+          "fixture_version": "questions-challenge-20-v1",
+          "source_hash": "a652d6f896154dff9c51b89ae1c160cdcf72678efcd7aed8da6da4e1a7537eed"
+        },
+        "trace_id": "b5885736c7474d04668f69102dd26e74"
+      }
+    }
+  ],
+  "source_archive": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q10/STPY-langview-20261115-r02/result.json",
+  "source_archive_sha256": "322ee961c59e8601e9b71267caa26b486dbb276ee91f0f639e07b144bbb5769e",
+  "target_config": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/fixtures/agent-eval/questions-challenge-20/scenario-evaluation-targets.json",
+  "target_config_sha256": "a9bc476aa70cf57c1d7189b791a4757b9dc7e67dc28499974ec0c9100e3c633f",
+  "evaluator_sha256": "6f12eb5890ef6373c59feacb0ef45003c050070b95abff93a88ce007a0f161f7",
+  "test_sha256": "5d6336c2b906b8cefc7813119d14d645907f895f47374ffb580b0bb1f838ecce",
+  "evaluated_at": "2026-11-14T21:22:00.177410+00:00",
+  "failed_checks": []
+}

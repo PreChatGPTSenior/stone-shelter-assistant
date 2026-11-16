@@ -18,8 +18,7 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
     if not requested:
         return
     associations = {
-        item: {marker.args[0] for marker in item.iter_markers("acceptance")}
-        for item in items
+        item: {marker.args[0] for marker in item.iter_markers("acceptance")} for item in items
     }
     known = set().union(*associations.values())
     unknown = set(requested) - known

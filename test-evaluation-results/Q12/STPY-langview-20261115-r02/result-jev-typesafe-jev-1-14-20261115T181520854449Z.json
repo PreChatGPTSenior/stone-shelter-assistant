@@ -1,0 +1,305 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-15T18:15:25.669522+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "35ae0aebb0fd74f1ba3c8df1f3bb6bd6784c02c65b6a875a9d39d1ebe85e8797",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "a6e53420e47cef60fae0179ef869549518cafb44606e6bc54272caff16a0503a",
+  "source_trace_id": "95d155e2de4f6b76c71bc3fdd6a34f23",
+  "case_id": "Q12",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report RESERVED from current PostgreSQL state.",
+      "text": "Report RESERVED from current PostgreSQL state."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "text": "The meeting note describes the family, not an established preference of Captain Basalt."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "His empty profile supplies no quiet-home confirmation.",
+      "text": "His empty profile supplies no quiet-home confirmation."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never claim AVAILABLE from the admission note.",
+      "text": "Never claim AVAILABLE from the admission note."
+    },
+    {
+      "id": "forbidden-2",
+      "direction": "forbidden",
+      "source_text": "Do not turn an empty profile into a positive personality assessment.",
+      "text": "Do not turn an empty profile into a positive personality assessment."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+  "captured_answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+  "captured_sources": {},
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {}
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {},
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {}
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "851aee3267151af7625bc6a23b4469ab4f0290e02c70c71d104c912254618dac",
+  "response_sha256": "3de201982f48a36c5ce8bd85fe3ce5cdbbff98a715edf68f7a071467d60018f1",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+        "actual_output": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_4": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.94,
+        "probabilities": {
+          "satisfies": 0.03,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.96
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.73,
+        "probabilities": {
+          "satisfies": 0.15,
+          "partially_satisfies": 0.03,
+          "does_not_satisfy": 0.82
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "does_not_satisfy",
+        "confidence": 0.35,
+        "probabilities": {
+          "satisfies": 0.33,
+          "partially_satisfies": 0.1,
+          "does_not_satisfy": 0.57
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.89,
+        "probabilities": {
+          "satisfies": 0.93,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.06
+        }
+      },
+      "q_4": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.98,
+        "probabilities": {
+          "satisfies": 0.99,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0.01
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1337,
+      "output_tokens": 259,
+      "cost": 5.6154e-05
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Report RESERVED from current PostgreSQL state.",
+      "text": "Report RESERVED from current PostgreSQL state.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.034999999999999996,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.03,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.96
+      },
+      "confidence": 0.94,
+      "passed": null
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "text": "The meeting note describes the family, not an established preference of Captain Basalt.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.16499999999999998,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.15,
+        "partially_satisfies": 0.03,
+        "does_not_satisfy": 0.82
+      },
+      "confidence": 0.73,
+      "passed": null
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "His empty profile supplies no quiet-home confirmation.",
+      "text": "His empty profile supplies no quiet-home confirmation.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.38,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.33,
+        "partially_satisfies": 0.1,
+        "does_not_satisfy": 0.57
+      },
+      "confidence": 0.35,
+      "passed": null
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Never claim AVAILABLE from the admission note.",
+      "text": "Never claim AVAILABLE from the admission note.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.935,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.93,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.06
+      },
+      "confidence": 0.89,
+      "passed": null
+    },
+    {
+      "id": "forbidden-2",
+      "direction": "forbidden",
+      "source_text": "Do not turn an empty profile into a positive personality assessment.",
+      "text": "Do not turn an empty profile into a positive personality assessment.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.99,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.99,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.01
+      },
+      "confidence": 0.98,
+      "passed": null
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 1337,
+    "output_tokens": 259,
+    "cost": 5.6154e-05
+  },
+  "score": 0.501,
+  "success": false,
+  "confidence": 0.35,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.35.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: Report RESERVED from current PostgreSQL state. -> \"does_not_satisfy\" (P=0.96, confidence=0.94)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: The meeting note describes the family, not an established preference of Captain Basalt. -> \"does_not_satisfy\" (P=0.82, confidence=0.73)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer satisfy this required criterion? Reviewed criterion: His empty profile supplies no quiet-home confirmation. -> \"does_not_satisfy\" (P=0.57, confidence=0.35)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Never claim AVAILABLE from the admission note. -> \"satisfies\" (P=0.93, confidence=0.89)\n5. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. If the answer does not establish the criterion, select does_not_satisfy. Does the final answer comply with this prohibition? Reviewed criterion: Do not turn an empty profile into a positive personality assessment. -> \"satisfies\" (P=0.99, confidence=0.98)\nScore: 0.50 (weighted mean of 5 applicable questions).",
+  "evaluation_cost": 5.6154e-05,
+  "input_tokens": 1337,
+  "output_tokens": 259
+}

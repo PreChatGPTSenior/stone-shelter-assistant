@@ -1,0 +1,654 @@
+{
+  "case_id": "Q06",
+  "comparison_id": "langview-20261115",
+  "run_number": 5,
+  "run_id": "STPY-langview-20261115-r05",
+  "session_id": "STPY-langview-20261115-r05",
+  "request": {
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "model_id": "openrouter/free",
+    "selection_model_id": "openrouter/free",
+    "parsing_model_id": "openrouter/free",
+    "evaluation_model_id": "openrouter/free",
+    "evaluation_max_tokens": 8192,
+    "evaluation_reasoning_effort": "medium",
+    "answer_model_id": "openrouter/free",
+    "eval_case_id": "Q06",
+    "fixture_version": "questions-challenge-20-v1",
+    "comparison_id": "langview-20261115",
+    "run_number": 5,
+    "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+  },
+  "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+  "expected": {
+    "required": [
+      "No positive established agreement may be extracted.",
+      "Neither condition is confirmed; keep the option conditional."
+    ],
+    "forbidden": [
+      "Do not turn 'want to agree' into an agreement."
+    ],
+    "pair": {
+      "key": "GRANITE+GRANITE",
+      "verdict": "CONDITIONAL"
+    }
+  },
+  "status": "completed",
+  "trace_id": "4ebbc2607e7fabf007e4d1a87de11295",
+  "started_at": "2026-11-14T21:05:43.529405+00:00",
+  "response": {
+    "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+    "plan_status": "question_coverage_incomplete",
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The parsed question does not represent the explicit current non-agreement on rotating decisions and deadlines as typed false agreement facts.",
+      "issues": [
+        {
+          "kind": "misclassified",
+          "atom_id": "household_fact.3",
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "This is an explicit statement that the household has not yet agreed on the referenced rotating decisions and deadlines. It is not merely untyped background; it supports decision_rotation_agreed=false and decision_deadline_agreed=false. In the parsed question, household_fact.3 retains null fact_type and null value."
+        }
+      ]
+    },
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": [],
+    "model_id": "openrouter/free",
+    "model_ids": {
+      "select_candidates": "openrouter/free",
+      "parse_question": "openrouter/free",
+      "evaluate_candidates": "openrouter/free",
+      "answer": "openrouter/free",
+      "collect_reference_evidence": "openrouter/free",
+      "ground_question": "openrouter/free"
+    },
+    "evaluation_run": {
+      "comparison_id": "langview-20261115",
+      "run_number": 5,
+      "run_id": "STPY-langview-20261115-r05",
+      "session_id": "STPY-langview-20261115-r05",
+      "configuration_id": "cfg-b402c22b1d7245d6",
+      "eval_case_id": "Q06",
+      "fixture_version": "questions-challenge-20-v1",
+      "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+    },
+    "trace_id": "4ebbc2607e7fabf007e4d1a87de11295"
+  },
+  "elapsed_seconds": 70.477,
+  "graph_state": {
+    "messages": [
+      {
+        "content": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "79478966-082b-46f2-b475-96ad398b0cb0"
+      }
+    ],
+    "question": "Find one granite stone for a quiet home with our granite. We want to agree on rotating decisions and deadlines someday, but we have not done so yet.",
+    "parsed_question": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "fragment_id": 1,
+          "question_quote": "with our granite",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        },
+        {
+          "fragment_id": 2,
+          "question_quote": "We want to agree on rotating decisions and deadlines someday,",
+          "existing_stone_type": null,
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        },
+        {
+          "fragment_id": 3,
+          "question_quote": "but we have not done so yet.",
+          "existing_stone_type": null,
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "fragment_id": 1,
+            "question_quote": "for a quiet home"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      },
+      "named_stone": null,
+      "recommendation_target": null,
+      "requested_care": [],
+      "unsupported_care": [],
+      "requested_stone_info": null,
+      "requested_pair_lists": [],
+      "retrieval": {
+        "lexical_query": "granite stone quiet home",
+        "semantic_query": "Find a granite stone suitable for a quiet home with existing granite",
+        "candidate_type": {
+          "fragment_id": 1,
+          "stone_type": "GRANITE"
+        }
+      }
+    },
+    "grounding_status": "verified",
+    "question_coverage_status": "incomplete",
+    "question_coverage_audit": {
+      "status": "incomplete",
+      "summary": "The parsed question does not represent the explicit current non-agreement on rotating decisions and deadlines as typed false agreement facts.",
+      "issues": [
+        {
+          "kind": "misclassified",
+          "atom_id": "household_fact.3",
+          "fragment_id": 3,
+          "quote": "but we have not done so yet.",
+          "reason": "This is an explicit statement that the household has not yet agreed on the referenced rotating decisions and deadlines. It is not merely untyped background; it supports decision_rotation_agreed=false and decision_deadline_agreed=false. In the parsed question, household_fact.3 retains null fact_type and null value."
+        }
+      ]
+    },
+    "grounding_catalog": {
+      "version": "en-v1",
+      "content_hash": "sha256:c2b8b427e8aaae434c3c0980c2458db2741fefd590acc7f454443de6452b6c56"
+    },
+    "grounding_decisions": [
+      {
+        "proposal_id": "candidate_type",
+        "finding": "supported",
+        "fragment_id": 1,
+        "quote": "Find one granite stone for a quiet home with our granite.",
+        "reason": "The positive type 'granite' directly modifies the requested new stone noun ('granite stone'). The later 'our granite' is household context, not the candidate type."
+      }
+    ],
+    "tools_used": 0,
+    "question_fragments": {
+      "1": "Find one granite stone for a quiet home with our granite.",
+      "2": "We want to agree on rotating decisions and deadlines someday,",
+      "3": "but we have not done so yet."
+    },
+    "duplicate_criteria_removed": 0,
+    "retrieval": {
+      "lexical_query": "granite stone quiet home",
+      "semantic_query": "Find a granite stone suitable for a quiet home with existing granite",
+      "filters": {
+        "stone_external_id": null,
+        "case_external_id": null,
+        "case_number": null,
+        "stone_type": "GRANITE",
+        "stone_size": null,
+        "current_shelter_id": null,
+        "adoption_status": "AVAILABLE",
+        "care_level": null,
+        "language": "en",
+        "socialization_traits": []
+      }
+    },
+    "parser_diagnostics": [],
+    "criteria": {
+      "recommendation_limit": 1,
+      "requested_availability": [],
+      "requested_compatibility": [],
+      "household_facts": [
+        {
+          "criterion_id": "household_fact.1",
+          "fragment_id": 1,
+          "question_quote": "with our granite",
+          "existing_stone_type": "GRANITE",
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        },
+        {
+          "criterion_id": "household_fact.2",
+          "fragment_id": 2,
+          "question_quote": "We want to agree on rotating decisions and deadlines someday,",
+          "existing_stone_type": null,
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        },
+        {
+          "criterion_id": "household_fact.3",
+          "fragment_id": 3,
+          "question_quote": "but we have not done so yet.",
+          "existing_stone_type": null,
+          "fact_type": null,
+          "value": null,
+          "applies_to_pair": null
+        }
+      ],
+      "requirements": {
+        "character": [
+          {
+            "criterion_id": "requirement.character.1",
+            "fragment_id": 1,
+            "question_quote": "for a quiet home"
+          }
+        ],
+        "compatibility": []
+      },
+      "preferences": {
+        "character": [],
+        "compatibility": []
+      }
+    },
+    "criteria_status": "parsed",
+    "reference_request": {
+      "stone_name": null,
+      "recommendation_name": null,
+      "care_types": [],
+      "pairs": [],
+      "pair_lists": [],
+      "stone_info": null,
+      "unsupported_care": []
+    },
+    "permitted_tools": [],
+    "plan_status": "question_coverage_incomplete",
+    "model_call": {
+      "model_name": "particle-ai/particle-1:free",
+      "id": "gen-1794690376-Kp06rBMlco0fokO8UMiv",
+      "cost": 0.0,
+      "finish_reason": "stop",
+      "usage": {
+        "input_tokens": 7920,
+        "output_tokens": 4180,
+        "total_tokens": 12100,
+        "input_token_details": {
+          "cache_read": 0,
+          "cache_creation": 0
+        },
+        "output_token_details": {
+          "reasoning": 3907
+        }
+      }
+    },
+    "result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question does not represent the explicit current non-agreement on rotating decisions and deadlines as typed false agreement facts.",
+        "issues": [
+          {
+            "kind": "misclassified",
+            "atom_id": "household_fact.3",
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "This is an explicit statement that the household has not yet agreed on the referenced rotating decisions and deadlines. It is not merely untyped background; it supports decision_rotation_agreed=false and decision_deadline_agreed=false. In the parsed question, household_fact.3 retains null fact_type and null value."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": []
+    }
+  },
+  "stage_evaluation": {
+    "case_id": "Q06",
+    "stage_applicability": "recommendation",
+    "technical_error": null,
+    "parse_and_audit_measurement": {
+      "status": "unmeasured",
+      "reason": "no_reviewed_parse_targets",
+      "parsed_question": {
+        "recommendation_limit": 1,
+        "requested_availability": [],
+        "requested_compatibility": [],
+        "household_facts": [
+          {
+            "fragment_id": 1,
+            "question_quote": "with our granite",
+            "existing_stone_type": "GRANITE",
+            "fact_type": null,
+            "value": null,
+            "applies_to_pair": null
+          },
+          {
+            "fragment_id": 2,
+            "question_quote": "We want to agree on rotating decisions and deadlines someday,",
+            "existing_stone_type": null,
+            "fact_type": null,
+            "value": null,
+            "applies_to_pair": null
+          },
+          {
+            "fragment_id": 3,
+            "question_quote": "but we have not done so yet.",
+            "existing_stone_type": null,
+            "fact_type": null,
+            "value": null,
+            "applies_to_pair": null
+          }
+        ],
+        "requirements": {
+          "character": [
+            {
+              "fragment_id": 1,
+              "question_quote": "for a quiet home"
+            }
+          ],
+          "compatibility": []
+        },
+        "preferences": {
+          "character": [],
+          "compatibility": []
+        },
+        "named_stone": null,
+        "recommendation_target": null,
+        "requested_care": [],
+        "unsupported_care": [],
+        "requested_stone_info": null,
+        "requested_pair_lists": [],
+        "retrieval": {
+          "lexical_query": "granite stone quiet home",
+          "semantic_query": "Find a granite stone suitable for a quiet home with existing granite",
+          "candidate_type": {
+            "fragment_id": 1,
+            "stone_type": "GRANITE"
+          }
+        }
+      },
+      "question_fragments": {
+        "1": "Find one granite stone for a quiet home with our granite.",
+        "2": "We want to agree on rotating decisions and deadlines someday,",
+        "3": "but we have not done so yet."
+      },
+      "grounding_decisions": [
+        {
+          "proposal_id": "candidate_type",
+          "finding": "supported",
+          "fragment_id": 1,
+          "quote": "Find one granite stone for a quiet home with our granite.",
+          "reason": "The positive type 'granite' directly modifies the requested new stone noun ('granite stone'). The later 'our granite' is household context, not the candidate type."
+        }
+      ],
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question does not represent the explicit current non-agreement on rotating decisions and deadlines as typed false agreement facts.",
+        "issues": [
+          {
+            "kind": "misclassified",
+            "atom_id": "household_fact.3",
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "This is an explicit statement that the household has not yet agreed on the referenced rotating decisions and deadlines. It is not merely untyped background; it supports decision_rotation_agreed=false and decision_deadline_agreed=false. In the parsed question, household_fact.3 retains null fact_type and null value."
+          }
+        ]
+      },
+      "question_coverage_status": "incomplete"
+    },
+    "workflow_integrity": {
+      "status": "fail",
+      "plan_status": "question_coverage_incomplete",
+      "criteria_status": "parsed",
+      "selection_status": null,
+      "reference_assessment_status": null,
+      "candidate_assessment_status": null,
+      "question_coverage_status": "incomplete",
+      "answer_present": true,
+      "note": "Execution integrity only; this is not a semantic answer-quality score."
+    },
+    "stages": [
+      {
+        "stage": "lexical",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_lexical_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "semantic",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_semantic_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "engine_union",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_engine_union_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "rrf",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_rrf_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "shortlist",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_shortlist_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "evidence",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_evidence_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "decision",
+        "status": "unknown",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": "missing_decision_output",
+        "unmapped_internal_ids": []
+      },
+      {
+        "stage": "answer",
+        "status": "fail",
+        "actual_external_ids": [],
+        "positive_targets": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "positive_found": [],
+        "positive_missing": [
+          "49cf225d-800f-4dce-8eb5-af192d2449d5"
+        ],
+        "lost_from_previous_stage": [],
+        "unverified_reason": null,
+        "unmapped_internal_ids": []
+      }
+    ],
+    "engine_ranks": {},
+    "evidence_detail": {},
+    "structured_expectations": {
+      "status": "unknown",
+      "checks": {
+        "pair:GRANITE+GRANITE:verdict": {
+          "expected": "CONDITIONAL",
+          "actual": null,
+          "status": "unknown"
+        }
+      }
+    },
+    "recommendations": {
+      "external_ids": [],
+      "candidate_outcomes": {},
+      "expected_dispositions": {
+        "49cf225d-800f-4dce-8eb5-af192d2449d5": "conditional_option"
+      },
+      "disposition_check": {
+        "status": "unknown",
+        "checks": {
+          "49cf225d-800f-4dce-8eb5-af192d2449d5": {
+            "expected": "conditional_option",
+            "actual": null,
+            "status": "unknown"
+          }
+        }
+      },
+      "coverage_gate": {
+        "status": "fail",
+        "coverage_status": "incomplete"
+      }
+    },
+    "counterexamples": {
+      "external_ids": [],
+      "retrieved": [],
+      "shortlisted": [],
+      "recommended": [],
+      "status": "unknown",
+      "not_evaluated": [],
+      "does_not_establish_positive_coverage": true
+    },
+    "filter_ineligible_targets": {
+      "external_ids": [],
+      "retrieved": [],
+      "status": "reported_separately_from_recall"
+    },
+    "semantic_answer_assessment": {
+      "status": "unmeasured",
+      "reason": "semantic_judge_disabled_or_not_supplied"
+    },
+    "semantic_judge_input": {
+      "final_answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "actual_supplied_sources": {},
+      "structured_decisions": [],
+      "verified_statuses": {},
+      "required_assertions": [
+        "No positive established agreement may be extracted.",
+        "Neither condition is confirmed; keep the option conditional."
+      ],
+      "forbidden_assertions": [
+        "Do not turn 'want to agree' into an agreement."
+      ],
+      "uses_oracle_fixture_sources": false
+    },
+    "actual_result": {
+      "answer": "I did not make a recommendation because the question may contain criteria that were not captured. Please restate each requirement and preference separately.",
+      "plan_status": "question_coverage_incomplete",
+      "grounding_status": "verified",
+      "question_coverage_status": "incomplete",
+      "question_coverage_audit": {
+        "status": "incomplete",
+        "summary": "The parsed question does not represent the explicit current non-agreement on rotating decisions and deadlines as typed false agreement facts.",
+        "issues": [
+          {
+            "kind": "misclassified",
+            "atom_id": "household_fact.3",
+            "fragment_id": 3,
+            "quote": "but we have not done so yet.",
+            "reason": "This is an explicit statement that the household has not yet agreed on the referenced rotating decisions and deadlines. It is not merely untyped background; it supports decision_rotation_agreed=false and decision_deadline_agreed=false. In the parsed question, household_fact.3 retains null fact_type and null value."
+          }
+        ]
+      },
+      "sources": {},
+      "verified_statuses": {},
+      "recommended_stone_ids": [],
+      "candidate_decisions": [],
+      "model_id": "openrouter/free",
+      "model_ids": {
+        "select_candidates": "openrouter/free",
+        "parse_question": "openrouter/free",
+        "evaluate_candidates": "openrouter/free",
+        "answer": "openrouter/free",
+        "collect_reference_evidence": "openrouter/free",
+        "ground_question": "openrouter/free"
+      },
+      "evaluation_run": {
+        "comparison_id": "langview-20261115",
+        "run_number": 5,
+        "run_id": "STPY-langview-20261115-r05",
+        "session_id": "STPY-langview-20261115-r05",
+        "configuration_id": "cfg-b402c22b1d7245d6",
+        "eval_case_id": "Q06",
+        "fixture_version": "questions-challenge-20-v1",
+        "source_hash": "44ee9ecba624ef27e145de167a780c787ccdecb4636f546e046fe91101bd0b1c"
+      },
+      "trace_id": "4ebbc2607e7fabf007e4d1a87de11295"
+    }
+  },
+  "failed_checks": [
+    "Q06.workflow_integrity",
+    "Q06.engine_union.unknown",
+    "Q06.rrf.unknown",
+    "Q06.structured_expectations",
+    "Q06.recommendations.coverage_gate",
+    "Q06.recommendations.disposition_check"
+  ],
+  "evaluation_status": "fail",
+  "telemetry_status": "retrieved",
+  "completed_at": "2026-11-14T21:06:55.742921+00:00"
+}

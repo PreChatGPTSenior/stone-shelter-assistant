@@ -111,9 +111,25 @@ def assessment(
 @pytest.mark.parametrize(
     ("pair_key", "required", "lookup", "scope", "finding", "expected_eligible", "rule"),
     [
-        ("GRANITE+OBSIDIAN", True, False, "cohabitation", "contradicted", False, "individual_conflict"),
+        (
+            "GRANITE+OBSIDIAN",
+            True,
+            False,
+            "cohabitation",
+            "contradicted",
+            False,
+            "individual_conflict",
+        ),
         ("GRANITE+OBSIDIAN", True, False, "preference", "contradicted", True, "harmonious"),
-        ("GRANITE+GRANITE", False, False, "cohabitation", "confirmed", True, "conditions_unconfirmed"),
+        (
+            "GRANITE+GRANITE",
+            False,
+            False,
+            "cohabitation",
+            "confirmed",
+            True,
+            "conditions_unconfirmed",
+        ),
         ("BASALT+MARBLE", True, False, "cohabitation", "confirmed", False, "not_recommended"),
         ("BASALT+MARBLE", False, True, "preference", "contradicted", True, "not_recommended"),
     ],

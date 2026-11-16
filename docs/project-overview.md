@@ -19,7 +19,7 @@ Individual evidence and general type knowledge keep separate identities. Profile
 
 ## Current search
 
-The model parses an English question into typed requests and criteria. Parser and auditor share one snapshot of an editable semantic concept catalog. Typesense and Qdrant retrieve candidate cards in parallel; a small Python RRF function merges their ranks. An LLM chooses a shortlist, then the workflow reads cards, observations and relevant reference knowledge.
+The model parses an English question into typed requests and criteria. Parser and auditor share one snapshot of an editable semantic concept catalog. Typesense and Qdrant retrieve candidate cards in parallel; a small Python RRF function merges their ranks. If one engine fails operationally, retrieval uses the successful engine results without retry and records the degraded mode and safe failure reason in the trace; both engine failures remain an error. An LLM chooses a shortlist, then the workflow reads cards, observations and relevant reference knowledge.
 
 The model extracts source-bound quotations. Python verifies source binding, current availability and compatibility conditions, calculates the final ranking and renders the result with sources. Langfuse records the stages, candidate provenance and model calls. Named information and exact pair questions have dedicated lookup routes.
 
@@ -33,8 +33,8 @@ The model extracts source-bound quotations. Python verifies source binding, curr
 
 Data and evaluation inputs live in root `fixtures/`; run outputs live in root `test-evaluation-results/`. Application regressions live in module-specific `tests/unit` folders. `tests/evaluation` measures the application and its saved outputs; `tests/synthetic_evaluation` calibrates judges and checks evaluation infrastructure. The authored scenarios, reviewed expectations and judge rubrics are the starting point for new evaluation runs and comparisons of retrieval and selection strategies.
 
-The current learning phase focuses on evaluation of the existing workflow: reviewed baselines, Langfuse trace inspection, DeepEval judge calibration, routing checks and Ragas retrieval/context metrics. Comparison and run identifiers connect model configurations, local archives and Langfuse traces; this instrumentation does not establish answer quality. Remaining work is tracked in the [open evaluation issues](https://github.com/PreChatGPTSenior/stone-shelter-assistant/issues?q=is%3Aissue+is%3Aopen). CRUD expansion, production recovery, alternative backend implementations and Java reproduction are deferred.
+The current learning phase focuses on evaluation of the existing workflow: reviewed baselines, Langfuse trace inspection, DeepEval judge calibration, routing checks and RAGAS faithfulness, response relevancy, context precision and context recall on saved scenario runs. Comparison and run identifiers connect model configurations, local archives and Langfuse traces; this instrumentation does not establish answer quality. Remaining work is tracked in the [open evaluation issues](https://github.com/PreChatGPTSenior/stone-shelter-assistant/issues?q=is%3Aissue+is%3Aopen). CRUD expansion, production recovery, alternative backend implementations and Java reproduction are deferred.
 
-Future learning task: compare Jev classification with a manually calibrated judge on the same source-bound cases; Jev execution is currently deferred.
+The Jev model calibration suite contains six reviewed cases spanning all four evidence labels. One conflict case combines a fixture observation with a clearly marked synthetic calibration-only source; it does not alter authored stone history. The small suite is a calibration exercise, not evidence of broad judge quality. An explicit opt-in OpenRouter run is supported; no live run result is implied here.
 
 See [setup](setup.md) for local commands.

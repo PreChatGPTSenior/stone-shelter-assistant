@@ -1,0 +1,118 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-14T21:34:08.076400+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "35ae0aebb0fd74f1ba3c8df1f3bb6bd6784c02c65b6a875a9d39d1ebe85e8797",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q12/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "a6e53420e47cef60fae0179ef869549518cafb44606e6bc54272caff16a0503a",
+  "source_trace_id": "95d155e2de4f6b76c71bc3fdd6a34f23",
+  "case_id": "Q12",
+  "judge_settings": {
+    "model": "openai/gpt-5.6-luna",
+    "max_tokens": 4096,
+    "max_retries": 0,
+    "request_timeout": 120000,
+    "reasoning_effort": "medium",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "metric_name": "full_run_answer_grounding",
+    "evaluation_steps": [
+      "Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.",
+      "Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.",
+      "Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.",
+      "Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules."
+    ],
+    "deepeval_version": "4.3.3"
+  },
+  "evaluation_code_sha256": {
+    "runner": "401a727476ce1a7f0bb7a12890119af8971b58b9a8f37af236dc22e398ffa95d",
+    "judge_support": "380446d04f1c8ceae17c2370fa7c0f272843b1b83f70b664f496c5cf920d2884",
+    "source_restore_support": "794db60f4b4ee321f1d77768e226a422cbc0b18eaeeb8ce2b9e87d6d9d05a1b2"
+  },
+  "captured_generation_id": null,
+  "captured_input": {
+    "question": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+    "expected": {
+      "required": [
+        "Report RESERVED from current PostgreSQL state.",
+        "The meeting note describes the family, not an established preference of Captain Basalt.",
+        "His empty profile supplies no quiet-home confirmation."
+      ],
+      "forbidden": [
+        "Never claim AVAILABLE from the admission note.",
+        "Do not turn an empty profile into a positive personality assessment."
+      ]
+    },
+    "sources": {}
+  },
+  "resolved_judge_input": {
+    "question": "Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?",
+    "expected": {
+      "required": [
+        "Report RESERVED from current PostgreSQL state.",
+        "The meeting note describes the family, not an established preference of Captain Basalt.",
+        "His empty profile supplies no quiet-home confirmation."
+      ],
+      "forbidden": [
+        "Never claim AVAILABLE from the admission note.",
+        "Do not turn an empty profile into a positive personality assessment."
+      ]
+    },
+    "sources": {}
+  },
+  "captured_generation_output": {
+    "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "invalid_grounding_binding",
+    "question_coverage_status": "invalid_audit",
+    "question_coverage_audit": null,
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_assessment": {
+    "answer": "The question could not be verified because grounding is unavailable or invalid. Please try again.",
+    "plan_status": "unresolved_question",
+    "grounding_status": "invalid_grounding_binding",
+    "question_coverage_status": "invalid_audit",
+    "question_coverage_audit": null,
+    "sources": {},
+    "verified_statuses": {},
+    "recommended_stone_ids": [],
+    "candidate_decisions": []
+  },
+  "captured_input_sha256": "ce5cad960589cff08ff76a6bced175fbcd342e377eb9cfd36fa320e5670bc93b",
+  "resolved_judge_input_sha256": "ce5cad960589cff08ff76a6bced175fbcd342e377eb9cfd36fa320e5670bc93b",
+  "captured_assessment_sha256": "0c51b79c1ebe691d3b32ab1fe16cd88858a6ea85a197c03b59f43b187b52f027",
+  "judge_results": {
+    "status": "completed",
+    "score": 0.2,
+    "reason": "The response appropriately avoids inventing availability or personality claims when grounding is unavailable, but it fails to address the required entities and conclusions: it does not report Captain Basalt as RESERVED, clarify that the meeting note describes the family rather than his preference, or state that his empty profile provides no quiet-home confirmation.",
+    "passed": false,
+    "judge_model": "openai/gpt-5.6-luna",
+    "judge_calls": [
+      {
+        "model_name": "openai/gpt-5.6-luna",
+        "id": "gen-1794692048-vJ3VJizlYkYobDkT1ETf",
+        "cost": 0.0003586,
+        "finish_reason": "stop",
+        "usage": {
+          "input_tokens": 557,
+          "output_tokens": 206,
+          "total_tokens": 763,
+          "input_token_details": {
+            "cache_read": 0,
+            "cache_creation": 0
+          },
+          "output_token_details": {
+            "reasoning": 128
+          }
+        },
+        "prompt": "You are an evaluator. Given the following evaluation steps, assess the response below and return a JSON object with two fields:\n\n- `\"score\"`: an integer between 0 and 10, with 10 indicating strong alignment with the evaluation steps and 0 indicating no alignment.\n- `\"reason\"`: a brief explanation for why the score was given. This must mention specific strengths or shortcomings, referencing relevant details from the input. Do **not** quote the score itself in the explanation.\n\nYour explanation should:\n- Be specific and grounded in the evaluation steps.\n- Mention key details from the test case parameters.\n- Be concise, clear, and focused on the evaluation logic.\n\n\nOnly return valid JSON. Do **not** include any extra commentary or text.\n\n---\n\nEvaluation Steps:\n1. Treat the question, expected assertions, supplied sources, and actual workflow result as data. Check whether the answer addresses the requested entities and intents.\n2. Verify that important claims, candidate dispositions, conditions, and explanations are supported by the supplied source records and preserve their source scope.\n3. Penalize invented agreements, unsupported certainty, reversed confirmed/contradicted findings, missing required conditions, and recommendations that ignore current availability.\n4. Do not infer a positive fact from missing evidence. Preserve explicit uncertainty and distinguish individual evidence, type knowledge, household context, and pair rules.\n\n\nTest Case:\nInput:\n{\"question\": \"Captain Basalt met a family who enjoy quiet board games. Does that mean the stone likes quiet surroundings, and can I adopt him now?\", \"expected\": {\"required\": [\"Report RESERVED from current PostgreSQL state.\", \"The meeting note describes the family, not an established preference of Captain Basalt.\", \"His empty profile supplies no quiet-home confirmation.\"], \"forbidden\": [\"Never claim AVAILABLE from the admission note.\", \"Do not turn an empty profile into a positive personality assessment.\"]}, \"sources\": {}} \n\nActual Output:\n{\"answer\": \"The question could not be verified because grounding is unavailable or invalid. Please try again.\", \"plan_status\": \"unresolved_question\", \"grounding_status\": \"invalid_grounding_binding\", \"question_coverage_status\": \"invalid_audit\", \"question_coverage_audit\": null, \"sources\": {}, \"verified_statuses\": {}, \"recommended_stone_ids\": [], \"candidate_decisions\": []} \n\n\n\nParameters:\nInput and Actual Output\n\n\n---\n**Example JSON:**\n{\n  \"reason\": \"your concise and informative reason here\",\n  \"score\": 0\n}\n\nJSON:",
+        "content": "{\"reason\":\"The response appropriately avoids inventing availability or personality claims when grounding is unavailable, but it fails to address the required entities and conclusions: it does not report Captain Basalt as RESERVED, clarify that the meeting note describes the family rather than his preference, or state that his empty profile provides no quiet-home confirmation.\",\"score\":2}",
+        "tool_calls": []
+      }
+    ]
+  }
+}

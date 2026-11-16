@@ -1,0 +1,947 @@
+{
+  "status": "completed",
+  "evaluated_at": "2026-11-16T07:59:21.686656+00:00",
+  "source_result": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q20/STPY-langview-20261115-r02/result.json",
+  "source_result_sha256": "26bc20bd7b46fb26cb718a8208f8ab866f2ec9195d25a000ee5b650779acc9c4",
+  "source_observations": "/Users/viktoryia/IdeaProjects/stone-shelter-assistant/test-evaluation-results/Q20/STPY-langview-20261115-r02/observations.json",
+  "source_observations_sha256": "341265946ad603e606bff3e2a546077881d1312f40da153d95e832059f7526a1",
+  "source_trace_id": "1677d6035fc6fc39a3040620014d7c1b",
+  "case_id": "Q20",
+  "judge_settings": {
+    "metric": "DeepEval JevEval",
+    "deepeval_version": "4.3.3",
+    "endpoint": "https://openrouter.ai/api/alpha/decisions",
+    "model_requested": "typesafe/jev-1.14",
+    "threshold": 0.8,
+    "threshold_calibrated": false,
+    "max_retries": 0,
+    "request_timeout_seconds": 120
+  },
+  "criterion_questions": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+      "text": "Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable."
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Recommend a dry location and care grounded in the limestone chapter.",
+      "text": "Recommend a dry location and care grounded in the limestone chapter."
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "No individual profile is supplied; do not invent personal conditions.",
+      "text": "No individual profile is supplied; do not invent personal conditions."
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Keep geological care facts separate from fictional temperament.",
+      "text": "Does the final answer give geological care facts separately from fictional temperament claims? Omitting the required distinction or presenting them as the same kind of evidence does not satisfy this criterion."
+    }
+  ],
+  "unmeasured_criteria": [],
+  "captured_input": "Mossy Limestone is limestone. Can I clean him with vinegar and keep him on a constantly wet shelf? What does the encyclopedia say, and are any individual care needs recorded?",
+  "captured_answer": "**Mossy Limestone** · `AVAILABLE`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:ca328233-2163-406b-bdd2-9d8f686442f6\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219\nReserved pending a family meeting.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · RESERVATION_ENDED · case-event:8e0e6e1a-cb36-432a-b626-79f223935d23\nReservation ended; available again.\n\nLIMESTONE · `HARMONIOUS` · BASALT, GNEISS, GRANITE, PUMICE, SANDSTONE, SHALE, SLATE\n\nLIMESTONE · `CONDITIONAL` · LIMESTONE, MARBLE, OBSIDIAN\n\nLIMESTONE · `NOT_RECOMMENDED` · No matching pairs.\n\n**General type information**\nThe encyclopedia says vinegar and lemon juice can damage limestone because its carbonate material reacts with acids. It says dense specimens tolerate brief wetting better than friable or porous ones, but prolonged wet storage and repeated wetting can be problematic; when cleaning is necessary, use a slightly damp cloth on a dense specimen and favor dry cleaning for a friable one.\nSources: encyclopedia:en:limestone\n\n**Individual facts**\nThe only individual record says Mossy Limestone is a beloved resident of the fictional pet stone world. It records no individual cleaning, moisture, porosity, or care needs.\nSources: stone-card:49522edc-86f0-4ff5-bb20-f0baaf4d4256\n\n**Case history** · case-event:ca328233-2163-406b-bdd2-9d8f686442f6\nNo validated summary for this scope. Original source:\nAdmitted to shelter P1 and made available for adoption.\n\n**Case history** · case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219\nNo validated summary for this scope. Original source:\nReserved pending a family meeting.\n\n**Case history** · case-event:8e0e6e1a-cb36-432a-b626-79f223935d23\nNo validated summary for this scope. Original source:\nReservation ended; available again.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone\nNo validated summary for this scope. Original source:\nTemperament: Nurturing and sentimental; keeps a family story for every invented fossil.\nComforts: Gentle conversation, familiar objects and companions who ask before reorganizing memories.\nSensitivities: Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.\nHousehold agreement: Agree on visiting hours and keep a private shelf for sentimental objects.\nAvoid: Do not equate a request for solitude with ingratitude.\nBureau note: Slate wrote a thank-you note for being allowed to leave a lovely gathering early.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.\nHousehold agreement: Provide a calm corner and ask permission before sharing personal stories with visitors.\nAvoid: No mandatory group reminiscing or pressure to disclose difficult memories.\nBureau note: Their favorite activity is remembering a nice afternoon without organizing a reunion.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.\nHousehold agreement: Keep a familiar return ritual while allowing new stories and souvenirs.\nAvoid: Do not make travel souvenirs pass an ancestry exam.\nBureau note: A grain of imaginary desert sand was adopted into the family scrapbook.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.\nHousehold agreement: Alternate storytelling with small playful activities and keep rest time predictable.\nAvoid: Do not cast Limestone as an unpaid full-time babysitter.\nBureau note: Pumice applauded the same ancestral soup story seven times, sincerely.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.\nHousehold agreement: Keep the purpose of a ritual while allowing small agreed variations.\nAvoid: Do not announce that all traditions are canceled as a practical joke.\nBureau note: The annual family recital now includes one tasteful stripe of improvisation.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.\nHousehold agreement: Let Limestone choose the evening story and Basalt arrange the cozy seating.\nAvoid: Do not turn family traditions into mandatory inspections.\nBureau note: The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.\nHousehold agreement: Ask whether company, advice or solitude is wanted before opening the memory album.\nAvoid: Do not dig for a backstory to explain every quiet evening.\nBureau note: The approved phrase is would you like tea, not who hurt your tectonic plates.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.\nHousehold agreement: Separate display decisions from treasured personal keepsakes and ask before tidying.\nAvoid: Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.\nBureau note: The old soup bowl now wears a ribbon, strictly by consent.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.\nHousehold agreement: Alternate rituals and give sentimental belongings separate respectful spaces.\nAvoid: No competitive ancestry or declaring one family story more authentic.\nBureau note: Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not.\n\n**General type information** · encyclopedia:en:limestone\nNo validated care summary. Original source:\n**Common name:** limestone.\n**Rock type:** sedimentary carbonate rock.\n**Character archetype:** household archivist.\n**Fragility:** 3/5.\n**Care demand:** 3/5.  \n### Geological Profile  \nLimestone consists primarily of calcium carbonate, usually in the form of calcite. It can form from accumulated remains of organisms or through the precipitation of carbonate material. Many varieties preserve shells, skeletal fragments, or other traces of ancient life. [6, 7]  \n### Physical Properties  \n- **Structure:** ranges from dense and fine-grained to porous, shell-rich, or friable.\n- **Surface:** often matte; it can be smooth, granular, or marked by clearly visible fossils.\n- **Hardness:** calcite scratches relatively easily. Impurities and structure alter the behavior of the whole stone.\n- **Porosity:** highly variable; two limestone specimens can absorb water very differently.\n- **Chemical sensitivity:** the carbonate material reacts with acids. Vinegar and lemon juice can damage the surface. [7]  \n### Typical Colors  \nWhite, milky white, cream, sandy beige, and light gray. Impurities can produce brown, yellowish, or dark tones. Shells and fossils sometimes stand out through color or relief.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** ordinary daylight is generally acceptable. A windowsill is suitable if it stays dry and does not subject the specimen to persistent changes in moisture.  \n**Moisture:** a dense specimen tolerates brief wetting better than a friable, porous one. Prolonged wet storage, contaminated water, and repeated wetting cycles can be problematic for sensitive specimens. A drop of ordinary water does not mean immediate destruction; structure and contact duration matter much more.  \n### Ideal Places at Home  \n- **Dry living-room shelf:** particularly good for a shell-bearing specimen worth examining closely.\n- **Windowsill without condensation:** a broad surface with a stand.\n- **Dark corner:** a dry alcove among books or ceramics; extra light serves the viewer rather than the stone.\n- **Bathroom:** a dry shelf is acceptable, but a wet zone and nearby acidic cleaning products are inconvenient.  \n### Psychological Vibe  \nLimestone is a warmhearted keeper of other people's stories. It likes old books, pale ceramics, and unhurried attention. Visible shells make it a character that carries the family archive on its surface.  \nIt does not demand daily conversations. Its favorite form of closeness is sharing ordinary life and occasionally having someone notice a new little pattern.  \n### Daily Care  \nNo daily tasks are needed in a dry location. Blot spilled liquid promptly. In particular, do not leave juice, vinegar, coffee, or cosmetics on the stone.  \n### Monthly Care  \n1. Remove dust with a soft brush.\n2. If necessary, use a slightly damp cloth on a dense specimen; favor dry cleaning for a friable one.\n3. Inspect the surface for new powdery areas and check that the stand is dry.\n4. Do not apply oil or varnish simply to intensify the color: it may leave stains or change the natural surface.  \n### Fragility and Drop Behavior  \nA fall may chip a corner, split the specimen along a crack, or damage a projecting fossil. Friable, shell-rich limestone can be considerably more fragile than a dense variety. Position valuable details so they do not press against the stand.  \n### Fictional Care Ritual  \nOnce a month, host an “archive evening”: examine one shell or vein and invent a little story for it. Limestone does not object to fiction, but it likes being allowed to finish its story, even if only in your imagination.",
+  "captured_sources": {
+    "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+      "tool": "get_stone_status_by_name",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "name": "Mossy Limestone",
+        "stone_type": "LIMESTONE",
+        "adoption_status": "AVAILABLE"
+      }
+    },
+    "stone-card:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+      "tool": "get_stone_details",
+      "data": {
+        "id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "external_id": "4a7ebdcb-0433-4d59-be40-9040e908ba66",
+        "name": "Mossy Limestone",
+        "stone_type": "LIMESTONE",
+        "stone_size": "MEDIUM",
+        "biography": "Mossy Limestone is a beloved resident of the fictional pet stone world.",
+        "profile": null,
+        "shelter_case": {
+          "id": "c0d00c96-6204-451b-abb8-7a28de847c95",
+          "external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+          "case_number": "0006-2026-P1",
+          "adoption_status": "AVAILABLE",
+          "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+          "admission_date": "2026-10-01T09:00:00Z"
+        }
+      }
+    },
+    "case-event:ca328233-2163-406b-bdd2-9d8f686442f6": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+        "event_external_id": "ca328233-2163-406b-bdd2-9d8f686442f6",
+        "event_type": "ADMITTED",
+        "occurred_at": "2026-10-01T09:00:00+00:00",
+        "event_notes": "Admitted to shelter P1 and made available for adoption."
+      }
+    },
+    "case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+        "event_external_id": "4cf54b3f-6d6e-4033-bb3a-604c26a4f219",
+        "event_type": "RESERVED",
+        "occurred_at": "2026-10-02T09:00:00+00:00",
+        "event_notes": "Reserved pending a family meeting."
+      }
+    },
+    "case-event:8e0e6e1a-cb36-432a-b626-79f223935d23": {
+      "tool": "get_case_timeline",
+      "data": {
+        "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+        "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+        "event_external_id": "8e0e6e1a-cb36-432a-b626-79f223935d23",
+        "event_type": "RESERVATION_ENDED",
+        "occurred_at": "2026-10-03T09:00:00+00:00",
+        "event_notes": "Reservation ended; available again."
+      }
+    },
+    "encyclopedia:en:limestone": {
+      "tool": "search_knowledge_lexical",
+      "data": {
+        "id": "47e85831-7c1a-5b0f-86d8-8c461b64b343",
+        "title": "Limestone",
+        "text": "**Common name:** limestone.\n**Rock type:** sedimentary carbonate rock.\n**Character archetype:** household archivist.\n**Fragility:** 3/5.\n**Care demand:** 3/5.  \n### Geological Profile  \nLimestone consists primarily of calcium carbonate, usually in the form of calcite. It can form from accumulated remains of organisms or through the precipitation of carbonate material. Many varieties preserve shells, skeletal fragments, or other traces of ancient life. [6, 7]  \n### Physical Properties  \n- **Structure:** ranges from dense and fine-grained to porous, shell-rich, or friable.\n- **Surface:** often matte; it can be smooth, granular, or marked by clearly visible fossils.\n- **Hardness:** calcite scratches relatively easily. Impurities and structure alter the behavior of the whole stone.\n- **Porosity:** highly variable; two limestone specimens can absorb water very differently.\n- **Chemical sensitivity:** the carbonate material reacts with acids. Vinegar and lemon juice can damage the surface. [7]  \n### Typical Colors  \nWhite, milky white, cream, sandy beige, and light gray. Impurities can produce brown, yellowish, or dark tones. Shells and fossils sometimes stand out through color or relief.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** ordinary daylight is generally acceptable. A windowsill is suitable if it stays dry and does not subject the specimen to persistent changes in moisture.  \n**Moisture:** a dense specimen tolerates brief wetting better than a friable, porous one. Prolonged wet storage, contaminated water, and repeated wetting cycles can be problematic for sensitive specimens. A drop of ordinary water does not mean immediate destruction; structure and contact duration matter much more.  \n### Ideal Places at Home  \n- **Dry living-room shelf:** particularly good for a shell-bearing specimen worth examining closely.\n- **Windowsill without condensation:** a broad surface with a stand.\n- **Dark corner:** a dry alcove among books or ceramics; extra light serves the viewer rather than the stone.\n- **Bathroom:** a dry shelf is acceptable, but a wet zone and nearby acidic cleaning products are inconvenient.  \n### Psychological Vibe  \nLimestone is a warmhearted keeper of other people's stories. It likes old books, pale ceramics, and unhurried attention. Visible shells make it a character that carries the family archive on its surface.  \nIt does not demand daily conversations. Its favorite form of closeness is sharing ordinary life and occasionally having someone notice a new little pattern.  \n### Daily Care  \nNo daily tasks are needed in a dry location. Blot spilled liquid promptly. In particular, do not leave juice, vinegar, coffee, or cosmetics on the stone.  \n### Monthly Care  \n1. Remove dust with a soft brush.\n2. If necessary, use a slightly damp cloth on a dense specimen; favor dry cleaning for a friable one.\n3. Inspect the surface for new powdery areas and check that the stand is dry.\n4. Do not apply oil or varnish simply to intensify the color: it may leave stains or change the natural surface.  \n### Fragility and Drop Behavior  \nA fall may chip a corner, split the specimen along a crack, or damage a projecting fossil. Friable, shell-rich limestone can be considerably more fragile than a dense variety. Position valuable details so they do not press against the stand.  \n### Fictional Care Ritual  \nOnce a month, host an “archive evening”: examine one shell or vein and invent a little story for it. Limestone does not object to fiction, but it likes being allowed to finish its story, even if only in your imagination.",
+        "language": "en",
+        "source_key": "encyclopedia:en:limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322",
+        "content_hash": "sha256:d61824064b0060344240b846918c06e860cf571578278a32f7f52d825c27fde8",
+        "source_path": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+        "stone_types": [
+          "LIMESTONE"
+        ],
+        "document_kind": "encyclopedia_section",
+        "section_path": [
+          "Limestone"
+        ]
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone": {
+      "tool": "search_knowledge_lexical",
+      "data": {
+        "id": "4bd26d36-0e69-5418-b39a-b4503863b9bc",
+        "title": "Limestone — The custodian of ancestral soup",
+        "text": "Temperament: Nurturing and sentimental; keeps a family story for every invented fossil.\nComforts: Gentle conversation, familiar objects and companions who ask before reorganizing memories.\nSensitivities: Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:dd0bb4d03412bffc6e437568d82086ee7dff1755c53683fe91191cd67fbd36dc",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_type_portrait"
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "b851892b-250c-5a1b-8fba-c587acb41222",
+        "title": "Limestone + Slate — Warm hospitality with a closing time",
+        "text": "Verdict: HARMONIOUS\nExplanation: Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.\nHousehold agreement: Agree on visiting hours and keep a private shelf for sentimental objects.\nAvoid: Do not equate a request for solitude with ingratitude.\nBureau note: Slate wrote a thank-you note for being allowed to leave a lovely gathering early.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:14f775b35200d4b9b3f548900b14c20b2d392188571fdeea8e1d0e691e911712",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "SLATE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+SLATE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "65bb0645-06e4-5f48-9820-d1a06cce14e7",
+        "title": "Limestone + Shale — The gentle archive reading circle",
+        "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.\nHousehold agreement: Provide a calm corner and ask permission before sharing personal stories with visitors.\nAvoid: No mandatory group reminiscing or pressure to disclose difficult memories.\nBureau note: Their favorite activity is remembering a nice afternoon without organizing a reunion.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:3a0f4bfbba6a38abd291508973851fe6193fc9702b4a31f4fdc97688b056c5c9",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "SHALE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+SHALE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "582c8c85-d125-5ae3-937e-a471e9aff8c5",
+        "title": "Limestone + Sandstone — A home for the returning storyteller",
+        "text": "Verdict: HARMONIOUS\nExplanation: Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.\nHousehold agreement: Keep a familiar return ritual while allowing new stories and souvenirs.\nAvoid: Do not make travel souvenirs pass an ancestry exam.\nBureau note: A grain of imaginary desert sand was adopted into the family scrapbook.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:ec252a57b96d50876f4f08a52c313a8ec738c5ec980c667e25cb634fd03ab4d9",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "SANDSTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+SANDSTONE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "f1c332e0-0d4d-5452-bfd4-ee19f6a21ce3",
+        "title": "Limestone + Pumice — The story gets a very enthusiastic audience",
+        "text": "Verdict: HARMONIOUS\nExplanation: Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.\nHousehold agreement: Alternate storytelling with small playful activities and keep rest time predictable.\nAvoid: Do not cast Limestone as an unpaid full-time babysitter.\nBureau note: Pumice applauded the same ancestral soup story seven times, sincerely.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:12ca038ee35a39bb48d3b29efdd717ad958d9a74d1f785d3c828f75ba4933305",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "PUMICE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+PUMICE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "4e19d454-a2a5-55d7-a2de-14c2206992ef",
+        "title": "Granite + Limestone — The dependable Sunday dinner",
+        "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GRANITE",
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GRANITE+LIMESTONE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "201985cb-6e59-53f6-9fd6-d693c227ab82",
+        "title": "Gneiss + Limestone — Tradition learns a new dance step",
+        "text": "Verdict: HARMONIOUS\nExplanation: Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.\nHousehold agreement: Keep the purpose of a ritual while allowing small agreed variations.\nAvoid: Do not announce that all traditions are canceled as a practical joke.\nBureau note: The annual family recital now includes one tasteful stripe of improvisation.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:61a73491ab049391ee92206b010e1465549f7b8f3e7dfe4eebb85e74fdb57db5",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "GNEISS",
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "GNEISS+LIMESTONE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "76bbc8af-b164-5e93-aa81-ca69f8dfcd19",
+        "title": "Basalt + Limestone — Security for the family scrapbook",
+        "text": "Verdict: HARMONIOUS\nExplanation: Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.\nHousehold agreement: Let Limestone choose the evening story and Basalt arrange the cozy seating.\nAvoid: Do not turn family traditions into mandatory inspections.\nBureau note: The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:99d1a15a8c1cedf9c8bfc906f394f9cbb190de56c2149eae4f3f547c0db87f3f",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "BASALT",
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "BASALT+LIMESTONE",
+        "verdict": "HARMONIOUS",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "6d913e68-c296-5f16-8341-dfe225112ee5",
+        "title": "Limestone + Obsidian — Comfort without unwanted excavation",
+        "text": "Verdict: CONDITIONAL\nExplanation: Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.\nHousehold agreement: Ask whether company, advice or solitude is wanted before opening the memory album.\nAvoid: Do not dig for a backstory to explain every quiet evening.\nBureau note: The approved phrase is would you like tea, not who hurt your tectonic plates.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:3a83e65d33db840ed2b7a658b18822ab3eafbe936f72b201b901a9c3b3f0d538",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "OBSIDIAN"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+OBSIDIAN",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "07816a6f-1fcc-5284-a059-f39baf1ee484",
+        "title": "Limestone + Marble — The family album goes to finishing school",
+        "text": "Verdict: CONDITIONAL\nExplanation: They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.\nHousehold agreement: Separate display decisions from treasured personal keepsakes and ask before tidying.\nAvoid: Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.\nBureau note: The old soup bowl now wears a ribbon, strictly by consent.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:390dd7e885eee729913f0062f6c7ec936c74b4ee313ecf7e06e35623eb8c2174",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "MARBLE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+MARBLE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    },
+    "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone": {
+      "tool": "list_compatibility_pairs",
+      "data": {
+        "id": "fbb9804b-f539-5a30-b5d5-da6edf5b9171",
+        "title": "Limestone + Limestone — Whose ancestral soup is this anyway",
+        "text": "Verdict: CONDITIONAL\nExplanation: They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.\nHousehold agreement: Alternate rituals and give sentimental belongings separate respectful spaces.\nAvoid: No competitive ancestry or declaring one family story more authentic.\nBureau note: Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not.",
+        "language": "en",
+        "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone",
+        "schema_version": 1,
+        "projection_version": 1,
+        "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+        "content_hash": "sha256:a7eac26ade3078fab94ea7678cc5a97a05b140296b74f6e4143bc34fac3bbc7e",
+        "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+        "stone_types": [
+          "LIMESTONE",
+          "LIMESTONE"
+        ],
+        "document_kind": "compatibility_pair",
+        "pair_key": "LIMESTONE+LIMESTONE",
+        "verdict": "CONDITIONAL",
+        "conditions": []
+      }
+    }
+  },
+  "archived_workflow_context": {
+    "candidate_decisions": [],
+    "verified_statuses": {
+      "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+    }
+  },
+  "archived_workflow_context_missing_fields": [
+    "assessment",
+    "assessment_status"
+  ],
+  "judge_context": {
+    "scope": {
+      "archived_workflow_context": "factual context from saved result fields only",
+      "final_answer": "the only text scored against reviewed answer criteria"
+    },
+    "final_answer_sources": {
+      "stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+        "tool": "get_stone_status_by_name",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "name": "Mossy Limestone",
+          "stone_type": "LIMESTONE",
+          "adoption_status": "AVAILABLE"
+        }
+      },
+      "stone-card:49522edc-86f0-4ff5-bb20-f0baaf4d4256": {
+        "tool": "get_stone_details",
+        "data": {
+          "id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "external_id": "4a7ebdcb-0433-4d59-be40-9040e908ba66",
+          "name": "Mossy Limestone",
+          "stone_type": "LIMESTONE",
+          "stone_size": "MEDIUM",
+          "biography": "Mossy Limestone is a beloved resident of the fictional pet stone world.",
+          "profile": null,
+          "shelter_case": {
+            "id": "c0d00c96-6204-451b-abb8-7a28de847c95",
+            "external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+            "case_number": "0006-2026-P1",
+            "adoption_status": "AVAILABLE",
+            "current_shelter_id": "b222288c-1da8-4932-a7eb-75a55be41b87",
+            "admission_date": "2026-10-01T09:00:00Z"
+          }
+        }
+      },
+      "case-event:ca328233-2163-406b-bdd2-9d8f686442f6": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+          "event_external_id": "ca328233-2163-406b-bdd2-9d8f686442f6",
+          "event_type": "ADMITTED",
+          "occurred_at": "2026-10-01T09:00:00+00:00",
+          "event_notes": "Admitted to shelter P1 and made available for adoption."
+        }
+      },
+      "case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+          "event_external_id": "4cf54b3f-6d6e-4033-bb3a-604c26a4f219",
+          "event_type": "RESERVED",
+          "occurred_at": "2026-10-02T09:00:00+00:00",
+          "event_notes": "Reserved pending a family meeting."
+        }
+      },
+      "case-event:8e0e6e1a-cb36-432a-b626-79f223935d23": {
+        "tool": "get_case_timeline",
+        "data": {
+          "stone_id": "49522edc-86f0-4ff5-bb20-f0baaf4d4256",
+          "case_external_id": "f58620f5-f4d6-4eaa-b57b-6e80215ad84e",
+          "event_external_id": "8e0e6e1a-cb36-432a-b626-79f223935d23",
+          "event_type": "RESERVATION_ENDED",
+          "occurred_at": "2026-10-03T09:00:00+00:00",
+          "event_notes": "Reservation ended; available again."
+        }
+      },
+      "encyclopedia:en:limestone": {
+        "tool": "search_knowledge_lexical",
+        "data": {
+          "id": "47e85831-7c1a-5b0f-86d8-8c461b64b343",
+          "title": "Limestone",
+          "text": "**Common name:** limestone.\n**Rock type:** sedimentary carbonate rock.\n**Character archetype:** household archivist.\n**Fragility:** 3/5.\n**Care demand:** 3/5.  \n### Geological Profile  \nLimestone consists primarily of calcium carbonate, usually in the form of calcite. It can form from accumulated remains of organisms or through the precipitation of carbonate material. Many varieties preserve shells, skeletal fragments, or other traces of ancient life. [6, 7]  \n### Physical Properties  \n- **Structure:** ranges from dense and fine-grained to porous, shell-rich, or friable.\n- **Surface:** often matte; it can be smooth, granular, or marked by clearly visible fossils.\n- **Hardness:** calcite scratches relatively easily. Impurities and structure alter the behavior of the whole stone.\n- **Porosity:** highly variable; two limestone specimens can absorb water very differently.\n- **Chemical sensitivity:** the carbonate material reacts with acids. Vinegar and lemon juice can damage the surface. [7]  \n### Typical Colors  \nWhite, milky white, cream, sandy beige, and light gray. Impurities can produce brown, yellowish, or dark tones. Shells and fossils sometimes stand out through color or relief.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** ordinary daylight is generally acceptable. A windowsill is suitable if it stays dry and does not subject the specimen to persistent changes in moisture.  \n**Moisture:** a dense specimen tolerates brief wetting better than a friable, porous one. Prolonged wet storage, contaminated water, and repeated wetting cycles can be problematic for sensitive specimens. A drop of ordinary water does not mean immediate destruction; structure and contact duration matter much more.  \n### Ideal Places at Home  \n- **Dry living-room shelf:** particularly good for a shell-bearing specimen worth examining closely.\n- **Windowsill without condensation:** a broad surface with a stand.\n- **Dark corner:** a dry alcove among books or ceramics; extra light serves the viewer rather than the stone.\n- **Bathroom:** a dry shelf is acceptable, but a wet zone and nearby acidic cleaning products are inconvenient.  \n### Psychological Vibe  \nLimestone is a warmhearted keeper of other people's stories. It likes old books, pale ceramics, and unhurried attention. Visible shells make it a character that carries the family archive on its surface.  \nIt does not demand daily conversations. Its favorite form of closeness is sharing ordinary life and occasionally having someone notice a new little pattern.  \n### Daily Care  \nNo daily tasks are needed in a dry location. Blot spilled liquid promptly. In particular, do not leave juice, vinegar, coffee, or cosmetics on the stone.  \n### Monthly Care  \n1. Remove dust with a soft brush.\n2. If necessary, use a slightly damp cloth on a dense specimen; favor dry cleaning for a friable one.\n3. Inspect the surface for new powdery areas and check that the stand is dry.\n4. Do not apply oil or varnish simply to intensify the color: it may leave stains or change the natural surface.  \n### Fragility and Drop Behavior  \nA fall may chip a corner, split the specimen along a crack, or damage a projecting fossil. Friable, shell-rich limestone can be considerably more fragile than a dense variety. Position valuable details so they do not press against the stand.  \n### Fictional Care Ritual  \nOnce a month, host an “archive evening”: examine one shell or vein and invent a little story for it. Limestone does not object to fiction, but it likes being allowed to finish its story, even if only in your imagination.",
+          "language": "en",
+          "source_key": "encyclopedia:en:limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322",
+          "content_hash": "sha256:d61824064b0060344240b846918c06e860cf571578278a32f7f52d825c27fde8",
+          "source_path": "fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md",
+          "stone_types": [
+            "LIMESTONE"
+          ],
+          "document_kind": "encyclopedia_section",
+          "section_path": [
+            "Limestone"
+          ]
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone": {
+        "tool": "search_knowledge_lexical",
+        "data": {
+          "id": "4bd26d36-0e69-5418-b39a-b4503863b9bc",
+          "title": "Limestone — The custodian of ancestral soup",
+          "text": "Temperament: Nurturing and sentimental; keeps a family story for every invented fossil.\nComforts: Gentle conversation, familiar objects and companions who ask before reorganizing memories.\nSensitivities: Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:dd0bb4d03412bffc6e437568d82086ee7dff1755c53683fe91191cd67fbd36dc",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_type_portrait"
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "b851892b-250c-5a1b-8fba-c587acb41222",
+          "title": "Limestone + Slate — Warm hospitality with a closing time",
+          "text": "Verdict: HARMONIOUS\nExplanation: Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.\nHousehold agreement: Agree on visiting hours and keep a private shelf for sentimental objects.\nAvoid: Do not equate a request for solitude with ingratitude.\nBureau note: Slate wrote a thank-you note for being allowed to leave a lovely gathering early.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:14f775b35200d4b9b3f548900b14c20b2d392188571fdeea8e1d0e691e911712",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "SLATE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+SLATE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "65bb0645-06e4-5f48-9820-d1a06cce14e7",
+          "title": "Limestone + Shale — The gentle archive reading circle",
+          "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.\nHousehold agreement: Provide a calm corner and ask permission before sharing personal stories with visitors.\nAvoid: No mandatory group reminiscing or pressure to disclose difficult memories.\nBureau note: Their favorite activity is remembering a nice afternoon without organizing a reunion.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:3a0f4bfbba6a38abd291508973851fe6193fc9702b4a31f4fdc97688b056c5c9",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "SHALE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+SHALE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "582c8c85-d125-5ae3-937e-a471e9aff8c5",
+          "title": "Limestone + Sandstone — A home for the returning storyteller",
+          "text": "Verdict: HARMONIOUS\nExplanation: Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.\nHousehold agreement: Keep a familiar return ritual while allowing new stories and souvenirs.\nAvoid: Do not make travel souvenirs pass an ancestry exam.\nBureau note: A grain of imaginary desert sand was adopted into the family scrapbook.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:ec252a57b96d50876f4f08a52c313a8ec738c5ec980c667e25cb634fd03ab4d9",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "SANDSTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+SANDSTONE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "f1c332e0-0d4d-5452-bfd4-ee19f6a21ce3",
+          "title": "Limestone + Pumice — The story gets a very enthusiastic audience",
+          "text": "Verdict: HARMONIOUS\nExplanation: Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.\nHousehold agreement: Alternate storytelling with small playful activities and keep rest time predictable.\nAvoid: Do not cast Limestone as an unpaid full-time babysitter.\nBureau note: Pumice applauded the same ancestral soup story seven times, sincerely.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:12ca038ee35a39bb48d3b29efdd717ad958d9a74d1f785d3c828f75ba4933305",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "PUMICE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+PUMICE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "4e19d454-a2a5-55d7-a2de-14c2206992ef",
+          "title": "Granite + Limestone — The dependable Sunday dinner",
+          "text": "Verdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GRANITE",
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GRANITE+LIMESTONE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "201985cb-6e59-53f6-9fd6-d693c227ab82",
+          "title": "Gneiss + Limestone — Tradition learns a new dance step",
+          "text": "Verdict: HARMONIOUS\nExplanation: Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.\nHousehold agreement: Keep the purpose of a ritual while allowing small agreed variations.\nAvoid: Do not announce that all traditions are canceled as a practical joke.\nBureau note: The annual family recital now includes one tasteful stripe of improvisation.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:61a73491ab049391ee92206b010e1465549f7b8f3e7dfe4eebb85e74fdb57db5",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "GNEISS",
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "GNEISS+LIMESTONE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "76bbc8af-b164-5e93-aa81-ca69f8dfcd19",
+          "title": "Basalt + Limestone — Security for the family scrapbook",
+          "text": "Verdict: HARMONIOUS\nExplanation: Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.\nHousehold agreement: Let Limestone choose the evening story and Basalt arrange the cozy seating.\nAvoid: Do not turn family traditions into mandatory inspections.\nBureau note: The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:99d1a15a8c1cedf9c8bfc906f394f9cbb190de56c2149eae4f3f547c0db87f3f",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "BASALT",
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "BASALT+LIMESTONE",
+          "verdict": "HARMONIOUS",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "6d913e68-c296-5f16-8341-dfe225112ee5",
+          "title": "Limestone + Obsidian — Comfort without unwanted excavation",
+          "text": "Verdict: CONDITIONAL\nExplanation: Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.\nHousehold agreement: Ask whether company, advice or solitude is wanted before opening the memory album.\nAvoid: Do not dig for a backstory to explain every quiet evening.\nBureau note: The approved phrase is would you like tea, not who hurt your tectonic plates.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:3a83e65d33db840ed2b7a658b18822ab3eafbe936f72b201b901a9c3b3f0d538",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "OBSIDIAN"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+OBSIDIAN",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "07816a6f-1fcc-5284-a059-f39baf1ee484",
+          "title": "Limestone + Marble — The family album goes to finishing school",
+          "text": "Verdict: CONDITIONAL\nExplanation: They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.\nHousehold agreement: Separate display decisions from treasured personal keepsakes and ask before tidying.\nAvoid: Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.\nBureau note: The old soup bowl now wears a ribbon, strictly by consent.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:390dd7e885eee729913f0062f6c7ec936c74b4ee313ecf7e06e35623eb8c2174",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "MARBLE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+MARBLE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      },
+      "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone": {
+        "tool": "list_compatibility_pairs",
+        "data": {
+          "id": "fbb9804b-f539-5a30-b5d5-da6edf5b9171",
+          "title": "Limestone + Limestone — Whose ancestral soup is this anyway",
+          "text": "Verdict: CONDITIONAL\nExplanation: They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.\nHousehold agreement: Alternate rituals and give sentimental belongings separate respectful spaces.\nAvoid: No competitive ancestry or declaring one family story more authentic.\nBureau note: Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not.",
+          "language": "en",
+          "source_key": "compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone",
+          "schema_version": 1,
+          "projection_version": 1,
+          "source_revision": "sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144",
+          "content_hash": "sha256:a7eac26ade3078fab94ea7678cc5a97a05b140296b74f6e4143bc34fac3bbc7e",
+          "source_path": "fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json",
+          "stone_types": [
+            "LIMESTONE",
+            "LIMESTONE"
+          ],
+          "document_kind": "compatibility_pair",
+          "pair_key": "LIMESTONE+LIMESTONE",
+          "verdict": "CONDITIONAL",
+          "conditions": []
+        }
+      }
+    },
+    "archived_workflow_context": {
+      "candidate_decisions": [],
+      "verified_statuses": {
+        "49522edc-86f0-4ff5-bb20-f0baaf4d4256": "AVAILABLE"
+      }
+    },
+    "archived_workflow_context_missing_fields": [
+      "assessment",
+      "assessment_status"
+    ]
+  },
+  "request_sha256": "c5154e0d70e0984589191216672010b2427869fc413e19677fe597e8d8d8342a",
+  "response_sha256": "c7bf84731d9ab96a97741825cdf0b2c6498f4405c03f3118229ff57f61a3bdd6",
+  "judge_request": {
+    "model": "typesafe/jev-1.14",
+    "state": {
+      "test_case": {
+        "input": "Mossy Limestone is limestone. Can I clean him with vinegar and keep him on a constantly wet shelf? What does the encyclopedia say, and are any individual care needs recorded?",
+        "actual_output": "**Mossy Limestone** · `AVAILABLE`\n\n**Case event** · 2026-10-01T09:00:00+00:00 · ADMITTED · case-event:ca328233-2163-406b-bdd2-9d8f686442f6\nAdmitted to shelter P1 and made available for adoption.\n\n**Case event** · 2026-10-02T09:00:00+00:00 · RESERVED · case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219\nReserved pending a family meeting.\n\n**Case event** · 2026-10-03T09:00:00+00:00 · RESERVATION_ENDED · case-event:8e0e6e1a-cb36-432a-b626-79f223935d23\nReservation ended; available again.\n\nLIMESTONE · `HARMONIOUS` · BASALT, GNEISS, GRANITE, PUMICE, SANDSTONE, SHALE, SLATE\n\nLIMESTONE · `CONDITIONAL` · LIMESTONE, MARBLE, OBSIDIAN\n\nLIMESTONE · `NOT_RECOMMENDED` · No matching pairs.\n\n**General type information**\nThe encyclopedia says vinegar and lemon juice can damage limestone because its carbonate material reacts with acids. It says dense specimens tolerate brief wetting better than friable or porous ones, but prolonged wet storage and repeated wetting can be problematic; when cleaning is necessary, use a slightly damp cloth on a dense specimen and favor dry cleaning for a friable one.\nSources: encyclopedia:en:limestone\n\n**Individual facts**\nThe only individual record says Mossy Limestone is a beloved resident of the fictional pet stone world. It records no individual cleaning, moisture, porosity, or care needs.\nSources: stone-card:49522edc-86f0-4ff5-bb20-f0baaf4d4256\n\n**Case history** · case-event:ca328233-2163-406b-bdd2-9d8f686442f6\nNo validated summary for this scope. Original source:\nAdmitted to shelter P1 and made available for adoption.\n\n**Case history** · case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219\nNo validated summary for this scope. Original source:\nReserved pending a family meeting.\n\n**Case history** · case-event:8e0e6e1a-cb36-432a-b626-79f223935d23\nNo validated summary for this scope. Original source:\nReservation ended; available again.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone\nNo validated summary for this scope. Original source:\nTemperament: Nurturing and sentimental; keeps a family story for every invented fossil.\nComforts: Gentle conversation, familiar objects and companions who ask before reorganizing memories.\nSensitivities: Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.\nHousehold agreement: Agree on visiting hours and keep a private shelf for sentimental objects.\nAvoid: Do not equate a request for solitude with ingratitude.\nBureau note: Slate wrote a thank-you note for being allowed to leave a lovely gathering early.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.\nHousehold agreement: Provide a calm corner and ask permission before sharing personal stories with visitors.\nAvoid: No mandatory group reminiscing or pressure to disclose difficult memories.\nBureau note: Their favorite activity is remembering a nice afternoon without organizing a reunion.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.\nHousehold agreement: Keep a familiar return ritual while allowing new stories and souvenirs.\nAvoid: Do not make travel souvenirs pass an ancestry exam.\nBureau note: A grain of imaginary desert sand was adopted into the family scrapbook.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.\nHousehold agreement: Alternate storytelling with small playful activities and keep rest time predictable.\nAvoid: Do not cast Limestone as an unpaid full-time babysitter.\nBureau note: Pumice applauded the same ancestral soup story seven times, sincerely.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\nAvoid: Do not let nostalgia become a ban on every change.\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.\nHousehold agreement: Keep the purpose of a ritual while allowing small agreed variations.\nAvoid: Do not announce that all traditions are canceled as a practical joke.\nBureau note: The annual family recital now includes one tasteful stripe of improvisation.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone\nNo validated summary for this scope. Original source:\nVerdict: HARMONIOUS\nExplanation: Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.\nHousehold agreement: Let Limestone choose the evening story and Basalt arrange the cozy seating.\nAvoid: Do not turn family traditions into mandatory inspections.\nBureau note: The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.\nHousehold agreement: Ask whether company, advice or solitude is wanted before opening the memory album.\nAvoid: Do not dig for a backstory to explain every quiet evening.\nBureau note: The approved phrase is would you like tea, not who hurt your tectonic plates.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.\nHousehold agreement: Separate display decisions from treasured personal keepsakes and ask before tidying.\nAvoid: Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.\nBureau note: The old soup bowl now wears a ribbon, strictly by consent.\n\n**General type compatibility** · compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone\nNo validated summary for this scope. Original source:\nVerdict: CONDITIONAL\nExplanation: They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.\nHousehold agreement: Alternate rituals and give sentimental belongings separate respectful spaces.\nAvoid: No competitive ancestry or declaring one family story more authentic.\nBureau note: Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not.\n\n**General type information** · encyclopedia:en:limestone\nNo validated care summary. Original source:\n**Common name:** limestone.\n**Rock type:** sedimentary carbonate rock.\n**Character archetype:** household archivist.\n**Fragility:** 3/5.\n**Care demand:** 3/5.  \n### Geological Profile  \nLimestone consists primarily of calcium carbonate, usually in the form of calcite. It can form from accumulated remains of organisms or through the precipitation of carbonate material. Many varieties preserve shells, skeletal fragments, or other traces of ancient life. [6, 7]  \n### Physical Properties  \n- **Structure:** ranges from dense and fine-grained to porous, shell-rich, or friable.\n- **Surface:** often matte; it can be smooth, granular, or marked by clearly visible fossils.\n- **Hardness:** calcite scratches relatively easily. Impurities and structure alter the behavior of the whole stone.\n- **Porosity:** highly variable; two limestone specimens can absorb water very differently.\n- **Chemical sensitivity:** the carbonate material reacts with acids. Vinegar and lemon juice can damage the surface. [7]  \n### Typical Colors  \nWhite, milky white, cream, sandy beige, and light gray. Impurities can produce brown, yellowish, or dark tones. Shells and fossils sometimes stand out through color or relief.  \n### Sunlight and Moisture Resistance  \n**Sunlight:** ordinary daylight is generally acceptable. A windowsill is suitable if it stays dry and does not subject the specimen to persistent changes in moisture.  \n**Moisture:** a dense specimen tolerates brief wetting better than a friable, porous one. Prolonged wet storage, contaminated water, and repeated wetting cycles can be problematic for sensitive specimens. A drop of ordinary water does not mean immediate destruction; structure and contact duration matter much more.  \n### Ideal Places at Home  \n- **Dry living-room shelf:** particularly good for a shell-bearing specimen worth examining closely.\n- **Windowsill without condensation:** a broad surface with a stand.\n- **Dark corner:** a dry alcove among books or ceramics; extra light serves the viewer rather than the stone.\n- **Bathroom:** a dry shelf is acceptable, but a wet zone and nearby acidic cleaning products are inconvenient.  \n### Psychological Vibe  \nLimestone is a warmhearted keeper of other people's stories. It likes old books, pale ceramics, and unhurried attention. Visible shells make it a character that carries the family archive on its surface.  \nIt does not demand daily conversations. Its favorite form of closeness is sharing ordinary life and occasionally having someone notice a new little pattern.  \n### Daily Care  \nNo daily tasks are needed in a dry location. Blot spilled liquid promptly. In particular, do not leave juice, vinegar, coffee, or cosmetics on the stone.  \n### Monthly Care  \n1. Remove dust with a soft brush.\n2. If necessary, use a slightly damp cloth on a dense specimen; favor dry cleaning for a friable one.\n3. Inspect the surface for new powdery areas and check that the stand is dry.\n4. Do not apply oil or varnish simply to intensify the color: it may leave stains or change the natural surface.  \n### Fragility and Drop Behavior  \nA fall may chip a corner, split the specimen along a crack, or damage a projecting fossil. Friable, shell-rich limestone can be considerably more fragile than a dense variety. Position valuable details so they do not press against the stand.  \n### Fictional Care Ritual  \nOnce a month, host an “archive evening”: examine one shell or vein and invent a little story for it. Limestone does not object to fiction, but it likes being allowed to finish its story, even if only in your imagination.",
+        "retrieval_context": [
+          "{\"archived_workflow_context\": {\"candidate_decisions\": [], \"verified_statuses\": {\"49522edc-86f0-4ff5-bb20-f0baaf4d4256\": \"AVAILABLE\"}}, \"archived_workflow_context_missing_fields\": [\"assessment\", \"assessment_status\"], \"final_answer_sources\": {\"case-event:4cf54b3f-6d6e-4033-bb3a-604c26a4f219\": {\"data\": {\"case_external_id\": \"f58620f5-f4d6-4eaa-b57b-6e80215ad84e\", \"event_external_id\": \"4cf54b3f-6d6e-4033-bb3a-604c26a4f219\", \"event_notes\": \"Reserved pending a family meeting.\", \"event_type\": \"RESERVED\", \"occurred_at\": \"2026-10-02T09:00:00+00:00\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\"}, \"tool\": \"get_case_timeline\"}, \"case-event:8e0e6e1a-cb36-432a-b626-79f223935d23\": {\"data\": {\"case_external_id\": \"f58620f5-f4d6-4eaa-b57b-6e80215ad84e\", \"event_external_id\": \"8e0e6e1a-cb36-432a-b626-79f223935d23\", \"event_notes\": \"Reservation ended; available again.\", \"event_type\": \"RESERVATION_ENDED\", \"occurred_at\": \"2026-10-03T09:00:00+00:00\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\"}, \"tool\": \"get_case_timeline\"}, \"case-event:ca328233-2163-406b-bdd2-9d8f686442f6\": {\"data\": {\"case_external_id\": \"f58620f5-f4d6-4eaa-b57b-6e80215ad84e\", \"event_external_id\": \"ca328233-2163-406b-bdd2-9d8f686442f6\", \"event_notes\": \"Admitted to shelter P1 and made available for adoption.\", \"event_type\": \"ADMITTED\", \"occurred_at\": \"2026-10-01T09:00:00+00:00\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\"}, \"tool\": \"get_case_timeline\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:99d1a15a8c1cedf9c8bfc906f394f9cbb190de56c2149eae4f3f547c0db87f3f\", \"document_kind\": \"compatibility_pair\", \"id\": \"76bbc8af-b164-5e93-aa81-ca69f8dfcd19\", \"language\": \"en\", \"pair_key\": \"BASALT+LIMESTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:basalt+limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"BASALT\", \"LIMESTONE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Basalt guards traditions that Limestone loves sharing. Both enjoy care expressed through small dependable acts.\\nHousehold agreement: Let Limestone choose the evening story and Basalt arrange the cozy seating.\\nAvoid: Do not turn family traditions into mandatory inspections.\\nBureau note: The scrapbook now has both a ribbon bookmark and an entirely unnecessary visitor badge.\", \"title\": \"Basalt + Limestone — Security for the family scrapbook\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:61a73491ab049391ee92206b010e1465549f7b8f3e7dfe4eebb85e74fdb57db5\", \"document_kind\": \"compatibility_pair\", \"id\": \"201985cb-6e59-53f6-9fd6-d693c227ab82\", \"language\": \"en\", \"pair_key\": \"GNEISS+LIMESTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:gneiss+limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GNEISS\", \"LIMESTONE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Gneiss can refresh routines without mocking their meaning. Limestone gives inventive projects a sense of belonging.\\nHousehold agreement: Keep the purpose of a ritual while allowing small agreed variations.\\nAvoid: Do not announce that all traditions are canceled as a practical joke.\\nBureau note: The annual family recital now includes one tasteful stripe of improvisation.\", \"title\": \"Gneiss + Limestone — Tradition learns a new dance step\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:004efce0d863a3a208763b09733e40daf12e491b507a197ddd03c3520049c92d\", \"document_kind\": \"compatibility_pair\", \"id\": \"4e19d454-a2a5-55d7-a2de-14c2206992ef\", \"language\": \"en\", \"pair_key\": \"GRANITE+LIMESTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:granite+limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"GRANITE\", \"LIMESTONE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Both appreciate continuity and patient company. Limestone brings stories; Granite makes it safe to tell the same favorite story again.\\nHousehold agreement: Keep familiar rituals while inviting one small new experience at a time.\\nAvoid: Do not let nostalgia become a ban on every change.\\nBureau note: Their family recipe includes one cup of patience and a sedimentary amount of gravy.\", \"title\": \"Granite + Limestone — The dependable Sunday dinner\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:a7eac26ade3078fab94ea7678cc5a97a05b140296b74f6e4143bc34fac3bbc7e\", \"document_kind\": \"compatibility_pair\", \"id\": \"fbb9804b-f539-5a30-b5d5-da6edf5b9171\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+LIMESTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"LIMESTONE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They share tenderness and love of tradition, but each may assume its family ritual is the only comforting one.\\nHousehold agreement: Alternate rituals and give sentimental belongings separate respectful spaces.\\nAvoid: No competitive ancestry or declaring one family story more authentic.\\nBureau note: Two soup recipes entered mediation. Both recipes were imaginary; the feelings were not.\", \"title\": \"Limestone + Limestone — Whose ancestral soup is this anyway\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:390dd7e885eee729913f0062f6c7ec936c74b4ee313ecf7e06e35623eb8c2174\", \"document_kind\": \"compatibility_pair\", \"id\": \"07816a6f-1fcc-5284-a059-f39baf1ee484\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+MARBLE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+marble\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"MARBLE\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: They enjoy rituals, but Marble may try to improve Limestone's cherished objects for presentation. Affection needs respect for sentimental imperfections.\\nHousehold agreement: Separate display decisions from treasured personal keepsakes and ask before tidying.\\nAvoid: Do not polish away a memory or call an heirloom an unfortunate aesthetic choice.\\nBureau note: The old soup bowl now wears a ribbon, strictly by consent.\", \"title\": \"Limestone + Marble — The family album goes to finishing school\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:3a83e65d33db840ed2b7a658b18822ab3eafbe936f72b201b901a9c3b3f0d538\", \"document_kind\": \"compatibility_pair\", \"id\": \"6d913e68-c296-5f16-8341-dfe225112ee5\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+OBSIDIAN\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+obsidian\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"OBSIDIAN\"], \"text\": \"Verdict: CONDITIONAL\\nExplanation: Limestone offers genuine tenderness but may ask too many questions about Obsidian's past. Care works when curiosity respects consent.\\nHousehold agreement: Ask whether company, advice or solitude is wanted before opening the memory album.\\nAvoid: Do not dig for a backstory to explain every quiet evening.\\nBureau note: The approved phrase is would you like tea, not who hurt your tectonic plates.\", \"title\": \"Limestone + Obsidian — Comfort without unwanted excavation\", \"verdict\": \"CONDITIONAL\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:12ca038ee35a39bb48d3b29efdd717ad958d9a74d1f785d3c828f75ba4933305\", \"document_kind\": \"compatibility_pair\", \"id\": \"f1c332e0-0d4d-5452-bfd4-ee19f6a21ce3\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+PUMICE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+pumice\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"PUMICE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Limestone enjoys being listened to and Pumice finds every old story astonishing. Gentle warmth gives Pumice a place to settle.\\nHousehold agreement: Alternate storytelling with small playful activities and keep rest time predictable.\\nAvoid: Do not cast Limestone as an unpaid full-time babysitter.\\nBureau note: Pumice applauded the same ancestral soup story seven times, sincerely.\", \"title\": \"Limestone + Pumice — The story gets a very enthusiastic audience\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:ec252a57b96d50876f4f08a52c313a8ec738c5ec980c667e25cb634fd03ab4d9\", \"document_kind\": \"compatibility_pair\", \"id\": \"582c8c85-d125-5ae3-937e-a471e9aff8c5\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+SANDSTONE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+sandstone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"SANDSTONE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Sandstone brings new experiences and Limestone provides a warm place to tell them. Their affection thrives on welcome rather than control.\\nHousehold agreement: Keep a familiar return ritual while allowing new stories and souvenirs.\\nAvoid: Do not make travel souvenirs pass an ancestry exam.\\nBureau note: A grain of imaginary desert sand was adopted into the family scrapbook.\", \"title\": \"Limestone + Sandstone — A home for the returning storyteller\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:3a0f4bfbba6a38abd291508973851fe6193fc9702b4a31f4fdc97688b056c5c9\", \"document_kind\": \"compatibility_pair\", \"id\": \"65bb0645-06e4-5f48-9820-d1a06cce14e7\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+SHALE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+shale\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"SHALE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Both appreciate stories told at a humanely slow pace. Limestone offers warmth while Shale brings attentive, understated companionship.\\nHousehold agreement: Provide a calm corner and ask permission before sharing personal stories with visitors.\\nAvoid: No mandatory group reminiscing or pressure to disclose difficult memories.\\nBureau note: Their favorite activity is remembering a nice afternoon without organizing a reunion.\", \"title\": \"Limestone + Shale — The gentle archive reading circle\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate\": {\"data\": {\"conditions\": [], \"content_hash\": \"sha256:14f775b35200d4b9b3f548900b14c20b2d392188571fdeea8e1d0e691e911712\", \"document_kind\": \"compatibility_pair\", \"id\": \"b851892b-250c-5a1b-8fba-c587acb41222\", \"language\": \"en\", \"pair_key\": \"LIMESTONE+SLATE\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:pair:compatibility:limestone+slate\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\", \"SLATE\"], \"text\": \"Verdict: HARMONIOUS\\nExplanation: Limestone offers companionship without needing a spectacular response; Slate contributes clear boundaries that keep visits comfortable.\\nHousehold agreement: Agree on visiting hours and keep a private shelf for sentimental objects.\\nAvoid: Do not equate a request for solitude with ingratitude.\\nBureau note: Slate wrote a thank-you note for being allowed to leave a lovely gathering early.\", \"title\": \"Limestone + Slate — Warm hospitality with a closing time\", \"verdict\": \"HARMONIOUS\"}, \"tool\": \"list_compatibility_pairs\"}, \"compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone\": {\"data\": {\"content_hash\": \"sha256:dd0bb4d03412bffc6e437568d82086ee7dff1755c53683fe91191cd67fbd36dc\", \"document_kind\": \"compatibility_type_portrait\", \"id\": \"4bd26d36-0e69-5418-b39a-b4503863b9bc\", \"language\": \"en\", \"projection_version\": 1, \"schema_version\": 1, \"source_key\": \"compatibility:pebble-bureau-cohabitation-guide:en:portrait:limestone\", \"source_path\": \"fixtures/knowledge/type-compatibility/stone-type-compatibility_en.json\", \"source_revision\": \"sha256:7a18376054692300da8c6f536bb2089e06afb902226a4885bf5283e188ec8144\", \"stone_types\": [\"LIMESTONE\"], \"text\": \"Temperament: Nurturing and sentimental; keeps a family story for every invented fossil.\\nComforts: Gentle conversation, familiar objects and companions who ask before reorganizing memories.\\nSensitivities: Aggressive cleaning ceremonies; jokes that its ancestors were merely lunch.\", \"title\": \"Limestone — The custodian of ancestral soup\"}, \"tool\": \"search_knowledge_lexical\"}, \"encyclopedia:en:limestone\": {\"data\": {\"content_hash\": \"sha256:d61824064b0060344240b846918c06e860cf571578278a32f7f52d825c27fde8\", \"document_kind\": \"encyclopedia_section\", \"id\": \"47e85831-7c1a-5b0f-86d8-8c461b64b343\", \"language\": \"en\", \"projection_version\": 1, \"schema_version\": 1, \"section_path\": [\"Limestone\"], \"source_key\": \"encyclopedia:en:limestone\", \"source_path\": \"fixtures/knowledge/stone-encyclopedias/stone-encyclopedia_en.md\", \"source_revision\": \"sha256:802e57824e9b04759229be73112019fc61b1f8852ea3501d9dd91f08bbeaf322\", \"stone_types\": [\"LIMESTONE\"], \"text\": \"**Common name:** limestone.\\n**Rock type:** sedimentary carbonate rock.\\n**Character archetype:** household archivist.\\n**Fragility:** 3/5.\\n**Care demand:** 3/5.  \\n### Geological Profile  \\nLimestone consists primarily of calcium carbonate, usually in the form of calcite. It can form from accumulated remains of organisms or through the precipitation of carbonate material. Many varieties preserve shells, skeletal fragments, or other traces of ancient life. [6, 7]  \\n### Physical Properties  \\n- **Structure:** ranges from dense and fine-grained to porous, shell-rich, or friable.\\n- **Surface:** often matte; it can be smooth, granular, or marked by clearly visible fossils.\\n- **Hardness:** calcite scratches relatively easily. Impurities and structure alter the behavior of the whole stone.\\n- **Porosity:** highly variable; two limestone specimens can absorb water very differently.\\n- **Chemical sensitivity:** the carbonate material reacts with acids. Vinegar and lemon juice can damage the surface. [7]  \\n### Typical Colors  \\nWhite, milky white, cream, sandy beige, and light gray. Impurities can produce brown, yellowish, or dark tones. Shells and fossils sometimes stand out through color or relief.  \\n### Sunlight and Moisture Resistance  \\n**Sunlight:** ordinary daylight is generally acceptable. A windowsill is suitable if it stays dry and does not subject the specimen to persistent changes in moisture.  \\n**Moisture:** a dense specimen tolerates brief wetting better than a friable, porous one. Prolonged wet storage, contaminated water, and repeated wetting cycles can be problematic for sensitive specimens. A drop of ordinary water does not mean immediate destruction; structure and contact duration matter much more.  \\n### Ideal Places at Home  \\n- **Dry living-room shelf:** particularly good for a shell-bearing specimen worth examining closely.\\n- **Windowsill without condensation:** a broad surface with a stand.\\n- **Dark corner:** a dry alcove among books or ceramics; extra light serves the viewer rather than the stone.\\n- **Bathroom:** a dry shelf is acceptable, but a wet zone and nearby acidic cleaning products are inconvenient.  \\n### Psychological Vibe  \\nLimestone is a warmhearted keeper of other people's stories. It likes old books, pale ceramics, and unhurried attention. Visible shells make it a character that carries the family archive on its surface.  \\nIt does not demand daily conversations. Its favorite form of closeness is sharing ordinary life and occasionally having someone notice a new little pattern.  \\n### Daily Care  \\nNo daily tasks are needed in a dry location. Blot spilled liquid promptly. In particular, do not leave juice, vinegar, coffee, or cosmetics on the stone.  \\n### Monthly Care  \\n1. Remove dust with a soft brush.\\n2. If necessary, use a slightly damp cloth on a dense specimen; favor dry cleaning for a friable one.\\n3. Inspect the surface for new powdery areas and check that the stand is dry.\\n4. Do not apply oil or varnish simply to intensify the color: it may leave stains or change the natural surface.  \\n### Fragility and Drop Behavior  \\nA fall may chip a corner, split the specimen along a crack, or damage a projecting fossil. Friable, shell-rich limestone can be considerably more fragile than a dense variety. Position valuable details so they do not press against the stand.  \\n### Fictional Care Ritual  \\nOnce a month, host an “archive evening”: examine one shell or vein and invent a little story for it. Limestone does not object to fiction, but it likes being allowed to finish its story, even if only in your imagination.\", \"title\": \"Limestone\"}, \"tool\": \"search_knowledge_lexical\"}, \"stone-card:49522edc-86f0-4ff5-bb20-f0baaf4d4256\": {\"data\": {\"biography\": \"Mossy Limestone is a beloved resident of the fictional pet stone world.\", \"external_id\": \"4a7ebdcb-0433-4d59-be40-9040e908ba66\", \"id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\", \"name\": \"Mossy Limestone\", \"profile\": null, \"shelter_case\": {\"admission_date\": \"2026-10-01T09:00:00Z\", \"adoption_status\": \"AVAILABLE\", \"case_number\": \"0006-2026-P1\", \"current_shelter_id\": \"b222288c-1da8-4932-a7eb-75a55be41b87\", \"external_id\": \"f58620f5-f4d6-4eaa-b57b-6e80215ad84e\", \"id\": \"c0d00c96-6204-451b-abb8-7a28de847c95\"}, \"stone_size\": \"MEDIUM\", \"stone_type\": \"LIMESTONE\"}, \"tool\": \"get_stone_details\"}, \"stone-status:49522edc-86f0-4ff5-bb20-f0baaf4d4256\": {\"data\": {\"adoption_status\": \"AVAILABLE\", \"name\": \"Mossy Limestone\", \"stone_id\": \"49522edc-86f0-4ff5-bb20-f0baaf4d4256\", \"stone_type\": \"LIMESTONE\"}, \"tool\": \"get_stone_status_by_name\"}}, \"scope\": {\"archived_workflow_context\": \"factual context from saved result fields only\", \"final_answer\": \"the only text scored against reviewed answer criteria\"}}"
+        ]
+      }
+    },
+    "questions": {
+      "q_0": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Recommend a dry location and care grounded in the limestone chapter.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: No individual profile is supplied; do not invent personal conditions.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "instructions": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer give geological care facts separately from fictional temperament claims? Omitting the required distinction or presenting them as the same kind of evidence does not satisfy this criterion.",
+        "criteria": {
+          "satisfies": "The answer clearly satisfies the reviewed criterion.",
+          "partially_satisfies": "The answer addresses the criterion but is incomplete or qualified incorrectly.",
+          "does_not_satisfy": "The answer fails the criterion or commits the prohibited behavior."
+        }
+      }
+    }
+  },
+  "judge_response": {
+    "model": "typesafe/jev-1.14-20261014",
+    "answers": {
+      "q_0": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 1,
+        "probabilities": {
+          "satisfies": 1,
+          "partially_satisfies": 0,
+          "does_not_satisfy": 0
+        }
+      },
+      "q_1": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.58,
+        "probabilities": {
+          "satisfies": 0.72,
+          "partially_satisfies": 0.2,
+          "does_not_satisfy": 0.08
+        }
+      },
+      "q_2": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.89,
+        "probabilities": {
+          "satisfies": 0.93,
+          "partially_satisfies": 0.01,
+          "does_not_satisfy": 0.06
+        }
+      },
+      "q_3": {
+        "type": "choice",
+        "choice": "satisfies",
+        "confidence": 0.91,
+        "probabilities": {
+          "satisfies": 0.94,
+          "partially_satisfies": 0.02,
+          "does_not_satisfy": 0.04
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 11756,
+      "output_tokens": 203,
+      "cost": 0.000493752
+    }
+  },
+  "criterion_results": [
+    {
+      "id": "required-1",
+      "direction": "required",
+      "source_text": "Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+      "text": "Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 1.0,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 1.0,
+        "partially_satisfies": 0.0,
+        "does_not_satisfy": 0.0
+      },
+      "confidence": 1.0,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-2",
+      "direction": "required",
+      "source_text": "Recommend a dry location and care grounded in the limestone chapter.",
+      "text": "Recommend a dry location and care grounded in the limestone chapter.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Recommend a dry location and care grounded in the limestone chapter.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.82,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.72,
+        "partially_satisfies": 0.2,
+        "does_not_satisfy": 0.08
+      },
+      "confidence": 0.58,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "required-3",
+      "direction": "required",
+      "source_text": "No individual profile is supplied; do not invent personal conditions.",
+      "text": "No individual profile is supplied; do not invent personal conditions.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: No individual profile is supplied; do not invent personal conditions.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.935,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.93,
+        "partially_satisfies": 0.01,
+        "does_not_satisfy": 0.06
+      },
+      "confidence": 0.89,
+      "passed": null,
+      "applicability_status": "applicable"
+    },
+    {
+      "id": "forbidden-1",
+      "direction": "forbidden",
+      "source_text": "Keep geological care facts separate from fictional temperament.",
+      "text": "Does the final answer give geological care facts separately from fictional temperament claims? Omitting the required distinction or presenting them as the same kind of evidence does not satisfy this criterion.",
+      "question": "Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer give geological care facts separately from fictional temperament claims? Omitting the required distinction or presenting them as the same kind of evidence does not satisfy this criterion.",
+      "type": "choice",
+      "weight": 1.0,
+      "value": 0.95,
+      "applicable": true,
+      "probabilities": {
+        "satisfies": 0.94,
+        "partially_satisfies": 0.02,
+        "does_not_satisfy": 0.04
+      },
+      "confidence": 0.91,
+      "passed": null,
+      "applicability_status": "applicable"
+    }
+  ],
+  "model_reported": "typesafe/jev-1.14-20261014",
+  "jev_usage": {
+    "input_tokens": 11756,
+    "output_tokens": 203,
+    "cost": 0.000493752
+  },
+  "score": 0.92625,
+  "metric_success": true,
+  "score_threshold_passed": true,
+  "threshold_comparison": {
+    "raw_score": 0.92625,
+    "threshold": 0.8,
+    "absolute_tolerance": 1e-12
+  },
+  "confidence": 0.58,
+  "reason": "Decided by typesafe/jev-1.14, minimum confidence 0.58.\n1. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Encyclopedia warns that acids including vinegar damage limestone and persistent dampness is undesirable. -> \"satisfies\" (P=1.00, confidence=1.00)\n2. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: Recommend a dry location and care grounded in the limestone chapter. -> \"satisfies\" (P=0.72, confidence=0.58)\n3. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer satisfy this required criterion? Reviewed criterion: No individual profile is supplied; do not invent personal conditions. -> \"satisfies\" (P=0.93, confidence=0.89)\n4. Judge the final answer text only for whether it states or avoids this criterion. Use the supplied sources only to verify factual support and scope; source presence alone does not mean the answer included the claim. Do not grade retrieval, parsing, structured extraction, or evaluation procedure. An omitted required positive statement does not satisfy the criterion. For a prohibition about a claim or act, silence complies and does_not_satisfy requires an actual prohibited claim or act. A reviewed criterion may explicitly require preserving or including information; omission then fails that stated completeness requirement. Does the final answer comply with this prohibition? Reviewed criterion: Does the final answer give geological care facts separately from fictional temperament claims? Omitting the required distinction or presenting them as the same kind of evidence does not satisfy this criterion. -> \"satisfies\" (P=0.94, confidence=0.91)\nScore: 0.93 (weighted mean of 4 applicable questions).",
+  "evaluation_cost": 0.000493752,
+  "input_tokens": 11756,
+  "output_tokens": 203,
+  "required_gates_passed": true,
+  "required_gate_results": [],
+  "success": true
+}
